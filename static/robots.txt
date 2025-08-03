@@ -1,0 +1,14 @@
+# robots.txt for The Issues in the Controversy
+
+User-agent: *
+Allow: /
+
+# Disallow admin or private areas if you have any
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow all search engines to access your sitemap
+Sitemap: https://yoursite.com/sitemap.xml
+
+# Optional: Crawl delay (in seconds) - remove if not needed
+# Crawl-delay: 1

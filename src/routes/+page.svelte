@@ -19,9 +19,9 @@
 
 <svelte:head>
     <!-- Primary Meta Tags -->
-    <title>The Issues in the Controversy - Biblical Prophecy, Daniel & Revelation Study</title>
-    <meta name="title" content="The Issues in the Controversy - Biblical Prophecy, Daniel & Revelation Study" />
-    <meta name="description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover the divine solution to spiritual warfare. Comprehensive study of prophetic symbols and the Kingdom of God." />
+    <title>Biblical Prophecy Study - Daniel & Revelation</title>
+    <meta name="title" content="Biblical Prophecy Study - Daniel & Revelation" />
+    <meta name="description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover divine solutions to spiritual warfare." />
     <meta name="keywords" content="biblical prophecy, book of daniel, book of revelation, character of god, prophetic symbols, kingdom of god, spiritual warfare, biblical studies, christian theology, end times prophecy" />
     <meta name="author" content="The Issues in the Controversy" />
     <meta name="robots" content="index, follow" />
@@ -34,8 +34,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={pageUrl} />
-    <meta property="og:title" content="The Issues in the Controversy - Biblical Prophecy Study" />
-    <meta property="og:description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover the divine solution to spiritual warfare." />
+    <meta property="og:title" content="Biblical Prophecy Study - Daniel & Revelation" />
+    <meta property="og:description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover divine solutions to spiritual warfare." />
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -45,8 +45,8 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={pageUrl} />
-    <meta property="twitter:title" content="The Issues in the Controversy - Biblical Prophecy Study" />
-    <meta property="twitter:description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover the divine solution to spiritual warfare." />
+    <meta property="twitter:title" content="Biblical Prophecy Study - Daniel & Revelation" />
+    <meta property="twitter:description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover divine solutions to spiritual warfare." />
     <meta property="twitter:image" content={imageUrl} />
     
     <!-- Additional Meta Tags -->
@@ -97,8 +97,8 @@
     {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "The Issues in the Controversy - Biblical Prophecy Study",
-        "description": "Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover the divine solution to spiritual warfare",
+        "name": "Biblical Prophecy Study - Daniel & Revelation",
+        "description": "Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover divine solutions to spiritual warfare",
         "url": "${pageUrl}",
         "mainEntity": {
             "@type": "Article",
@@ -166,6 +166,47 @@
     <main>
         <!-- Hero section with H1 for SEO -->
         <HeroSection />
+        
+        <!-- SEO Content Section for Word Count -->
+        <section class="py-12 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-2xl font-bold text-teal mb-6">Understanding the Great Controversy Between Good and Evil</h2>
+                    <div class="prose prose-lg text-gray-600 space-y-4">
+                        <p>
+                            Throughout history, humanity has witnessed the unfolding of what Scripture calls the great controversy - an epic conflict between the forces of good and evil, truth and deception, God's kingdom and Satan's rebellion. This controversy touches every aspect of human existence and shapes the very fabric of our spiritual reality.
+                        </p>
+                        <p>
+                            The biblical books of Daniel and Revelation provide us with prophetic insights into this cosmic conflict, revealing how God's character stands in stark contrast to Satan's accusations and deceptions. These prophecies are not merely historical accounts, but living testimonies that speak directly to our contemporary challenges and spiritual battles.
+                        </p>
+                        <p>
+                            In the book of Daniel, we discover a panoramic view of world history from ancient Babylon to the establishment of God's eternal kingdom. The prophetic visions reveal how earthly powers rise and fall, while God's sovereignty remains constant throughout the ages. Each prophetic symbol - from the great statue in Nebuchadnezzar's dream to the beasts emerging from the sea - carries profound meaning for understanding our place in the timeline of prophecy.
+                        </p>
+                        <p>
+                            The book of Revelation continues this prophetic narrative, unveiling the final chapters of the great controversy. Through symbolic language and divine imagery, John's vision reveals how God will ultimately vindicate His character and establish His kingdom of righteousness. The prophecies speak of both judgment and mercy, showing how God's justice and love work together in perfect harmony.
+                        </p>
+                        <p>
+                            Central to understanding these prophecies is recognizing the character of God as revealed through His interactions with humanity. Unlike the harsh, vindictive deity portrayed by Satan's accusations, Scripture reveals a God of infinite love, mercy, and justice. His government operates on principles of freedom, service, and self-sacrificing love - principles that stand in direct opposition to Satan's kingdom of force, selfishness, and rebellion.
+                        </p>
+                        <p>
+                            The prophetic symbols found throughout Daniel and Revelation serve as a divine language, communicating spiritual truths through earthly imagery. Understanding these symbols - whether beasts representing kingdoms, women symbolizing religious bodies, or geographical features representing populated areas - unlocks the deeper meaning of prophetic messages and their application to our lives.
+                        </p>
+                        <p>
+                            As we study the trajectory of God's kingdom over the past 2000 years, we can trace His hand in history, working through human events to accomplish His purposes. From the establishment of the early Christian church to the great religious awakenings throughout history, God has been preparing His people for the final culmination of the controversy.
+                        </p>
+                        <p>
+                            The gospel of the kingdom represents God's ultimate solution to the sin problem. It encompasses not just personal salvation, but the restoration of God's original plan for humanity and the universe. This gospel reveals how God's government of love will ultimately triumph over Satan's kingdom of force and selfishness.
+                        </p>
+                        <p>
+                            Understanding our part in this great controversy is crucial for every believer. We are not merely spectators in this cosmic conflict, but active participants called to represent God's character to a watching universe. Our choices, our witness, and our faithfulness contribute to the vindication of God's character and the advancement of His kingdom.
+                        </p>
+                        <p>
+                            The study of biblical prophecy is not an academic exercise, but a practical guide for navigating the challenges of our time. As we understand the issues at stake in the great controversy, we are better equipped to make decisions that align with God's will and purpose for our lives. This knowledge empowers us to stand firm in faith, knowing that God's ultimate victory is assured.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
         
         <!-- Key sections with semantic structure -->
         <KeySections />
