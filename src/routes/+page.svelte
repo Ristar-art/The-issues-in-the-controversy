@@ -16,7 +16,7 @@
     const pageUrl = `${siteUrl}/`;
     // Temporarily commented out until you create the image
     // const imageUrl = `${siteUrl}/og-image.jpg`; // Create this image (1200x630px)
-    const imageUrl = "openface.jpg"; // Set to null until image is ready
+    const imageUrl = `${siteUrl}/og-image.jpg`; // Set to null until image is ready
 </script>
 
 <svelte:head>
