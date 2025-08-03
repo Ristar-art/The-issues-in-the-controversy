@@ -12,9 +12,11 @@
     import CopyrightBar from '$lib/components/CopyrightBar.svelte';
 
     // SEO Configuration
-    const siteUrl = 'https://yoursite.com'; // Replace with your actual domain
+    const siteUrl = 'https://the-issues-in-the-controversy.vercel.app'; // Replace with your actual domain
     const pageUrl = `${siteUrl}/`;
-    const imageUrl = `${siteUrl}/og-image.jpg`; // Create this image (1200x630px)
+    // Temporarily commented out until you create the image
+    // const imageUrl = `${siteUrl}/og-image.jpg`; // Create this image (1200x630px)
+    const imageUrl = null; // Set to null until image is ready
 </script>
 
 <svelte:head>
@@ -27,6 +29,8 @@
     <meta name="robots" content="index, follow" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="en" />
+    <html lang="en"></html>
     
     <!-- Canonical URL -->
     <link rel="canonical" href={pageUrl} />
@@ -36,9 +40,11 @@
     <meta property="og:url" content={pageUrl} />
     <meta property="og:title" content="Biblical Prophecy Study - Daniel & Revelation" />
     <meta property="og:description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover divine solutions to spiritual warfare." />
-    <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    {#if imageUrl}
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+    {/if}
     <meta property="og:site_name" content="The Issues in the Controversy" />
     <meta property="og:locale" content="en_US" />
     
@@ -47,11 +53,11 @@
     <meta property="twitter:url" content={pageUrl} />
     <meta property="twitter:title" content="Biblical Prophecy Study - Daniel & Revelation" />
     <meta property="twitter:description" content="Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover divine solutions to spiritual warfare." />
-    <meta property="twitter:image" content={imageUrl} />
+    {#if imageUrl}
+        <meta property="twitter:image" content={imageUrl} />
+    {/if}
     
     <!-- Additional Meta Tags -->
-    <meta name="language" content="English" />
-    <meta name="geo.region" content="US" />
     <meta name="distribution" content="global" />
     <meta name="rating" content="general" />
     
