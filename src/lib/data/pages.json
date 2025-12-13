@@ -42,8 +42,8 @@
       "slug": "test-page",
       "content": "",
       "componentIds": [
-        "Hero",
         "component-1765605078357",
+        "Hero",
         "sample-hero"
       ],
       "published": true
