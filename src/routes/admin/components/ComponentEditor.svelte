@@ -1,5 +1,5 @@
 <script>
-  let { selected, updateSelected, applyBlocksToHtml } = $props();
+  let { selected = null, updateSelected, applyBlocksToHtml } = $props();
 </script>
 
 {#if selected}

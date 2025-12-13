@@ -2,8 +2,9 @@
   let { block, index, updateBlock, deleteBlockAt, moveBlock, totalBlocks, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock } = $props();
 </script>
 
-<div class="border rounded p-3 space-y-2 bg-white">
-  <div class="flex items-center justify-between">
+ <div class="border rounded p-3 space-y-2 bg-white" data-testid={`block-editor-${index}`}>
+   <p class="sr-only">Block #{index + 1} - {block.type}</p>
+   <div class="flex items-center justify-between">
     <div class="flex items-center gap-2">
       <span class="text-xs text-gray-500">#{index + 1}</span>
       <select

@@ -16,7 +16,7 @@
   </div>
 </div>
 
-  {#if selected.section && selected.section.blocks && selected.section.blocks.length}
+  {#if selected?.section?.blocks && selected.section.blocks.length}
     <ul class="space-y-3">
       {#each selected.section.blocks as block, i}
         <li>
