@@ -41,7 +41,8 @@ export async function POST({ request }) {
         title: body.title,
         slug: body.slug,
         content: body.content,
-        componentIds: body.componentIds || []
+        componentIds: body.componentIds || [],
+        published: false
       }
     };
 
@@ -49,6 +50,31 @@ export async function POST({ request }) {
     writePages(pages);
 
     return json(newPage);
+  } catch (err) {
+    throw error(500, 'Internal server error');
+  }
+}
+
+export async function PUT({ request }) {
+  try {
+    const body = await request.json();
+    const { id, published } = body;
+
+    if (typeof id !== 'number' || typeof published !== 'boolean') {
+      throw error(400, 'Invalid request body');
+    }
+
+    const pages = readPages();
+    const pageIndex = pages.findIndex(p => p.id === id);
+
+    if (pageIndex === -1) {
+      throw error(404, 'Article not found');
+    }
+
+    pages[pageIndex].attributes.published = published;
+    writePages(pages);
+
+    return json(pages[pageIndex]);
   } catch (err) {
     throw error(500, 'Internal server error');
   }

@@ -7,7 +7,8 @@
       "content": "<p>This is a sample page content.</p>",
       "componentIds": [
         "sample-hero"
-      ]
+      ],
+      "published": false
     }
   },
   {
@@ -16,7 +17,8 @@
       "title": "About Us",
       "slug": "about-us",
       "content": "<p>Information about our organization.</p>",
-      "componentIds": []
+      "componentIds": [],
+      "published": false
     }
   },
   {
@@ -27,7 +29,8 @@
       "content": "",
       "componentIds": [
         "sample-hero"
-      ]
+      ],
+      "published": false
     }
   }
 ]

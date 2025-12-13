@@ -30,7 +30,7 @@ export async function load({ params }) {
   const pages = readPages();
   const page = pages.find(p => p.attributes.slug === params.slug);
 
-  if (!page) {
+  if (!page || !page.attributes.published) {
     throw error(404, 'Article not found');
   }
 

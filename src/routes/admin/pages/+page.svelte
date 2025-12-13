@@ -89,6 +89,23 @@
     }
   }
 
+  async function togglePublish(article) {
+    try {
+      const response = await fetch('/api/articles', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: article.id,
+          published: !article.attributes.published
+        })
+      });
+      if (!response.ok) throw new Error('Failed to update article');
+      await fetchArticles();
+    } catch (err) {
+      error = err.message;
+    }
+  }
+
   function toggleComponentSelection(componentId) {
     if (selectedComponentIds.includes(componentId)) {
       selectedComponentIds = selectedComponentIds.filter(id => id !== componentId);
@@ -119,8 +136,17 @@
               <div class="p-3 border rounded-lg bg-gray-50">
                 <h3 class="font-medium">{article.attributes.title}</h3>
                 <p class="text-sm text-gray-600">/{article.attributes.slug}</p>
+                <p class="text-sm {article.attributes.published ? 'text-green-600' : 'text-red-600'}">
+                  {article.attributes.published ? 'Published' : 'Draft'}
+                </p>
                 <button
-                  class="mt-2 px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+                  class="mt-2 px-3 py-1 {article.attributes.published ? 'bg-orange-600 hover:bg-orange-700' : 'bg-green-600 hover:bg-green-700'} text-white text-sm rounded"
+                  onclick={() => togglePublish(article)}
+                >
+                  {article.attributes.published ? 'Unpublish' : 'Publish'}
+                </button>
+                <button
+                  class="mt-2 ml-2 px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
                   onclick={() => deleteArticle(article.id)}
                 >
                   Delete
