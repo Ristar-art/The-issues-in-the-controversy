@@ -24,6 +24,8 @@
     containerClasses: string;
     blocks: Block[];
     backgroundImage?: string;
+    layout?: 'linear' | 'grid';
+    minHeight?: string;
   }
 
   interface Component {
@@ -45,6 +47,8 @@
     padding: string;
     width: string;
     backgroundImage: string;
+    layout: string;
+    minHeight: string;
   }
 
   interface PageData {
@@ -91,7 +95,9 @@
         section: {
           classes: 'py-16 bg-white',
           containerClasses: 'container mx-auto px-4',
-          blocks: existingBlocks
+          blocks: existingBlocks,
+          layout: 'linear',
+          minHeight: 'none'
         }
       };
     }
@@ -122,7 +128,9 @@
     const section: Section = {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: [{ type: 'text', text: 'New block' }]
+      blocks: [{ type: 'text', text: 'New block' }],
+      layout: 'linear',
+      minHeight: 'none'
     };
     const html: string = sectionToHtml(section);
     components.push({
@@ -162,7 +170,9 @@
     const base: Section = selected.section ?? {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: selected.blocks ?? []
+      blocks: selected.blocks ?? [],
+      layout: 'linear',
+      minHeight: 'none'
     };
     // Always preserve existing blocks unless explicitly overridden
     const existingBlocks: Block[] = base.blocks ?? [];
@@ -181,7 +191,9 @@
     const sec: Section = section ?? {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: []
+      blocks: [],
+      layout: 'linear',
+      minHeight: 'none'
     };
     const classes: string = sec.classes ?? 'py-16 bg-white';
     const containerClasses: string = sec.containerClasses ?? 'container mx-auto px-4';
@@ -201,7 +213,7 @@
     let width: string = 'boxed';
     if (!containerClasses.includes('container')) width = 'full';
 
-    return { background, padding, width, backgroundImage: sec.backgroundImage ?? '' };
+    return { background, padding, width, backgroundImage: sec.backgroundImage ?? '', layout: sec.layout ?? 'linear', minHeight: sec.minHeight ?? 'none' };
   }
 
   /**
@@ -240,7 +252,7 @@
       next.background === 'image'
         ? next.backgroundImage ?? ''
         : undefined;
-    updateSection({ classes, containerClasses, blocks: existingBlocks, backgroundImage });
+    updateSection({ classes, containerClasses, blocks: existingBlocks, backgroundImage, layout: next.layout, minHeight: next.minHeight });
   }
 
   /**
@@ -252,7 +264,9 @@
     const section: Section = selected.section ?? {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: []
+      blocks: [],
+      layout: 'linear',
+      minHeight: 'none'
     };
     const current: Block[] = section.blocks ?? [];
     const newBlocks: Block[] = [
@@ -272,7 +286,9 @@
     const section: Section = selected.section ?? {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: []
+      blocks: [],
+      layout: 'linear',
+      minHeight: 'none'
     };
     const current: Block[] = section.blocks ?? [];
     const newBlocks: Block[] = current.map((block: Block, i: number) =>
@@ -290,7 +306,9 @@
     const section: Section = selected.section ?? {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: []
+      blocks: [],
+      layout: 'linear',
+      minHeight: 'none'
     };
     const current: Block[] = section.blocks ?? [];
     const newBlocks: Block[] = current.filter((_: Block, i: number) => i !== index);
@@ -307,7 +325,9 @@
     const section: Section = selected.section ?? {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: []
+      blocks: [],
+      layout: 'linear',
+      minHeight: 'none'
     };
     const current: Block[] = section.blocks ?? [];
     const newIndex: number = index + direction;
@@ -372,11 +392,18 @@
     const sec: Section = section ?? {
       classes: 'py-16 bg-white',
       containerClasses: 'container mx-auto px-4',
-      blocks: []
+      blocks: [],
+      layout: 'linear',
+      minHeight: 'none'
     };
     const inner: string = blocksToHtml(sec.blocks ?? []);
-    const style: string = sec.backgroundImage ? ` style="background-image: url('${sec.backgroundImage}'); background-size: cover; background-position: center;"` : '';
-    return `<section class="${sec.classes}"${style}><div class="${sec.containerClasses}">\n${inner}\n</div></section>`;
+    const layoutClass: string = sec.layout === 'grid' ? 'grid grid-cols-2 gap-4' : '';
+    let style: string = sec.backgroundImage ? `background-image: url('${sec.backgroundImage}'); background-size: cover; background-position: center;` : '';
+    if (sec.minHeight && sec.minHeight !== 'none') {
+      style += ` min-height: ${sec.minHeight};`;
+    }
+    style = style ? ` style="${style}"` : '';
+    return `<section class="${sec.classes}"${style}><div class="${sec.containerClasses}"><div class="${layoutClass}">\n${inner}\n</div></div></section>`;
   }
 
   /**

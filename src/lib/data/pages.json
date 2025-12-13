@@ -6,9 +6,10 @@
       "slug": "sample-page-1",
       "content": "<p>This is a sample page content.</p>",
       "componentIds": [
-        "component-1765605078357",
+        "sample-hero",
         "Hero",
-        "sample-hero"
+        "component-1765605078357",
+        "Hero section"
       ],
       "published": true
     }

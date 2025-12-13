@@ -115,18 +115,45 @@
           <option value="full">Full width</option>
         </select>
       </div>
-      <div>
-        <label for="section-padding" class="block mb-1">Padding</label>
-        <select
-          id="section-padding"
-          class="border px-2 py-1 rounded text-xs"
-          value={sectionSettings.padding}
-          oninput={(e) => updateSectionStyle({ padding: e.target.value })}
-        >
-          <option value="normal">Normal</option>
-          <option value="large">Large</option>
-        </select>
-      </div>
+       <div>
+         <label for="section-padding" class="block mb-1">Padding</label>
+         <select
+           id="section-padding"
+           class="border px-2 py-1 rounded text-xs"
+           value={sectionSettings.padding}
+           oninput={(e) => updateSectionStyle({ padding: e.target.value })}
+         >
+           <option value="normal">Normal</option>
+           <option value="large">Large</option>
+         </select>
+       </div>
+       <div>
+         <label for="section-layout" class="block mb-1">Layout</label>
+         <select
+           id="section-layout"
+           class="border px-2 py-1 rounded text-xs"
+           value={sectionSettings.layout}
+           oninput={(e) => updateSectionStyle({ layout: e.target.value })}
+         >
+           <option value="linear">Linear</option>
+           <option value="grid">Grid</option>
+         </select>
+       </div>
+       <div>
+         <label for="section-minheight" class="block mb-1">Min Height</label>
+         <select
+           id="section-minheight"
+           class="border px-2 py-1 rounded text-xs"
+           value={sectionSettings.minHeight}
+           oninput={(e) => updateSectionStyle({ minHeight: e.target.value })}
+         >
+           <option value="none">None</option>
+           <option value="200px">Small (200px)</option>
+           <option value="400px">Medium (400px)</option>
+           <option value="600px">Large (600px)</option>
+           <option value="800px">Extra Large (800px)</option>
+         </select>
+       </div>
     </div>
   </div>
 </div>

@@ -2,12 +2,21 @@
   {
     "id": "sample-hero",
     "name": "Sample Hero",
-    "html": "<section class=\"py-8\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center;\"><div class=\"container mx-auto px-4 text-center\"><h1 class=\"text-4xl font-bold text-white mb-4\">Sample Hero Title</h1><p class=\"text-xl text-white mb-8\">Sample hero description</p><a href=\"#\" class=\"bg-blue-500 text-white px-6 py-3 rounded\">Learn More</a></div></section>",
+    "html": "<section class=\"py-8\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center; min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<p class=\"text-white mb-4 text-center\">New block</p>\n</div></div></section>",
     "section": {
       "classes": "py-8",
       "containerClasses": "container mx-auto px-4",
-      "blocks": [],
-      "backgroundImage": "/_.jpeg"
+      "blocks": [
+        {
+          "type": "text",
+          "text": "New block",
+          "align": "center",
+          "color": "white"
+        }
+      ],
+      "backgroundImage": "/_.jpeg",
+      "layout": "linear",
+      "minHeight": "200px"
     }
   },
   {
@@ -37,7 +46,7 @@
   {
     "id": "Hero section",
     "name": "New Component",
-    "html": "<section class=\"py-16\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center;\"><div class=\"container mx-auto px-4\">\n<p class=\"text-white mb-4 text-center\">New component</p>\n</div></section>",
+    "html": "<section class=\"py-16\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center; min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"grid grid-cols-2 gap-4\">\n<p class=\"text-white mb-4 text-center\">New component</p>\n<div class=\"text-center mb-4\"><img src=\"/Endgame of heaven.jpg\" alt=\"\" style=\"width: 100%; max-width: 100%;\" class=\"h-auto inline-block\" /></div>\n</div></div></section>",
     "section": {
       "classes": "py-16",
       "containerClasses": "container mx-auto px-4",
@@ -47,9 +56,17 @@
           "text": "New component",
           "color": "white",
           "align": "center"
+        },
+        {
+          "type": "image",
+          "text": "New block",
+          "align": "center",
+          "src": "/Endgame of heaven.jpg"
         }
       ],
-      "backgroundImage": "/_.jpeg"
+      "backgroundImage": "/_.jpeg",
+      "layout": "grid",
+      "minHeight": "200px"
     }
   }
 ]
