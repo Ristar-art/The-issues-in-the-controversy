@@ -1,0 +1,232 @@
+{
+  "hero": {
+    "image": {
+      "src": "/Endgame of heaven.jpg",
+      "alt": "Endgame of Heaven illustration"
+    }
+  },
+  "navigation": {
+    "logo": "/logoimage.jpg",
+    "links": [
+      { "label": "Home", "href": "#" },
+      { "label": "About Us", "href": "#" },
+      { "label": "Topics", "href": "#" },
+      { "label": "Pages", "href": "#" },
+      { "label": "Blog", "href": "#" },
+      { "label": "Contact Us", "href": "#" }
+    ],
+    "cta": {
+      "label": "Contact Us",
+      "href": "#contact"
+    }
+  },
+  "searchBar": {
+    "placeholder": "Search...",
+    "buttonLabel": "Search"
+  },
+  "keyTopics": {
+    "title": "Key Topics",
+    "items": [
+      {
+        "title": "The overview of Daniel and Revelations",
+        "description": "A panoramic view of the prophecies in the book of Daniel and Revelations.",
+        "href": "#"
+      },
+      {
+        "title": "Analysis of the Judgment of the kingdoms",
+        "description": "A bird's eye view of the prophecies in the book of Revelations.",
+        "href": "#"
+      },
+      {
+        "title": "The character of God",
+        "description": "A deep dive into understanding the character of God, how He interacts with humanity.",
+        "href": "#"
+      },
+      {
+        "title": "The Gospel of the Kingdom",
+        "description": "Fast-track your business goals with our proven systems designed to overcome barriers and create a roadmap to real results.",
+        "href": "#"
+      }
+    ]
+  },
+  "progress": {
+    "title": "The tragectory of the Kingdom of God in 2000 years",
+    "images": [
+      {
+        "src": "/_.jpeg",
+        "alt": "Historical timeline image 1"
+      },
+      {
+        "src": "/_.jpeg",
+        "alt": "Historical timeline image 2"
+      }
+    ],
+    "cta": {
+      "label": "View More",
+      "href": "#progress"
+    }
+  },
+  "symbols": {
+    "titleLine1": "Prhophetic Symbols and",
+    "titleLine2": "their Meaning",
+    "items": [
+      {
+        "title": "A beast",
+        "description": "Kingdom",
+        "image": {
+          "src": "/Beast.webp",
+          "alt": "Beast symbol"
+        }
+      },
+      {
+        "title": "A woman",
+        "description": "A religious body",
+        "image": {
+          "src": "/woman-72.png",
+          "alt": "Woman symbol"
+        }
+      },
+      {
+        "title": "Earth and Water",
+        "description": "Geography",
+        "image": {
+          "src": "/earth-and-water.avif",
+          "alt": "Earth and water symbol"
+        }
+      }
+    ],
+    "cta": {
+      "label": "View More",
+      "href": "#symbols"
+    }
+  },
+  "truthSection": {
+    "title": "The truth about God",
+    "question": "Is God a trinity?",
+    "points": [
+      "God the Father",
+      "Jesus, The Son of God",
+      "The Holy Spirit"
+    ],
+    "cta": {
+      "label": "Read More",
+      "href": "#truth"
+    },
+    "image": {
+      "src": "/triquetra-9228907_1280.webp",
+      "alt": "Trinity symbol illustration"
+    }
+  },
+  "government": {
+    "title": "Types of Government",
+    "items": [
+      {
+        "title": "The law",
+        "description": "The governance that works from outside to compel behaviour.",
+        "image": {
+          "src": "/law-753482_1280.webp",
+          "alt": "Law image"
+        }
+      },
+      {
+        "title": "Nature",
+        "description": "The governance that works from within to influence behaviour.",
+        "image": {
+          "src": "/pi-the law of nature.webp",
+          "alt": "Nature law image"
+        }
+      },
+      {
+        "title": "The Politics of the univers",
+        "description": "The role of politict in how the masses chose the form of goverment they want to be under.",
+        "image": {
+          "src": "/politics.webp",
+          "alt": "Politics image"
+        }
+      }
+    ]
+  },
+  "keySections": {
+    "title": "Key Sections",
+    "items": [
+      {
+        "title": "The Issue",
+        "description": "What are the key areas of satans attack and why it worked.",
+        "cta": { "label": "Read More", "href": "#" }
+      },
+      {
+        "title": "Gods solution",
+        "description": "What is the divine answer to our challenges?",
+        "cta": { "label": "Read More", "href": "#" }
+      },
+      {
+        "title": "Our Part",
+        "description": "Understanding our role in the greater plan and how we can contribute positively.",
+        "cta": { "label": "Read More", "href": "#" }
+      }
+    ]
+  },
+  "featuredVideos": {
+    "title": "Featured Videos",
+    "videos": [
+      {
+        "embedUrl": "https://www.youtube.com/embed/8KA32Gaam7Y?si=v8Un4qAteWXZlQU2",
+        "title": "Prophecy overview 1"
+      },
+      {
+        "embedUrl": "https://www.youtube.com/embed/WMXqrUp98RY?si=EyeW6pjJ8jTwAP_P",
+        "title": "Prophecy overview 2"
+      },
+      {
+        "embedUrl": "https://www.youtube.com/embed/Sj43-YLaFQc?si=z41wJIjir4HOouu4",
+        "title": "Prophecy overview 3"
+      },
+      {
+        "embedUrl": "https://www.youtube.com/embed/WMXqrUp98RY?si=y4649KxW5GtNBseH",
+        "title": "Prophecy overview 4"
+      }
+    ]
+  },
+  "footer": {
+    "logo": "/logoimage.jpg",
+    "tagline": "From the family at open face fellowship.",
+    "socialLinks": [
+      { "icon": "facebook-f", "href": "#" },
+      { "icon": "twitter", "href": "#" },
+      { "icon": "instagram", "href": "#" },
+      { "icon": "linkedin-in", "href": "#" }
+    ],
+    "quickLinks": [
+      { "label": "Home", "href": "#" },
+      { "label": "About Us", "href": "#" },
+      { "label": "Topics", "href": "#" },
+      { "label": "Blog", "href": "#" },
+      { "label": "Contact", "href": "#" }
+    ],
+    "topics": [
+      { "label": "The Issue", "href": "#" },
+      { "label": "Gods solution", "href": "#" },
+      { "label": "Our Part", "href": "#" },
+      { "label": "The overviwe of Daniel", "href": "#" },
+      { "label": "GThe overview of Revelations", "href": "#" }
+    ],
+    "contactInfo": {
+      "address": "123 Oak Street, Tacoma, WA 98402",
+      "phone": "(555) 555-1234",
+      "email": "info@bizmaster.com"
+    },
+    "copyright": "© BizMaster 2025. All Rights Reserved.",
+    "credit": "www.DownloadNewThemes.com"
+  },
+  "headerBar": {
+    "email": "info@bizmaster.com",
+    "address": "123 Oak St, Tacoma, 98402",
+    "phone": "(555) 555-1234",
+    "socialLinks": [
+      { "icon": "facebook-f", "href": "#" },
+      { "icon": "twitter", "href": "#" },
+      { "icon": "instagram", "href": "#" },
+      { "icon": "linkedin-in", "href": "#" }
+    ]
+  }
+}

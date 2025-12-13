@@ -1,21 +1,24 @@
 <script>
-    import HeaderBar from '$lib/components/HeaderBar.svelte';
-    import Navigation from '$lib/components/Navigation.svelte';
-    import HeroSection from '$lib/components/HeroSection.svelte';
-    import KeySections from '$lib/components/KeySections.svelte';
-    import KeyTopics from '$lib/components/KeyTopics.svelte';
-    import Progress from '$lib/components/Progress.svelte';
-    import Symbols from '$lib/components/Symbols.svelte';
-    import TheTruth from '$lib/components/TheTruth.svelte';
-    import GovernmentSection from '$lib/components/GovernmentSection.svelte';
+    import HeroSection from '$routes/HeroSection.svelte';
+    import KeySections from '$routes/KeySections.svelte';
+    import KeyTopics from '$routes/KeyTopics.svelte';
+    import Progress from '$routes/Progress.svelte';
+    import Symbols from '$routes/Symbols.svelte';
+    import TheTruth from '$routes/TheTruth.svelte';
+    import GovernmentSection from '$routes/GovernmentSection.svelte';
     import FooterSection from '$lib/components/FooterSection.svelte';
     import CopyrightBar from '$lib/components/CopyrightBar.svelte';
+    import SearchBar from '$lib/components/SearchBar.svelte';
+    import FeaturedVideos from './FeaturedVideos.svelte';
+
+    const { data } = $props();
+    const { landing } = data;
 
     // SEO Configuration
     const siteUrl = 'https://the-issues-in-the-controversy.vercel.app'; // Replace with your actual domain
     const pageUrl = `${siteUrl}/`;
     // Temporarily commented out until you create the image
-    // const imageUrl = `${siteUrl}/og-image.jpg`; // Create this image (1200x630px)
+    // const imageUrl = `${siteUrl}/logoimage.jpg`; // Create this image (1200x630px)
     const imageUrl = `${siteUrl}/_.jpeg`; // Set to null until image is ready
 </script>
 
@@ -61,7 +64,7 @@
     <meta name="rating" content="general" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/logoimage.jpg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -162,70 +165,25 @@
 <!-- Main content with semantic HTML structure -->
 <div class="font-sans">
     <!-- Header with structured navigation -->
-    <header>
-        <HeaderBar />
-        <Navigation />
-    </header>
     
     <!-- Main content area -->
     <main>
         <!-- Hero section with H1 for SEO -->
-        <HeroSection />
-        
-        <!-- SEO Content Section for Word Count -->
-        <section class="py-12 bg-white">
-            <div class="container mx-auto px-4">
-                <div class="max-w-4xl mx-auto">
-                    <h2 class="text-2xl font-bold text-teal mb-6">Understanding the Great Controversy Between Good and Evil</h2>
-                    <div class="prose prose-lg text-gray-600 space-y-4">
-                        <p>
-                            Throughout history, humanity has witnessed the unfolding of what Scripture calls the great controversy - an epic conflict between the forces of good and evil, truth and deception, God's kingdom and Satan's rebellion. This controversy touches every aspect of human existence and shapes the very fabric of our spiritual reality.
-                        </p>
-                        <p>
-                            The biblical books of Daniel and Revelation provide us with prophetic insights into this cosmic conflict, revealing how God's character stands in stark contrast to Satan's accusations and deceptions. These prophecies are not merely historical accounts, but living testimonies that speak directly to our contemporary challenges and spiritual battles.
-                        </p>
-                        <p>
-                            In the book of Daniel, we discover a panoramic view of world history from ancient Babylon to the establishment of God's eternal kingdom. The prophetic visions reveal how earthly powers rise and fall, while God's sovereignty remains constant throughout the ages. Each prophetic symbol - from the great statue in Nebuchadnezzar's dream to the beasts emerging from the sea - carries profound meaning for understanding our place in the timeline of prophecy.
-                        </p>
-                        <p>
-                            The book of Revelation continues this prophetic narrative, unveiling the final chapters of the great controversy. Through symbolic language and divine imagery, John's vision reveals how God will ultimately vindicate His character and establish His kingdom of righteousness. The prophecies speak of both judgment and mercy, showing how God's justice and love work together in perfect harmony.
-                        </p>
-                        <p>
-                            Central to understanding these prophecies is recognizing the character of God as revealed through His interactions with humanity. Unlike the harsh, vindictive deity portrayed by Satan's accusations, Scripture reveals a God of infinite love, mercy, and justice. His government operates on principles of freedom, service, and self-sacrificing love - principles that stand in direct opposition to Satan's kingdom of force, selfishness, and rebellion.
-                        </p>
-                        <p>
-                            The prophetic symbols found throughout Daniel and Revelation serve as a divine language, communicating spiritual truths through earthly imagery. Understanding these symbols - whether beasts representing kingdoms, women symbolizing religious bodies, or geographical features representing populated areas - unlocks the deeper meaning of prophetic messages and their application to our lives.
-                        </p>
-                        <p>
-                            As we study the trajectory of God's kingdom over the past 2000 years, we can trace His hand in history, working through human events to accomplish His purposes. From the establishment of the early Christian church to the great religious awakenings throughout history, God has been preparing His people for the final culmination of the controversy.
-                        </p>
-                        <p>
-                            The gospel of the kingdom represents God's ultimate solution to the sin problem. It encompasses not just personal salvation, but the restoration of God's original plan for humanity and the universe. This gospel reveals how God's government of love will ultimately triumph over Satan's kingdom of force and selfishness.
-                        </p>
-                        <p>
-                            Understanding our part in this great controversy is crucial for every believer. We are not merely spectators in this cosmic conflict, but active participants called to represent God's character to a watching universe. Our choices, our witness, and our faithfulness contribute to the vindication of God's character and the advancement of His kingdom.
-                        </p>
-                        <p>
-                            The study of biblical prophecy is not an academic exercise, but a practical guide for navigating the challenges of our time. As we understand the issues at stake in the great controversy, we are better equipped to make decisions that align with God's will and purpose for our lives. This knowledge empowers us to stand firm in faith, knowing that God's ultimate victory is assured.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Key sections with semantic structure -->
-        <KeySections />
-        <KeyTopics />
-        <Progress />
-        <Symbols />
-        <TheTruth />
-        <GovernmentSection />
+        <HeroSection hero={landing.hero} />
+        <SearchBar config={landing.searchBar} />
+        <KeyTopics keyTopics={landing.keyTopics} />
+        <Progress progress={landing.progress} /> 
+        <FeaturedVideos featured={landing.featuredVideos} />
+        <KeySections keySections={landing.keySections} />
+        <Symbols symbols={landing.symbols} />
+        <TheTruth truth={landing.truthSection} />
+        <GovernmentSection government={landing.government} />
     </main>
     
     <!-- Footer -->
     <footer>
-        <FooterSection />
-        <CopyrightBar />
+        <FooterSection footer={landing.footer} />
+        <CopyrightBar footer={landing.footer} />
     </footer>
 </div>
 
