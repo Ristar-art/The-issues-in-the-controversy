@@ -1,13 +1,15 @@
- import { describe, it, expect, vi, beforeEach, afterEach, type MockedFunction } from 'vitest';
+ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
  import { render, screen, fireEvent, waitFor } from '@testing-library/svelte';
  import SectionSettings from './SectionSettings.svelte';
 
- interface SectionSettingsType {
-   background: string;
-   backgroundImage: string;
-   width: string;
-   padding: string;
- }
+  interface SectionSettingsType {
+    background: string;
+    backgroundImage: string;
+    width: string;
+    padding: string;
+    layout: string;
+    minHeight: string;
+  }
 
  interface SelectedType {
    id: string;
@@ -47,7 +49,9 @@ describe('SectionSettings Component', () => {
         background: 'white',
         backgroundImage: '',
         width: 'boxed',
-        padding: 'normal'
+        padding: 'normal',
+        layout: 'linear',
+        minHeight: 'none'
       },
       updateSectionStyle: updateSectionStyleMock,
       selected: { id: 'test-section' },
@@ -76,6 +80,8 @@ describe('SectionSettings Component', () => {
       expect(screen.getByText('Background')).toBeInTheDocument();
       expect(screen.getByText('Width')).toBeInTheDocument();
       expect(screen.getByText('Padding')).toBeInTheDocument();
+      expect(screen.getByText('Layout')).toBeInTheDocument();
+      expect(screen.getByText('Min Height')).toBeInTheDocument();
     });
 
     it('should render background select with correct options', () => {
@@ -109,6 +115,29 @@ describe('SectionSettings Component', () => {
 
       expect(screen.getByRole('option', { name: 'Normal', hidden: true })).toBeInTheDocument();
       expect(screen.getByRole('option', { name: 'Large', hidden: true })).toBeInTheDocument();
+    });
+
+    it('should render layout select with correct options', () => {
+      render(SectionSettings, { props: mockProps });
+      const select = screen.getByLabelText('Layout') as HTMLSelectElement;
+      expect(select).toBeInTheDocument();
+      expect(select.value).toBe('linear');
+
+      expect(screen.getByRole('option', { name: 'Linear', hidden: true })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Grid', hidden: true })).toBeInTheDocument();
+    });
+
+    it('should render min height select with correct options', () => {
+      render(SectionSettings, { props: mockProps });
+      const select = screen.getByLabelText('Min Height') as HTMLSelectElement;
+      expect(select).toBeInTheDocument();
+      expect(select.value).toBe('none');
+
+      expect(screen.getByRole('option', { name: 'None', hidden: true })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Small (200px)', hidden: true })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Medium (400px)', hidden: true })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Large (600px)', hidden: true })).toBeInTheDocument();
+      expect(screen.getByRole('option', { name: 'Extra Large (800px)', hidden: true })).toBeInTheDocument();
     });
   });
 
@@ -328,6 +357,26 @@ describe('SectionSettings Component', () => {
     });
   });
 
+  describe('Layout Selection', () => {
+    it('should call updateSectionStyle when layout is changed', async () => {
+      render(SectionSettings, { props: mockProps });
+      const select = screen.getByLabelText('Layout');
+
+      await fireEvent.input(select, { target: { value: 'grid' } });
+      expect(updateSectionStyleMock).toHaveBeenCalledWith({ layout: 'grid' });
+    });
+  });
+
+  describe('Min Height Selection', () => {
+    it('should call updateSectionStyle when min height is changed', async () => {
+      render(SectionSettings, { props: mockProps });
+      const select = screen.getByLabelText('Min Height');
+
+      await fireEvent.input(select, { target: { value: '400px' } });
+      expect(updateSectionStyleMock).toHaveBeenCalledWith({ minHeight: '400px' });
+    });
+  });
+
   describe('Styling and Layout', () => {
     it('should have correct container styling', () => {
       const { container } = render(SectionSettings, { props: mockProps });
@@ -373,6 +422,8 @@ describe('SectionSettings Component', () => {
       expect(screen.getByLabelText('Background')).toBeInTheDocument();
       expect(screen.getByLabelText('Width')).toBeInTheDocument();
       expect(screen.getByLabelText('Padding')).toBeInTheDocument();
+      expect(screen.getByLabelText('Layout')).toBeInTheDocument();
+      expect(screen.getByLabelText('Min Height')).toBeInTheDocument();
     });
 
     it('should have proper label for background image input when visible', () => {
