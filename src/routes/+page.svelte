@@ -189,38 +189,5 @@
 
 <style global>
     /* Apply the font families globally */
-    body {
-        font-family: 'Open Sans', sans-serif;
-    }
-    
-    h1, h2, h3, h4, h5, h6,
-    .font-heading {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-    }
-    
-    /* Your existing styles */
-    .teal-dark {
-        background-color: #0A5B5B;
-        color: white;
-    }
-    .teal-light {
-        background-color: #117777;
-        color: white;
-    }
-    .accent-lime {
-        background-color: #C2F970;
-    }
-    .text-teal {
-        color: #0A5B5B;
-    }
-    .hexagon {
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    }
-    .circle-accent {
-        position: absolute;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-    }
+   
 </style>

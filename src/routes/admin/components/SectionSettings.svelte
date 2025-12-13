@@ -27,23 +27,24 @@
           <option value="teal">Teal</option>
           <option value="image">Image</option>
         </select>
-        {#if sectionSettings.background === 'image'}
-          <input
-            id="section-background-image"
-            class="w-full border px-2 py-1 rounded text-xs mt-1"
-            placeholder="Background image URL"
-            value={sectionSettings.backgroundImage}
-            oninput={(e) => updateSectionStyle({ backgroundImage: e.target.value })}
-          />
+         {#if sectionSettings.background === 'image'}
+           <label for="section-background-image" class="block text-xs text-gray-600 mb-1">Background image URL</label>
+           <input
+             id="section-background-image"
+             class="w-full border px-2 py-1 rounded text-xs"
+             placeholder="Background image URL"
+             value={sectionSettings.backgroundImage}
+             oninput={(e) => updateSectionStyle({ backgroundImage: e.target.value })}
+           />
           <div class="mt-2 space-y-2">
             <div>
-              <label class="block text-xs text-gray-600 mb-1">Upload new image:</label>
-              <input
-                id="section-background-file"
-                type="file"
-                accept="image/*"
-                class="text-xs w-full"
-                onchange={async (e) => {
+                <label for="section-background-file" class="block text-xs text-gray-600 mb-1">Upload new image:</label>
+               <input
+                 id="section-background-file"
+                 type="file"
+                 accept="image/*"
+                 class="text-xs w-full"
+                 onchange={async (e) => {
                   const file = e.target.files[0];
                   if (!file) return;
                   const formData = new FormData();
