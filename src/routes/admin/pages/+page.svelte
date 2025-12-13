@@ -125,6 +125,13 @@
                 >
                   Delete
                 </button>
+                <a
+                  href="/{article.attributes.slug}"
+                  target="_blank"
+                  class="mt-2 ml-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 inline-block"
+                >
+                  Preview
+                </a>
               </div>
             {/each}
           </div>
