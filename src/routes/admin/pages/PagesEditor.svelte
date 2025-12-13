@@ -1,181 +1,282 @@
- <script>
-   import { createEventDispatcher } from 'svelte';
+  <script lang="ts">
+    import { createEventDispatcher } from 'svelte';
 
-  export let articles = [];
-  export let components = [];
-  export let loading = true;
-  export let error = null;
-
-  let newArticleTitle = '';
-  let newArticleSlug = '';
-  let newArticleContent = '';
-  let selectedComponentIds = [];
-  let creating = false;
-  let editingId = null;
-  let editTitle = '';
-  let editSlug = '';
-  let editContent = '';
-  let editComponentIds = [];
-
-  const dispatch = createEventDispatcher();
-export function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, '-')
-    .replace(/[^\w\-]+/g, '')
-    .replace(/\-\-+/g, '-')
-    .replace(/^-+/, '')
-    .replace(/-+$/, '');
-}
-  $: if (newArticleTitle) newArticleSlug = slugify(newArticleTitle);
-  $: if (editTitle && editingId) editSlug = slugify(editTitle);
-
-  async function createArticle() {
-    if (!newArticleTitle || !newArticleSlug) return;
-
-    creating = true;
-    try {
-      const response = await fetch('/api/articles', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: newArticleTitle,
-          slug: newArticleSlug,
-          content: newArticleContent,
-          componentIds: selectedComponentIds
-        })
-      });
-      if (!response.ok) throw new Error('Failed to create article');
-      
-      dispatch('refresh');
-      newArticleTitle = '';
-      newArticleSlug = '';
-      newArticleContent = '';
-      selectedComponentIds = [];
-    } catch (err) {
-      error = err.message;
-    } finally {
-      creating = false;
+    // Define interfaces for type safety
+    interface Article {
+      id: string;
+      attributes: {
+        title: string;
+        slug: string;
+        content?: string;
+        published: boolean;
+        componentIds?: string[];
+      };
     }
-  }
 
-  async function deleteArticle(id) {
-    if (!confirm('Are you sure you want to delete this article?')) return;
-
-    try {
-      const response = await fetch(`/api/articles?id=${id}`, {
-        method: 'DELETE'
-      });
-      if (!response.ok) throw new Error('Failed to delete article');
-      dispatch('refresh');
-    } catch (err) {
-      error = err.message;
+    interface Component {
+      id: string;
+      name: string;
     }
-  }
 
-  async function updateArticle(id, title, slug, content, componentIds) {
-    try {
-      const response = await fetch('/api/articles', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id,
-          title,
-          slug,
-          content,
-          componentIds
-        })
-      });
-      if (!response.ok) throw new Error('Failed to update article');
-      dispatch('refresh');
+    // Props passed from parent component
+    export let articles: Article[] = [];
+    export let components: Component[] = [];
+    export let loading: boolean = true;
+    export let error: string | null = null;
+
+    // State variables for creating new articles
+    let newArticleTitle: string = '';
+    let newArticleSlug: string = '';
+    let newArticleContent: string = '';
+    let selectedComponentIds: string[] = [];
+    let creating: boolean = false;
+
+    // State variables for editing existing articles
+    let editingId: string | null = null;
+    let editTitle: string = '';
+    let editSlug: string = '';
+    let editContent: string = '';
+    let editComponentIds: string[] = [];
+
+    // Event dispatcher to communicate with parent component
+    const dispatch = createEventDispatcher();
+
+    /**
+     * Converts a string into a URL-friendly slug.
+     * This function transforms text by converting to lowercase, trimming whitespace,
+     * replacing spaces with hyphens, removing non-word characters except hyphens,
+     * collapsing multiple hyphens into one, and removing leading/trailing hyphens.
+     * @param text - The input text to slugify
+     * @returns The slugified version of the input text
+     */
+    function slugify(text: string): string {
+      return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/[^\w\-]+/g, '') // Remove non-word characters except hyphens
+        .replace(/\-\-+/g, '-') // Collapse multiple hyphens
+        .replace(/^-+/, '') // Remove leading hyphens
+        .replace(/-+$/, ''); // Remove trailing hyphens
+    }
+
+    // Reactive statements to auto-generate slugs when titles change
+    $: if (newArticleTitle) newArticleSlug = slugify(newArticleTitle);
+    $: if (editTitle && editingId) editSlug = slugify(editTitle);
+
+    /**
+     * Creates a new article by sending a POST request to the API.
+     * Validates that title and slug are provided, sets loading state,
+     * and dispatches a 'refresh' event on success to update the parent component.
+     * Resets form fields after successful creation.
+     */
+    async function createArticle(): Promise<void> {
+      if (!newArticleTitle || !newArticleSlug) return;
+
+      creating = true;
+      try {
+        const response: Response = await fetch('/api/articles', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: newArticleTitle,
+            slug: newArticleSlug,
+            content: newArticleContent,
+            componentIds: selectedComponentIds
+          })
+        });
+        if (!response.ok) throw new Error('Failed to create article');
+
+        // Notify parent component to refresh the articles list
+        dispatch('refresh');
+
+        // Reset form fields
+        newArticleTitle = '';
+        newArticleSlug = '';
+        newArticleContent = '';
+        selectedComponentIds = [];
+      } catch (err: any) {
+        error = err.message;
+      } finally {
+        creating = false;
+      }
+    }
+
+    /**
+     * Deletes an article by sending a DELETE request to the API.
+     * Prompts user for confirmation before proceeding.
+     * Dispatches a 'refresh' event on success.
+     * @param id - The ID of the article to delete
+     */
+    async function deleteArticle(id: string): Promise<void> {
+      if (!confirm('Are you sure you want to delete this article?')) return;
+
+      try {
+        const response: Response = await fetch(`/api/articles?id=${id}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) throw new Error('Failed to delete article');
+        dispatch('refresh');
+      } catch (err: any) {
+        error = err.message;
+      }
+    }
+
+    /**
+     * Updates an existing article by sending a PUT request to the API.
+     * Dispatches a 'refresh' event on success and exits edit mode.
+     * @param id - The ID of the article to update
+     * @param title - The new title
+     * @param slug - The new slug
+     * @param content - The new content
+     * @param componentIds - Array of component IDs associated with the article
+     */
+    async function updateArticle(id: string, title: string, slug: string, content: string, componentIds: string[]): Promise<void> {
+      try {
+        const response: Response = await fetch('/api/articles', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id,
+            title,
+            slug,
+            content,
+            componentIds
+          })
+        });
+        if (!response.ok) throw new Error('Failed to update article');
+        dispatch('refresh');
+        editingId = null; // Exit edit mode
+      } catch (err: any) {
+        error = err.message;
+      }
+    }
+
+    /**
+     * Toggles the published status of an article.
+     * Sends a PUT request to update the published field.
+     * @param article - The article object to toggle publish status for
+     */
+    async function togglePublish(article: Article): Promise<void> {
+      try {
+        const response: Response = await fetch('/api/articles', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: article.id,
+            published: !article.attributes.published
+          })
+        });
+        if (!response.ok) throw new Error('Failed to update article');
+        dispatch('refresh');
+      } catch (err: any) {
+        error = err.message;
+      }
+    }
+
+    /**
+     * Toggles the selection of a component for new articles.
+     * Adds or removes the component ID from the selectedComponentIds array.
+     * @param componentId - The ID of the component to toggle
+     */
+    function toggleComponentSelection(componentId: string): void {
+      if (selectedComponentIds.includes(componentId)) {
+        selectedComponentIds = selectedComponentIds.filter(id => id !== componentId);
+      } else {
+        selectedComponentIds = [...selectedComponentIds, componentId];
+      }
+    }
+
+    /**
+     * Moves a selected component up in the order for new articles.
+     * Swaps the component at the given index with the one above it.
+     * @param index - The index of the component to move up
+     */
+    function moveComponentUp(index: number): void {
+      if (index > 0) {
+        const newOrder = [...selectedComponentIds];
+        [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+        selectedComponentIds = newOrder;
+      }
+    }
+
+    /**
+     * Moves a selected component down in the order for new articles.
+     * Swaps the component at the given index with the one below it.
+     * @param index - The index of the component to move down
+     */
+    function moveComponentDown(index: number): void {
+      if (index < selectedComponentIds.length - 1) {
+        const newOrder = [...selectedComponentIds];
+        [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
+        selectedComponentIds = newOrder;
+      }
+    }
+
+    /**
+     * Toggles the selection of a component for editing articles.
+     * Adds or removes the component ID from the editComponentIds array.
+     * @param componentId - The ID of the component to toggle
+     */
+    function toggleEditComponentSelection(componentId: string): void {
+      if (editComponentIds.includes(componentId)) {
+        editComponentIds = editComponentIds.filter(id => id !== componentId);
+      } else {
+        editComponentIds = [...editComponentIds, componentId];
+      }
+    }
+
+    /**
+     * Moves a selected component up in the order for editing articles.
+     * Swaps the component at the given index with the one above it.
+     * @param index - The index of the component to move up
+     */
+    function moveEditComponentUp(index: number): void {
+      if (index > 0) {
+        const newOrder = [...editComponentIds];
+        [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+        editComponentIds = newOrder;
+      }
+    }
+
+    /**
+     * Moves a selected component down in the order for editing articles.
+     * Swaps the component at the given index with the one below it.
+     * @param index - The index of the component to move down
+     */
+    function moveEditComponentDown(index: number): void {
+      if (index < editComponentIds.length - 1) {
+        const newOrder = [...editComponentIds];
+        [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
+        editComponentIds = newOrder;
+      }
+    }
+
+    /**
+     * Initiates editing mode for a specific article.
+     * Populates the edit form fields with the article's current data.
+     * @param article - The article to start editing
+     */
+    function startEditing(article: Article): void {
+      editingId = article.id;
+      editTitle = article.attributes.title;
+      editSlug = article.attributes.slug;
+      editContent = article.attributes.content || '';
+      editComponentIds = article.attributes.componentIds || [];
+    }
+
+    /**
+     * Cancels the current editing session.
+     * Resets all edit-related state variables and exits edit mode.
+     */
+    function cancelEditing(): void {
       editingId = null;
-    } catch (err) {
-      error = err.message;
+      editTitle = '';
+      editSlug = '';
+      editContent = '';
+      editComponentIds = [];
     }
-  }
-
-  async function togglePublish(article) {
-    try {
-      const response = await fetch('/api/articles', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          id: article.id,
-          published: !article.attributes.published
-        })
-      });
-      if (!response.ok) throw new Error('Failed to update article');
-      dispatch('refresh');
-    } catch (err) {
-      error = err.message;
-    }
-  }
-
-  function toggleComponentSelection(componentId) {
-    if (selectedComponentIds.includes(componentId)) {
-      selectedComponentIds = selectedComponentIds.filter(id => id !== componentId);
-    } else {
-      selectedComponentIds = [...selectedComponentIds, componentId];
-    }
-  }
-
-  function moveComponentUp(index) {
-    if (index > 0) {
-      const newOrder = [...selectedComponentIds];
-      [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
-      selectedComponentIds = newOrder;
-    }
-  }
-
-  function moveComponentDown(index) {
-    if (index < selectedComponentIds.length - 1) {
-      const newOrder = [...selectedComponentIds];
-      [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
-      selectedComponentIds = newOrder;
-    }
-  }
-
-  function toggleEditComponentSelection(componentId) {
-    if (editComponentIds.includes(componentId)) {
-      editComponentIds = editComponentIds.filter(id => id !== componentId);
-    } else {
-      editComponentIds = [...editComponentIds, componentId];
-    }
-  }
-
-  function moveEditComponentUp(index) {
-    if (index > 0) {
-      const newOrder = [...editComponentIds];
-      [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
-      editComponentIds = newOrder;
-    }
-  }
-
-  function moveEditComponentDown(index) {
-    if (index < editComponentIds.length - 1) {
-      const newOrder = [...editComponentIds];
-      [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
-      editComponentIds = newOrder;
-    }
-  }
-
-  function startEditing(article) {
-    editingId = article.id;
-    editTitle = article.attributes.title;
-    editSlug = article.attributes.slug;
-    editContent = article.attributes.content || '';
-    editComponentIds = article.attributes.componentIds || [];
-  }
-
-  function cancelEditing() {
-    editingId = null;
-    editTitle = '';
-    editSlug = '';
-    editContent = '';
-    editComponentIds = [];
-  }
 </script>
 
 <main class="max-w-5xl mx-auto py-8 px-4">
