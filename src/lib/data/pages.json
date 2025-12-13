@@ -6,9 +6,10 @@
       "slug": "sample-page-1",
       "content": "<p>This is a sample page content.</p>",
       "componentIds": [
-        "sample-hero"
+        "sample-hero",
+        "component-1765605078357"
       ],
-      "published": false
+      "published": true
     }
   },
   {
@@ -28,9 +29,10 @@
       "slug": "artiles-of-the-day",
       "content": "",
       "componentIds": [
-        "sample-hero"
+        "sample-hero",
+        "component-1765605078357"
       ],
-      "published": false
+      "published": true
     }
   }
 ]

@@ -58,9 +58,9 @@ export async function POST({ request }) {
 export async function PUT({ request }) {
   try {
     const body = await request.json();
-    const { id, published } = body;
+    const { id, ...updates } = body;
 
-    if (typeof id !== 'number' || typeof published !== 'boolean') {
+    if (typeof id !== 'number') {
       throw error(400, 'Invalid request body');
     }
 
@@ -71,7 +71,13 @@ export async function PUT({ request }) {
       throw error(404, 'Article not found');
     }
 
-    pages[pageIndex].attributes.published = published;
+    const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published'];
+    for (const field of allowedFields) {
+      if (updates.hasOwnProperty(field)) {
+        pages[pageIndex].attributes[field] = updates[field];
+      }
+    }
+
     writePages(pages);
 
     return json(pages[pageIndex]);

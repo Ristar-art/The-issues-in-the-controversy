@@ -9,5 +9,29 @@
       "blocks": [],
       "backgroundImage": "/_.jpeg"
     }
+  },
+  {
+    "id": "component-1765605078357",
+    "name": "New Component",
+    "html": "<section class=\"py-16 bg-white\"><div class=\"container mx-auto px-4\">\n<p class=\"text-blue-600 mb-4 text-center\">New component</p>\n<div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" style=\"width: 50%; max-width: 100%;\" class=\"h-auto inline-block\" /></div>\n</div></section>",
+    "section": {
+      "classes": "py-16 bg-white",
+      "containerClasses": "container mx-auto px-4",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "New component",
+          "align": "center",
+          "color": "blue"
+        },
+        {
+          "type": "image",
+          "text": "New block",
+          "src": "/Beast.webp",
+          "widthPercent": 50,
+          "align": "center"
+        }
+      ]
+    }
   }
 ]

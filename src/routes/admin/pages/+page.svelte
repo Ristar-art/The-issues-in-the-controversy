@@ -10,6 +10,11 @@
   let newArticleContent = '';
   let selectedComponentIds = [];
   let creating = false;
+  let editingId = null;
+  let editTitle = '';
+  let editSlug = '';
+  let editContent = '';
+  let editComponentIds = [];
 
   function slugify(text) {
     return text
@@ -24,6 +29,7 @@
   }
 
   $: if (newArticleTitle) newArticleSlug = slugify(newArticleTitle);
+  $: if (editTitle && editingId) editSlug = slugify(editTitle);
 
   async function fetchArticles() {
     try {
@@ -89,6 +95,27 @@
     }
   }
 
+  async function updateArticle(id, title, slug, content, componentIds) {
+    try {
+      const response = await fetch('/api/articles', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id,
+          title,
+          slug,
+          content,
+          componentIds
+        })
+      });
+      if (!response.ok) throw new Error('Failed to update article');
+      await fetchArticles();
+      editingId = null;
+    } catch (err) {
+      error = err.message;
+    }
+  }
+
   async function togglePublish(article) {
     try {
       const response = await fetch('/api/articles', {
@@ -114,6 +141,30 @@
     }
   }
 
+  function toggleEditComponentSelection(componentId) {
+    if (editComponentIds.includes(componentId)) {
+      editComponentIds = editComponentIds.filter(id => id !== componentId);
+    } else {
+      editComponentIds = [...editComponentIds, componentId];
+    }
+  }
+
+  function startEditing(article) {
+    editingId = article.id;
+    editTitle = article.attributes.title;
+    editSlug = article.attributes.slug;
+    editContent = article.attributes.content || '';
+    editComponentIds = article.attributes.componentIds || [];
+  }
+
+  function cancelEditing() {
+    editingId = null;
+    editTitle = '';
+    editSlug = '';
+    editContent = '';
+    editComponentIds = [];
+  }
+
   onMount(async () => {
     await Promise.all([fetchArticles(), fetchComponents()]);
   });
@@ -127,108 +178,178 @@
   {:else if error}
     <p class="text-red-600">Error: {error}</p>
   {:else}
-    <div class="flex gap-6">
-      <aside class="w-1/3 border-r pr-4">
-        <div class="space-y-4">
-          <h2 class="text-lg font-semibold">Available Pages</h2>
-          <div class="space-y-2">
-            {#each articles as article}
-              <div class="p-3 border rounded-lg bg-gray-50">
-                <h3 class="font-medium">{article.attributes.title}</h3>
-                <p class="text-sm text-gray-600">/{article.attributes.slug}</p>
-                <p class="text-sm {article.attributes.published ? 'text-green-600' : 'text-red-600'}">
-                  {article.attributes.published ? 'Published' : 'Draft'}
-                </p>
-                <button
-                  class="mt-2 px-3 py-1 {article.attributes.published ? 'bg-orange-600 hover:bg-orange-700' : 'bg-green-600 hover:bg-green-700'} text-white text-sm rounded"
-                  onclick={() => togglePublish(article)}
-                >
-                  {article.attributes.published ? 'Unpublish' : 'Publish'}
-                </button>
-                <button
-                  class="mt-2 ml-2 px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
-                  onclick={() => deleteArticle(article.id)}
-                >
-                  Delete
-                </button>
-                <a
-                  href="/{article.attributes.slug}"
-                  target="_blank"
-                  class="mt-2 ml-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 inline-block"
-                >
-                  Preview
-                </a>
-              </div>
-            {/each}
-          </div>
-        </div>
-      </aside>
+     <div class="flex gap-6">
+       <section class="w-1/3 border-r pr-4">
+         <div class="bg-white border rounded-lg p-6">
+           <h2 class="text-lg font-semibold mb-4">Create New Page</h2>
+            <form onsubmit={(e) => { e.preventDefault(); createArticle(); }} class="space-y-4">
+             <div>
+               <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+               <input
+                 type="text"
+                 bind:value={newArticleTitle}
+                 placeholder="Page Title"
+                 required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+               />
+             </div>
 
-      <section class="flex-1 space-y-4">
-        <div class="bg-white border rounded-lg p-6">
-          <h2 class="text-lg font-semibold mb-4">Create New Page</h2>
-           <form onsubmit={(e) => { e.preventDefault(); createArticle(); }} class="space-y-4">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-              <input
-                type="text"
-                bind:value={newArticleTitle}
-                placeholder="Page Title"
-                required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-            </div>
+             <div>
+               <label class="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+               <input
+                 type="text"
+                 bind:value={newArticleSlug}
+                 placeholder="page-slug"
+                 required
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+               />
+             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Slug</label>
-              <input
-                type="text"
-                bind:value={newArticleSlug}
-                placeholder="page-slug"
-                required
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              />
-            </div>
+             <div>
+               <label class="block text-sm font-medium text-gray-700 mb-1">Content (optional if using components)</label>
+               <textarea
+                 bind:value={newArticleContent}
+                 placeholder="Custom HTML content..."
+                 rows="4"
+                 class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+               ></textarea>
+             </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Content (optional if using components)</label>
-              <textarea
-                bind:value={newArticleContent}
-                placeholder="Custom HTML content..."
-                rows="4"
-                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-              ></textarea>
-            </div>
+             {#if components.length > 0}
+               <div>
+                 <label class="block text-sm font-medium text-gray-700 mb-2">Select Components</label>
+                 <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
+                   {#each components as component}
+                     <label class="flex items-center space-x-2">
+                       <input
+                         type="checkbox"
+                         checked={selectedComponentIds.includes(component.id)}
+                         onchange={() => toggleComponentSelection(component.id)}
+                         class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                       />
+                       <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
+                     </label>
+                   {/each}
+                 </div>
+               </div>
+             {/if}
 
-            {#if components.length > 0}
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Select Components</label>
-                <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
-                  {#each components as component}
-                    <label class="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        checked={selectedComponentIds.includes(component.id)}
-                        onchange={() => toggleComponentSelection(component.id)}
-                        class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                      />
-                      <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
-                    </label>
-                  {/each}
+             <button
+               type="submit"
+               disabled={creating}
+               class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+             >
+               {#if creating}Creating...{:else}Create Page{/if}
+             </button>
+           </form>
+         </div>
+       </section>
+
+       <aside class="flex-1 space-y-4">
+         <div class="space-y-4">
+           <h2 class="text-lg font-semibold">Available Pages</h2>
+           <div class="space-y-2">
+              {#each articles as article}
+                <div class="p-3 border rounded-lg bg-gray-50">
+                  {#if editingId === article.id}
+                    <form onsubmit={(e) => { e.preventDefault(); updateArticle(article.id, editTitle, editSlug, editContent, editComponentIds); }} class="space-y-4">
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                        <input
+                          type="text"
+                          bind:value={editTitle}
+                          required
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+                        <input
+                          type="text"
+                          bind:value={editSlug}
+                          required
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                        />
+                      </div>
+                      <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                        <textarea
+                          bind:value={editContent}
+                          rows="4"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                        ></textarea>
+                      </div>
+                      {#if components.length > 0}
+                        <div>
+                          <label class="block text-sm font-medium text-gray-700 mb-2">Select Components</label>
+                          <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
+                            {#each components as component}
+                              <label class="flex items-center space-x-2">
+                                <input
+                                  type="checkbox"
+                                  checked={editComponentIds.includes(component.id)}
+                                  onchange={() => toggleEditComponentSelection(component.id)}
+                                  class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                                />
+                                <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
+                              </label>
+                            {/each}
+                          </div>
+                        </div>
+                      {/if}
+                      <div class="flex gap-2">
+                        <button
+                          type="submit"
+                          class="px-3 py-1 bg-teal-600 text-white text-sm rounded hover:bg-teal-700"
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onclick={cancelEditing}
+                          class="px-3 py-1 bg-gray-600 text-white text-sm rounded hover:bg-gray-700"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  {:else}
+                    <h3 class="font-medium">{article.attributes.title}</h3>
+                    <p class="text-sm text-gray-600">/{article.attributes.slug}</p>
+                    <p class="text-sm {article.attributes.published ? 'text-green-600' : 'text-red-600'}">
+                      {article.attributes.published ? 'Published' : 'Draft'}
+                    </p>
+                    <button
+                      class="mt-2 px-3 py-1 bg-purple-600 text-white text-sm rounded hover:bg-purple-700"
+                      onclick={() => startEditing(article)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="mt-2 ml-2 px-3 py-1 {article.attributes.published ? 'bg-orange-600 hover:bg-orange-700' : 'bg-green-600 hover:bg-green-700'} text-white text-sm rounded"
+                      onclick={() => togglePublish(article)}
+                    >
+                      {article.attributes.published ? 'Unpublish' : 'Publish'}
+                    </button>
+                    <button
+                      class="mt-2 ml-2 px-3 py-1 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+                      onclick={() => deleteArticle(article.id)}
+                    >
+                      Delete
+                    </button>
+                    <a
+                      href="/{article.attributes.slug}"
+                      target="_blank"
+                      class="mt-2 ml-2 px-3 py-1 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 inline-block"
+                    >
+                      Preview
+                    </a>
+                  {/if}
                 </div>
-              </div>
-            {/if}
-
-            <button
-              type="submit"
-              disabled={creating}
-              class="px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
-            >
-              {#if creating}Creating...{:else}Create Page{/if}
-            </button>
-          </form>
-        </div>
-      </section>
-    </div>
+              {/each}
+           </div>
+         </div>
+       </aside>
+     </div>
   {/if}
 </main>
