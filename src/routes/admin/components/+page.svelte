@@ -253,6 +253,7 @@
         ? next.backgroundImage ?? ''
         : undefined;
     updateSection({ classes, containerClasses, blocks: existingBlocks, backgroundImage, layout: next.layout, minHeight: next.minHeight });
+    applyBlocksToHtml();
   }
 
   /**
@@ -274,6 +275,7 @@
       { type: 'text', text: 'New block' }
     ];
     updateSection({ blocks: newBlocks });
+    applyBlocksToHtml();
   }
 
   /**
@@ -295,6 +297,7 @@
       i === index ? { ...block, ...partial } : block
     );
     updateSection({ blocks: newBlocks });
+    applyBlocksToHtml();
   }
 
   /**
@@ -313,6 +316,7 @@
     const current: Block[] = section.blocks ?? [];
     const newBlocks: Block[] = current.filter((_: Block, i: number) => i !== index);
     updateSection({ blocks: newBlocks });
+    applyBlocksToHtml();
   }
 
   /**
@@ -336,6 +340,7 @@
     const [moved] = newBlocks.splice(index, 1);
     newBlocks.splice(newIndex, 0, moved);
     updateSection({ blocks: newBlocks });
+    applyBlocksToHtml();
   }
 
   /**
