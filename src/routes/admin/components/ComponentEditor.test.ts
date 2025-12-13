@@ -109,45 +109,10 @@ describe('ComponentEditor Component', () => {
     });
   });
 
-  describe('Apply Blocks Button', () => {
-    it('should render the apply blocks button', () => {
+  describe('Auto Generation Notice', () => {
+    it('should display auto generation notice', () => {
       render(ComponentEditor, { props: mockProps });
-      expect(screen.getByText('Apply blocks to HTML')).toBeInTheDocument();
-    });
-
-    it('should call applyBlocksToHtml when button is clicked', async () => {
-      render(ComponentEditor, { props: mockProps });
-      const button = screen.getByText('Apply blocks to HTML');
-
-      await fireEvent.click(button);
-
-      expect(mockProps.applyBlocksToHtml).toHaveBeenCalled();
-    });
-
-    it('should prevent default event when button is clicked', async () => {
-      render(ComponentEditor, { props: mockProps });
-      const button = screen.getByText('Apply blocks to HTML');
-
-      const event = new MouseEvent('click', { bubbles: true, cancelable: true });
-      const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
-
-      button.dispatchEvent(event);
-
-      expect(mockProps.applyBlocksToHtml).toHaveBeenCalled();
-    });
-
-    it('should have correct styling for apply blocks button', () => {
-      render(ComponentEditor, { props: mockProps });
-      const button = screen.getByText('Apply blocks to HTML');
-      expect(button.className).toContain('px-3');
-      expect(button.className).toContain('py-1');
-      expect(button.className).toContain('bg-gray-200');
-      expect(button.className).toContain('rounded');
-    });
-
-    it('should display helper text', () => {
-      render(ComponentEditor, { props: mockProps });
-      expect(screen.getByText('(generates HTML from the blocks below)')).toBeInTheDocument();
+      expect(screen.getByText('(HTML is automatically generated from the blocks below)')).toBeInTheDocument();
     });
   });
 
@@ -169,10 +134,10 @@ describe('ComponentEditor Component', () => {
       });
     });
 
-    it('should have button container with proper spacing', () => {
+    it('should have notice container with proper styling', () => {
       const { container } = render(ComponentEditor, { props: mockProps });
-      const buttonContainer = container.querySelector('.flex.gap-2');
-      expect(buttonContainer).toBeInTheDocument();
+      const noticeContainer = container.querySelector('.mt-2.text-sm');
+      expect(noticeContainer).toBeInTheDocument();
     });
   });
 
@@ -196,11 +161,7 @@ describe('ComponentEditor Component', () => {
       expect(screen.getByRole('textbox', { name: 'HTML' })).toBeInTheDocument();
     });
 
-    it('should have clickable button with clear text', () => {
-      render(ComponentEditor, { props: mockProps });
-      const button = screen.getByRole('button', { name: /Apply blocks to HTML/i });
-      expect(button).toBeInTheDocument();
-    });
+
   });
 
   describe('Edge Cases', () => {
