@@ -141,11 +141,43 @@
     }
   }
 
+  function moveComponentUp(index) {
+    if (index > 0) {
+      const newOrder = [...selectedComponentIds];
+      [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+      selectedComponentIds = newOrder;
+    }
+  }
+
+  function moveComponentDown(index) {
+    if (index < selectedComponentIds.length - 1) {
+      const newOrder = [...selectedComponentIds];
+      [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
+      selectedComponentIds = newOrder;
+    }
+  }
+
   function toggleEditComponentSelection(componentId) {
     if (editComponentIds.includes(componentId)) {
       editComponentIds = editComponentIds.filter(id => id !== componentId);
     } else {
       editComponentIds = [...editComponentIds, componentId];
+    }
+  }
+
+  function moveEditComponentUp(index) {
+    if (index > 0) {
+      const newOrder = [...editComponentIds];
+      [newOrder[index - 1], newOrder[index]] = [newOrder[index], newOrder[index - 1]];
+      editComponentIds = newOrder;
+    }
+  }
+
+  function moveEditComponentDown(index) {
+    if (index < editComponentIds.length - 1) {
+      const newOrder = [...editComponentIds];
+      [newOrder[index], newOrder[index + 1]] = [newOrder[index + 1], newOrder[index]];
+      editComponentIds = newOrder;
     }
   }
 
@@ -215,24 +247,58 @@
                ></textarea>
              </div>
 
-             {#if components.length > 0}
-               <div>
-                 <label class="block text-sm font-medium text-gray-700 mb-2">Select Components</label>
-                 <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
-                   {#each components as component}
-                     <label class="flex items-center space-x-2">
-                       <input
-                         type="checkbox"
-                         checked={selectedComponentIds.includes(component.id)}
-                         onchange={() => toggleComponentSelection(component.id)}
-                         class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                       />
-                       <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
-                     </label>
-                   {/each}
-                 </div>
-               </div>
-             {/if}
+              {#if components.length > 0}
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Select Components</label>
+                  <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
+                    {#each components as component}
+                      <label class="flex items-center space-x-2">
+                        <input
+                          type="checkbox"
+                          checked={selectedComponentIds.includes(component.id)}
+                          onchange={() => toggleComponentSelection(component.id)}
+                          class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                        />
+                        <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
+                      </label>
+                    {/each}
+                  </div>
+                </div>
+
+                {#if selectedComponentIds.length > 0}
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Selected Components Order</label>
+                    <div class="space-y-2 border border-gray-300 rounded-md p-3">
+                      {#each selectedComponentIds as componentId, index}
+                        {@const component = components.find(c => c.id === componentId)}
+                        {#if component}
+                          <div class="flex items-center justify-between bg-gray-50 p-2 rounded">
+                            <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
+                            <div class="flex space-x-1">
+                              <button
+                                type="button"
+                                onclick={() => moveComponentUp(index)}
+                                disabled={index === 0}
+                                class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed rounded"
+                              >
+                                ↑
+                              </button>
+                              <button
+                                type="button"
+                                onclick={() => moveComponentDown(index)}
+                                disabled={index === selectedComponentIds.length - 1}
+                                class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed rounded"
+                              >
+                                ↓
+                              </button>
+                            </div>
+                          </div>
+                        {/if}
+                      {/each}
+                    </div>
+                  </div>
+                {/if}
+              {/if}
 
              <button
                type="submit"
@@ -279,24 +345,58 @@
                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                         ></textarea>
                       </div>
-                      {#if components.length > 0}
-                        <div>
-                          <label class="block text-sm font-medium text-gray-700 mb-2">Select Components</label>
-                          <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
-                            {#each components as component}
-                              <label class="flex items-center space-x-2">
-                                <input
-                                  type="checkbox"
-                                  checked={editComponentIds.includes(component.id)}
-                                  onchange={() => toggleEditComponentSelection(component.id)}
-                                  class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
-                                />
-                                <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
-                              </label>
-                            {/each}
-                          </div>
-                        </div>
-                      {/if}
+                       {#if components.length > 0}
+                         <div>
+                           <label class="block text-sm font-medium text-gray-700 mb-2">Select Components</label>
+                           <div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3">
+                             {#each components as component}
+                               <label class="flex items-center space-x-2">
+                                 <input
+                                   type="checkbox"
+                                   checked={editComponentIds.includes(component.id)}
+                                   onchange={() => toggleEditComponentSelection(component.id)}
+                                   class="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                                 />
+                                 <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
+                               </label>
+                             {/each}
+                           </div>
+                         </div>
+
+                         {#if editComponentIds.length > 0}
+                           <div>
+                             <label class="block text-sm font-medium text-gray-700 mb-2">Selected Components Order</label>
+                             <div class="space-y-2 border border-gray-300 rounded-md p-3">
+                               {#each editComponentIds as componentId, index}
+                                 {@const component = components.find(c => c.id === componentId)}
+                                 {#if component}
+                                   <div class="flex items-center justify-between bg-gray-50 p-2 rounded">
+                                     <span class="text-sm">{component.name} <span class="text-gray-500">({component.id})</span></span>
+                                     <div class="flex space-x-1">
+                                       <button
+                                         type="button"
+                                         onclick={() => moveEditComponentUp(index)}
+                                         disabled={index === 0}
+                                         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed rounded"
+                                       >
+                                         ↑
+                                       </button>
+                                       <button
+                                         type="button"
+                                         onclick={() => moveEditComponentDown(index)}
+                                         disabled={index === editComponentIds.length - 1}
+                                         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 disabled:cursor-not-allowed rounded"
+                                       >
+                                         ↓
+                                       </button>
+                                     </div>
+                                   </div>
+                                 {/if}
+                               {/each}
+                             </div>
+                           </div>
+                         {/if}
+                       {/if}
                       <div class="flex gap-2">
                         <button
                           type="submit"

@@ -38,7 +38,7 @@ export async function load({ params }) {
   let content = page.attributes.content;
   if (page.attributes.componentIds && page.attributes.componentIds.length > 0) {
     const components = readComponents();
-    const pageComponents = components.filter(c => page.attributes.componentIds.includes(c.id));
+    const pageComponents = page.attributes.componentIds.map(id => components.find(c => c.id === id)).filter(Boolean);
     content = pageComponents.map(c => c.html).join('');
   }
 
