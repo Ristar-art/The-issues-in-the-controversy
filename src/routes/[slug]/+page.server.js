@@ -1,28 +1,51 @@
 import { error } from '@sveltejs/kit';
-import { STRAPI_API_URL, STRAPI_API_TOKEN } from '$env/static/private';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-export async function load({ params, fetch }) {
-  // Fetch the article from your CMS API using the slug
-  const response = await fetch(
-    `${STRAPI_API_URL}/api/articles?filters[slug][$eq]=${params.slug}`,
-    {
-      headers: {
-        Authorization: `Bearer ${STRAPI_API_TOKEN}`
-      }
-    }
-  );
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const pagesFilePath = path.join(__dirname, '../../lib/data/pages.json');
+const componentsFilePath = path.join(__dirname, '../../lib/data/components.json');
 
-  if (!response.ok) {
-    throw error(500, 'Failed to fetch article');
+function readPages() {
+  try {
+    const data = fs.readFileSync(pagesFilePath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    return [];
   }
+}
 
-  const { data } = await response.json();
+function readComponents() {
+  try {
+    const data = fs.readFileSync(componentsFilePath, 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    return [];
+  }
+}
 
-  if (data.length === 0) {
+export async function load({ params }) {
+  const pages = readPages();
+  const page = pages.find(p => p.attributes.slug === params.slug);
+
+  if (!page) {
     throw error(404, 'Article not found');
   }
 
+  // If the page has componentIds, assemble content from components
+  let content = page.attributes.content;
+  if (page.attributes.componentIds && page.attributes.componentIds.length > 0) {
+    const components = readComponents();
+    const pageComponents = components.filter(c => page.attributes.componentIds.includes(c.id));
+    content = pageComponents.map(c => c.html).join('');
+  }
+
   return {
-    article: data[0].attributes
+    article: {
+      ...page.attributes,
+      content
+    }
   };
 }

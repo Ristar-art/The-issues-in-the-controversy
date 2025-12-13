@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "attributes": {
+      "title": "Sample Page 1",
+      "slug": "sample-page-1",
+      "content": "<p>This is a sample page content.</p>",
+      "componentIds": [
+        "sample-hero"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "attributes": {
+      "title": "About Us",
+      "slug": "about-us",
+      "content": "<p>Information about our organization.</p>",
+      "componentIds": []
+    }
+  },
+  {
+    "id": 4,
+    "attributes": {
+      "title": "Artiles of the day",
+      "slug": "artiles-of-the-day",
+      "content": "",
+      "componentIds": [
+        "sample-hero"
+      ]
+    }
+  }
+]
