@@ -152,22 +152,30 @@ components.forEach((c: Component, idx: number) => {
     selectedId = id;
   }
 
-   /**
-    * Updates a specific field of the currently selected component.
-    * @param field - The field name to update (e.g., 'name', 'html')
-    * @param value - The new value for the field
-    */
-   function updateSelected(field: string, value: any): void {
-     if (!selected) return;
-     const idx: number = components.findIndex((c: Component) => c.id === selected.id);
-     if (idx !== -1) {
-       components[idx] = { ...components[idx], [field]: value };
-       // If updating the ID, also update selectedId to maintain selection
-       if (field === 'id') {
-         selectedId = value;
-       }
-     }
-   }
+/**
+   * Updates a specific field of the currently selected component.
+   * @param field - The field name to update (e.g., 'name', 'html')
+   * @param value - The new value for the field
+   */
+    function updateSelected(field: string, value: any): void {
+      if (!selected) return;
+      const idx: number = components.findIndex((c: Component) => c.id === selected.id);
+      if (idx !== -1) {
+        // Check for duplicate ID when updating the id field
+        if (field === 'id' && components.some((c: Component, i: number) => c.id === value && i !== idx)) {
+          alert('Component ID already exists. Please choose a unique ID.');
+          return;
+        }
+        components[idx] = { ...components[idx], [field]: value };
+        // If updating the ID, also update selectedId to maintain selection
+        if (field === 'id') {
+          selectedId = value;
+        } else {
+          // Ensure selection is maintained by re-setting the selectedId
+          selectedId = selected.id;
+        }
+      }
+    }
 
   /**
    * Updates the section configuration of the selected component.
@@ -189,6 +197,9 @@ components.forEach((c: Component, idx: number) => {
     const existingBlocks: Block[] = base.blocks ?? [];
     const next: Section = { ...base, ...partial, blocks: partial.blocks !== undefined ? partial.blocks : existingBlocks };
     updateSelected('section', next);
+    
+    // Ensure selection is maintained after section update
+    selectedId = selected.id;
   }
 
   /**
@@ -478,37 +489,88 @@ components.forEach((c: Component, idx: number) => {
   }
 
   /**
-   * Saves all components to the server via API call.
+   * Saves only the currently selected component to the server via API call.
    * Shows success/error alerts based on the response.
+   * Maintains the current selection after saving.
    */
   async function save(): Promise<void> {
-    const res: Response = await fetch('/api/components', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(components)
-    });
-
-    if (!res.ok) {
-      alert('Failed to save components');
+    if (!selected) {
+      alert('No component selected');
       return;
     }
 
-    alert('Components saved');
+    // Store the current selection to ensure it's maintained
+    const currentSelectedId: string = selected.id;
+
+    const res: Response = await fetch('/api/components', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(selected)
+    });
+
+    if (!res.ok) {
+      try {
+        const errorData = await res.json();
+        alert(`Failed to save component: ${errorData.error || 'Unknown error'}`);
+      } catch {
+        alert(`Failed to save component: HTTP ${res.status}`);
+      }
+      return;
+    }
+
+    // Reload components from server to ensure local state is synced
+    try {
+      const reloadRes: Response = await fetch('/api/components');
+      if (reloadRes.ok) {
+        components = await reloadRes.json();
+      }
+    } catch (error) {
+      console.error('Failed to reload components after save:', error);
+    }
+
+    // Ensure selection is maintained after save
+    selectedId = currentSelectedId;
+
+    alert(`Component "${selected.name}" saved`);
   }
 
   /**
-   * Deletes the currently selected component after user confirmation.
+   * Permanently deletes the currently selected component and saves the change to database.
    * Updates the selection to the first remaining component if any exist.
    */
-  function deleteSelected(): void {
+  async function deleteSelected(): Promise<void> {
     if (!selected) return;
-    if (!confirm(`Delete component "${selected.name}" (${selected.id})?`)) return;
+    if (!confirm(`Permanently delete component "${selected.name}" (${selected.id})?`)) return;
 
     const idx: number = components.findIndex((c: Component) => c.id === selected.id);
     if (idx !== -1) {
+      // Remove component from local state
       components.splice(idx, 1);
-      // Choose a new selection if any components remain
-      selectedId = components[0]?.id ?? '';
+      
+      // Save the updated components array to database
+      try {
+        const res: Response = await fetch('/api/components', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(components)
+        });
+
+        if (!res.ok) {
+          alert('Failed to delete component - changes not saved');
+          // Restore the component if save failed
+          components.splice(idx, 0, selected);
+          return;
+        }
+
+        // Choose a new selection if any components remain
+        selectedId = components[0]?.id ?? '';
+        alert(`Component "${selected.name}" permanently deleted`);
+      } catch (error) {
+        console.error('Failed to delete component:', error);
+        alert('Failed to delete component - changes not saved');
+        // Restore the component if save failed
+        components.splice(idx, 0, selected);
+      }
     }
   }
 
@@ -683,10 +745,10 @@ components.forEach((c: Component, idx: number) => {
 
         <div class="pt-4 flex gap-3">
           <button class="px-4 py-2 bg-teal-600 text-white rounded" onclick={(e) => { e.preventDefault(); save(); }}>
-            Save all components
+            Save selected component
           </button>
           <button class="px-4 py-2 bg-red-600 text-white rounded" onclick={(e) => { e.preventDefault(); deleteSelected(); }}>
-            Delete selected
+            Permanently delete
           </button>
         </div>
 

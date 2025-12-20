@@ -20,69 +20,54 @@
     }
   },
   {
-    "id": "component-1765605078357",
-    "name": "New Component",
-    "html": "<section class=\"py-16 bg-white\"><div class=\"container mx-auto px-4\">\n<p class=\"text-blue-600 mb-4 text-center\">New component</p>\n<div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" style=\"width: 50%; max-width: 100%;\" class=\"h-auto inline-block\" /></div>\n</div></section>",
+    "id": "component-1766223704407",
+    "name": "The New Covenant: Header",
+    "html": "<section class=\"py-16\" style=\"background-image: url('/earth-and-water.avif'); background-size: cover; background-position: center;\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<h2 class=\"text-3xl font-bold mb-4 text-white text-center\">The New Covenant</h2>\n<p class=\"text-white mb-4 text-center\">David Clayton</p>\n</div></div></section>",
+    "section": {
+      "classes": "py-16",
+      "containerClasses": "container mx-auto px-4",
+      "blocks": [
+        {
+          "type": "heading",
+          "text": "The New Covenant",
+          "align": "center",
+          "color": "white"
+        },
+        {
+          "type": "text",
+          "text": "David Clayton",
+          "color": "white",
+          "align": "center"
+        }
+      ],
+      "layout": "linear",
+      "columns": 2,
+      "minHeight": "none",
+      "backgroundImage": "/earth-and-water.avif"
+    }
+  },
+  {
+    "id": "component-1766256792137",
+    "name": "The New Covenant: Introduction",
+    "html": "<section class=\"py-16 bg-white\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<p class=\"text-blue-600 mb-4 text-left\">WHAT IS A COVENANT?</p>\n<p class=\"text-gray-600 mb-4 text-left\">Covenant: - An agreement or promise, usually formal, between two or\nmore people or groups to do or not\ndo something specified.\n Dictionary.com\nThis is the definition which is most\nwidely accepted and understood, especially as the word is used in the Bible.\nIt focuses on the idea of a commitment\nor agreement made between two parties.\nThe covenant which God made with\nIsrael at Mount Sinai just after they left\nEgypt, is an outstanding example of\nthis kind of covenant. God gave Moses\nthe following message to give to the\npeople:\nNow therefore, if ye will obey my\nvoice indeed, and keep my covenant, then ye shall be a peculiar\ntreasure unto me above all people:\nfor all the earth is mine: And ye\nshall be unto me a kingdom of\npriests, and an holy nation. These\nare the words which thou shalt\nspeak unto the children of Israel.\n(Exod 19:5-6)</p>\n</div></div></section>",
     "section": {
       "classes": "py-16 bg-white",
       "containerClasses": "container mx-auto px-4",
       "blocks": [
         {
           "type": "text",
-          "text": "New component",
-          "align": "center",
+          "text": "WHAT IS A COVENANT?",
           "color": "blue"
         },
         {
-          "type": "image",
-          "text": "New block",
-          "src": "/Beast.webp",
-          "widthPercent": 50,
-          "align": "center"
-        }
-      ]
-    }
-  },
-  {
-    "id": "Grid component",
-    "name": "Grid Component",
-    "html": "<section class=\"py-16 bg-teal-600 text-white\" style=\" min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4\">\n<p class=\"text-white mb-4 text-center\">New component</p>\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4\">\n<p class=\"text-gray-600 mb-4 text-center\">New nested block</p>\n</div>\n<p class=\"text-gray-600 mb-4 text-center\">New block</p>\n<p class=\"text-gray-600 mb-4 text-left\">New block</p>\n</div></div></section>",
-    "section": {
-      "classes": "py-16 bg-teal-600 text-white",
-      "containerClasses": "container mx-auto px-4",
-      "blocks": [
-        {
           "type": "text",
-          "text": "New component",
-          "color": "white",
-          "align": "center"
-        },
-        {
-          "type": "layout",
-          "text": "New block",
-          "layout": "grid",
-          "blocks": [
-            {
-              "type": "text",
-              "text": "New nested block",
-              "align": "center"
-            }
-          ],
-          "columns": 4
-        },
-        {
-          "type": "text",
-          "text": "New block",
-          "align": "center"
-        },
-        {
-          "type": "text",
-          "text": "New block"
+          "text": "Covenant: - An agreement or promise, usually formal, between two or\nmore people or groups to do or not\ndo something specified.\n Dictionary.com\nThis is the definition which is most\nwidely accepted and understood, especially as the word is used in the Bible.\nIt focuses on the idea of a commitment\nor agreement made between two parties.\nThe covenant which God made with\nIsrael at Mount Sinai just after they left\nEgypt, is an outstanding example of\nthis kind of covenant. God gave Moses\nthe following message to give to the\npeople:\nNow therefore, if ye will obey my\nvoice indeed, and keep my covenant, then ye shall be a peculiar\ntreasure unto me above all people:\nfor all the earth is mine: And ye\nshall be unto me a kingdom of\npriests, and an holy nation. These\nare the words which thou shalt\nspeak unto the children of Israel.\n(Exod 19:5-6)",
+          "align": "left"
         }
       ],
-      "layout": "grid",
-      "minHeight": "200px",
-      "columns": 4
+      "layout": "linear",
+      "columns": 2,
+      "minHeight": "none"
     }
   }
 ]

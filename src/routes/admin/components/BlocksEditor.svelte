@@ -6,14 +6,7 @@
 
 <div class="flex items-center justify-between mb-2">
   <h2 class="font-semibold">Blocks (visual builder)</h2>
-  <div class="space-x-2">
-    <button
-      class="px-3 py-1 text-sm bg-teal-600 text-white rounded"
-      onclick={(e) => { e.preventDefault(); addBlock(); }}
-    >
-      + Add block
-    </button>
-  </div>
+  
 </div>
 
   {#if selected?.section?.blocks && selected.section.blocks.length}
@@ -43,3 +36,11 @@
   {:else}
     <p class="text-sm text-gray-500">No blocks yet. Click "Add block" to start building this component visually.</p>
   {/if}
+  <div class="space-x-2">
+    <button
+      class="px-3 py-1 text-sm bg-teal-600 text-white rounded"
+      onclick={(e) => { e.preventDefault(); addBlock(); }}
+    >
+      + Add block
+    </button>
+  </div>
