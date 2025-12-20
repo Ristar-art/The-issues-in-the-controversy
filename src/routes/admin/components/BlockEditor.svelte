@@ -1,5 +1,5 @@
 <script>
-  let { block, index, updateBlock, deleteBlockAt, moveBlock, totalBlocks, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock } = $props();
+   let { block, index, updateBlock, deleteBlockAt, moveBlock, totalBlocks, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock, showImageSelectorForNestedBlock, setShowImageSelectorForNestedBlock, addNestedBlock, updateNestedBlock, deleteNestedBlockAt } = $props();
 </script>
 
  <div class="border rounded p-3 space-y-2 bg-white" data-testid={`block-editor-${index}`}>
@@ -7,16 +7,17 @@
    <div class="flex items-center justify-between">
     <div class="flex items-center gap-2">
       <span class="text-xs text-gray-500">#{index + 1}</span>
-      <select
-        class="border px-2 py-1 rounded text-sm"
-        value={block.type}
-        oninput={(e) => updateBlock(index, { type: e.target.value })}
-      >
-        <option value="heading">Heading</option>
-        <option value="text">Text</option>
-        <option value="image">Image</option>
-        <option value="button">Button</option>
-      </select>
+       <select
+         class="border px-2 py-1 rounded text-sm"
+         value={block.type}
+         oninput={(e) => updateBlock(index, { type: e.target.value })}
+       >
+         <option value="heading">Heading</option>
+         <option value="text">Text</option>
+         <option value="image">Image</option>
+         <option value="button">Button</option>
+         <option value="layout">Layout Container</option>
+       </select>
     </div>
     <div class="flex gap-1">
       <button
@@ -234,12 +235,189 @@
       value={block.label ?? ''}
       oninput={(e) => updateBlock(index, { label: e.target.value })}
     />
-    <input
-      id="block-button-href-{index}"
-      class="w-full border px-2 py-1 rounded text-sm"
-      placeholder="Link href (e.g. /contact)"
-      value={block.href ?? ''}
-      oninput={(e) => updateBlock(index, { href: e.target.value })}
-    />
-  {/if}
+     <input
+       id="block-button-href-{index}"
+       class="w-full border px-2 py-1 rounded text-sm"
+       placeholder="Link href (e.g. /contact)"
+       value={block.href ?? ''}
+       oninput={(e) => updateBlock(index, { href: e.target.value })}
+     />
+   {:else if block.type === 'layout'}
+     <div class="flex flex-wrap gap-3 mb-2 text-xs text-gray-600 items-center">
+       <div class="flex gap-1 items-center">
+         <label for="block-layout-type-{index}" class="text-xs text-gray-600">Layout</label>
+         <select
+           id="block-layout-type-{index}"
+           class="border px-2 py-1 rounded text-xs"
+           value={block.layout ?? 'linear'}
+           oninput={(e) => updateBlock(index, { layout: e.target.value })}
+         >
+           <option value="linear">Linear</option>
+           <option value="grid">Grid</option>
+         </select>
+       </div>
+       {#if block.layout === 'grid'}
+         <div class="flex gap-2 items-center">
+           <label for="block-layout-columns-{index}" class="text-xs text-gray-600">Columns</label>
+           <select
+             id="block-layout-columns-{index}"
+             class="border px-2 py-1 rounded text-xs"
+             value={block.columns ?? 2}
+             oninput={(e) => updateBlock(index, { columns: Number(e.target.value) })}
+           >
+             <option value={1}>1</option>
+             <option value={2}>2</option>
+             <option value={3}>3</option>
+             <option value={4}>4</option>
+           </select>
+         </div>
+       {/if}
+     </div>
+     <div class="border-l-4 border-gray-300 pl-4">
+       <div class="flex items-center justify-between mb-2">
+         <p class="text-xs text-gray-500">Nested blocks</p>
+         <div class="space-x-1">
+           <button
+             class="px-2 py-1 text-xs bg-teal-600 text-white rounded"
+             onclick={(e) => { e.preventDefault(); addNestedBlock(index, 'text'); }}
+           >
+             + Text
+           </button>
+           <button
+             class="px-2 py-1 text-xs bg-blue-600 text-white rounded"
+             onclick={(e) => { e.preventDefault(); addNestedBlock(index, 'heading'); }}
+           >
+             + Heading
+           </button>
+           <button
+             class="px-2 py-1 text-xs bg-green-600 text-white rounded"
+             onclick={(e) => { e.preventDefault(); addNestedBlock(index, 'image'); }}
+           >
+             + Image
+           </button>
+         </div>
+       </div>
+       {#if block.blocks && block.blocks.length}
+         <div class="space-y-2">
+           {#each block.blocks as nestedBlock, nestedIndex}
+             <div class="border rounded p-2 bg-gray-50">
+               <div class="flex items-center justify-between mb-1">
+                 <span class="text-xs font-medium">{nestedIndex + 1}. {nestedBlock.type}</span>
+                 <button
+                   class="px-1 py-0.5 text-xs bg-red-500 text-white rounded"
+                   onclick={(e) => { e.preventDefault(); deleteNestedBlockAt(index, nestedIndex); }}
+                 >
+                   ×
+                 </button>
+               </div>
+{#if nestedBlock.type === 'heading' || nestedBlock.type === 'text'}
+                  <div class="flex flex-wrap gap-2 mb-1 text-xs text-gray-600 items-center">
+                    <div class="flex gap-1 items-center">
+                      <label for="nested-block-align-{index}-{nestedIndex}" class="text-xs text-gray-600">Align</label>
+                      <select
+                        id="nested-block-align-{index}-{nestedIndex}"
+                        class="border px-1 py-0.5 rounded text-xs"
+                        value={nestedBlock.align ?? 'left'}
+                        oninput={(e) => updateNestedBlock(index, nestedIndex, { align: e.target.value })}
+                      >
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                      </select>
+                    </div>
+                    <div class="flex gap-1 items-center">
+                      <label for="nested-block-color-{index}-{nestedIndex}" class="text-xs text-gray-600">Color</label>
+                      <select
+                        id="nested-block-color-{index}-{nestedIndex}"
+                        class="border px-1 py-0.5 rounded text-xs"
+                        value={nestedBlock.color ?? (nestedBlock.type === 'heading' ? 'black' : 'gray')}
+                        oninput={(e) => updateNestedBlock(index, nestedIndex, { color: e.target.value })}
+                      >
+                        <option value="black">Black</option>
+                        <option value="gray">Gray</option>
+                        <option value="white">White</option>
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="teal">Teal</option>
+                      </select>
+                    </div>
+                  </div>
+                  <input
+                    class="w-full border px-2 py-1 rounded text-xs"
+                    placeholder="Text content"
+                    value={nestedBlock.text ?? ''}
+                    oninput={(e) => updateNestedBlock(index, nestedIndex, { text: e.target.value })}
+                  />
+{:else if nestedBlock.type === 'image'}
+                   <div class="flex flex-wrap gap-2 mb-1 text-xs text-gray-600 items-center">
+                     <div class="flex gap-1 items-center">
+                       <label for="nested-image-align-{index}-{nestedIndex}" class="text-xs text-gray-600">Align</label>
+                       <select
+                         id="nested-image-align-{index}-{nestedIndex}"
+                         class="border px-1 py-0.5 rounded text-xs"
+                         value={nestedBlock.align ?? 'left'}
+                         oninput={(e) => updateNestedBlock(index, nestedIndex, { align: e.target.value })}
+                       >
+                         <option value="left">Left</option>
+                         <option value="center">Center</option>
+                         <option value="right">Right</option>
+                       </select>
+                     </div>
+                   </div>
+                   <input
+                     class="w-full border px-2 py-1 rounded text-xs"
+                     placeholder="Image src"
+                     value={nestedBlock.src ?? ''}
+                     oninput={(e) => updateNestedBlock(index, nestedIndex, { src: e.target.value })}
+                   />
+                  <div class="mt-1">
+                    <button
+                      class="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600"
+                      onclick={async () => {
+                        if (!showImageSelectorForNestedBlock ||
+                            showImageSelectorForNestedBlock.parentIndex !== index ||
+                            showImageSelectorForNestedBlock.nestedIndex !== nestedIndex) {
+                          await loadAvailableImages();
+                          setShowImageSelectorForNestedBlock(index, nestedIndex);
+                        } else {
+                          setShowImageSelectorForNestedBlock(null, null);
+                        }
+                      }}
+                    >
+                      {showImageSelectorForNestedBlock &&
+                       showImageSelectorForNestedBlock.parentIndex === index &&
+                       showImageSelectorForNestedBlock.nestedIndex === nestedIndex ? 'Hide' : 'Choose'} from existing images
+                    </button>
+                  </div>
+                  {#if showImageSelectorForNestedBlock &&
+                      showImageSelectorForNestedBlock.parentIndex === index &&
+                      showImageSelectorForNestedBlock.nestedIndex === nestedIndex}
+                    <div class="border rounded p-2 max-h-32 overflow-y-auto bg-gray-50 mt-1">
+                      {#if availableImages.length > 0}
+                        {#each availableImages as img}
+                          <button
+                            class="block w-full text-left text-xs p-1 hover:bg-white rounded border-b last:border-b-0"
+                            onclick={() => {
+                              updateNestedBlock(index, nestedIndex, { src: img.url });
+                              setShowImageSelectorForNestedBlock(null, null);
+                            }}
+                          >
+                            📷 {img.name}
+                          </button>
+                        {/each}
+                      {:else}
+                        <p class="text-xs text-gray-500 p-1">No images available yet</p>
+                      {/if}
+                    </div>
+                  {/if}
+                {/if}
+             </div>
+           {/each}
+         </div>
+       {:else}
+         <p class="text-xs text-gray-400 italic">No nested blocks yet. Click the buttons above to add some.</p>
+       {/if}
+     </div>
+   {/if}
 </div>

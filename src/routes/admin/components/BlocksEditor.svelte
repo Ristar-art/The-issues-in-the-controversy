@@ -1,7 +1,7 @@
 <script>
   import BlockEditor from './BlockEditor.svelte';
 
-  let { selected, blockTypes, addBlock, updateBlock, deleteBlockAt, moveBlock, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock } = $props();
+   let { selected, blockTypes, addBlock, updateBlock, deleteBlockAt, moveBlock, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock, showImageSelectorForNestedBlock, setShowImageSelectorForNestedBlock, addNestedBlock, updateNestedBlock, deleteNestedBlockAt } = $props();
 </script>
 
 <div class="flex items-center justify-between mb-2">
@@ -20,18 +20,23 @@
     <ul class="space-y-3">
       {#each selected.section.blocks as block, i}
         <li>
-        <BlockEditor
-          {block}
-          index={i}
-          totalBlocks={selected.section.blocks.length}
-          {updateBlock}
-          {deleteBlockAt}
-          {moveBlock}
-          {loadAvailableImages}
-          {availableImages}
-          {showImageSelectorForBlock}
-          {setShowImageSelectorForBlock}
-        />
+         <BlockEditor
+           {block}
+           index={i}
+           totalBlocks={selected.section.blocks.length}
+           {updateBlock}
+           {deleteBlockAt}
+           {moveBlock}
+           {loadAvailableImages}
+           {availableImages}
+           {showImageSelectorForBlock}
+           {setShowImageSelectorForBlock}
+           {showImageSelectorForNestedBlock}
+           {setShowImageSelectorForNestedBlock}
+           {addNestedBlock}
+           {updateNestedBlock}
+           {deleteNestedBlockAt}
+         />
         </li>
       {/each}
     </ul>

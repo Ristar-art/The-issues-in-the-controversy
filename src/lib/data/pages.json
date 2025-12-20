@@ -20,8 +20,11 @@
       "title": "About Us",
       "slug": "about-us",
       "content": "<p>Information about our organization.</p>",
-      "componentIds": [],
-      "published": false
+      "componentIds": [
+        "sample-hero",
+        "Grid component"
+      ],
+      "published": true
     }
   },
   {

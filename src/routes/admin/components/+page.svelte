@@ -7,7 +7,7 @@
 
   // Define TypeScript interfaces for type safety
   interface Block {
-    type: 'heading' | 'text' | 'image' | 'button';
+    type: 'heading' | 'text' | 'image' | 'button' | 'layout';
     text?: string;
     level?: number;
     color?: string;
@@ -17,6 +17,9 @@
     widthPercent?: number;
     label?: string;
     href?: string;
+    layout?: 'linear' | 'grid';
+    columns?: number;
+    blocks?: Block[];
   }
 
   interface Section {
@@ -25,6 +28,7 @@
     blocks: Block[];
     backgroundImage?: string;
     layout?: 'linear' | 'grid';
+    columns?: number;
     minHeight?: string;
   }
 
@@ -48,6 +52,7 @@
     width: string;
     backgroundImage: string;
     layout: string;
+    columns?: number;
     minHeight: string;
   }
 
@@ -65,8 +70,10 @@
   let availableImages: string[] = $state([]);
   // ID of component currently showing image selector (null if none)
   let showImageSelectorFor: string | null = $state(null);
-  // Index of block currently showing image selector (null if none)
-  let showImageSelectorForBlock: number | null = $state(null);
+   // Index of block currently showing image selector (null if none)
+   let showImageSelectorForBlock: number | null = $state(null);
+   // Nested block currently showing image selector (null if none)
+   let showImageSelectorForNestedBlock: { parentIndex: number; nestedIndex: number } | null = $state(null);
 
   /**
    * Loads the list of available images from the API.
@@ -87,21 +94,22 @@
   // Ensure each component has a section wrapper with its own blocks
   // This handles migration from old format where blocks were directly on component
   // to new format where blocks are nested under section
-  components.forEach((c: Component, idx: number) => {
+components.forEach((c: Component, idx: number) => {
     if (!c.section) {
       const existingBlocks: Block[] = c.blocks ?? [];
       components[idx] = {
         ...c,
         section: {
-          classes: 'py-16 bg-white',
-          containerClasses: 'container mx-auto px-4',
-          blocks: existingBlocks,
-          layout: 'linear',
-          minHeight: 'none'
-        }
-      };
+           classes: 'py-16 bg-white',
+           containerClasses: 'container mx-auto px-4',
+           blocks: existingBlocks,
+           layout: 'linear',
+           columns: 2,
+           minHeight: 'none'
+          }
+     };
     }
-  });
+   });
 
   // ID of currently selected component for editing
   let selectedId: string = $state(components[0]?.id ?? '');
@@ -115,7 +123,8 @@
     { type: 'heading', label: 'Heading' },
     { type: 'text', label: 'Text' },
     { type: 'image', label: 'Image' },
-    { type: 'button', label: 'Button' }
+    { type: 'button', label: 'Button' },
+    { type: 'layout', label: 'Layout Container' }
   ];
 
   /**
@@ -130,6 +139,7 @@
       containerClasses: 'container mx-auto px-4',
       blocks: [{ type: 'text', text: 'New block' }],
       layout: 'linear',
+      columns: 2,
       minHeight: 'none'
     };
     const html: string = sectionToHtml(section);
@@ -172,6 +182,7 @@
       containerClasses: 'container mx-auto px-4',
       blocks: selected.blocks ?? [],
       layout: 'linear',
+      columns: 2,
       minHeight: 'none'
     };
     // Always preserve existing blocks unless explicitly overridden
@@ -193,6 +204,7 @@
       containerClasses: 'container mx-auto px-4',
       blocks: [],
       layout: 'linear',
+      columns: 2,
       minHeight: 'none'
     };
     const classes: string = sec.classes ?? 'py-16 bg-white';
@@ -213,7 +225,7 @@
     let width: string = 'boxed';
     if (!containerClasses.includes('container')) width = 'full';
 
-    return { background, padding, width, backgroundImage: sec.backgroundImage ?? '', layout: sec.layout ?? 'linear', minHeight: sec.minHeight ?? 'none' };
+    return { background, padding, width, backgroundImage: sec.backgroundImage ?? '', layout: sec.layout ?? 'linear', columns: sec.columns ?? 2, minHeight: sec.minHeight ?? 'none' };
   }
 
   /**
@@ -252,46 +264,53 @@
       next.background === 'image'
         ? next.backgroundImage ?? ''
         : undefined;
-    updateSection({ classes, containerClasses, blocks: existingBlocks, backgroundImage, layout: next.layout, minHeight: next.minHeight });
+    updateSection({ classes, containerClasses, blocks: existingBlocks, backgroundImage, layout: next.layout, columns: next.columns, minHeight: next.minHeight });
     applyBlocksToHtml();
   }
 
-  /**
-   * Adds a new text block to the selected component's section.
-   * The new block is appended to the end of the existing blocks.
-   */
-  function addBlock(): void {
-    if (!selected) return;
-    const section: Section = selected.section ?? {
-      classes: 'py-16 bg-white',
-      containerClasses: 'container mx-auto px-4',
-      blocks: [],
-      layout: 'linear',
-      minHeight: 'none'
-    };
+   /**
+    * Adds a new text block to the selected component's section.
+    * The new block is appended to the end of the existing blocks.
+    */
+   function addBlock(): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
     const current: Block[] = section.blocks ?? [];
+    const newBlock: Block = { type: 'text', text: 'New block' };
+    if (newBlock.type === 'layout') {
+      newBlock.layout = 'linear';
+      newBlock.blocks = [];
+    }
     const newBlocks: Block[] = [
       ...current,
-      { type: 'text', text: 'New block' }
+      newBlock
     ];
     updateSection({ blocks: newBlocks });
     applyBlocksToHtml();
   }
 
-  /**
-   * Updates a specific block in the selected component's section.
-   * @param index - Index of the block to update
-   * @param partial - Partial block properties to apply
-   */
-  function updateBlock(index: number, partial: Partial<Block>): void {
-    if (!selected) return;
-    const section: Section = selected.section ?? {
-      classes: 'py-16 bg-white',
-      containerClasses: 'container mx-auto px-4',
-      blocks: [],
-      layout: 'linear',
-      minHeight: 'none'
-    };
+   /**
+    * Updates a specific block in the selected component's section.
+    * @param index - Index of the block to update
+    * @param partial - Partial block properties to apply
+    */
+   function updateBlock(index: number, partial: Partial<Block>): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
     const current: Block[] = section.blocks ?? [];
     const newBlocks: Block[] = current.map((block: Block, i: number) =>
       i === index ? { ...block, ...partial } : block
@@ -300,39 +319,41 @@
     applyBlocksToHtml();
   }
 
-  /**
-   * Removes a block from the selected component's section at the specified index.
-   * @param index - Index of the block to delete
-   */
-  function deleteBlockAt(index: number): void {
-    if (!selected) return;
-    const section: Section = selected.section ?? {
-      classes: 'py-16 bg-white',
-      containerClasses: 'container mx-auto px-4',
-      blocks: [],
-      layout: 'linear',
-      minHeight: 'none'
-    };
+   /**
+    * Removes a block from the selected component's section at the specified index.
+    * @param index - Index of the block to delete
+    */
+   function deleteBlockAt(index: number): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
     const current: Block[] = section.blocks ?? [];
     const newBlocks: Block[] = current.filter((_: Block, i: number) => i !== index);
     updateSection({ blocks: newBlocks });
     applyBlocksToHtml();
   }
 
-  /**
-   * Moves a block up or down within the selected component's section.
-   * @param index - Current index of the block to move
-   * @param direction - Direction to move (-1 for up, 1 for down)
-   */
-  function moveBlock(index: number, direction: number): void {
-    if (!selected) return;
-    const section: Section = selected.section ?? {
-      classes: 'py-16 bg-white',
-      containerClasses: 'container mx-auto px-4',
-      blocks: [],
-      layout: 'linear',
-      minHeight: 'none'
-    };
+   /**
+    * Moves a block up or down within the selected component's section.
+    * @param index - Current index of the block to move
+    * @param direction - Direction to move (-1 for up, 1 for down)
+    */
+   function moveBlock(index: number, direction: number): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
     const current: Block[] = section.blocks ?? [];
     const newIndex: number = index + direction;
     if (newIndex < 0 || newIndex >= current.length) return;
@@ -382,27 +403,61 @@
           const href: string = block.href ?? '#';
           return `<div class="${alignClass} mb-4"><a href="${href}" class="btn inline-block">${label}</a></div>`;
         }
+        if (block.type === 'layout') {
+          const layout: string = block.layout ?? 'linear';
+          const columns: number = block.columns ?? 2;
+          const nestedBlocks: Block[] = block.blocks ?? [];
+          let layoutClass: string = '';
+          if (layout === 'grid') {
+            // Responsive grid classes based on number of columns
+            if (columns === 1) {
+              layoutClass = 'grid grid-cols-1 gap-4';
+            } else if (columns === 2) {
+              layoutClass = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+            } else if (columns === 3) {
+              layoutClass = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4';
+            } else if (columns === 4) {
+              layoutClass = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4';
+            }
+          }
+          const inner: string = blocksToHtml(nestedBlocks);
+          return `<div class="${layoutClass} mb-4">\n${inner}\n</div>`;
+        }
         return '';
       })
       .join('\n');
   }
 
-  /**
-   * Converts a section object into complete HTML string representation.
-   * Includes the section wrapper with background styling and container div.
-   * @param section - Section object to convert to HTML
-   * @returns Complete HTML string for the section
-   */
-  function sectionToHtml(section: Section | undefined): string {
-    const sec: Section = section ?? {
-      classes: 'py-16 bg-white',
-      containerClasses: 'container mx-auto px-4',
-      blocks: [],
-      layout: 'linear',
-      minHeight: 'none'
-    };
+   /**
+    * Converts a section object into complete HTML string representation.
+    * Includes the section wrapper with background styling and container div.
+    * @param section - Section object to convert to HTML
+    * @returns Complete HTML string for the section
+    */
+   function sectionToHtml(section: Section | undefined): string {
+     const sec: Section = section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
     const inner: string = blocksToHtml(sec.blocks ?? []);
-    const layoutClass: string = sec.layout === 'grid' ? 'grid grid-cols-2 gap-4' : '';
+     let layoutClass: string = '';
+    if (sec.layout === 'grid') {
+      if (sec.columns === 1) {
+        layoutClass = 'grid grid-cols-1 gap-4';
+      } else if (sec.columns === 2) {
+        layoutClass = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+      } else if (sec.columns === 3) {
+        layoutClass = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4';
+      } else if (sec.columns === 4) {
+        layoutClass = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4';
+      } else {
+        layoutClass = 'grid grid-cols-1 md:grid-cols-2 gap-4';
+      }
+    }
     let style: string = sec.backgroundImage ? `background-image: url('${sec.backgroundImage}'); background-size: cover; background-position: center;` : '';
     if (sec.minHeight && sec.minHeight !== 'none') {
       style += ` min-height: ${sec.minHeight};`;
@@ -472,6 +527,118 @@
   function setShowImageSelectorForBlock(index: number | null): void {
     showImageSelectorForBlock = index;
   }
+
+  /**
+   * Sets which nested block should show the image selector modal.
+   * @param parentIndex - Parent block index
+   * @param nestedIndex - Nested block index, or null to hide
+   */
+  function setShowImageSelectorForNestedBlock(parentIndex: number | null, nestedIndex: number | null): void {
+    if (parentIndex === null || nestedIndex === null) {
+      showImageSelectorForNestedBlock = null;
+    } else {
+      showImageSelectorForNestedBlock = { parentIndex, nestedIndex };
+    }
+  }
+
+   /**
+    * Adds a nested block to a layout block at the specified parent index.
+    * @param parentIndex - Index of the parent layout block
+    * @param blockType - Type of block to add ('text' by default)
+    */
+   function addNestedBlock(parentIndex: number, blockType: string = 'text'): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
+    const current: Block[] = section.blocks ?? [];
+    if (parentIndex < 0 || parentIndex >= current.length || current[parentIndex].type !== 'layout') return;
+
+    const parentBlock: Block = current[parentIndex];
+    const nestedBlocks: Block[] = parentBlock.blocks ?? [];
+    const newNestedBlock: Block = { type: blockType, text: 'New nested block' };
+    if (newNestedBlock.type === 'layout') {
+      newNestedBlock.layout = 'linear';
+      newNestedBlock.blocks = [];
+    }
+
+    const updatedParent: Block = { ...parentBlock, blocks: [...nestedBlocks, newNestedBlock] };
+    const newBlocks: Block[] = current.map((block: Block, i: number) =>
+      i === parentIndex ? updatedParent : block
+    );
+    updateSection({ blocks: newBlocks });
+    applyBlocksToHtml();
+  }
+
+   /**
+    * Updates a nested block within a layout block.
+    * @param parentIndex - Index of the parent layout block
+    * @param nestedIndex - Index of the nested block to update
+    * @param partial - Partial block properties to apply
+    */
+   function updateNestedBlock(parentIndex: number, nestedIndex: number, partial: Partial<Block>): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
+    const current: Block[] = section.blocks ?? [];
+    if (parentIndex < 0 || parentIndex >= current.length || current[parentIndex].type !== 'layout') return;
+
+    const parentBlock: Block = current[parentIndex];
+    const nestedBlocks: Block[] = parentBlock.blocks ?? [];
+    if (nestedIndex < 0 || nestedIndex >= nestedBlocks.length) return;
+
+    const updatedNestedBlocks: Block[] = nestedBlocks.map((block: Block, i: number) =>
+      i === nestedIndex ? { ...block, ...partial } : block
+    );
+    const updatedParent: Block = { ...parentBlock, blocks: updatedNestedBlocks };
+    const newBlocks: Block[] = current.map((block: Block, i: number) =>
+      i === parentIndex ? updatedParent : block
+    );
+    updateSection({ blocks: newBlocks });
+    applyBlocksToHtml();
+  }
+
+  /**
+   * Deletes a nested block from a layout block.
+   * @param parentIndex - Index of the parent layout block
+   * @param nestedIndex - Index of the nested block to delete
+   */
+   function deleteNestedBlockAt(parentIndex: number, nestedIndex: number): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
+    const current: Block[] = section.blocks ?? [];
+    if (parentIndex < 0 || parentIndex >= current.length || current[parentIndex].type !== 'layout') return;
+
+    const parentBlock: Block = current[parentIndex];
+    const nestedBlocks: Block[] = parentBlock.blocks ?? [];
+    if (nestedIndex < 0 || nestedIndex >= nestedBlocks.length) return;
+
+    const updatedNestedBlocks: Block[] = nestedBlocks.filter((_: Block, i: number) => i !== nestedIndex);
+    const updatedParent: Block = { ...parentBlock, blocks: updatedNestedBlocks };
+    const newBlocks: Block[] = current.map((block: Block, i: number) =>
+      i === parentIndex ? updatedParent : block
+    );
+    updateSection({ blocks: newBlocks });
+    applyBlocksToHtml();
+  }
 </script>
 
 <main class="max-w-5xl mx-auto py-8 px-4">
@@ -496,18 +663,23 @@
           setShowImageSelectorFor={setShowImageSelectorFor}
         />
 
-        <BlocksEditor
-          {selected}
-          {blockTypes}
-          {addBlock}
-          {updateBlock}
-          {deleteBlockAt}
-          {moveBlock}
-          {loadAvailableImages}
-          {availableImages}
-          {showImageSelectorForBlock}
-          {setShowImageSelectorForBlock}
-        />
+         <BlocksEditor
+           {selected}
+           {blockTypes}
+           {addBlock}
+           {updateBlock}
+           {deleteBlockAt}
+           {moveBlock}
+           {loadAvailableImages}
+           {availableImages}
+           {showImageSelectorForBlock}
+           {setShowImageSelectorForBlock}
+           {showImageSelectorForNestedBlock}
+           {setShowImageSelectorForNestedBlock}
+           {addNestedBlock}
+           {updateNestedBlock}
+           {deleteNestedBlockAt}
+         />
 
         <div class="pt-4 flex gap-3">
           <button class="px-4 py-2 bg-teal-600 text-white rounded" onclick={(e) => { e.preventDefault(); save(); }}>

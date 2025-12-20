@@ -22,6 +22,7 @@ interface Section {
   blocks: Block[];
   backgroundImage?: string;
   layout?: 'linear' | 'grid';
+  columns?: number;
   minHeight?: string;
 }
 
@@ -69,10 +70,25 @@ function sectionToHtml(section: Section | undefined): string {
     containerClasses: 'container mx-auto px-4',
     blocks: [],
     layout: 'linear',
+    columns: 2,
     minHeight: 'none'
   };
   const inner: string = blocksToHtml(sec.blocks ?? []);
-  const layoutClass: string = sec.layout === 'grid' ? 'grid grid-cols-2 gap-4' : '';
+  let layoutClass: string = '';
+  if (sec.layout === 'grid') {
+    const columns = sec.columns ?? 2;
+    if (columns === 1) {
+      layoutClass = 'grid grid-cols-1 gap-4';
+    } else if (columns === 2) {
+      layoutClass = 'grid grid-cols-2 gap-4';
+    } else if (columns === 3) {
+      layoutClass = 'grid grid-cols-3 gap-4';
+    } else if (columns === 4) {
+      layoutClass = 'grid grid-cols-4 gap-4';
+    } else {
+      layoutClass = 'grid grid-cols-2 gap-4';
+    }
+  }
   let style: string = sec.backgroundImage ? `background-image: url('${sec.backgroundImage}'); background-size: cover; background-position: center;` : '';
   if (sec.minHeight && sec.minHeight !== 'none') {
     style += ` min-height: ${sec.minHeight};`;
@@ -89,6 +105,7 @@ describe('Section HTML Generation', () => {
         containerClasses: 'container mx-auto px-4',
         blocks: [{ type: 'text', text: 'Test block' }],
         layout: 'linear',
+        columns: 2,
         minHeight: 'none'
       };
 
@@ -144,6 +161,7 @@ describe('Section HTML Generation', () => {
         containerClasses: 'container mx-auto px-4',
         blocks: [{ type: 'text', text: 'Test' }],
         layout: 'linear',
+        columns: 2,
         minHeight: 'none'
       };
 

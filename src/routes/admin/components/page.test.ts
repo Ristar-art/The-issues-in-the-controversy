@@ -16,13 +16,14 @@ describe('Components Editor Page', () => {
           id: 'comp1',
           name: 'Test Component',
           html: '<section class="py-16 bg-white"><div class="container mx-auto px-4"><div class="">\n<p class="text-gray-600 mb-4 text-left">Test block</p>\n</div></div></section>',
-          section: {
-            classes: 'py-16 bg-white',
-            containerClasses: 'container mx-auto px-4',
-            blocks: [{ type: 'text', text: 'Test block' }],
-            layout: 'linear',
-            minHeight: 'none'
-          }
+           section: {
+             classes: 'py-16 bg-white',
+             containerClasses: 'container mx-auto px-4',
+             blocks: [{ type: 'text', text: 'Test block' }],
+             layout: 'linear',
+             columns: 2,
+             minHeight: 'none'
+           }
         }
       ]
     };
@@ -90,6 +91,7 @@ describe('Components Editor Page', () => {
                 { type: 'text', text: 'Block 2' }
               ],
               layout: 'linear',
+              columns: 2,
               minHeight: 'none'
             }
           }
@@ -128,6 +130,7 @@ describe('Components Editor Page', () => {
                 { type: 'text', text: 'Block 2' }
               ],
               layout: 'linear',
+              columns: 2,
               minHeight: 'none'
             }
           }

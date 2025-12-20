@@ -8,6 +8,7 @@
     width: string;
     padding: string;
     layout: string;
+    columns?: number;
     minHeight: string;
   }
 
@@ -51,6 +52,7 @@ describe('SectionSettings Component', () => {
         width: 'boxed',
         padding: 'normal',
         layout: 'linear',
+        columns: 2,
         minHeight: 'none'
       },
       updateSectionStyle: updateSectionStyleMock,

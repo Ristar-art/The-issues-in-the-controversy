@@ -44,11 +44,11 @@
     }
   },
   {
-    "id": "Hero section",
-    "name": "New Component",
-    "html": "<section class=\"py-16\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center; min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"grid grid-cols-2 gap-4\">\n<p class=\"text-white mb-4 text-center\">New component</p>\n<div class=\"text-center mb-4\"><img src=\"/Endgame of heaven.jpg\" alt=\"\" style=\"width: 100%; max-width: 100%;\" class=\"h-auto inline-block\" /></div>\n</div></div></section>",
+    "id": "Grid component",
+    "name": "Grid Component",
+    "html": "<section class=\"py-16 bg-teal-600 text-white\" style=\" min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4\">\n<p class=\"text-white mb-4 text-center\">New component</p>\n<div class=\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4\">\n<p class=\"text-gray-600 mb-4 text-center\">New nested block</p>\n</div>\n<p class=\"text-gray-600 mb-4 text-center\">New block</p>\n<p class=\"text-gray-600 mb-4 text-left\">New block</p>\n</div></div></section>",
     "section": {
-      "classes": "py-16",
+      "classes": "py-16 bg-teal-600 text-white",
       "containerClasses": "container mx-auto px-4",
       "blocks": [
         {
@@ -58,15 +58,31 @@
           "align": "center"
         },
         {
-          "type": "image",
+          "type": "layout",
           "text": "New block",
-          "align": "center",
-          "src": "/Endgame of heaven.jpg"
+          "layout": "grid",
+          "blocks": [
+            {
+              "type": "text",
+              "text": "New nested block",
+              "align": "center"
+            }
+          ],
+          "columns": 4
+        },
+        {
+          "type": "text",
+          "text": "New block",
+          "align": "center"
+        },
+        {
+          "type": "text",
+          "text": "New block"
         }
       ],
-      "backgroundImage": "/_.jpeg",
       "layout": "grid",
-      "minHeight": "200px"
+      "minHeight": "200px",
+      "columns": 4
     }
   }
 ]

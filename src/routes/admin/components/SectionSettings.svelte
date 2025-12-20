@@ -127,18 +127,34 @@
            <option value="large">Large</option>
          </select>
        </div>
-       <div>
-         <label for="section-layout" class="block mb-1">Layout</label>
-         <select
-           id="section-layout"
-           class="border px-2 py-1 rounded text-xs"
-           value={sectionSettings.layout}
-           oninput={(e) => updateSectionStyle({ layout: e.target.value })}
-         >
-           <option value="linear">Linear</option>
-           <option value="grid">Grid</option>
-         </select>
-       </div>
+<div>
+          <label for="section-layout" class="block mb-1">Layout</label>
+          <select
+            id="section-layout"
+            class="border px-2 py-1 rounded text-xs"
+            value={sectionSettings.layout}
+            oninput={(e) => updateSectionStyle({ layout: e.target.value })}
+          >
+            <option value="linear">Linear</option>
+            <option value="grid">Grid</option>
+          </select>
+        </div>
+        {#if sectionSettings.layout === 'grid'}
+          <div>
+            <label for="section-columns" class="block mb-1">Columns</label>
+            <select
+              id="section-columns"
+              class="border px-2 py-1 rounded text-xs"
+              value={sectionSettings.columns ?? 2}
+              oninput={(e) => updateSectionStyle({ columns: Number(e.target.value) })}
+            >
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+            </select>
+          </div>
+        {/if}
        <div>
          <label for="section-minheight" class="block mb-1">Min Height</label>
          <select
