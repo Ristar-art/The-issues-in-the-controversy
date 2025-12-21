@@ -245,18 +245,18 @@ describe('BlockEditor Component', () => {
 
     it('should render text textarea', () => {
       render(BlockEditor, { props: mockProps });
-      expect(screen.getByPlaceholderText('Paragraph text')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))')).toBeInTheDocument();
     });
 
     it('should display current text content', () => {
       render(BlockEditor, { props: mockProps });
-      const textarea = screen.getByPlaceholderText('Paragraph text');
+      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))');
       expect(textarea.value).toBe('Test paragraph');
     });
 
     it('should call updateBlock when text changes', async () => {
       render(BlockEditor, { props: mockProps });
-      const textarea = screen.getByPlaceholderText('Paragraph text');
+      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))');
       
       await fireEvent.input(textarea, { target: { value: 'New paragraph' } });
       
@@ -579,15 +579,15 @@ describe('BlockEditor Component', () => {
     it('should prevent default on move up button click', async () => {
       mockProps.index = 1;
       render(BlockEditor, { props: mockProps });
-      
+
       const buttons = screen.getAllByRole('button');
       const upButton = buttons.find(btn => btn.textContent === '↑');
-      
+
       const event = new MouseEvent('click', { bubbles: true, cancelable: true });
       const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
-      
+
       upButton.dispatchEvent(event);
-      
+
       await waitFor(() => {
         expect(mockProps.moveBlock).toHaveBeenCalled();
       });
@@ -596,15 +596,15 @@ describe('BlockEditor Component', () => {
     it('should prevent default on move down button click', async () => {
       mockProps.index = 0;
       render(BlockEditor, { props: mockProps });
-      
+
       const buttons = screen.getAllByRole('button');
       const downButton = buttons.find(btn => btn.textContent === '↓');
-      
+
       const event = new MouseEvent('click', { bubbles: true, cancelable: true });
       const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
-      
+
       downButton.dispatchEvent(event);
-      
+
       await waitFor(() => {
         expect(mockProps.moveBlock).toHaveBeenCalled();
       });
@@ -612,15 +612,158 @@ describe('BlockEditor Component', () => {
 
     it('should prevent default on remove button click', async () => {
       render(BlockEditor, { props: mockProps });
-      
+
       const removeButton = screen.getByText('Remove');
       const event = new MouseEvent('click', { bubbles: true, cancelable: true });
-      
+
       removeButton.dispatchEvent(event);
-      
+
       await waitFor(() => {
         expect(mockProps.deleteBlockAt).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('Layout and Styling', () => {
+    it('should have correct container styling', () => {
+      const { container } = render(BlockEditor, { props: mockProps });
+      const mainDiv = container.querySelector('.border.rounded.p-3.space-y-2.bg-white');
+      expect(mainDiv).toBeInTheDocument();
+    });
+
+    it('should have flex layout for header section', () => {
+      const { container } = render(BlockEditor, { props: mockProps });
+      const headerDiv = container.querySelector('.flex.items-center.justify-between');
+      expect(headerDiv).toBeInTheDocument();
+    });
+
+    it('should have gap between header elements', () => {
+      const { container } = render(BlockEditor, { props: mockProps });
+      const leftSection = container.querySelector('.flex.items-center.gap-2');
+      expect(leftSection).toBeInTheDocument();
+    });
+
+    it('should have correct index number styling', () => {
+      render(BlockEditor, { props: mockProps });
+      const indexSpan = screen.getByText('#1');
+      expect(indexSpan.className).toContain('text-xs');
+      expect(indexSpan.className).toContain('text-gray-500');
+    });
+
+    it('should have correct type selector styling', () => {
+      render(BlockEditor, { props: mockProps });
+      const typeSelect = screen.getByDisplayValue('Heading');
+      expect(typeSelect.className).toContain('border');
+      expect(typeSelect.className).toContain('px-2');
+      expect(typeSelect.className).toContain('py-1');
+      expect(typeSelect.className).toContain('rounded');
+      expect(typeSelect.className).toContain('text-sm');
+    });
+
+    it('should have correct button group styling', () => {
+      const { container } = render(BlockEditor, { props: mockProps });
+      const buttonGroup = container.querySelector('.flex.gap-1');
+      expect(buttonGroup).toBeInTheDocument();
+    });
+
+    it('should have correct move button styling', () => {
+      render(BlockEditor, { props: mockProps });
+      const buttons = screen.getAllByRole('button');
+      const upButton = buttons.find(btn => btn.textContent === '↑');
+      expect(upButton.className).toContain('px-2');
+      expect(upButton.className).toContain('py-1');
+      expect(upButton.className).toContain('text-xs');
+      expect(upButton.className).toContain('border');
+      expect(upButton.className).toContain('rounded');
+    });
+
+    it('should have correct remove button styling', () => {
+      render(BlockEditor, { props: mockProps });
+      const removeButton = screen.getByText('Remove');
+      expect(removeButton.className).toContain('px-2');
+      expect(removeButton.className).toContain('py-1');
+      expect(removeButton.className).toContain('bg-red-100');
+      expect(removeButton.className).toContain('text-red-700');
+      expect(removeButton.className).toContain('rounded');
+    });
+
+    it('should have correct heading controls layout', () => {
+      mockProps.block = { type: 'heading', text: 'Test' };
+      const { container } = render(BlockEditor, { props: mockProps });
+      const controlsDiv = container.querySelector('.flex.flex-wrap.gap-3.items-center.mb-2');
+      expect(controlsDiv).toBeInTheDocument();
+    });
+
+    it('should have correct heading input styling', () => {
+      mockProps.block = { type: 'heading', text: 'Test' };
+      render(BlockEditor, { props: mockProps });
+      const input = screen.getByPlaceholderText('Heading text');
+      expect(input.className).toContain('w-full');
+      expect(input.className).toContain('border');
+      expect(input.className).toContain('px-2');
+      expect(input.className).toContain('py-1');
+      expect(input.className).toContain('rounded');
+      expect(input.className).toContain('text-sm');
+    });
+
+    it('should have correct text input styling', () => {
+      mockProps.block = { type: 'text', text: 'Test' };
+      render(BlockEditor, { props: mockProps });
+      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))');
+      expect(textarea.className).toContain('w-full');
+      expect(textarea.className).toContain('border');
+      expect(textarea.className).toContain('px-2');
+      expect(textarea.className).toContain('py-1');
+      expect(textarea.className).toContain('rounded');
+      expect(textarea.className).toContain('text-sm');
+    });
+
+    it('should have correct image input styling', () => {
+      mockProps.block = { type: 'image', src: '/test.jpg', alt: 'Test' };
+      render(BlockEditor, { props: mockProps });
+      const srcInput = screen.getByPlaceholderText('Image src (e.g. /my-image.jpg)');
+      expect(srcInput.className).toContain('w-full');
+      expect(srcInput.className).toContain('border');
+      expect(srcInput.className).toContain('px-2');
+      expect(srcInput.className).toContain('py-1');
+      expect(srcInput.className).toContain('rounded');
+      expect(srcInput.className).toContain('text-sm');
+    });
+
+    it('should have correct alt input styling', () => {
+      mockProps.block = { type: 'image', src: '/test.jpg', alt: 'Test' };
+      render(BlockEditor, { props: mockProps });
+      const altInput = screen.getByPlaceholderText('Alt text');
+      expect(altInput.className).toContain('w-full');
+      expect(altInput.className).toContain('border');
+      expect(altInput.className).toContain('px-2');
+      expect(altInput.className).toContain('py-1');
+      expect(altInput.className).toContain('rounded');
+      expect(altInput.className).toContain('text-sm');
+    });
+
+    it('should have correct button input styling', () => {
+      mockProps.block = { type: 'button', label: 'Test', href: '/test' };
+      render(BlockEditor, { props: mockProps });
+      const labelInput = screen.getByPlaceholderText('Button label');
+      expect(labelInput.className).toContain('w-full');
+      expect(labelInput.className).toContain('border');
+      expect(labelInput.className).toContain('px-2');
+      expect(labelInput.className).toContain('py-1');
+      expect(labelInput.className).toContain('rounded');
+      expect(labelInput.className).toContain('text-sm');
+    });
+
+    it('should have correct href input styling', () => {
+      mockProps.block = { type: 'button', label: 'Test', href: '/test' };
+      render(BlockEditor, { props: mockProps });
+      const hrefInput = screen.getByPlaceholderText('Link href (e.g. /contact)');
+      expect(hrefInput.className).toContain('w-full');
+      expect(hrefInput.className).toContain('border');
+      expect(hrefInput.className).toContain('px-2');
+      expect(hrefInput.className).toContain('py-1');
+      expect(hrefInput.className).toContain('rounded');
+      expect(hrefInput.className).toContain('text-sm');
     });
   });
 });

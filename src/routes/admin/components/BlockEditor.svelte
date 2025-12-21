@@ -1,6 +1,55 @@
-<script>
-   let { block, index, updateBlock, deleteBlockAt, moveBlock, totalBlocks, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock, showImageSelectorForNestedBlock, setShowImageSelectorForNestedBlock, addNestedBlock, updateNestedBlock, deleteNestedBlockAt } = $props();
-</script>
+ <script>
+    let { block, index, updateBlock, deleteBlockAt, moveBlock, totalBlocks, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock, showImageSelectorForNestedBlock, setShowImageSelectorForNestedBlock, addNestedBlock, updateNestedBlock, deleteNestedBlockAt } = $props();
+
+    function insertText(prefix, suffix, placeholder) {
+        const textarea = document.getElementById(`block-text-${index}`);
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = block.text ?? '';
+        const before = text.substring(0, start);
+        const selected = text.substring(start, end);
+        const after = text.substring(end);
+        const newText = before + prefix + (selected || placeholder) + suffix + after;
+        updateBlock(index, { text: newText });
+        setTimeout(() => {
+            textarea.selectionStart = textarea.selectionEnd = start + prefix.length + (selected ? selected.length : placeholder.length);
+            textarea.focus();
+        }, 0);
+    }
+
+    function insertBold() {
+        insertText('**', '**', 'bold text');
+    }
+
+    function insertItalic() {
+        insertText('*', '*', 'italic text');
+    }
+
+    function insertBullet() {
+        insertText('- ', '\n', 'list item');
+    }
+
+    function insertNumber() {
+        insertText('1. ', '\n', 'list item');
+    }
+
+    function insertLink() {
+        const textarea = document.getElementById(`block-text-${index}`);
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = block.text ?? '';
+        const before = text.substring(0, start);
+        const selected = text.substring(start, end);
+        const after = text.substring(end);
+        const newText = before + `[${selected || 'link text'}](url)` + after;
+        updateBlock(index, { text: newText });
+        setTimeout(() => {
+            textarea.selectionStart = start + (selected ? selected.length + 3 : 13);
+            textarea.selectionEnd = start + (selected ? selected.length + 6 : 16);
+            textarea.focus();
+        }, 0);
+    }
+ </script>
 
  <div class="border rounded p-3 space-y-2 bg-white" data-testid={`block-editor-${index}`}>
    <p class="sr-only">Block #{index + 1} - {block.type}</p>
@@ -129,14 +178,51 @@
           <option value="teal">Teal</option>
         </select>
       </div>
-    </div>
-    <textarea
-      id="block-text-{index}"
-      class="w-full border px-2 py-1 rounded text-sm h-24"
-      placeholder="Paragraph text"
-      value={block.text ?? ''}
-      oninput={(e) => updateBlock(index, { text: e.target.value })}
-    ></textarea>
+     </div>
+     <div class="flex gap-1 mb-2">
+       <button
+         type="button"
+         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+         onclick={insertBold}
+       >
+         <strong>B</strong>
+       </button>
+       <button
+         type="button"
+         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded italic"
+         onclick={insertItalic}
+       >
+         <em>I</em>
+       </button>
+       <button
+         type="button"
+         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+         onclick={insertBullet}
+       >
+         •
+       </button>
+       <button
+         type="button"
+         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+         onclick={insertNumber}
+       >
+         1.
+       </button>
+       <button
+         type="button"
+         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+         onclick={insertLink}
+       >
+         🔗
+       </button>
+     </div>
+     <textarea
+       id="block-text-{index}"
+       class="w-full border px-2 py-1 rounded text-sm h-24"
+       placeholder="Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))"
+       value={block.text ?? ''}
+       oninput={(e) => updateBlock(index, { text: e.target.value })}
+     ></textarea>
   {:else if block.type === 'image'}
     <div class="flex flex-wrap gap-3 mb-2 text-xs text-gray-600 items-center">
       <div class="flex gap-1 items-center">

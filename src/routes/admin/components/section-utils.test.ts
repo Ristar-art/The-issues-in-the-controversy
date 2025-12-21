@@ -26,6 +26,76 @@ interface Section {
   minHeight?: string;
 }
 
+function parseMarkdown(text: string): string {
+  // Escape HTML first
+  let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  // Links: [text](url)
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+  // Bold: **text**
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+  // Italic: *text*
+  html = html.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
+
+  // Handle lists
+  const lines = html.split('\n');
+  let inUl = false;
+  let inOl = false;
+  let result: string[] = [];
+  let hasLists = false;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (trimmed.startsWith('- ')) {
+      hasLists = true;
+      if (!inUl) {
+        result.push('<ul>');
+        inUl = true;
+      }
+      if (inOl) {
+        result.push('</ol>');
+        inOl = false;
+      }
+      result.push(`<li>${trimmed.substring(2)}</li>`);
+    } else if (/^\d+\.\s/.test(trimmed)) {
+      hasLists = true;
+      if (!inOl) {
+        result.push('<ol>');
+        inOl = true;
+      }
+      if (inUl) {
+        result.push('</ul>');
+        inUl = false;
+      }
+      const content = trimmed.replace(/^\d+\.\s/, '');
+      result.push(`<li>${content}</li>`);
+    } else {
+      if (inUl) {
+        result.push('</ul>');
+        inUl = false;
+      }
+      if (inOl) {
+        result.push('</ol>');
+        inOl = false;
+      }
+      if (trimmed) {
+        result.push(trimmed);
+      }
+    }
+  }
+  if (inUl) result.push('</ul>');
+  if (inOl) result.push('</ol>');
+
+  // If no lists, just return the processed text; otherwise join with line breaks
+  if (!hasLists && lines.length === 1) {
+    return result.join('');
+  } else {
+    return result.join('<br>');
+  }
+}
+
 function blocksToHtml(blocks: Block[]): string {
   return blocks
     .map((block: Block) => {
@@ -45,7 +115,8 @@ function blocksToHtml(blocks: Block[]): string {
         const text: string = block.text ?? '';
         const color: string = block.color ?? 'gray';
         const colorClass: string = color === 'gray' ? 'text-gray-600' : color === 'black' ? 'text-black' : color === 'white' ? 'text-white' : color === 'red' ? 'text-red-600' : color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'teal' ? 'text-teal-600' : 'text-gray-600';
-        return `<p class="${colorClass} mb-4 ${alignClass}">${text}</p>`;
+        const parsedText = parseMarkdown(text);
+        return `<div class="${colorClass} mb-4 ${alignClass}">${parsedText}</div>`;
       }
       if (block.type === 'image') {
         const src: string = block.src ?? '';
@@ -113,7 +184,7 @@ describe('Section HTML Generation', () => {
       expect(html).toContain('<section class="py-16 bg-white">');
       expect(html).toContain('<div class="container mx-auto px-4">');
       expect(html).toContain('<div class="">'); // Empty layout class for linear
-      expect(html).toContain('<p class="text-gray-600 mb-4 text-left">Test block</p>');
+       expect(html).toContain('<div class="text-gray-600 mb-4 text-left">Test block</div>');
       expect(html).not.toContain('grid grid-cols-2 gap-4');
     });
   });
@@ -134,9 +205,9 @@ describe('Section HTML Generation', () => {
       const html = sectionToHtml(section);
       expect(html).toContain('<section class="py-16 bg-white">');
       expect(html).toContain('<div class="container mx-auto px-4">');
-      expect(html).toContain('<div class="grid grid-cols-2 gap-4">');
-      expect(html).toContain('<p class="text-gray-600 mb-4 text-left">Block 1</p>');
-      expect(html).toContain('<p class="text-gray-600 mb-4 text-left">Block 2</p>');
+       expect(html).toContain('<div class="grid grid-cols-2 gap-4">');
+       expect(html).toContain('<div class="text-gray-600 mb-4 text-left">Block 1</div>');
+       expect(html).toContain('<div class="text-gray-600 mb-4 text-left">Block 2</div>');
     });
 
     it('should handle empty blocks array with grid layout', () => {
@@ -212,10 +283,10 @@ describe('Section HTML Generation', () => {
       };
 
       const html = sectionToHtml(section);
-      expect(html).toContain('<div class="grid grid-cols-2 gap-4">');
-      expect(html).toContain('style=" min-height: 400px;"');
-      expect(html).toContain('<p class="text-gray-600 mb-4 text-left">Block 1</p>');
-      expect(html).toContain('<p class="text-gray-600 mb-4 text-left">Block 2</p>');
+       expect(html).toContain('<div class="grid grid-cols-2 gap-4">');
+       expect(html).toContain('style=" min-height: 400px;"');
+       expect(html).toContain('<div class="text-gray-600 mb-4 text-left">Block 1</div>');
+       expect(html).toContain('<div class="text-gray-600 mb-4 text-left">Block 2</div>');
     });
 
     it('should handle grid layout with background image and min-height', () => {
@@ -231,6 +302,69 @@ describe('Section HTML Generation', () => {
       const html = sectionToHtml(section);
       expect(html).toContain('<div class="grid grid-cols-2 gap-4">');
       expect(html).toContain('style="background-image: url(\'/bg.jpg\'); background-size: cover; background-position: center; min-height: 600px;"');
+    });
+  });
+
+  describe('Markdown Parsing', () => {
+    it('should parse bold text', () => {
+      const section: Section = {
+        classes: 'py-16 bg-white',
+        containerClasses: 'container mx-auto px-4',
+        blocks: [{ type: 'text', text: 'This is **bold** text' }]
+      };
+
+      const html = sectionToHtml(section);
+      expect(html).toContain('<strong>bold</strong>');
+    });
+
+    it('should parse italic text', () => {
+      const section: Section = {
+        classes: 'py-16 bg-white',
+        containerClasses: 'container mx-auto px-4',
+        blocks: [{ type: 'text', text: 'This is *italic* text' }]
+      };
+
+      const html = sectionToHtml(section);
+      expect(html).toContain('<em>italic</em>');
+    });
+
+    it('should parse links', () => {
+      const section: Section = {
+        classes: 'py-16 bg-white',
+        containerClasses: 'container mx-auto px-4',
+        blocks: [{ type: 'text', text: 'Check [this link](http://example.com)' }]
+      };
+
+      const html = sectionToHtml(section);
+      expect(html).toContain('<a href="http://example.com">this link</a>');
+    });
+
+    it('should parse bulleted lists', () => {
+      const section: Section = {
+        classes: 'py-16 bg-white',
+        containerClasses: 'container mx-auto px-4',
+        blocks: [{ type: 'text', text: '- Item 1\n- Item 2' }]
+      };
+
+      const html = sectionToHtml(section);
+      expect(html).toContain('<ul>');
+      expect(html).toContain('<li>Item 1</li>');
+      expect(html).toContain('<li>Item 2</li>');
+      expect(html).toContain('</ul>');
+    });
+
+    it('should parse numbered lists', () => {
+      const section: Section = {
+        classes: 'py-16 bg-white',
+        containerClasses: 'container mx-auto px-4',
+        blocks: [{ type: 'text', text: '1. Item 1\n2. Item 2' }]
+      };
+
+      const html = sectionToHtml(section);
+      expect(html).toContain('<ol>');
+      expect(html).toContain('<li>Item 1</li>');
+      expect(html).toContain('<li>Item 2</li>');
+      expect(html).toContain('</ol>');
     });
   });
 

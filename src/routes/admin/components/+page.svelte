@@ -307,77 +307,83 @@ components.forEach((c: Component, idx: number) => {
     applyBlocksToHtml();
   }
 
-   /**
-    * Updates a specific block in the selected component's section.
-    * @param index - Index of the block to update
-    * @param partial - Partial block properties to apply
-    */
-   function updateBlock(index: number, partial: Partial<Block>): void {
-     if (!selected) return;
-     const section: Section = selected.section ?? {
-       classes: 'py-16 bg-white',
-       containerClasses: 'container mx-auto px-4',
-       blocks: [],
-       layout: 'linear',
-       columns: 2,
-       minHeight: 'none'
-     };
-    const current: Block[] = section.blocks ?? [];
-    const newBlocks: Block[] = current.map((block: Block, i: number) =>
-      i === index ? { ...block, ...partial } : block
-    );
-    updateSection({ blocks: newBlocks });
-    applyBlocksToHtml();
-  }
+  /**
+   * Parses simple markdown to HTML
+   * @param text - Markdown text
+   * @returns HTML string
+   */
+  function parseMarkdown(text: string): string {
+    // Escape HTML first
+    let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-   /**
-    * Removes a block from the selected component's section at the specified index.
-    * @param index - Index of the block to delete
-    */
-   function deleteBlockAt(index: number): void {
-     if (!selected) return;
-     const section: Section = selected.section ?? {
-       classes: 'py-16 bg-white',
-       containerClasses: 'container mx-auto px-4',
-       blocks: [],
-       layout: 'linear',
-       columns: 2,
-       minHeight: 'none'
-     };
-    const current: Block[] = section.blocks ?? [];
-    const newBlocks: Block[] = current.filter((_: Block, i: number) => i !== index);
-    updateSection({ blocks: newBlocks });
-    applyBlocksToHtml();
-  }
+    // Links: [text](url)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
-   /**
-    * Moves a block up or down within the selected component's section.
-    * @param index - Current index of the block to move
-    * @param direction - Direction to move (-1 for up, 1 for down)
-    */
-   function moveBlock(index: number, direction: number): void {
-     if (!selected) return;
-     const section: Section = selected.section ?? {
-       classes: 'py-16 bg-white',
-       containerClasses: 'container mx-auto px-4',
-       blocks: [],
-       layout: 'linear',
-       columns: 2,
-       minHeight: 'none'
-     };
-    const current: Block[] = section.blocks ?? [];
-    const newIndex: number = index + direction;
-    if (newIndex < 0 || newIndex >= current.length) return;
-    const newBlocks: Block[] = current.slice();
-    const [moved] = newBlocks.splice(index, 1);
-    newBlocks.splice(newIndex, 0, moved);
-    updateSection({ blocks: newBlocks });
-    applyBlocksToHtml();
+    // Bold: **text**
+    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+    // Italic: *text*
+    html = html.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
+
+    // Handle lists
+    const lines = html.split('\n');
+    let inUl = false;
+    let inOl = false;
+    let result: string[] = [];
+    let hasLists = false;
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed.startsWith('- ')) {
+        hasLists = true;
+        if (!inUl) {
+          result.push('<ul>');
+          inUl = true;
+        }
+        if (inOl) {
+          result.push('</ol>');
+          inOl = false;
+        }
+        result.push(`<li>${trimmed.substring(2)}</li>`);
+      } else if (/^\d+\.\s/.test(trimmed)) {
+        hasLists = true;
+        if (!inOl) {
+          result.push('<ol>');
+          inOl = true;
+        }
+        if (inUl) {
+          result.push('</ul>');
+          inUl = false;
+        }
+        const content = trimmed.replace(/^\d+\.\s/, '');
+        result.push(`<li>${content}</li>`);
+      } else {
+        if (inUl) {
+          result.push('</ul>');
+          inUl = false;
+        }
+        if (inOl) {
+          result.push('</ol>');
+          inOl = false;
+        }
+        if (trimmed) {
+          result.push(trimmed);
+        }
+      }
+    }
+    if (inUl) result.push('</ul>');
+    if (inOl) result.push('</ol>');
+
+    // If no lists, just return the processed text; otherwise join with line breaks
+    if (!hasLists && lines.length === 1) {
+      return result.join('');
+    } else {
+      return result.join('<br>');
+    }
   }
 
   /**
-   * Converts an array of blocks into HTML string representation.
-   * Each block type is rendered with appropriate HTML tags and Tailwind CSS classes.
+   * Converts an array of blocks to HTML string
    * @param blocks - Array of block objects to convert to HTML
    * @returns HTML string representation of all blocks
    */
@@ -400,7 +406,8 @@ components.forEach((c: Component, idx: number) => {
           const text: string = block.text ?? '';
           const color: string = block.color ?? 'gray';
           const colorClass: string = color === 'gray' ? 'text-gray-600' : color === 'black' ? 'text-black' : color === 'white' ? 'text-white' : color === 'red' ? 'text-red-600' : color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'teal' ? 'text-teal-600' : 'text-gray-600';
-          return `<p class="${colorClass} mb-4 ${alignClass}">${text}</p>`;
+          const parsedText = parseMarkdown(text);
+          return `<div class="${colorClass} mb-4 ${alignClass}">${parsedText}</div>`;
         }
         if (block.type === 'image') {
           const src: string = block.src ?? '';
@@ -671,11 +678,11 @@ components.forEach((c: Component, idx: number) => {
     applyBlocksToHtml();
   }
 
-  /**
-   * Deletes a nested block from a layout block.
-   * @param parentIndex - Index of the parent layout block
-   * @param nestedIndex - Index of the nested block to delete
-   */
+   /**
+    * Deletes a nested block from a layout block.
+    * @param parentIndex - Index of the parent layout block
+    * @param nestedIndex - Index of the nested block to delete
+    */
    function deleteNestedBlockAt(parentIndex: number, nestedIndex: number): void {
      if (!selected) return;
      const section: Section = selected.section ?? {
@@ -686,21 +693,93 @@ components.forEach((c: Component, idx: number) => {
        columns: 2,
        minHeight: 'none'
      };
-    const current: Block[] = section.blocks ?? [];
-    if (parentIndex < 0 || parentIndex >= current.length || current[parentIndex].type !== 'layout') return;
+     const current: Block[] = section.blocks ?? [];
+     if (parentIndex < 0 || parentIndex >= current.length || current[parentIndex].type !== 'layout') return;
 
-    const parentBlock: Block = current[parentIndex];
-    const nestedBlocks: Block[] = parentBlock.blocks ?? [];
-    if (nestedIndex < 0 || nestedIndex >= nestedBlocks.length) return;
+     const parentBlock: Block = current[parentIndex];
+     const nestedBlocks: Block[] = parentBlock.blocks ?? [];
+     if (nestedIndex < 0 || nestedIndex >= nestedBlocks.length) return;
 
-    const updatedNestedBlocks: Block[] = nestedBlocks.filter((_: Block, i: number) => i !== nestedIndex);
-    const updatedParent: Block = { ...parentBlock, blocks: updatedNestedBlocks };
-    const newBlocks: Block[] = current.map((block: Block, i: number) =>
-      i === parentIndex ? updatedParent : block
-    );
-    updateSection({ blocks: newBlocks });
-    applyBlocksToHtml();
-  }
+     const updatedNestedBlocks: Block[] = nestedBlocks.filter((_: Block, i: number) => i !== nestedIndex);
+     const updatedParent: Block = { ...parentBlock, blocks: updatedNestedBlocks };
+     const newBlocks: Block[] = current.map((block: Block, i: number) =>
+       i === parentIndex ? updatedParent : block
+     );
+     updateSection({ blocks: newBlocks });
+     applyBlocksToHtml();
+   }
+
+   /**
+    * Updates a block at the specified index in the selected component's section.
+    * @param index - Index of the block to update
+    * @param partial - Partial block properties to apply
+    */
+   function updateBlock(index: number, partial: Partial<Block>): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
+     const current: Block[] = section.blocks ?? [];
+     if (index < 0 || index >= current.length) return;
+
+     const newBlocks: Block[] = current.map((block: Block, i: number) =>
+       i === index ? { ...block, ...partial } : block
+     );
+     updateSection({ blocks: newBlocks });
+     applyBlocksToHtml();
+   }
+
+   /**
+    * Deletes a block at the specified index from the selected component's section.
+    * @param index - Index of the block to delete
+    */
+   function deleteBlockAt(index: number): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
+     const current: Block[] = section.blocks ?? [];
+     if (index < 0 || index >= current.length) return;
+
+     const newBlocks: Block[] = current.filter((_: Block, i: number) => i !== index);
+     updateSection({ blocks: newBlocks });
+     applyBlocksToHtml();
+   }
+
+   /**
+    * Moves a block from one index to another within the selected component's section.
+    * @param fromIndex - Current index of the block to move
+    * @param toIndex - Target index where the block should be moved
+    */
+   function moveBlock(fromIndex: number, toIndex: number): void {
+     if (!selected) return;
+     const section: Section = selected.section ?? {
+       classes: 'py-16 bg-white',
+       containerClasses: 'container mx-auto px-4',
+       blocks: [],
+       layout: 'linear',
+       columns: 2,
+       minHeight: 'none'
+     };
+     const current: Block[] = section.blocks ?? [];
+     if (fromIndex < 0 || fromIndex >= current.length || toIndex < 0 || toIndex >= current.length) return;
+
+     const newBlocks: Block[] = [...current];
+     const [movedBlock] = newBlocks.splice(fromIndex, 1);
+     newBlocks.splice(toIndex, 0, movedBlock);
+     updateSection({ blocks: newBlocks });
+     applyBlocksToHtml();
+   }
 </script>
 
 <main class="max-w-5xl mx-auto py-8 px-4">

@@ -65,7 +65,7 @@ describe('Components Editor Page', () => {
       });
 
       // Find the text block textarea and change its content
-      const textarea = screen.getByPlaceholderText('Paragraph text');
+      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))');
       await fireEvent.input(textarea, { target: { value: 'Updated block content' } });
 
       // The HTML should be automatically updated
