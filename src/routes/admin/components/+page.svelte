@@ -403,15 +403,37 @@ components.forEach((c: Component, idx: number) => {
           const tag: string = `h${level}`;
           const text: string = block.text ?? '';
           const color: string = block.color ?? 'black';
-          const colorClass: string = color === 'black' ? 'text-black' : color === 'gray' ? 'text-gray-600' : color === 'white' ? 'text-white' : color === 'red' ? 'text-red-600' : color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'teal' ? 'text-teal-600' : 'text-black';
-          return `<${tag} class="text-3xl font-bold mb-4 ${colorClass} ${alignClass}">${text}</${tag}>`;
+          let styleAttr = '';
+          let colorClass: string;
+
+          if (color.startsWith('#')) {
+            // Handle hex colors with inline style
+            styleAttr = `style="color: ${color}"`;
+            colorClass = '';
+          } else {
+            // Handle named colors with Tailwind classes
+            colorClass = color === 'black' ? 'text-black' : color === 'gray' ? 'text-gray-600' : color === 'white' ? 'text-white' : color === 'red' ? 'text-red-600' : color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'teal' ? 'text-teal-600' : 'text-black';
+          }
+
+          return `<${tag} class="text-3xl font-bold mb-4 ${colorClass} ${alignClass}" ${styleAttr}>${text}</${tag}>`;
         }
         if (block.type === 'text') {
           const text: string = block.text ?? '';
           const color: string = block.color ?? 'gray';
-          const colorClass: string = color === 'gray' ? 'text-gray-600' : color === 'black' ? 'text-black' : color === 'white' ? 'text-white' : color === 'red' ? 'text-red-600' : color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'teal' ? 'text-teal-600' : 'text-gray-600';
+          let styleAttr = '';
+          let colorClass: string;
+
+          if (color.startsWith('#')) {
+            // Handle hex colors with inline style
+            styleAttr = `style="color: ${color}"`;
+            colorClass = '';
+          } else {
+            // Handle named colors with Tailwind classes
+            colorClass = color === 'gray' ? 'text-gray-600' : color === 'black' ? 'text-black' : color === 'white' ? 'text-white' : color === 'red' ? 'text-red-600' : color === 'blue' ? 'text-blue-600' : color === 'green' ? 'text-green-600' : color === 'teal' ? 'text-teal-600' : 'text-gray-600';
+          }
+
           const parsedText = parseMarkdown(text);
-          return `<div class="${colorClass} mb-4 ${alignClass}">${parsedText}</div>`;
+          return `<div class="${colorClass} mb-4 ${alignClass}" ${styleAttr}>${parsedText}</div>`;
         }
         if (block.type === 'image') {
           const src: string = block.src ?? '';
@@ -786,15 +808,12 @@ components.forEach((c: Component, idx: number) => {
    }
 </script>
 
-<main class="max-w-5xl mx-auto py-8 px-4">
-  <h1 class="text-2xl font-bold mb-6">Components Editor</h1>
+<main class="max-w-7xl mx-auto py-8 px-4">
+  <h1 class="text-2xl font-bold mb-6 fixed top-10  z-50 bg-white">Components Editor</h1>
 
-  <div class="flex gap-6">
-    <aside class="w-1/3 border-r pr-4">
-      <ComponentList {components} {selectedId} {addComponent} onSelect={(id) => selectedId = id} />
-    </aside>
-
-    {#if selected}
+  <div class="flex gap-6 mt-10 ">
+    <aside class="w-1/2 pr-4">
+      {#if selected}
       <section class="flex-1 space-y-4">
         <ComponentEditor {selected} {updateSelected} {applyBlocksToHtml} />
 
@@ -826,17 +845,27 @@ components.forEach((c: Component, idx: number) => {
            {deleteNestedBlockAt}
          />
 
-        <div class="pt-4 flex gap-3">
-          <button class="px-4 py-2 bg-teal-600 text-white rounded" onclick={(e) => { e.preventDefault(); save(); }}>
-            Save selected component
-          </button>
-          <button class="px-4 py-2 bg-red-600 text-white rounded" onclick={(e) => { e.preventDefault(); deleteSelected(); }}>
-            Permanently delete
-          </button>
-        </div>
+        
 
-        <Preview {selected} />
       </section>
     {/if}
+    </aside>
+     <div class="w-1/2 border-l pl-4 fixed left-1/2 right-0 overflow-y-auto max-h-screen px-6">
+    <ComponentList {components} {selectedId} {addComponent} onSelect={(id) => selectedId = id} />
+       {#if selected}
+        <Preview {selected}/>
+
+        <div class="pt-4 flex gap-3">
+          <button class="px-4 py-2 bg-teal-600 text-white rounded" onclick={(e) => { e.preventDefault(); save(); }}>
+            Save Component
+          </button>
+          <button class="px-4 py-2 bg-red-600 text-white rounded" onclick={(e) => { e.preventDefault(); deleteSelected(); }}>
+            Delete
+          </button>
+        </div>
+        {/if}
+     </div>
+
+    
   </div>
 </main>

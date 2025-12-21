@@ -216,17 +216,21 @@ describe('BlockEditor Component', () => {
 
     it('should render color selector for heading', () => {
       render(BlockEditor, { props: mockProps });
-      const colorSelects = screen.getAllByLabelText('Color');
-      expect(colorSelects.length).toBeGreaterThan(0);
+      const colorButtons = screen.getAllByTitle('Choose text color');
+      expect(colorButtons.length).toBeGreaterThan(0);
     });
 
     it('should call updateBlock when heading color changes', async () => {
       render(BlockEditor, { props: mockProps });
-      const colorSelect = screen.getAllByLabelText('Color')[0];
-      
-      await fireEvent.input(colorSelect, { target: { value: 'blue' } });
-      
-      expect(mockProps.updateBlock).toHaveBeenCalledWith(0, { color: 'blue' });
+      const colorButton = screen.getAllByTitle('Choose text color')[0];
+
+      await fireEvent.click(colorButton);
+
+      // Click on the Navy color (dark blue)
+      const navyColor = screen.getByTitle('Navy');
+      await fireEvent.click(navyColor);
+
+      expect(mockProps.updateBlock).toHaveBeenCalledWith(0, { color: '#000080' });
     });
 
     it('should use default level 2 when not specified', () => {
@@ -279,24 +283,23 @@ describe('BlockEditor Component', () => {
 
     it('should render color selector for text', () => {
       render(BlockEditor, { props: mockProps });
-      expect(screen.getByLabelText('Color')).toBeInTheDocument();
+      expect(screen.getByTitle('Choose text color')).toBeInTheDocument();
     });
 
     it('should call updateBlock when text color changes', async () => {
       render(BlockEditor, { props: mockProps });
-      const colorSelect = screen.getByLabelText('Color');
-      
-      await fireEvent.input(colorSelect, { target: { value: 'black' } });
-      
-      expect(mockProps.updateBlock).toHaveBeenCalledWith(0, { color: 'black' });
+      const colorButton = screen.getByTitle('Choose text color');
+
+      await fireEvent.click(colorButton);
+
+      // Click on the Red color
+      const redColor = screen.getByTitle('Red');
+      await fireEvent.click(redColor);
+
+      expect(mockProps.updateBlock).toHaveBeenCalledWith(0, { color: '#FF0000' });
     });
 
-    it('should have gray as default color option first', () => {
-      render(BlockEditor, { props: mockProps });
-      const colorSelect = screen.getByLabelText('Color');
-      const firstOption = within(colorSelect).getAllByRole('option')[0];
-      expect(firstOption.value).toBe('gray');
-    });
+
   });
 
   describe('Image Block', () => {
@@ -561,17 +564,19 @@ describe('BlockEditor Component', () => {
     it('should use default color when not specified for heading', () => {
       mockProps.block = { type: 'heading', text: 'Test' };
       render(BlockEditor, { props: mockProps });
-      
-      const colorSelect = screen.getAllByLabelText('Color')[0];
-      expect(colorSelect.value).toBe('black');
+
+      const colorButton = screen.getAllByTitle('Choose text color')[0];
+      const colorSwatch = colorButton.querySelector('div');
+      expect(colorSwatch?.style.backgroundColor).toBe('black');
     });
 
     it('should use default color "gray" for text block', () => {
       mockProps.block = { type: 'text', text: 'Test' };
       render(BlockEditor, { props: mockProps });
-      
-      const colorSelect = screen.getByLabelText('Color');
-      expect(colorSelect.value).toBe('gray');
+
+      const colorButton = screen.getByTitle('Choose text color');
+      const colorSwatch = colorButton.querySelector('div');
+      expect(colorSwatch?.style.backgroundColor).toBe('gray');
     });
   });
 

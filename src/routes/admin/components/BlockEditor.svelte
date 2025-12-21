@@ -48,6 +48,11 @@
     let showColorPicker = $state(false);
     let customColor = $state('#FFFF00');
 
+    // State for text color controls
+    let showHeadingColorPalette = $state(false);
+    let showTextColorPalette = $state(false);
+    let showNestedColorPalette = $state({}); // key: `${parentIndex}-${nestedIndex}`
+
     // Convert RGB to Hex
     function rgbToHex(r, g, b) {
       return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
@@ -149,6 +154,23 @@
         console.log('showColorPicker after:', showColorPicker);
     }
 
+    function toggleHeadingColorPalette() {
+        showHeadingColorPalette = !showHeadingColorPalette;
+        showTextColorPalette = false;
+        showHighlightPalette = false;
+    }
+
+    function toggleTextColorPalette() {
+        showTextColorPalette = !showTextColorPalette;
+        showHeadingColorPalette = false;
+        showHighlightPalette = false;
+    }
+
+    function toggleNestedColorPalette(parentIndex, nestedIndex) {
+        const key = `${parentIndex}-${nestedIndex}`;
+        showNestedColorPalette[key] = !showNestedColorPalette[key];
+    }
+
 
  </script>
 
@@ -222,23 +244,46 @@
           <option value="right">Right</option>
         </select>
       </div>
-      <div class="flex gap-1 items-center text-xs text-gray-600">
-        <label for="block-heading-color-{index}" class="text-xs text-gray-600">Color</label>
-        <select
-          id="block-heading-color-{index}"
-          class="border px-2 py-1 rounded text-xs"
-          value={block.color ?? 'black'}
-          oninput={(e) => updateBlock(index, { color: e.target.value })}
-        >
-          <option value="black">Black</option>
-          <option value="gray">Gray</option>
-          <option value="white">White</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="teal">Teal</option>
-        </select>
-      </div>
+       <div class="flex gap-1 items-center text-xs text-gray-600 relative">
+         <label for="block-heading-color-{index}" class="text-xs text-gray-600">Color</label>
+         <button
+           type="button"
+           class="px-2 py-1 text-xs border rounded hover:bg-gray-50"
+           onclick={toggleHeadingColorPalette}
+           title="Choose text color"
+         >
+           <div class="w-4 h-4 rounded border border-gray-300" style="background-color: {block.color ?? 'black'}"></div>
+         </button>
+         {#if showHeadingColorPalette}
+           <div class="absolute top-8 left-0 z-10 bg-white border rounded-lg shadow-lg p-3 w-64">
+             <div class="flex justify-between items-center mb-2">
+               <h3 class="text-sm font-semibold">Text Colors</h3>
+               <button
+                 type="button"
+                 class="text-xs text-gray-500 hover:text-gray-700"
+                 onclick={() => showHeadingColorPalette = false}
+               >
+                 ✕
+               </button>
+             </div>
+             <div class="grid grid-cols-6 gap-1">
+               {#each colorPalette as color}
+                 <button
+                   type="button"
+                   class="w-8 h-8 rounded border border-gray-300 hover:scale-110 transition-transform"
+                   style="background-color: {color.hex}"
+                   title={color.name}
+                   aria-label={`Set text color to ${color.name}`}
+                   onclick={() => {
+                     updateBlock(index, { color: color.hex });
+                     showHeadingColorPalette = false;
+                   }}
+                 ></button>
+               {/each}
+             </div>
+           </div>
+         {/if}
+       </div>
     </div>
     <input
       id="block-heading-text-{index}"
@@ -262,23 +307,46 @@
           <option value="right">Right</option>
         </select>
       </div>
-      <div class="flex gap-1 items-center">
-        <label for="block-text-color-{index}" class="text-xs text-gray-600">Color</label>
-        <select
-          id="block-text-color-{index}"
-          class="border px-2 py-1 rounded text-xs"
-          value={block.color ?? 'gray'}
-          oninput={(e) => updateBlock(index, { color: e.target.value })}
-        >
-          <option value="gray">Gray</option>
-          <option value="black">Black</option>
-          <option value="white">White</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="teal">Teal</option>
-        </select>
-      </div>
+       <div class="flex gap-1 items-center relative">
+         <label for="block-text-color-{index}" class="text-xs text-gray-600">Color</label>
+         <button
+           type="button"
+           class="px-2 py-1 text-xs border rounded hover:bg-gray-50"
+           onclick={toggleTextColorPalette}
+           title="Choose text color"
+         >
+           <div class="w-4 h-4 rounded border border-gray-300" style="background-color: {block.color ?? 'gray'}"></div>
+         </button>
+         {#if showTextColorPalette}
+           <div class="absolute top-8 left-0 z-10 bg-white border rounded-lg shadow-lg p-3 w-64">
+             <div class="flex justify-between items-center mb-2">
+               <h3 class="text-sm font-semibold">Text Colors</h3>
+               <button
+                 type="button"
+                 class="text-xs text-gray-500 hover:text-gray-700"
+                 onclick={() => showTextColorPalette = false}
+               >
+                 ✕
+               </button>
+             </div>
+             <div class="grid grid-cols-6 gap-1">
+               {#each colorPalette as color}
+                 <button
+                   type="button"
+                   class="w-8 h-8 rounded border border-gray-300 hover:scale-110 transition-transform"
+                   style="background-color: {color.hex}"
+                   title={color.name}
+                   aria-label={`Set text color to ${color.name}`}
+                   onclick={() => {
+                     updateBlock(index, { color: color.hex });
+                     showTextColorPalette = false;
+                   }}
+                 ></button>
+               {/each}
+             </div>
+           </div>
+         {/if}
+       </div>
      </div>
      <div class="flex gap-1 mb-2">
         <button
@@ -653,23 +721,46 @@
                          <option value="right">Right</option>
                        </select>
                      </div>
-                     <div class="flex gap-1 items-center">
-                       <label for="nested-block-color-{index}-{nestedIndex}" class="text-xs text-gray-600">Color</label>
-                       <select
-                         id="nested-block-color-{index}-{nestedIndex}"
-                         class="border px-1 py-0.5 rounded text-xs"
-                         value={nestedBlock.color ?? (nestedBlock.type === 'heading' ? 'black' : 'gray')}
-                         oninput={(e) => updateNestedBlock(index, nestedIndex, { color: e.target.value })}
-                       >
-                         <option value="black">Black</option>
-                         <option value="gray">Gray</option>
-                         <option value="white">White</option>
-                         <option value="red">Red</option>
-                         <option value="blue">Blue</option>
-                         <option value="green">Green</option>
-                         <option value="teal">Teal</option>
-                       </select>
-                     </div>
+                      <div class="flex gap-1 items-center relative">
+                        <label for="nested-block-color-{index}-{nestedIndex}" class="text-xs text-gray-600">Color</label>
+                        <button
+                          type="button"
+                          class="px-1 py-0.5 text-xs border rounded hover:bg-gray-50"
+                          onclick={() => toggleNestedColorPalette(index, nestedIndex)}
+                          title="Choose text color"
+                        >
+                          <div class="w-3 h-3 rounded border border-gray-300" style="background-color: {nestedBlock.color ?? (nestedBlock.type === 'heading' ? 'black' : 'gray')}"></div>
+                        </button>
+                        {#if showNestedColorPalette[`${index}-${nestedIndex}`]}
+                          <div class="absolute top-6 left-0 z-10 bg-white border rounded-lg shadow-lg p-2 w-56">
+                            <div class="flex justify-between items-center mb-1">
+                              <h3 class="text-xs font-semibold">Text Colors</h3>
+                              <button
+                                type="button"
+                                class="text-xs text-gray-500 hover:text-gray-700"
+                                onclick={() => showNestedColorPalette[`${index}-${nestedIndex}`] = false}
+                              >
+                                ✕
+                              </button>
+                            </div>
+                            <div class="grid grid-cols-6 gap-0.5">
+                              {#each colorPalette as color}
+                                <button
+                                  type="button"
+                                  class="w-6 h-6 rounded border border-gray-300 hover:scale-110 transition-transform"
+                                  style="background-color: {color.hex}"
+                                  title={color.name}
+                                  aria-label={`Set text color to ${color.name}`}
+                                  onclick={() => {
+                                    updateNestedBlock(index, nestedIndex, { color: color.hex });
+                                    showNestedColorPalette[`${index}-${nestedIndex}`] = false;
+                                  }}
+                                ></button>
+                              {/each}
+                            </div>
+                          </div>
+                        {/if}
+                      </div>
                    </div>
                    <div class="flex gap-1 mb-1">
                      <button

@@ -2,7 +2,7 @@
   {
     "id": "sample-hero",
     "name": "Sample Hero",
-    "html": "<section class=\"py-8\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center; min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<p class=\"text-green-600 mb-4 text-center\">New block</p>\n</div></div></section>",
+    "html": "<section class=\"py-8\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center; min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<div class=\"text-gray-600 mb-4 text-center\">New block</div>\n</div></div></section>",
     "section": {
       "classes": "py-8",
       "containerClasses": "container mx-auto px-4",
@@ -11,7 +11,7 @@
           "type": "text",
           "text": "New block",
           "align": "center",
-          "color": "green"
+          "color": "#008080"
         }
       ],
       "backgroundImage": "/_.jpeg",
@@ -63,6 +63,25 @@
           "type": "text",
           "text": "**Covenant:** - An agreement or promise, usually formal, between two or more people or groups to do or not do something specified. *Dictionary.com*\nThis is the definition which is most widely accepted and understood, especially as the word is used in the Bible. nIt focuses on the idea of a commitment or agreement made between two parties. The covenant which God made with Israel at Mount Sinai just after they left Egypt, is an outstanding example of this kind of covenant. God gave Moses the following message to give to the people:\n*Now therefore, if ye will obey my voice indeed, and keep my covenant, then ye shall be a peculiar treasure unto me above all people: for all the earth is mine: And ye shall be unto me a kingdom of priests, and an holy nation. These are the words which thou shalt speak unto the children of Israel.* (Exod 19:5-6)",
           "align": "left"
+        }
+      ],
+      "layout": "linear",
+      "columns": 2,
+      "minHeight": "none"
+    }
+  },
+  {
+    "id": "component-1766327614144",
+    "name": "The New Covenant: test",
+    "html": "<section class=\"py-16 bg-white\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<div class=\"text-gray-600 mb-4 text-center\" >New block</div>\n</div></div></section>",
+    "section": {
+      "classes": "py-16 bg-white",
+      "containerClasses": "container mx-auto px-4",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "New block",
+          "align": "center"
         }
       ],
       "layout": "linear",

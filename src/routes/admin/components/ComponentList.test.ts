@@ -67,199 +67,197 @@ describe('ComponentList Component', () => {
     });
   });
 
-  describe('Component List Rendering', () => {
-    it('should render all components in the list', () => {
-      render(ComponentList, { props: mockProps });
-      expect(screen.getByText('Header Component (comp1)')).toBeInTheDocument();
-      expect(screen.getByText('Footer Component (comp2)')).toBeInTheDocument();
-      expect(screen.getByText('Main Content (comp3)')).toBeInTheDocument();
-    });
+   describe('Component List Rendering', () => {
+     it('should render all components in the list', () => {
+       render(ComponentList, { props: mockProps });
+       expect(screen.getByText('Header Component (comp1)')).toBeInTheDocument();
+       expect(screen.getByText('Footer Component (comp2)')).toBeInTheDocument();
+       expect(screen.getByText('Main Content (comp3)')).toBeInTheDocument();
+     });
 
-    it('should render components as a list', () => {
-      const { container } = render(ComponentList, { props: mockProps });
-      const ul = container.querySelector('ul');
-      expect(ul).toBeInTheDocument();
-      if (ul) {
-        expect(ul.className).toContain('space-y-1');
-      }
-    });
+     it('should render components as a select dropdown', () => {
+       const { container } = render(ComponentList, { props: mockProps });
+       const select = container.querySelector('select');
+       expect(select).toBeInTheDocument();
+       if (select) {
+         expect(select.className).toContain('w-full');
+         expect(select.className).toContain('px-2');
+         expect(select.className).toContain('py-1');
+         expect(select.className).toContain('border');
+         expect(select.className).toContain('rounded');
+       }
+     });
 
-    it('should render each component as a list item', () => {
-      const { container } = render(ComponentList, { props: mockProps });
-      const listItems = container.querySelectorAll('li');
-      expect(listItems).toHaveLength(3);
-    });
+     it('should render each component as a select option', () => {
+       const { container } = render(ComponentList, { props: mockProps });
+       const options = container.querySelectorAll('option');
+       expect(options).toHaveLength(3);
+     });
 
-    it('should render components as buttons', () => {
-      render(ComponentList, { props: mockProps });
-      const buttons = screen.getAllByRole('button');
-      // 4 buttons: 3 components + 1 add button
-      expect(buttons).toHaveLength(4);
-    });
-  });
+     it('should render components as a select element with add button', () => {
+       render(ComponentList, { props: mockProps });
+       const select = screen.getByRole('combobox');
+       expect(select).toBeInTheDocument();
+       const buttons = screen.getAllByRole('button');
+       // 1 button: add button only
+       expect(buttons).toHaveLength(1);
+     });
+   });
 
-  describe('Component Selection', () => {
-    it('should highlight the selected component', () => {
-      render(ComponentList, { props: mockProps });
-      const selectedButton = screen.getByText('Footer Component (comp2)');
-      expect(selectedButton.className).toContain('bg-teal-100');
-    });
+   describe('Component Selection', () => {
+     it('should select the correct component in dropdown', () => {
+       render(ComponentList, { props: mockProps });
+       const select = screen.getByRole('combobox') as HTMLSelectElement;
+       expect(select.value).toBe('comp2');
+     });
 
-    it('should not highlight non-selected components', () => {
-      render(ComponentList, { props: mockProps });
-      const nonSelectedButton = screen.getByText('Header Component (comp1)');
-      expect(nonSelectedButton.className).not.toContain('bg-teal-100');
-    });
+     it('should not select non-selected components', () => {
+       render(ComponentList, { props: mockProps });
+       const select = screen.getByRole('combobox') as HTMLSelectElement;
+       expect(select.value).toBe('comp2'); // Only one can be selected
+     });
 
-    it('should call onSelect with correct id when component is clicked', async () => {
-      render(ComponentList, { props: mockProps });
-      const componentButton = screen.getByText('Header Component (comp1)');
+     it('should call onSelect with correct id when component is selected', async () => {
+       render(ComponentList, { props: mockProps });
+       const select = screen.getByRole('combobox') as HTMLSelectElement;
 
-      await fireEvent.click(componentButton);
+       await fireEvent.change(select, { target: { value: 'comp1' } });
 
-      expect(mockProps.onSelect).toHaveBeenCalledWith('comp1');
-    });
+       expect(mockProps.onSelect).toHaveBeenCalledWith('comp1');
+     });
 
-    it('should call onSelect when selected component is clicked', async () => {
-      render(ComponentList, { props: mockProps });
-      const selectedButton = screen.getByText('Footer Component (comp2)');
+     it('should call onSelect when selected component is changed', async () => {
+       render(ComponentList, { props: mockProps });
+       const select = screen.getByRole('combobox') as HTMLSelectElement;
 
-      await fireEvent.click(selectedButton);
+       await fireEvent.change(select, { target: { value: 'comp3' } });
 
-      expect(mockProps.onSelect).toHaveBeenCalledWith('comp2');
-    });
-  });
+       expect(mockProps.onSelect).toHaveBeenCalledWith('comp3');
+     });
+   });
 
-  describe('Component Button Styling', () => {
-    it('should have correct base styling for component buttons', () => {
-      render(ComponentList, { props: mockProps });
-      const buttons = screen.getAllByRole('button').filter(btn => btn.textContent !== '+ Add');
+   describe('Component Select Styling', () => {
+     it('should have correct base styling for component select', () => {
+       const { container } = render(ComponentList, { props: mockProps });
+       const select = container.querySelector('select');
 
-      buttons.forEach(button => {
-        expect(button.className).toContain('w-full');
-        expect(button.className).toContain('text-left');
-        expect(button.className).toContain('px-2');
-        expect(button.className).toContain('py-1');
-        expect(button.className).toContain('rounded');
-      });
-    });
+       if (select) {
+         expect(select.className).toContain('w-full');
+         expect(select.className).toContain('px-2');
+         expect(select.className).toContain('py-1');
+         expect(select.className).toContain('border');
+         expect(select.className).toContain('rounded');
+       }
+     });
 
-    it('should apply selected styling only to selected component', () => {
-      render(ComponentList, { props: mockProps });
-      const selectedButton = screen.getByText('Footer Component (comp2)');
-      const otherButtons = screen.getAllByRole('button').filter(btn =>
-        btn.textContent !== '+ Add' && btn !== selectedButton
-      );
+     it('should have correct selected value', () => {
+       render(ComponentList, { props: mockProps });
+       const select = screen.getByRole('combobox') as HTMLSelectElement;
 
-      expect(selectedButton.className).toContain('bg-teal-100');
-      otherButtons.forEach(button => {
-        expect(button.className).not.toContain('bg-teal-100');
-      });
-    });
-  });
+       expect(select.value).toBe('comp2');
+     });
+   });
 
-  describe('Empty State', () => {
-    it('should render empty list when no components', () => {
-      mockProps.components = [];
-      render(ComponentList, { props: mockProps });
+   describe('Empty State', () => {
+     it('should render empty select when no components', () => {
+       mockProps.components = [];
+       const { container } = render(ComponentList, { props: mockProps });
 
-      const listItems = screen.queryAllByRole('button').filter(btn => btn.textContent !== '+ Add');
-      expect(listItems).toHaveLength(0);
-    });
+       const options = container.querySelectorAll('option');
+       expect(options).toHaveLength(0);
+     });
 
-    it('should still render header and add button when no components', () => {
-      mockProps.components = [];
-      render(ComponentList, { props: mockProps });
+     it('should still render header and add button when no components', () => {
+       mockProps.components = [];
+       render(ComponentList, { props: mockProps });
 
-      expect(screen.getByText('Components')).toBeInTheDocument();
-      expect(screen.getByText('+ Add')).toBeInTheDocument();
-    });
-  });
+       expect(screen.getByText('Components')).toBeInTheDocument();
+       expect(screen.getByText('+ Add')).toBeInTheDocument();
+     });
+   });
 
-  describe('Edge Cases', () => {
-    it('should handle null selectedId', () => {
-      mockProps.selectedId = null;
-      render(ComponentList, { props: mockProps });
+   describe('Edge Cases', () => {
+     it('should handle null selectedId', () => {
+       mockProps.selectedId = null;
+       render(ComponentList, { props: mockProps });
 
-      const buttons = screen.getAllByRole('button').filter(btn => btn.textContent !== '+ Add');
-      buttons.forEach(button => {
-        expect(button.className).not.toContain('bg-teal-100');
-      });
-    });
+       const select = screen.getByRole('combobox') as HTMLSelectElement;
+       expect(select.value).toBe('');
+     });
 
-    it('should handle undefined selectedId', () => {
-      mockProps.selectedId = undefined;
-      render(ComponentList, { props: mockProps });
+     it('should handle undefined selectedId', () => {
+       mockProps.selectedId = undefined;
+       render(ComponentList, { props: mockProps });
 
-      const buttons = screen.getAllByRole('button').filter(btn => btn.textContent !== '+ Add');
-      buttons.forEach(button => {
-        expect(button.className).not.toContain('bg-teal-100');
-      });
-    });
+       const select = screen.getByRole('combobox') as HTMLSelectElement;
+       expect(select.value).toBe('');
+     });
 
-    it('should handle components with missing name', () => {
-      mockProps.components = [
-        { id: 'comp1' },
-        { id: 'comp2', name: 'Test' }
-      ];
-      render(ComponentList, { props: mockProps });
+     it('should handle components with missing name', () => {
+       mockProps.components = [
+         { id: 'comp1' },
+         { id: 'comp2', name: 'Test' }
+       ];
+       render(ComponentList, { props: mockProps });
 
-      expect(screen.getByText('(comp1)')).toBeInTheDocument();
-      expect(screen.getByText('Test (comp2)')).toBeInTheDocument();
-    });
+       expect(screen.getByText('(comp1)')).toBeInTheDocument();
+       expect(screen.getByText('Test (comp2)')).toBeInTheDocument();
+     });
 
-    it('should handle components with missing id', () => {
-      mockProps.components = [
-        { name: 'Test' },
-        { id: 'comp2', name: 'Test2' }
-      ];
-      render(ComponentList, { props: mockProps });
+     it('should handle components with missing id', () => {
+       mockProps.components = [
+         { name: 'Test' },
+         { id: 'comp2', name: 'Test2' }
+       ];
+       render(ComponentList, { props: mockProps });
 
-      expect(screen.getByText('Test ()')).toBeInTheDocument();
-      expect(screen.getByText('Test2 (comp2)')).toBeInTheDocument();
-    });
+       expect(screen.getByText('Test ()')).toBeInTheDocument();
+       expect(screen.getByText('Test2 (comp2)')).toBeInTheDocument();
+     });
 
-    it('should handle single component', () => {
-      mockProps.components = [{ id: 'single', name: 'Single Component' }];
-      render(ComponentList, { props: mockProps });
+     it('should handle single component', () => {
+       mockProps.components = [{ id: 'single', name: 'Single Component' }];
+       const { container } = render(ComponentList, { props: mockProps });
 
-      expect(screen.getByText('Single Component (single)')).toBeInTheDocument();
-      const listItems = screen.getAllByRole('button').filter(btn => btn.textContent !== '+ Add');
-      expect(listItems).toHaveLength(1);
-    });
+       expect(screen.getByText('Single Component (single)')).toBeInTheDocument();
+       const options = container.querySelectorAll('option');
+       expect(options).toHaveLength(1);
+     });
 
-    it('should handle large number of components', () => {
-      mockProps.components = Array.from({ length: 20 }, (_, i) => ({
-        id: `comp${i}`,
-        name: `Component ${i}`
-      }));
-      render(ComponentList, { props: mockProps });
+     it('should handle large number of components', () => {
+       mockProps.components = Array.from({ length: 20 }, (_, i) => ({
+         id: `comp${i}`,
+         name: `Component ${i}`
+       }));
+       const { container } = render(ComponentList, { props: mockProps });
 
-      const buttons = screen.getAllByRole('button').filter(btn => btn.textContent !== '+ Add');
-      expect(buttons).toHaveLength(20);
-    });
-  });
+       const options = container.querySelectorAll('option');
+       expect(options).toHaveLength(20);
+     });
+   });
 
-  describe('Accessibility', () => {
-    it('should have semantic list structure', () => {
-      const { container } = render(ComponentList, { props: mockProps });
-      const ul = container.querySelector('ul');
-      expect(ul).toBeInTheDocument();
-      if (ul) {
-        expect(ul.tagName).toBe('UL');
-      }
-    });
+   describe('Accessibility', () => {
+     it('should have semantic select structure', () => {
+       const { container } = render(ComponentList, { props: mockProps });
+       const select = container.querySelector('select');
+       expect(select).toBeInTheDocument();
+       if (select) {
+         expect(select.tagName).toBe('SELECT');
+       }
+     });
 
-    it('should have clickable buttons for all components', () => {
-      render(ComponentList, { props: mockProps });
-      const buttons = screen.getAllByRole('button');
-      expect(buttons.length).toBeGreaterThan(1); // At least add button + components
-    });
+     it('should have select element and add button', () => {
+       render(ComponentList, { props: mockProps });
+       const select = screen.getByRole('combobox');
+       expect(select).toBeInTheDocument();
+       const buttons = screen.getAllByRole('button');
+       expect(buttons.length).toBe(1); // Only add button
+     });
 
-    it('should have descriptive button text', () => {
-      render(ComponentList, { props: mockProps });
-      expect(screen.getByText('Header Component (comp1)')).toBeInTheDocument();
-      expect(screen.getByText('Footer Component (comp2)')).toBeInTheDocument();
-    });
-  });
+     it('should have descriptive option text', () => {
+       render(ComponentList, { props: mockProps });
+       expect(screen.getByText('Header Component (comp1)')).toBeInTheDocument();
+       expect(screen.getByText('Footer Component (comp2)')).toBeInTheDocument();
+     });
+   });
 });
