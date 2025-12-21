@@ -307,23 +307,27 @@ components.forEach((c: Component, idx: number) => {
     applyBlocksToHtml();
   }
 
-  /**
-   * Parses simple markdown to HTML
-   * @param text - Markdown text
-   * @returns HTML string
-   */
-  function parseMarkdown(text: string): string {
-    // Escape HTML first
-    let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+   /**
+    * Parses simple markdown to HTML
+    * @param text - Markdown text
+    * @returns HTML string
+    */
+   function parseMarkdown(text: string): string {
+     // Escape HTML first
+     let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-    // Links: [text](url)
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+     // Highlight: ==text==(color) - Process before other formatting
+     html = html.replace(/==([^=]+)==\(([^)]+)\)/g, '<mark style="background-color: $2">$1</mark>');
+     html = html.replace(/==([^=]+)==/g, '<mark style="background-color: #FFFF00">$1</mark>');
 
-    // Bold: **text**
-    html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+     // Links: [text](url)
+     html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
 
-    // Italic: *text*
-    html = html.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
+     // Bold: **text**
+     html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+     // Italic: *text*
+     html = html.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>');
 
     // Handle lists
     const lines = html.split('\n');

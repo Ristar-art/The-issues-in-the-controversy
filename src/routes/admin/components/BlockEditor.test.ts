@@ -157,12 +157,12 @@ describe('BlockEditor Component', () => {
 
     it('should render heading input field', () => {
       render(BlockEditor, { props: mockProps });
-      expect(screen.getByPlaceholderText('Heading text')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Heading text (supports ==highlight==)')).toBeInTheDocument();
     });
 
     it('should display current heading text', () => {
       render(BlockEditor, { props: mockProps });
-      const input = screen.getByPlaceholderText('Heading text');
+      const input = screen.getByPlaceholderText('Heading text (supports ==highlight==)');
       expect(input.value).toBe('Test Heading');
     });
 
@@ -183,7 +183,7 @@ describe('BlockEditor Component', () => {
 
     it('should call updateBlock when heading text changes', async () => {
       render(BlockEditor, { props: mockProps });
-      const input = screen.getByPlaceholderText('Heading text');
+      const input = screen.getByPlaceholderText('Heading text (supports ==highlight==)');
       
       await fireEvent.input(input, { target: { value: 'New Heading' } });
       
@@ -245,18 +245,18 @@ describe('BlockEditor Component', () => {
 
     it('should render text textarea', () => {
       render(BlockEditor, { props: mockProps });
-      expect(screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))')).toBeInTheDocument();
+      expect(screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, ==highlight==, - lists, 1. lists, [text](url))')).toBeInTheDocument();
     });
 
     it('should display current text content', () => {
       render(BlockEditor, { props: mockProps });
-      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))');
+      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, ==highlight==, - lists, 1. lists, [text](url))');
       expect(textarea.value).toBe('Test paragraph');
     });
 
     it('should call updateBlock when text changes', async () => {
       render(BlockEditor, { props: mockProps });
-      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))');
+      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, ==highlight==, - lists, 1. lists, [text](url))');
       
       await fireEvent.input(textarea, { target: { value: 'New paragraph' } });
       
@@ -546,7 +546,7 @@ describe('BlockEditor Component', () => {
       mockProps.block = { type: 'heading' };
       render(BlockEditor, { props: mockProps });
       
-      const input = screen.getByPlaceholderText('Heading text');
+      const input = screen.getByPlaceholderText('Heading text (supports ==highlight==)');
       expect(input.value).toBe('');
     });
 
@@ -697,7 +697,7 @@ describe('BlockEditor Component', () => {
     it('should have correct heading input styling', () => {
       mockProps.block = { type: 'heading', text: 'Test' };
       render(BlockEditor, { props: mockProps });
-      const input = screen.getByPlaceholderText('Heading text');
+      const input = screen.getByPlaceholderText('Heading text (supports ==highlight==)');
       expect(input.className).toContain('w-full');
       expect(input.className).toContain('border');
       expect(input.className).toContain('px-2');
@@ -709,7 +709,7 @@ describe('BlockEditor Component', () => {
     it('should have correct text input styling', () => {
       mockProps.block = { type: 'text', text: 'Test' };
       render(BlockEditor, { props: mockProps });
-      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))');
+      const textarea = screen.getByPlaceholderText('Paragraph text (supports **bold**, *italic*, ==highlight==, - lists, 1. lists, [text](url))');
       expect(textarea.className).toContain('w-full');
       expect(textarea.className).toContain('border');
       expect(textarea.className).toContain('px-2');

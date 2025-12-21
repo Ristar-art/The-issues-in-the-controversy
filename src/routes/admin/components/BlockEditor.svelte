@@ -1,6 +1,68 @@
  <script>
     let { block, index, updateBlock, deleteBlockAt, moveBlock, totalBlocks, loadAvailableImages, availableImages, showImageSelectorForBlock, setShowImageSelectorForBlock, showImageSelectorForNestedBlock, setShowImageSelectorForNestedBlock, addNestedBlock, updateNestedBlock, deleteNestedBlockAt } = $props();
 
+    // Color palette with 39 colors
+    const colorPalette = [
+      { name: 'Yellow', hex: '#FFFF00' },
+      { name: 'Lime', hex: '#00FF00' },
+      { name: 'Cyan', hex: '#00FFFF' },
+      { name: 'Magenta', hex: '#FF00FF' },
+      { name: 'Pink', hex: '#FFC0CB' },
+      { name: 'Orange', hex: '#FFA500' },
+      { name: 'Red', hex: '#FF0000' },
+      { name: 'Brown', hex: '#A52A2A' },
+      { name: 'Maroon', hex: '#800000' },
+      { name: 'Dark Green', hex: '#006400' },
+      { name: 'Olive', hex: '#808000' },
+      { name: 'Teal', hex: '#008080' },
+      { name: 'Navy', hex: '#000080' },
+      { name: 'Purple', hex: '#800080' },
+      { name: 'Indigo', hex: '#4B0082' },
+      { name: 'Light Blue', hex: '#ADD8E6' },
+      { name: 'Light Green', hex: '#90EE90' },
+      { name: 'Light Yellow', hex: '#FFFFE0' },
+      { name: 'Light Pink', hex: '#FFB6C1' },
+      { name: 'Gold', hex: '#FFD700' },
+      { name: 'Silver', hex: '#C0C0C0' },
+      { name: 'Coral', hex: '#FF7F50' },
+      { name: 'Salmon', hex: '#FA8072' },
+      { name: 'Khaki', hex: '#F0E68C' },
+      { name: 'Lavender', hex: '#E6E6FA' },
+      { name: 'Plum', hex: '#DDA0DD' },
+      { name: 'Turquoise', hex: '#40E0D0' },
+      { name: 'Tan', hex: '#D2B48C' },
+      { name: 'Beige', hex: '#F5F5DC' },
+      { name: 'Mint', hex: '#98FF98' },
+      { name: 'Sky Blue', hex: '#87CEEB' },
+      { name: 'Peach', hex: '#FFDAB9' },
+      { name: 'Periwinkle', hex: '#CCCCFF' },
+      { name: 'Sage', hex: '#B2AC88' },
+      { name: 'Crimson', hex: '#DC143C' },
+      { name: 'Violet', hex: '#EE82EE' },
+      { name: 'Amber', hex: '#FFBF00' },
+      { name: 'Rose', hex: '#FF007F' }
+    ];
+
+    // State for highlight controls
+    let showHighlightPalette = $state(false);
+    let showColorPicker = $state(false);
+    let customColor = $state('#FFFF00');
+
+    // Convert RGB to Hex
+    function rgbToHex(r, g, b) {
+      return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    }
+
+    // Convert Hex to RGB
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
     function insertText(prefix, suffix, placeholder) {
         const textarea = document.getElementById(`block-text-${index}`);
         const start = textarea.selectionStart;
@@ -49,6 +111,45 @@
             textarea.focus();
         }, 0);
     }
+
+    function insertHighlight(color, removeColor = false) {
+        const textarea = document.getElementById(`block-text-${index}`);
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const text = block.text ?? '';
+        const before = text.substring(0, start);
+        const selected = text.substring(start, end);
+        const after = text.substring(end);
+        
+        let newText;
+        if (removeColor) {
+            // Remove all highlighting from selected text
+            newText = before + selected.replace(/==([^=]+)==\([^)]*\)/g, '$1') + after;
+        } else {
+            newText = before + `==${selected || 'highlighted text'}==(${color})` + after;
+        }
+        
+        updateBlock(index, { text: newText });
+        setTimeout(() => {
+            const extraLength = removeColor ? 0 : color.length + 4; // ==...==(color)
+            textarea.selectionStart = start + (selected ? 0 : extraLength);
+            textarea.selectionEnd = end + extraLength;
+            textarea.focus();
+        }, 0);
+    }
+
+    function toggleHighlightPalette() {
+        showHighlightPalette = !showHighlightPalette;
+        showColorPicker = false;
+    }
+
+    function toggleColorPicker() {
+        console.log('toggleColorPicker called, showColorPicker before:', showColorPicker);
+        showColorPicker = !showColorPicker;
+        console.log('showColorPicker after:', showColorPicker);
+    }
+
+
  </script>
 
  <div class="border rounded p-3 space-y-2 bg-white" data-testid={`block-editor-${index}`}>
@@ -142,7 +243,7 @@
     <input
       id="block-heading-text-{index}"
       class="w-full border px-2 py-1 rounded text-sm"
-      placeholder="Heading text"
+      placeholder="Heading text (supports ==highlight==)"
       value={block.text ?? ''}
       oninput={(e) => updateBlock(index, { text: e.target.value })}
     />
@@ -180,46 +281,187 @@
       </div>
      </div>
      <div class="flex gap-1 mb-2">
-       <button
-         type="button"
-         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
-         onclick={insertBold}
-       >
-         <strong>B</strong>
-       </button>
-       <button
-         type="button"
-         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded italic"
-         onclick={insertItalic}
-       >
-         <em>I</em>
-       </button>
-       <button
-         type="button"
-         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
-         onclick={insertBullet}
-       >
-         •
-       </button>
-       <button
-         type="button"
-         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
-         onclick={insertNumber}
-       >
-         1.
-       </button>
-       <button
-         type="button"
-         class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
-         onclick={insertLink}
-       >
-         🔗
-       </button>
-     </div>
+        <button
+          type="button"
+          class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+          onclick={insertBold}
+        >
+          <strong>B</strong>
+        </button>
+        <button
+          type="button"
+          class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded italic"
+          onclick={insertItalic}
+        >
+          <em>I</em>
+        </button>
+        <button
+          type="button"
+          class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+          onclick={insertBullet}
+        >
+          •
+        </button>
+        <button
+          type="button"
+          class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+          onclick={insertNumber}
+        >
+          1.
+        </button>
+        <button
+          type="button"
+          class="px-2 py-1 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+          onclick={insertLink}
+        >
+          🔗
+        </button>
+        <div class="relative">
+          <button
+            type="button"
+            class="px-2 py-1 text-xs bg-yellow-300 hover:bg-yellow-400 rounded"
+            onclick={toggleHighlightPalette}
+            title="Highlight text"
+          >
+            🖍️
+          </button>
+          {#if showHighlightPalette}
+            <div class="absolute top-8 left-0 z-10 bg-white border rounded-lg shadow-lg p-3 w-64">
+              <div class="flex justify-between items-center mb-2">
+                <h3 class="text-sm font-semibold">Highlight Colors</h3>
+                <button
+                  type="button"
+                  class="text-xs text-gray-500 hover:text-gray-700"
+                  onclick={() => showHighlightPalette = false}
+                >
+                  ✕
+                </button>
+              </div>
+              
+              <!-- Quick color palette -->
+              <div class="grid grid-cols-6 gap-1 mb-2">
+                {#each colorPalette as color}
+                  <button
+                    type="button"
+                    class="w-8 h-8 rounded border border-gray-300 hover:scale-110 transition-transform"
+                    style="background-color: {color.hex}"
+                    title={color.name}
+                    aria-label={`Highlight with ${color.name} color`}
+                    onclick={() => {
+                      insertHighlight(color.hex);
+                      showHighlightPalette = false;
+                    }}
+                  ></button>
+                {/each}
+              </div>
+              
+              <!-- Custom color controls -->
+              <div class="border-t pt-2">
+                <div class="flex gap-2 items-center mb-2">
+                  <button
+                    type="button"
+                    class="px-2 py-1 text-xs bg-red-500 text-white rounded hover:bg-red-600"
+                    onclick={() => {
+                      insertHighlight('', true); // Remove highlight
+                      showHighlightPalette = false;
+                    }}
+                  >
+                    Remove Color
+                  </button>
+                   <button
+                     type="button"
+                     class="px-2 py-1 text-xs bg-blue-500 text-white rounded hover:bg-blue-600"
+                     onclick={(e) => {
+                       e.preventDefault();
+                       toggleColorPicker();
+                     }}
+                   >
+                     Custom Color
+                   </button>
+                </div>
+                
+                 {#if showColorPicker}
+                   <div class="flex gap-2 items-center">
+                    <input
+                      type="color"
+                      class="w-12 h-8 border border-gray-300 rounded"
+                      bind:value={customColor}
+                    />
+                    <div class="flex flex-col gap-2">
+                      <!-- RGB Sliders -->
+                      <div class="flex items-center gap-2">
+                        <label for="rgb-r-{index}" class="text-xs w-6 text-red-600 font-bold">R</label>
+                        <input
+                          id="rgb-r-{index}"
+                          type="range"
+                          class="flex-1"
+                          min="0"
+                          max="255"
+                          value={hexToRgb(customColor)?.r || 0}
+                          oninput={(e) => {
+                            const rgb = hexToRgb(customColor) || { r: 0, g: 0, b: 0 };
+                            rgb.r = parseInt(e.target.value) || 0;
+                            customColor = rgbToHex(rgb.r, rgb.g, rgb.b);
+                          }}
+                        />
+                        <span class="text-xs w-8 text-center">{hexToRgb(customColor)?.r || 0}</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <label for="rgb-g-{index}" class="text-xs w-6 text-green-600 font-bold">G</label>
+                        <input
+                          id="rgb-g-{index}"
+                          type="range"
+                          class="flex-1"
+                          min="0"
+                          max="255"
+                          value={hexToRgb(customColor)?.g || 0}
+                          oninput={(e) => {
+                            const rgb = hexToRgb(customColor) || { r: 0, g: 0, b: 0 };
+                            rgb.g = parseInt(e.target.value) || 0;
+                            customColor = rgbToHex(rgb.r, rgb.g, rgb.b);
+                          }}
+                        />
+                        <span class="text-xs w-8 text-center">{hexToRgb(customColor)?.g || 0}</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <label for="rgb-b-{index}" class="text-xs w-6 text-blue-600 font-bold">B</label>
+                        <input
+                          id="rgb-b-{index}"
+                          type="range"
+                          class="flex-1"
+                          min="0"
+                          max="255"
+                          value={hexToRgb(customColor)?.b || 0}
+                          oninput={(e) => {
+                            const rgb = hexToRgb(customColor) || { r: 0, g: 0, b: 0 };
+                            rgb.b = parseInt(e.target.value) || 0;
+                            customColor = rgbToHex(rgb.r, rgb.g, rgb.b);
+                          }}
+                        />
+                        <span class="text-xs w-8 text-center">{hexToRgb(customColor)?.b || 0}</span>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      class="px-2 py-1 text-xs bg-green-500 text-white rounded hover:bg-green-600"
+                      onclick={() => {
+                        insertHighlight(customColor);
+                        showHighlightPalette = false;
+                      }}
+                    >
+                      Apply
+                    </button>
+                  </div>
+                {/if}
+              </div>
+            </div>
+          {/if}
+        </div>
+      </div>
      <textarea
        id="block-text-{index}"
        class="w-full border px-2 py-1 rounded text-sm h-24"
-       placeholder="Paragraph text (supports **bold**, *italic*, - lists, 1. lists, [text](url))"
+        placeholder="Paragraph text (supports **bold**, *italic*, ==highlight==, - lists, 1. lists, [text](url))"
        value={block.text ?? ''}
        oninput={(e) => updateBlock(index, { text: e.target.value })}
      ></textarea>
@@ -397,44 +639,114 @@
                  </button>
                </div>
 {#if nestedBlock.type === 'heading' || nestedBlock.type === 'text'}
-                  <div class="flex flex-wrap gap-2 mb-1 text-xs text-gray-600 items-center">
-                    <div class="flex gap-1 items-center">
-                      <label for="nested-block-align-{index}-{nestedIndex}" class="text-xs text-gray-600">Align</label>
-                      <select
-                        id="nested-block-align-{index}-{nestedIndex}"
-                        class="border px-1 py-0.5 rounded text-xs"
-                        value={nestedBlock.align ?? 'left'}
-                        oninput={(e) => updateNestedBlock(index, nestedIndex, { align: e.target.value })}
-                      >
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                      </select>
-                    </div>
-                    <div class="flex gap-1 items-center">
-                      <label for="nested-block-color-{index}-{nestedIndex}" class="text-xs text-gray-600">Color</label>
-                      <select
-                        id="nested-block-color-{index}-{nestedIndex}"
-                        class="border px-1 py-0.5 rounded text-xs"
-                        value={nestedBlock.color ?? (nestedBlock.type === 'heading' ? 'black' : 'gray')}
-                        oninput={(e) => updateNestedBlock(index, nestedIndex, { color: e.target.value })}
-                      >
-                        <option value="black">Black</option>
-                        <option value="gray">Gray</option>
-                        <option value="white">White</option>
-                        <option value="red">Red</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                        <option value="teal">Teal</option>
-                      </select>
-                    </div>
-                  </div>
-                  <input
-                    class="w-full border px-2 py-1 rounded text-xs"
-                    placeholder="Text content"
-                    value={nestedBlock.text ?? ''}
-                    oninput={(e) => updateNestedBlock(index, nestedIndex, { text: e.target.value })}
-                  />
+                   <div class="flex flex-wrap gap-2 mb-1 text-xs text-gray-600 items-center">
+                     <div class="flex gap-1 items-center">
+                       <label for="nested-block-align-{index}-{nestedIndex}" class="text-xs text-gray-600">Align</label>
+                       <select
+                         id="nested-block-align-{index}-{nestedIndex}"
+                         class="border px-1 py-0.5 rounded text-xs"
+                         value={nestedBlock.align ?? 'left'}
+                         oninput={(e) => updateNestedBlock(index, nestedIndex, { align: e.target.value })}
+                       >
+                         <option value="left">Left</option>
+                         <option value="center">Center</option>
+                         <option value="right">Right</option>
+                       </select>
+                     </div>
+                     <div class="flex gap-1 items-center">
+                       <label for="nested-block-color-{index}-{nestedIndex}" class="text-xs text-gray-600">Color</label>
+                       <select
+                         id="nested-block-color-{index}-{nestedIndex}"
+                         class="border px-1 py-0.5 rounded text-xs"
+                         value={nestedBlock.color ?? (nestedBlock.type === 'heading' ? 'black' : 'gray')}
+                         oninput={(e) => updateNestedBlock(index, nestedIndex, { color: e.target.value })}
+                       >
+                         <option value="black">Black</option>
+                         <option value="gray">Gray</option>
+                         <option value="white">White</option>
+                         <option value="red">Red</option>
+                         <option value="blue">Blue</option>
+                         <option value="green">Green</option>
+                         <option value="teal">Teal</option>
+                       </select>
+                     </div>
+                   </div>
+                   <div class="flex gap-1 mb-1">
+                     <button
+                       type="button"
+                       class="px-1 py-0.5 text-xs bg-gray-200 hover:bg-gray-300 rounded"
+                       onclick={() => {
+                         const textarea = document.getElementById(`nested-block-text-${index}-${nestedIndex}`);
+                         const start = textarea.selectionStart;
+                         const end = textarea.selectionEnd;
+                         const text = nestedBlock.text ?? '';
+                         const before = text.substring(0, start);
+                         const selected = text.substring(start, end);
+                         const after = text.substring(end);
+                         const newText = before + '**' + (selected || 'bold text') + '**' + after;
+                         updateNestedBlock(index, nestedIndex, { text: newText });
+                         setTimeout(() => {
+                           textarea.selectionStart = textarea.selectionEnd = start + 2 + (selected ? selected.length : 9);
+                           textarea.focus();
+                         }, 0);
+                       }}
+                     >
+                       <strong>B</strong>
+                     </button>
+                     <button
+                       type="button"
+                       class="px-1 py-0.5 text-xs bg-gray-200 hover:bg-gray-300 rounded italic"
+                       onclick={() => {
+                         const textarea = document.getElementById(`nested-block-text-${index}-${nestedIndex}`);
+                         const start = textarea.selectionStart;
+                         const end = textarea.selectionEnd;
+                         const text = nestedBlock.text ?? '';
+                         const before = text.substring(0, start);
+                         const selected = text.substring(start, end);
+                         const after = text.substring(end);
+                         const newText = before + '*' + (selected || 'italic text') + '*' + after;
+                         updateNestedBlock(index, nestedIndex, { text: newText });
+                         setTimeout(() => {
+                           textarea.selectionStart = textarea.selectionEnd = start + 1 + (selected ? selected.length : 11);
+                           textarea.focus();
+                         }, 0);
+                       }}
+                     >
+                       <em>I</em>
+                     </button>
+                     <div class="relative">
+                       <button
+                         type="button"
+                         class="px-1 py-0.5 text-xs bg-yellow-300 hover:bg-yellow-400 rounded"
+                         onclick={() => {
+                           const textarea = document.getElementById(`nested-block-text-${index}-${nestedIndex}`);
+                           const start = textarea.selectionStart;
+                           const end = textarea.selectionEnd;
+                           const text = nestedBlock.text ?? '';
+                           const before = text.substring(0, start);
+                           const selected = text.substring(start, end);
+                           const after = text.substring(end);
+                           const newText = before + '==' + (selected || 'highlighted text') + '==' + after;
+                           updateNestedBlock(index, nestedIndex, { text: newText });
+                           setTimeout(() => {
+                             textarea.selectionStart = start + 2;
+                             textarea.selectionEnd = end + 2;
+                             textarea.focus();
+                           }, 0);
+                         }}
+                         title="Highlight text"
+                       >
+                         🖍️
+                       </button>
+                     </div>
+                   </div>
+                   <textarea
+                     id="nested-block-text-{index}-{nestedIndex}"
+                     class="w-full border px-2 py-1 rounded text-xs h-16"
+                     placeholder="Text content (supports **bold**, *italic*, ==highlight==)"
+                     value={nestedBlock.text ?? ''}
+                     oninput={(e) => updateNestedBlock(index, nestedIndex, { text: e.target.value })}
+                   ></textarea>
 {:else if nestedBlock.type === 'image'}
                    <div class="flex flex-wrap gap-2 mb-1 text-xs text-gray-600 items-center">
                      <div class="flex gap-1 items-center">
