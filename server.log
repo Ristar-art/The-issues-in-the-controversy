@@ -1,0 +1,287 @@
+
+> the-issues-in-the-controversy@0.0.1 dev
+> vite dev
+
+
+  VITE v6.3.4  ready in 584 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:8:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:9:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:10:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:11:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:26:52 PM [vite-plugin-svelte] src/lib/components/FooterSection.svelte:13:24 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
+https://svelte.dev/e/a11y_consider_explicit_label
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:64:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:65:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:66:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:75:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:93:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:93:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:95:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:117:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:117:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:117:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:27:08 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:28:00 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+11:28:00 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+11:28:00 PM [vite] (ssr) page reload .svelte-kit/generated/root.svelte
+11:31:33 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+11:31:33 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+11:31:49 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:32:16 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:32:19 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:32:43 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+11:32:43 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+11:32:49 PM [vite] (client) page reload test-search.html
+11:32:57 PM [vite] (client) page reload test-search.html
+11:33:43 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:79:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:80:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:81:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:90:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:114:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:8:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:9:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:10:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:11:11 '#' is not a valid href attribute
+https://svelte.dev/e/a11y_invalid_attribute
+11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:79:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:80:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:81:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:90:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:114:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:33:48 PM [vite-plugin-svelte] src/lib/components/FooterSection.svelte:13:24 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
+https://svelte.dev/e/a11y_consider_explicit_label
+11:38:02 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+11:38:02 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:88:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:89:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:90:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:121:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:121:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:123:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:145:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:145:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:145:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:39:32 PM [vite-plugin-svelte] src/routes/topics/+page.svelte:92:4 Unused CSS selector ".line-clamp-3"
+https://svelte.dev/e/css_unused_selector
+11:39:32 PM [vite-plugin-svelte] src/routes/topics/+page.svelte:101:4 Unused CSS selector ".text-teal-dark"
+https://svelte.dev/e/css_unused_selector
+11:40:15 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+11:40:15 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:97:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:108:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:132:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:97:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:108:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:132:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:41:32 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+11:41:32 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:100:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:133:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
+    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:450:18)
+    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:272:19)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
+    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
+    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:270:48)
+    at Object.eval [as handle] (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:79:56)
+    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:265:27)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
+    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
+    at respond (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:263:65) {
+  status: 404,
+  text: 'Not Found'
+}

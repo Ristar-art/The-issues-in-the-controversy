@@ -3,7 +3,7 @@
     let { progress } = $props();
 </script>
 
-<section class="py-16 bg-gray-50">
+<section class="py-16 ">
     <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-teal mb-12">{progress.title}</h2>
         
@@ -15,8 +15,8 @@
             {/each}
         </div>
         
-        <div class="text-center mt-10">
+        <!-- <div class="text-center mt-10">
             <button class="btn">{progress.cta.label}</button>
-        </div>
+        </div> -->
     </div>
 </section>

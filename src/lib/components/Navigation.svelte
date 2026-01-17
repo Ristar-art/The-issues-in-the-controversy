@@ -4,15 +4,15 @@
             <img src="logoimage.jpg" alt="BizMaster Logo" class="h-10 rounded-3xl">
         </div>
         <div class="hidden md:flex space-x-6">
-            <a href="#" class="font-medium">Home</a>
-            <a href="#" class="font-medium">About Us</a>
-            <a href="#" class="font-medium">Topics</a>
-            <a href="#" class="font-medium">Pages</a>
-            <a href="#" class="font-medium">Blog</a>
-            <a href="#" class="font-medium">Contact Us</a>
+            <a href="/" aria-label="Home">Home</a>
+            <a href="/about" aria-label="About Us">About Us</a>
+            <a href="/topics" aria-label="Topics">Topics</a>
+            <a href="/pages" aria-label="Pages">Pages</a>
+            <a href="/blog" aria-label="Blog">Blog</a>
+            <a href="/contact" aria-label="Contact Us">Contact Us</a>
         </div>
         <div>
-            <button class="teal-dark px-4 py-2 rounded-md">Contact Us</button>
+            <button class="teal-dark px-4 py-2 rounded-md" aria-label="Contact Us">Contact Us</button>
         </div>
     </div>
 </nav>

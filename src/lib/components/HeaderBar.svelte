@@ -5,9 +5,9 @@
         <span><i class="fas fa-phone-alt mr-1"></i> (555) 555-1234</span>
     </div>
     <div class="flex space-x-3">
-        <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
     </div>
 </div>

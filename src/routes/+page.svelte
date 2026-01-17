@@ -10,7 +10,6 @@
     import CopyrightBar from '$lib/components/CopyrightBar.svelte';
     import SearchBar from '$lib/components/SearchBar.svelte';
     import FeaturedVideos from './FeaturedVideos.svelte';
-
     const { data } = $props();
     const { landing } = data;
 

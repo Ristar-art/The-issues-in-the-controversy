@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Test</title>
+</head>
+<body>
+    <h1>Search Test</h1>
+    <input type="text" id="searchInput" placeholder="Search..." style="width: 300px; padding: 10px;">
+    <button onclick="performSearch()">Search</button>
+    <div id="results" style="margin-top: 20px;"></div>
+
+    <script>
+        async function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value;
+            const resultsDiv = document.getElementById('results');
+            
+            if (!searchTerm) {
+                resultsDiv.innerHTML = 'Please enter a search term';
+                return;
+            }
+            
+            resultsDiv.innerHTML = 'Searching...';
+            
+            try {
+                const response = await fetch(`http://localhost:5173/api/search?q=${encodeURIComponent(searchTerm)}`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    resultsDiv.innerHTML = `Error: ${data.error}`;
+                } else {
+                    resultsDiv.innerHTML = `<h3>Found ${data.length} results:</h3>` +
+                        data.map(result => `<div style="border: 1px solid #ccc; padding: 10px; margin: 5px;">
+                            <strong>${result.attributes.title}</strong><br>
+                            <small>${result.type}</small><br>
+                            ${result.attributes.content}
+                        </div>`).join('');
+                }
+            } catch (error) {
+                resultsDiv.innerHTML = `Network error: ${error.message}`;
+            }
+        }
+        
+        document.getElementById('searchInput').addEventListener('input', performSearch);
+    </script>
+</body>
+</html>

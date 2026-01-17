@@ -1,10 +1,10 @@
 {
-  "hero": {
-    "image": {
-      "src": "/Endgame of heaven.jpg",
-      "alt": "Endgame of Heaven illustration"
-    }
-  },
+   "hero": {
+     "image": {
+       "src": "/_.jpeg",
+       "alt": "Endgame of Heaven illustration"
+     }
+   },
   "navigation": {
     "logo": "/logoimage.jpg",
     "links": [
@@ -72,7 +72,7 @@
     "items": [
       {
         "title": "A beast",
-        "description": "Kingdom",
+        "description": "Kingdom/Politica Power",
         "image": {
           "src": "/Beast.webp",
           "alt": "Beast symbol"
@@ -80,7 +80,7 @@
       },
       {
         "title": "A woman",
-        "description": "A religious body",
+        "description": "A Religious Body",
         "image": {
           "src": "/woman-72.png",
           "alt": "Woman symbol"
@@ -104,9 +104,9 @@
     "title": "The truth about God",
     "question": "Is God a trinity?",
     "points": [
-      "God the Father",
-      "Jesus, The Son of God",
-      "The Holy Spirit"
+      "Who and what is God the Father?",
+      "What is the identity of Jesus Christ, The Word of God?",
+      "Is the Holy Spirit a self existand being like the Father and Jesus Christ?"
     ],
     "cta": {
       "label": "Read More",
@@ -118,7 +118,7 @@
     }
   },
   "government": {
-    "title": "Types of Government",
+    "title": "Types of Governments",
     "items": [
       {
         "title": "The law",
@@ -151,12 +151,12 @@
     "items": [
       {
         "title": "The Issue",
-        "description": "What are the key areas of satans attack and why it worked.",
+        "description": "What are the key areas of satans assault and why it worked.",
         "cta": { "label": "Read More", "href": "#" }
       },
       {
         "title": "Gods solution",
-        "description": "What is the divine answer to our challenges?",
+        "description": "What is the God's answer to the challenges layed against Him by satan?",
         "cta": { "label": "Read More", "href": "#" }
       },
       {
