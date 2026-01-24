@@ -10,6 +10,7 @@
     import CopyrightBar from '$lib/components/CopyrightBar.svelte';
     import SearchBar from '$lib/components/SearchBar.svelte';
     import FeaturedVideos from './FeaturedVideos.svelte';
+    import hero from '../../static/_.jpeg'
     const { data } = $props();
     const { landing } = data;
 
@@ -168,7 +169,7 @@
     <!-- Main content area -->
     <main>
         <!-- Hero section with H1 for SEO -->
-        <HeroSection hero={landing.hero} />
+        <HeroSection hero={hero} />
         <SearchBar config={landing.searchBar} />
         <KeyTopics keyTopics={landing.keyTopics} />
         <Progress progress={landing.progress} /> 

@@ -285,3 +285,132 @@ SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
   status: 404,
   text: 'Not Found'
 }
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:100:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:133:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
+    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:450:18)
+    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:272:19)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
+    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
+    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:270:48)
+    at Object.eval [as handle] (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:79:56)
+    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:265:27)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
+    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
+    at respond (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:263:65) {
+  status: 404,
+  text: 'Not Found'
+}
+SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
+    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:450:18)
+    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:272:19)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
+    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
+    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:270:48)
+    at Object.eval [as handle] (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:79:56)
+    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:265:27)
+    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
+    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
+    at respond (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:263:65) {
+  status: 404,
+  text: 'Not Found'
+}
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/9.js
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+7:23:45 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+7:23:45 PM [vite] (client) page reload .svelte-kit/generated/root.js
+7:23:45 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+7:50:26 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+7:50:26 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+8:03:51 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+8:03:51 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+8:06:18 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+8:06:18 PM [vite] (ssr) page reload src/routes/+page.svelte
+8:06:20 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+8:06:20 PM [vite] (ssr) page reload src/routes/+page.svelte
+8:06:54 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+8:06:54 PM [vite] (ssr) page reload src/routes/+page.svelte
+8:10:19 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+8:10:19 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+8:11:01 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+8:11:01 PM [vite] (ssr) page reload src/routes/+page.svelte
+8:11:02 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+8:11:02 PM [vite] (ssr) page reload src/routes/+page.svelte
+8:11:17 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+8:11:17 PM [vite] (ssr) page reload src/routes/+page.svelte
+8:12:09 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+8:12:09 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/9.js
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+8:15:29 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+8:15:29 PM [vite] (client) page reload .svelte-kit/generated/root.js
+8:15:29 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+8:15:45 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+8:15:45 PM [vite] (ssr) page reload src/routes/+page.svelte
+6:41:21 PM [vite] (client) page reload src/routes/search.json/+server.js
+6:41:21 PM [vite] (ssr) page reload src/routes/search.json/+server.js
+6:41:21 PM [vite] (client) page reload src/routes/search.json/search/[slug]/+page.svelte
+6:41:21 PM [vite] (ssr) page reload src/routes/search.json/search/[slug]/+page.svelte
+6:41:21 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+6:49:46 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+6:49:46 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+6:55:42 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+6:55:42 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+6:56:00 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+6:56:00 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
+6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+6:56:12 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+6:56:12 PM [vite] (client) page reload .svelte-kit/generated/root.js
+6:56:12 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
+6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+6:58:46 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+6:58:46 PM [vite] (client) page reload .svelte-kit/generated/root.js
+6:58:46 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+7:02:13 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+7:02:13 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
