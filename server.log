@@ -414,3 +414,52 @@ SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
 6:58:46 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
 7:02:13 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
 7:02:13 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:23:10 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:23:10 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:23:15 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:23:15 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:23:19 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:23:19 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:23:32 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:23:32 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:23:34 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:23:34 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:23:36 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:23:36 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:23:59 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:23:59 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:36 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:36 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:40 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:40 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:42 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:42 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:45 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:45 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:50 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:50 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:51 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:51 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:53 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:53 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:24:54 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:24:54 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+9:28:24 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
+9:28:24 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
+9:28:39 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
+9:28:39 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
+9:28:43 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
+9:28:43 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
+9:42:41 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
+9:42:41 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
+9:43:10 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+9:43:10 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
+11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
+11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+11:36:23 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+11:36:23 AM [vite] (client) page reload .svelte-kit/generated/root.js
+11:36:23 AM [vite] (ssr) page reload .svelte-kit/generated/root.js

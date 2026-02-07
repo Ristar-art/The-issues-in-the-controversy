@@ -100,7 +100,7 @@
   }
 </script>
 
-<div class="relative w-full max-w-md mx-auto mt-8">
+<div class="relative w-[75%] max-w-md mx-auto mt-2">
   <div class="relative">
       <input
           type="text"

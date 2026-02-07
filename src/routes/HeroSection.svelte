@@ -2,9 +2,9 @@
     let { hero } = $props();
 </script>
 
-<section class="relative overflow-hidden py-16">
+<section class="relative overflow-hidden pt-16">
     <div class="container mx-auto flex flex-wrap px-4">
-        <div class="w-full flex flex-col justify-center mb-12 lg:mb-0">
+        <div class="w-full flex flex-col justify-center lg:mb-0">
             <div class="relative">
                 <!-- <div class="accent-lime circle-accent -top-12 -left-12 opacity-40"> </div> -->
 
