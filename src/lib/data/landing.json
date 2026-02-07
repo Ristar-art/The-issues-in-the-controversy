@@ -121,7 +121,7 @@
     "title": "Types of Governments",
     "items": [
       {
-        "title": "The law",
+        "title": "The Legal Law",
         "description": "The governance that works from outside to compel behaviour.",
         "image": {
           "src": "/law-753482_1280.webp",
@@ -129,7 +129,7 @@
         }
       },
       {
-        "title": "Nature",
+        "title": "The Nature Law",
         "description": "The governance that works from within to influence behaviour.",
         "image": {
           "src": "/pi-the law of nature.webp",
@@ -137,7 +137,7 @@
         }
       },
       {
-        "title": "The Politics of the univers",
+        "title": "The Politics of the Univers",
         "description": "The role of politict in how the masses chose the form of goverment they want to be under.",
         "image": {
           "src": "/politics.webp",

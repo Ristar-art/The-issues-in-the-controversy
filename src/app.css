@@ -1,51 +1,269 @@
 @import "tailwindcss";
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+:root {
+  /* Editorial Color Palette */
+  --color-ink: #1a1a1a;
+  --color-charcoal: #2d2d2d;
+  --color-graphite: #4a4a4a;
+  --color-stone: #6b6b6b;
+  --color-warm-gray: #8a8a8a;
+  --color-silver: #b5b5b5;
+  --color-pearl: #e8e8e8;
+  --color-cream: #faf9f7;
+  --color-paper: #ffffff;
+  --color-accent: #8b4513;
+  --color-accent-light: #a0522d;
 }
 
-    
-    h1, h2, h3, h4, h5, h6,
-    .font-heading {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-    }
-    
-    /* Your existing styles */
-    .teal-dark {
-        background-color: #0A5B5B;
-        color: white;
-    }
-    .teal-light {
-        background-color: #117777;
-        color: white;
-    }
-    .accent-lime {
-        background-color: #C2F970;
-    }
-    .text-teal {
-        color: #0A5B5B;
-    }
-    .hexagon {
-        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-    }
-    .circle-accent {
-        position: absolute;
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-    }
+body {
+  margin: 0;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Editorial Typography */
+.font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.font-headline {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.font-body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  color: var(--color-ink);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3.5rem;
+  letter-spacing: -0.03em;
+}
+
+h2 {
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+p {
+  color: var(--color-graphite);
+}
+
+/* Editorial Button Styles */
+.btn-editorial {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.875rem 2rem;
+  background-color: transparent;
+  border: 1px solid var(--color-ink);
+  color: var(--color-ink);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-editorial:hover {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+.btn-editorial-accent {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-paper);
+}
+
+.btn-editorial-accent:hover {
+  background-color: var(--color-accent-light);
+  border-color: var(--color-accent-light);
+}
+
+/* Editorial Section Dividers */
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background-color: var(--color-accent);
+  margin: 1.5rem 0;
+}
+
+.section-divider-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Editorial Cards */
+.card-editorial {
+  background-color: var(--color-paper);
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-editorial:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Editorial Links */
+.link-editorial {
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s ease;
+  font-weight: 600;
+}
+
+.link-editorial:hover {
+  border-bottom-color: var(--color-accent);
+}
+
+/* Editorial Labels/Eyebrows */
+.eyebrow {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+/* Editorial Grid Lines */
+.grid-line {
+  border-top: 1px solid var(--color-pearl);
+}
+
+/* Drop Cap Style */
+.drop-cap::first-letter {
+  float: left;
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  color: var(--color-accent);
+}
+
+/* Pull Quote Style */
+.pull-quote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-style: italic;
+  color: var(--color-charcoal);
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* Legacy button support */
 .btn {
-    display: inline-block;
-    padding: 0.5rem 1rem; /* px-4 py-2 */
-    border: 1px solid #38b2ac; /* border-teal */
-    color: #38b2ac; /* text-teal */
-    border-radius: 0.375rem; /* rounded-md */
-    transition: background-color 0.2s, color 0.2s; /* transition */
+  display: inline-flex;
+  align-items: center;
+  padding: 0.875rem 2rem;
+  background-color: transparent;
+  border: 1px solid var(--color-ink);
+  color: var(--color-ink);
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .btn:hover {
-    background-color: #38b2ac; /* hover:bg-teal */
-    color: #ffffff; /* hover:text-white */
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+}
+
+/* Legacy color support */
+.text-teal {
+  color: var(--color-ink);
+}
+
+/* Editorial Container */
+.container-editorial {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 1.875rem;
+  }
+  
+  .container-editorial {
+    padding: 0 1.5rem;
+  }
+}
+
+/* Image treatments */
+.img-editorial {
+  filter: grayscale(20%) contrast(1.1);
+  transition: filter 0.3s ease;
+}
+
+.img-editorial:hover {
+  filter: grayscale(0%) contrast(1);
+}
+
+/* Caption style */
+.caption {
+  font-size: 0.75rem;
+  color: var(--color-warm-gray);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+/* Numbered list editorial style */
+.list-numbered {
+  counter-reset: item;
+  list-style: none;
+}
+
+.list-numbered li {
+  counter-increment: item;
+  position: relative;
+  padding-left: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.list-numbered li::before {
+  content: counter(item, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-accent);
 }

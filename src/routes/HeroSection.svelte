@@ -2,33 +2,35 @@
     let { hero } = $props();
 </script>
 
-<section class="relative overflow-hidden pt-16">
-    <div class="container mx-auto flex flex-wrap px-4">
-        <div class="w-full flex flex-col justify-center lg:mb-0">
-            <div class="relative">
-                <!-- <div class="accent-lime circle-accent -top-12 -left-12 opacity-40"> </div> -->
-
-                <h1 class="text-4xl md:text-5xl font-bold text-teal mb-6">Biblical Prophecy Study</h1>
-                <p class="text-gray-600 mb-8">Explore biblical prophecies from Daniel and Revelation, understand God's character and discover God's amasing solutions to Satans assault on his character and wisdom.</p>
-
-                <div class="flex flex-wrap gap-6 mb-8">
-                    <a href="#topics" class="btn">
-                        Explore Topics
-                    </a>
-                </div>
-            </div>
+<section class="relative overflow-hidden pt-16 pb-24 bg-[var(--color-cream)]">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="flex flex-col items-center text-center">
+            <!-- Eyebrow -->
+            <span class="eyebrow">Biblical Prophecy Study</span>
+            
+            <!-- Main Headline -->
+            <h1 class="font-display text-5xl md:text-6xl lg:text-7xl text-[var(--color-ink)] mb-6 max-w-4xl leading-tight">
+                Understanding the Endgame of Heaven
+            </h1>
+            
+            <!-- Section Divider -->
+            <div class="section-divider section-divider-center mb-8"></div>
+            
+            <!-- Subheadline -->
+            <p class="font-body text-lg md:text-xl text-[var(--color-stone)] max-w-2xl mb-12 leading-relaxed">
+                Explore biblical prophecies from Daniel and Revelation, understand God's character, and discover divine solutions to spiritual warfare.
+            </p>
+            
+            <!-- CTA Button -->
+            <a href="#topics" class="btn-editorial">
+                Explore Topics
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                </svg>
+            </a>
         </div>
-        <!-- <div class="w-full lg:w-1/2 relative"> -->
-            <!-- <div class="hexagon teal-dark w-4/5 h-4/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div> -->
-
-            <!-- <img src={hero.image.src} alt={hero.image.alt} class="w-full h-auto relative z-10 mx-auto"> -->
-
-            <!-- <a href="#topics" class="absolute top-10 right-10 bg-white shadow rounded-lg p-3 z-20">
-                <p class="font-bold text-teal">100+</p>
-                <p class="text-sm">Topics</p>
-            </a> -->
-        <!-- </div> -->
     </div>
-
-
+    
+    <!-- Decorative Element -->
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-[var(--color-pearl)]"></div>
 </section>

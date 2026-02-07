@@ -463,3 +463,264 @@ SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
 11:36:23 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
 11:36:23 AM [vite] (client) page reload .svelte-kit/generated/root.js
 11:36:23 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
+11:53:24 AM [vite] (client) hmr update /src/app.css
+11:53:24 AM [vite] (ssr) page reload src/app.css
+11:53:31 AM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
+11:53:31 AM [vite] (ssr) page reload src/routes/+page.svelte
+11:53:41 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
+11:53:41 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
+11:53:55 AM [vite] (client) hmr update /src/routes/KeyTopics.svelte, /src/app.css
+11:53:55 AM [vite] (ssr) page reload src/routes/KeyTopics.svelte
+11:54:06 AM [vite] (client) hmr update /src/routes/Progress.svelte, /src/app.css
+11:54:06 AM [vite] (ssr) page reload src/routes/Progress.svelte
+11:54:17 AM [vite] (client) hmr update /src/routes/Symbols.svelte, /src/app.css
+11:54:17 AM [vite] (ssr) page reload src/routes/Symbols.svelte
+11:54:27 AM [vite] (client) hmr update /src/routes/TheTruth.svelte, /src/app.css
+11:54:27 AM [vite] (ssr) page reload src/routes/TheTruth.svelte
+11:54:37 AM [vite] (client) hmr update /src/routes/GovernmentSection.svelte, /src/app.css
+11:54:37 AM [vite] (ssr) page reload src/routes/GovernmentSection.svelte
+11:54:52 AM [vite] (client) hmr update /src/routes/KeySections.svelte, /src/app.css
+11:54:52 AM [vite] (ssr) page reload src/routes/KeySections.svelte
+11:55:10 AM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+11:55:10 AM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+11:55:36 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+11:55:36 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+12:01:47 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:02:03 PM [vite] (client) hmr update /src/lib/components/FooterSection.svelte, /src/app.css
+12:02:03 PM [vite] (ssr) page reload src/lib/components/FooterSection.svelte
+12:10:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:10:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:11:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:15:09 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:15:09 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:15:42 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:15:42 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:23:15 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:23:15 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:23:50 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:23:50 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:24:00 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
+12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
+12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
+12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
+12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
+12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
+12:24:01 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
+12:24:01 PM [vite] (client) page reload .svelte-kit/generated/root.js
+12:24:01 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
+12:24:11 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:24:11 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:29:43 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:29:43 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:36:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:36:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
+https://svelte.dev/e/a11y_no_noninteractive_element_interactions
+12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:92:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:92:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:96:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:96:8 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:98:12 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
+https://svelte.dev/e/a11y_consider_explicit_label
+12:30:29 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:30:29 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:30:34 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:30:50 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:30:50 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:32:53 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:32:53 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:33:39 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:33:39 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:34:05 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:34:05 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:34:06 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:34:09 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:34:11 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:34:17 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:34:19 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:34:19 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:34:55 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:35:09 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:35:09 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:38:04 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:38:57 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:39:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:39:21 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:39:21 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:39:32 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:39:38 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:39:38 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:49:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:49:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
+https://svelte.dev/e/a11y_no_noninteractive_element_interactions
+12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:101:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:101:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:105:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:105:8 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:12 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
+https://svelte.dev/e/a11y_consider_explicit_label
+12:40:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:40:31 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:40:31 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:40:35 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:41:33 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:43:05 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:43:05 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:54:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:54:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:56:50 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:56:50 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:57:52 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:57:52 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:58:30 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:58:30 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
+https://svelte.dev/e/a11y_no_noninteractive_element_interactions
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:60:20 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:113:12 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:117:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
+https://svelte.dev/e/a11y_no_noninteractive_element_interactions
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:60:20 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:113:12 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:117:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+12:58:39 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:58:49 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:59:27 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:59:29 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:59:31 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:59:39 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+12:59:40 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+12:59:40 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:00:41 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:00:41 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:00:57 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:00:57 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:01:07 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:01:07 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:01:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:01:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:02:00 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:02:00 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:02:52 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:02:52 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:03:54 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:03:54 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:03:59 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:03:59 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:04:24 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:04:24 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:04:38 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:04:38 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:05:13 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:05:13 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:06:30 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:06:30 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:07:24 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:07:29 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:07:29 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:07:43 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:07:45 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:07:45 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:08:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:08:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:09:07 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:09:07 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:09:15 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:09:15 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:09:34 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:09:34 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:10:21 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:10:21 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:10:40 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:10:40 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:11:42 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:11:42 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:13:06 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:13:06 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:14:12 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:14:12 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:15:13 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:15:13 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:15:21 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:15:21 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:15:25 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
+1:15:25 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+1:38:11 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+1:38:11 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+1:38:19 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+1:38:19 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+1:38:23 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
+1:38:23 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
+1:41:05 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:05 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:07 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:07 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:15 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:15 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:19 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:19 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:20 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:20 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:24 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:24 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:30 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:30 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:30 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:30 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:31 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:31 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:34 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:34 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:36 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:36 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:41:58 PM [vite] (client) page reload src/lib/data/landing.json
+1:41:58 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:42:00 PM [vite] (client) page reload src/lib/data/landing.json
+1:42:00 PM [vite] (ssr) page reload src/lib/data/landing.json
+1:48:03 PM [vite] (client) hmr update /src/routes/topics/+page.svelte, /src/app.css, /src/routes/topics/+page.svelte?svelte&type=style&lang.css
+1:48:03 PM [vite] (ssr) page reload src/routes/topics/+page.svelte
+1:51:01 PM [vite] (client) hmr update /src/routes/topics/+page.svelte, /src/app.css
+1:51:01 PM [vite] (ssr) page reload src/routes/topics/+page.svelte
+1:56:58 PM [vite] (client) hmr update /src/routes/topics/+page.svelte, /src/app.css
+1:56:58 PM [vite] (ssr) page reload src/routes/topics/+page.svelte

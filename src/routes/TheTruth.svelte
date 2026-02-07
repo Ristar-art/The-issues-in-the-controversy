@@ -3,29 +3,47 @@
     let { truth } = $props();
 </script>
 
-<section class="pt-16 ">
-    <div class="container mx-auto px-4">
-        <div class="flex flex-wrap items-center">
-            <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
-                <h2 class="text-3xl font-bold text-teal mb-6">{truth.title}</h2>
-                <h3 class="text-xl font-bold mb-3 text-teal">{truth.question}</h3>
+<section class="py-24 bg-[var(--color-cream)]">
+    <div class="container mx-auto px-4 max-w-6xl">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Content Column -->
+            <div>
+                <span class="eyebrow">Core Doctrine</span>
+                <h2 class="font-display text-4xl md:text-5xl text-[var(--color-ink)] mb-8">
+                    {truth.title}
+                </h2>
                 
-                <div class="space-y-4">
+                <!-- Question as Pull Quote -->
+                <blockquote class="pull-quote mb-8">
+                    {truth.question}
+                </blockquote>
+                
+                <!-- Points List -->
+                <ul class="list-numbered mb-10">
                     {#each truth.points as point}
-                        <div class="flex items-center">
-                            <!-- <div class="bg-green-100 p-2 rounded-full mr-3">
-                                <i class="fas fa-check text-green-600"></i>
-                            </div> -->
-                            <span>{point}</span>
-                        </div>
+                        <li class="font-body text-[var(--color-graphite)]">
+                            {point}
+                        </li>
                     {/each}
-                    <a href={truth.cta.href} class="btn">{truth.cta.label}</a>
-
-                </div>
+                </ul>
                 
+                <!-- CTA -->
+                <a href={truth.cta.href} class="btn-editorial btn-editorial-accent">
+                    {truth.cta.label}
+                </a>
             </div>
-            <div class="w-auto h-22rem lg:w-1/2 flex justify-center">
-                <img src={truth.image.src} alt={truth.image.alt} class="w-auto h-60">
+            
+            <!-- Image Column -->
+            <div class="relative">
+                <div class="relative overflow-hidden bg-[var(--color-paper)] p-8">
+                    <img 
+                        src={truth.image.src} 
+                        alt={truth.image.alt} 
+                        class="w-full h-auto img-editorial"
+                    >
+                </div>
+                <!-- Decorative Frame -->
+                <div class="absolute -bottom-4 -right-4 w-full h-full border-2 border-[var(--color-accent)] -z-10"></div>
             </div>
         </div>
     </div>
