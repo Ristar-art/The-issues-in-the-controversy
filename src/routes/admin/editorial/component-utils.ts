@@ -25,28 +25,19 @@ export const DEFAULT_SECTION: Section = {
 
 // Default component configuration
 export const DEFAULT_COMPONENT: Omit<Component, 'id' | 'name'> = {
-  section: {
-    ...DEFAULT_SECTION,
-    blocks: [{ type: 'text' as const, text: 'New block' }]
-  },
+  category: 'custom',
   html: ''
 };
 
 /**
  * Creates a new component with default settings
  */
-export function createComponent(id: string, name: string): Component {
-  const section: Section = {
-    ...DEFAULT_SECTION,
-    blocks: [{ type: 'text' as const, text: 'New block' }]
-  };
-  const html = sectionToHtml(section);
-
+export function createComponent(id: string, name: string, category: Component['category'] = 'custom'): Component {
   return {
     id,
     name,
-    html,
-    section
+    html: '',
+    category
   };
 }
 
@@ -58,17 +49,10 @@ export function migrateComponent(component: Component): Component {
     return component;
   }
 
-  const existingBlocks: Block[] = component.blocks ?? [];
+  // Components no longer have sections - just return as-is with category
   return {
     ...component,
-    section: {
-      classes: 'py-16 bg-white',
-      containerClasses: 'container mx-auto px-4',
-      blocks: existingBlocks,
-      layout: 'linear',
-      columns: 2,
-      minHeight: 'none'
-    }
+    category: component.category || 'custom'
   };
 }
 

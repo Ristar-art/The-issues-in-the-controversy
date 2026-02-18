@@ -42,6 +42,7 @@ export async function POST({ request }) {
         slug: body.slug,
         content: body.content,
         componentIds: body.componentIds || [],
+        blocks: body.blocks || [{ type: 'text', text: '' }],
         published: false
       }
     };
@@ -71,7 +72,7 @@ export async function PUT({ request }) {
       throw error(404, 'Article not found');
     }
 
-    const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published'];
+    const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published', 'blocks'];
     for (const field of allowedFields) {
       if (updates.hasOwnProperty(field)) {
         pages[pageIndex].attributes[field] = updates[field];

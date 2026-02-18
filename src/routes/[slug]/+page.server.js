@@ -44,6 +44,7 @@ export async function load({ params }) {
 
   return {
     article: {
+      id: page.id,
       ...page.attributes,
       content
     }

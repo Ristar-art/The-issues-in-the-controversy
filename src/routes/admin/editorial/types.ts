@@ -1,5 +1,5 @@
 export interface Block {
-  type: 'heading' | 'text' | 'image' | 'button' | 'layout';
+  type: 'heading' | 'text' | 'image' | 'button' | 'layout' | 'component';
   text?: string;
   level?: number;
   color?: string;
@@ -12,6 +12,8 @@ export interface Block {
   layout?: 'linear' | 'grid';
   columns?: number;
   blocks?: Block[];
+  // For component blocks
+  componentId?: string;
 }
 
 export interface Section {
@@ -28,8 +30,16 @@ export interface Component {
   id: string;
   name: string;
   html: string;
-  section: Section;
+  category: 'custom';
+  description?: string;
+  // Background settings
+  backgroundColor?: string;
+  backgroundImage?: string;
+  backgroundSize?: 'cover' | 'contain' | 'auto';
+  backgroundPosition?: string;
+  minHeight?: string;
   // Legacy support for old format
+  section?: Section;
   blocks?: Block[];
 }
 

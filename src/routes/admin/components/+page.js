@@ -1,11 +1,22 @@
+/** @type {import('./$types').PageLoad} */
 export async function load({ fetch }) {
-  const res = await fetch('/api/components');
+  try {
+    // Load all components
+    const componentsRes = await fetch('/api/components');
+    const components = componentsRes.ok ? await componentsRes.json() : [];
+    
+    // Get custom components
+    const customComponents = components.filter(/** @param {any} c */ c => c.category === 'custom');
 
-  if (!res.ok) {
-    console.error('Failed to load components', res.status);
-    return { components: [] };
+    return {
+      components,
+      customComponents
+    };
+  } catch (err) {
+    console.error('Error loading components:', err);
+    return {
+      components: [],
+      customComponents: []
+    };
   }
-
-  const components = await res.json();
-  return { components };
 }

@@ -57,3 +57,26 @@ export async function POST({ request }) {
     return json({ error: 'Failed to write components DB' }, { status: 500 });
   }
 }
+
+export async function DELETE({ request }) {
+  try {
+    const body = await request.json();
+    
+    if (!body || !body.id) {
+      return json({ error: 'Component ID is required' }, { status: 400 });
+    }
+    
+    const components = await readComponents();
+    const filtered = components.filter((c) => c.id !== body.id);
+    
+    if (filtered.length === components.length) {
+      return json({ error: 'Component not found' }, { status: 404 });
+    }
+    
+    await writeComponents(filtered);
+    return json({ ok: true });
+  } catch (err) {
+    console.error('Failed to delete component', err);
+    return json({ error: 'Failed to delete component' }, { status: 500 });
+  }
+}
