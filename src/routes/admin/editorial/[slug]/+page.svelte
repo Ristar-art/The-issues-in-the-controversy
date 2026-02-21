@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onDestroy, tick } from 'svelte';
   import { goto } from '$app/navigation';
   import NotionEditor from './NotionEditor.svelte';
 
@@ -58,44 +57,14 @@
   let blocks: Block[] = $state(data.article.attributes.blocks ?? [{ type: 'text', text: '' }]);
   let saveStatus = $state<'saved' | 'saving' | 'unsaved'>('saved');
 
-  // Auto-save timer
-  let autoSaveTimeout: ReturnType<typeof setTimeout> | null = null;
-
   function updateBlocks(newBlocks: Block[]) {
     blocks = newBlocks;
     saveStatus = 'unsaved';
-
-    // Clear any existing auto-save timeout
-    if (autoSaveTimeout) {
-      clearTimeout(autoSaveTimeout);
-    }
-
-    // Set new auto-save timeout for 3 seconds
-    autoSaveTimeout = setTimeout(() => {
-      if (saveStatus === 'unsaved') {
-        saveArticle();
-      }
-    }, 3000);
   }
 
-  // Cleanup timeout on component destroy
-  onDestroy(() => {
-    if (autoSaveTimeout) {
-      clearTimeout(autoSaveTimeout);
-    }
-  });
-
   async function saveArticle(): Promise<void> {
-    // Save current focus and cursor position before save
-    const activeElement = document.activeElement as HTMLElement | null;
-    const blockIndex = activeElement?.dataset?.blockIndex;
-    const selection = window.getSelection();
-    let anchorOffset = selection?.anchorOffset ?? 0;
-    let focusOffset = selection?.focusOffset ?? 0;
-
     try {
       saveStatus = 'saving';
-      await tick();
 
       const res: Response = await fetch('/api/articles', {
         method: 'PUT',
@@ -114,30 +83,6 @@
     } catch (err: any) {
       alert(`Error saving article: ${err.message}`);
       saveStatus = 'unsaved';
-    }
-
-    // Restore focus and cursor position after save
-    await tick();
-
-    if (blockIndex !== undefined) {
-      const element = document.querySelector(`[data-block-index="${blockIndex}"]`) as HTMLElement;
-      if (element) {
-        element.focus();
-
-        // Restore cursor position
-        const sel = window.getSelection();
-        if (sel && element.firstChild) {
-          const range = document.createRange();
-          const textNode = element.firstChild;
-          const maxOffset = textNode.textContent?.length ?? 0;
-          const safeOffset = Math.min(anchorOffset, maxOffset);
-
-          range.setStart(textNode, safeOffset);
-          range.setEnd(textNode, safeOffset);
-          sel.removeAllRanges();
-          sel.addRange(range);
-        }
-      }
     }
   }
 
