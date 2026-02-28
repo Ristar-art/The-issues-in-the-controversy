@@ -10,6 +10,7 @@
       title: string;
       slug: string;
       published: boolean;
+      featuredImage?: string;
     };
   }
 
@@ -23,12 +24,16 @@
   // State variables for creating new articles
   let newArticleTitle: string = '';
   let newArticleSlug: string = '';
+  let newFeaturedImage: string = '';
+  let uploadingImage: boolean = false;
   let creating: boolean = false;
 
   // State variables for editing existing articles
   let editingId: string | null = null;
   let editTitle: string = '';
   let editSlug: string = '';
+  let editFeaturedImage: string = '';
+  let uploadingEditImage: boolean = false;
 
   // Event dispatcher to communicate with parent component
   const dispatch = createEventDispatcher();
@@ -75,6 +80,66 @@
    * and dispatches a 'refresh' event on success to update the parent component.
    * Resets form fields after successful creation.
    */
+  async function handleImageUpload(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    uploadingImage = true;
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) throw new Error('Failed to upload image');
+
+      const result = await response.json();
+      newFeaturedImage = result.url;
+    } catch (err: any) {
+      error = err.message;
+    } finally {
+      uploadingImage = false;
+    }
+  }
+
+  function removeFeaturedImage(): void {
+    newFeaturedImage = '';
+  }
+
+  async function handleEditImageUpload(event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    uploadingEditImage = true;
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await fetch('/api/upload-image', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) throw new Error('Failed to upload image');
+
+      const result = await response.json();
+      editFeaturedImage = result.url;
+    } catch (err: any) {
+      error = err.message;
+    } finally {
+      uploadingEditImage = false;
+    }
+  }
+
+  function removeEditFeaturedImage(): void {
+    editFeaturedImage = '';
+  }
+
   async function createArticle(): Promise<void> {
     if (!newArticleTitle || !newArticleSlug) return;
 
@@ -86,6 +151,7 @@
         body: JSON.stringify({
           title: newArticleTitle,
           slug: newArticleSlug,
+          featuredImage: newFeaturedImage || undefined,
         })
       });
       if (!response.ok) throw new Error('Failed to create article');
@@ -96,6 +162,7 @@
       // Reset form fields
       newArticleTitle = '';
       newArticleSlug = '';
+      newFeaturedImage = '';
     } catch (err: any) {
       error = err.message;
     } finally {
@@ -130,7 +197,7 @@
    * @param title - The new title
    * @param slug - The new slug
    */
-  async function updateArticle(id: string, title: string, slug: string, ): Promise<void> {
+  async function updateArticle(id: string, title: string, slug: string): Promise<void> {
     try {
       const response: Response = await fetch('/api/articles', {
         method: 'PUT',
@@ -139,11 +206,12 @@
           id,
           title,
           slug,
+          featuredImage: editFeaturedImage || null,
         })
       });
       if (!response.ok) throw new Error('Failed to update article');
       dispatch('refresh');
-      editingId = null; // Exit edit mode
+      editingId = null;
     } catch (err: any) {
       error = err.message;
     }
@@ -181,16 +249,14 @@
     editingId = article.id;
     editTitle = article.attributes.title;
     editSlug = article.attributes.slug;
+    editFeaturedImage = article.attributes.featuredImage || '';
   }
 
-  /**
-   * Cancels the current editing session.
-   * Resets all edit-related state variables and exits edit mode.
-   */
   function cancelEditing(): void {
     editingId = null;
     editTitle = '';
     editSlug = '';
+    editFeaturedImage = '';
   }
 </script>
 
@@ -241,6 +307,48 @@
                   class="w-full px-4 py-3 bg-cream border border-pearl font-body text-ink placeholder-stone focus:outline-none focus:border-accent transition-colors"
                 />
               </div>
+              <div>
+                <label class="block text-sm font-semibold uppercase tracking-wider text-stone mb-2">Featured Image</label>
+                {#if newFeaturedImage}
+                  <div class="featured-image-preview">
+                    <img src={newFeaturedImage} alt="Featured" class="featured-image-img" />
+                    <button
+                      type="button"
+                      onclick={removeFeaturedImage}
+                      class="featured-image-remove"
+                      aria-label="Remove featured image"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" x2="6" y1="6" y2="18"/>
+                        <line x1="6" x2="18" y1="6" y2="18"/>
+                      </svg>
+                    </button>
+                  </div>
+                {:else}
+                  <label class="featured-image-upload {uploadingImage ? 'opacity-50 pointer-events-none' : ''}">
+                    {#if uploadingImage}
+                      <svg class="animate-spin h-6 w-6 text-stone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      <span class="text-sm text-stone font-body">Uploading...</span>
+                    {:else}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
+                        <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                        <circle cx="9" cy="9" r="2"/>
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                      </svg>
+                      <span class="text-sm text-stone font-body">Click to upload featured image</span>
+                    {/if}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onchange={handleImageUpload}
+                      class="hidden"
+                    />
+                  </label>
+                {/if}
+              </div>
               <button
                 type="submit"
                 disabled={creating}
@@ -287,6 +395,48 @@
                       class="w-full px-4 py-3 bg-cream border border-pearl font-body text-ink placeholder-stone focus:outline-none focus:border-accent transition-colors"
                     />
                   </div>
+                  <div>
+                    <label class="block text-sm font-semibold uppercase tracking-wider text-stone mb-2">Featured Image</label>
+                    {#if editFeaturedImage}
+                      <div class="featured-image-preview">
+                        <img src={editFeaturedImage} alt="Featured" class="featured-image-img" />
+                        <button
+                          type="button"
+                          onclick={removeEditFeaturedImage}
+                          class="featured-image-remove"
+                          aria-label="Remove featured image"
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" x2="6" y1="6" y2="18"/>
+                            <line x1="6" x2="18" y1="6" y2="18"/>
+                          </svg>
+                        </button>
+                      </div>
+                    {:else}
+                      <label class="featured-image-upload {uploadingEditImage ? 'opacity-50 pointer-events-none' : ''}">
+                        {#if uploadingEditImage}
+                          <svg class="animate-spin h-6 w-6 text-stone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span class="text-sm text-stone font-body">Uploading...</span>
+                        {:else}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
+                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                            <circle cx="9" cy="9" r="2"/>
+                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                          </svg>
+                          <span class="text-sm text-stone font-body">Click to upload featured image</span>
+                        {/if}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onchange={handleEditImageUpload}
+                          class="hidden"
+                        />
+                      </label>
+                    {/if}
+                  </div>
                   <div class="flex gap-3 pt-2">
                     <button
                       type="submit"
@@ -304,6 +454,11 @@
                   </div>
                 </form>
               {:else}
+                {#if article.attributes.featuredImage}
+                  <div class="article-featured-thumb mb-4">
+                    <img src={article.attributes.featuredImage} alt="Featured" class="article-featured-thumb-img" />
+                  </div>
+                {/if}
                 <div class="flex items-start justify-between gap-4 mb-4">
                   <div class="flex-1">
                     <h3 class="font-headline text-xl mb-2">{article.attributes.title}</h3>
@@ -330,7 +485,7 @@
 
                 <div class="flex flex-wrap gap-3">
                   <a
-                    href="/{article.attributes.slug}"
+                    href="/admin/preview/{article.attributes.slug}"
                     target="_blank"
                     class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border border-ink text-ink hover:bg-ink hover:text-paper transition-all"
                   >
@@ -450,5 +605,59 @@
   .hover\:bg-red-700:hover {
     background-color: #b91c1c;
     color: #fef3c7;
+  }
+  .featured-image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border: 2px dashed var(--color-pearl);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .featured-image-upload:hover {
+    border-color: var(--color-accent);
+  }
+  .featured-image-preview {
+    position: relative;
+    border: 1px solid var(--color-pearl);
+  }
+  .featured-image-img {
+    width: 100%;
+    height: 10rem;
+    object-fit: cover;
+    display: block;
+  }
+  .featured-image-remove {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .featured-image-remove:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  .hidden {
+    display: none;
+  }
+  .article-featured-thumb {
+    border-bottom: 1px solid var(--color-pearl);
+    margin: -2rem -2rem 1rem -2rem;
+  }
+  .article-featured-thumb-img {
+    width: 100%;
+    height: 8rem;
+    object-fit: cover;
+    display: block;
   }
 </style>

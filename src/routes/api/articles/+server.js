@@ -43,7 +43,8 @@ export async function POST({ request }) {
         content: body.content,
         componentIds: body.componentIds || [],
         blocks: body.blocks || [{ type: 'text', text: '' }],
-        published: false
+        published: false,
+        featuredImage: body.featuredImage || null
       }
     };
 
@@ -72,7 +73,7 @@ export async function PUT({ request }) {
       throw error(404, 'Article not found');
     }
 
-    const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published', 'blocks'];
+    const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published', 'blocks', 'featuredImage'];
     for (const field of allowedFields) {
       if (updates.hasOwnProperty(field)) {
         pages[pageIndex].attributes[field] = updates[field];

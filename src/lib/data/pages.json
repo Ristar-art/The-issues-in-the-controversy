@@ -10,15 +10,11 @@
       "blocks": [
         {
           "type": "text",
-          "text": "<p>Some time ago we started a series of articles focused on the issue of the great conflict between God and Satan. It is our intention to compile these articles and make them into a book entitled, “The Mother of all Wars.”&nbsp;</p>"
+          "text": "<p>Some time ago we started a series of articles focused on the issue of the great conflict between God and Satan. It is our intention to compile these articles and make them into a book entitled, “<strong>The Mother of all Wars.</strong>”&nbsp;</p><p><br></p>"
         },
         {
           "type": "text",
-          "text": "<p>The topics dealt with up to this point are outlined below.&nbsp;</p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Origins and Issues</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>The foundations</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Corporate identity and sin</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>The curse</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>God’s amazing solution</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Unfinished business</li></ol>"
-        },
-        {
-          "type": "text",
-          "text": "<p>In this edition we continue with the next article in the series entitled, “The New Covenant.”</p>"
+          "text": "<p><span style=\"color: var(--color-graphite);\">The topics dealt with up to this point are outlined below. </span></p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Origins and Issues</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">The foundations</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Corporate identity and sin</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">The curse</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">God’s amazing solution</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Unfinished business</span></li></ol><p><br></p>"
         }
       ]
     }
@@ -40,7 +36,7 @@
       "slug": "the-overview-of-daniel-and-revelations",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   },
   {
@@ -50,7 +46,7 @@
       "slug": "analysis-of-the-judgment-of-the-kingdoms",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   },
   {
@@ -60,7 +56,7 @@
       "slug": "the-character-of-god",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   },
   {
@@ -70,7 +66,7 @@
       "slug": "the-gospel-of-the-kingdom",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   },
   {
@@ -80,7 +76,7 @@
       "slug": "the-tragectory-of-the-kingdom-of-god-in-2000-years",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   },
   {
@@ -90,7 +86,7 @@
       "slug": "prhophetic-symbols-and-their-meaning",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   },
   {
@@ -100,7 +96,7 @@
       "slug": "types-of-governments",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   },
   {
@@ -110,7 +106,7 @@
       "slug": "the-issue",
       "content": "",
       "componentIds": [],
-      "published": true
+      "published": false
     }
   }
 ]

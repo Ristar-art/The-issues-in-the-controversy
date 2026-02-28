@@ -11,6 +11,17 @@
 
   let { blocks, availableComponents, onUpdate, onSave }: Props = $props();
 
+  // Generate stable unique IDs for blocks to use as keyed each keys
+  let blockIdCounter = 0;
+  let blockKeys: Map<Block, number> = new Map();
+
+  function getBlockKey(block: Block): number {
+    if (!blockKeys.has(block)) {
+      blockKeys.set(block, blockIdCounter++);
+    }
+    return blockKeys.get(block)!;
+  }
+
   // Track which block is being edited
   let editingBlockIndex: number | null = $state(null);
   let showSlashMenu = $state(false);
@@ -70,7 +81,7 @@
 
   function addBlockAfter(index: number, type: Block['type'] = 'text') {
     const newBlocks = [...blocks];
-    const newBlock: Block = { type, text: '' };
+    const newBlock: Block = { type, text: '<p><br></p>' };
     if (type === 'heading') newBlock.level = 2;
     newBlocks.splice(index + 1, 0, newBlock);
 
@@ -244,7 +255,7 @@
 </script>
 
 <div class="notion-editor">
-  {#each blocks as block, index (index)}
+  {#each blocks as block, index (getBlockKey(block))}
     <div class="block-wrapper group relative">
       <!-- Block handle (visible on hover) -->
       <div class="absolute -left-8 top-1 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-1">

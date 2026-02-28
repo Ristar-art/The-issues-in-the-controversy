@@ -56,6 +56,60 @@
   // Editor state
   let blocks: Block[] = $state(data.article.attributes.blocks ?? [{ type: 'text', text: '' }]);
   let saveStatus = $state<'saved' | 'saving' | 'unsaved'>('saved');
+  let htmlMode = $state(false);
+  let htmlSource = $state('');
+
+  function blocksToHtml(blks: Block[]): string {
+    if (!blks || !Array.isArray(blks)) return '';
+    return blks.map(block => {
+      switch (block.type) {
+        case 'heading': {
+          const level = block.level || 2;
+          const tag = `h${level}`;
+          return `<${tag}>${block.text || ''}</${tag}>`;
+        }
+        case 'text':
+          return block.text || '';
+        case 'image':
+          if (block.src) {
+            const style = block.widthPercent ? ` style="width:${block.widthPercent}%"` : '';
+            return `<figure${style}><img src="${block.src}" alt="${block.alt || ''}" style="max-width:100%" /></figure>`;
+          }
+          return '';
+        case 'button':
+          if (block.href) {
+            return `<a href="${block.href}" class="button">${block.label || 'Button'}</a>`;
+          }
+          return '';
+        case 'layout':
+          if (block.blocks) {
+            const cols = block.columns || 2;
+            const inner = blocksToHtml(block.blocks);
+            return `<div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:1rem">${inner}</div>`;
+          }
+          return '';
+        default:
+          return block.text || '';
+      }
+    }).join('\n');
+  }
+
+  function toggleHtmlMode() {
+    if (!htmlMode) {
+      // Switching TO html mode: convert blocks to HTML
+      htmlSource = blocksToHtml(blocks);
+    } else {
+      // Switching BACK to block mode: put HTML into a single text block
+      blocks = [{ type: 'text', text: htmlSource }];
+      saveStatus = 'unsaved';
+    }
+    htmlMode = !htmlMode;
+  }
+
+  function updateHtmlSource(e: Event) {
+    htmlSource = (e.target as HTMLTextAreaElement).value;
+    saveStatus = 'unsaved';
+  }
 
   function updateBlocks(newBlocks: Block[]) {
     blocks = newBlocks;
@@ -66,12 +120,17 @@
     try {
       saveStatus = 'saving';
 
+      // If in HTML mode, sync htmlSource into blocks before saving
+      const blocksToSave = htmlMode
+        ? [{ type: 'text' as const, text: htmlSource }]
+        : blocks;
+
       const res: Response = await fetch('/api/articles', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           id: article.id,
-          blocks: blocks
+          blocks: blocksToSave
         })
       });
 
@@ -120,6 +179,16 @@
       </div>
       
       <div class="actions-section">
+        <!-- HTML Mode Toggle -->
+        <button onclick={toggleHtmlMode} class="btn-html-toggle {htmlMode ? 'active' : ''}">
+          {htmlMode ? 'Block Editor' : 'HTML Mode'}
+        </button>
+
+        <!-- Preview Link -->
+        <a href="/admin/preview/{article.attributes.slug}" class="btn-preview">
+          Preview
+        </a>
+
         <!-- Component Library Link -->
         <a href="/admin/components" class="btn-library">
           📦 Component Library
@@ -161,15 +230,30 @@
   <!-- Main Editor Area -->
   <div class="editor-container">
     <div class="editor-wrapper">
-      <!-- Notion-Style Editor -->
-      <div class="notion-editor-container">
-        <NotionEditor 
-          {blocks}
-          availableComponents={customComponents}
-          onUpdate={updateBlocks}
-          onSave={saveArticle}
-        />
-      </div>
+      {#if htmlMode}
+        <!-- HTML Source Editor -->
+        <div class="html-editor-container">
+          <div class="html-editor-header">
+            <span class="html-editor-label">&lt;/&gt; HTML Source</span>
+          </div>
+          <textarea
+            class="html-editor-textarea"
+            value={htmlSource}
+            oninput={updateHtmlSource}
+            spellcheck="false"
+          ></textarea>
+        </div>
+      {:else}
+        <!-- Notion-Style Editor -->
+        <div class="notion-editor-container">
+          <NotionEditor
+            {blocks}
+            availableComponents={customComponents}
+            onUpdate={updateBlocks}
+            onSave={saveArticle}
+          />
+        </div>
+      {/if}
     </div>
   </div>
 
@@ -253,6 +337,25 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+
+  .btn-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #eef2ff;
+    color: #4338ca;
+    border: 1px solid #c7d2fe;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-preview:hover {
+    background: #c7d2fe;
   }
 
   .btn-library {
@@ -405,6 +508,82 @@
 
   .component-content :global(*) {
     max-width: 100%;
+  }
+
+  /* HTML Mode Toggle */
+  .btn-html-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .btn-html-toggle:hover {
+    background: #e5e7eb;
+  }
+
+  .btn-html-toggle.active {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-color: #1e293b;
+  }
+
+  .btn-html-toggle.active:hover {
+    background: #334155;
+  }
+
+  /* HTML Editor */
+  .html-editor-container {
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #1e1e2e;
+  }
+
+  .html-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background: #181825;
+    border-bottom: 1px solid #313244;
+  }
+
+  .html-editor-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #89b4fa;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+  }
+
+  .html-editor-textarea {
+    width: 100%;
+    min-height: 60vh;
+    padding: 1.5rem;
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border: none;
+    outline: none;
+    resize: vertical;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    tab-size: 2;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .html-editor-textarea::selection {
+    background: #45475a;
   }
 
   /* Editor Container */
