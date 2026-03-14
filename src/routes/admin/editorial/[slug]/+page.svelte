@@ -59,6 +59,26 @@
   let htmlMode = $state(false);
   let htmlSource = $state('');
 
+  function sanitizeQuillHtml(html: string): string {
+    if (!html) return '';
+    html = html.replace(/<span\s+class="ql-ui"[^>]*><\/span>/g, '');
+    html = html.replace(/(<li[^>]*)\s+data-list="[^"]*"/g, '$1');
+    html = html.replace(/\s+contenteditable="false"/g, '');
+    html = html.replace(
+      /<div\s+class="ql-code-block-container"[^>]*>([\s\S]*?)<\/div>\s*<\/div>/g,
+      (_: string, inner: string) => {
+        const lines: string[] = [];
+        const lineRegex = /<div\s+class="ql-code-block"[^>]*>([\s\S]*?)<\/div>/g;
+        let match;
+        while ((match = lineRegex.exec(inner)) !== null) {
+          lines.push(match[1]);
+        }
+        return `<pre><code>${lines.join('\n')}</code></pre>`;
+      }
+    );
+    return html;
+  }
+
   function blocksToHtml(blks: Block[]): string {
     if (!blks || !Array.isArray(blks)) return '';
     return blks.map(block => {
@@ -69,7 +89,7 @@
           return `<${tag}>${block.text || ''}</${tag}>`;
         }
         case 'text':
-          return block.text || '';
+          return sanitizeQuillHtml(block.text || '');
         case 'image':
           if (block.src) {
             const style = block.widthPercent ? ` style="width:${block.widthPercent}%"` : '';
@@ -81,6 +101,15 @@
             return `<a href="${block.href}" class="button">${block.label || 'Button'}</a>`;
           }
           return '';
+        case 'component': {
+          if (block.componentId) {
+            const component = allComponents.find(c => c.id === block.componentId);
+            if (component) {
+              return component.html;
+            }
+          }
+          return '';
+        }
         case 'layout':
           if (block.blocks) {
             const cols = block.columns || 2;
@@ -89,7 +118,7 @@
           }
           return '';
         default:
-          return block.text || '';
+          return sanitizeQuillHtml(block.text || '');
       }
     }).join('\n');
   }

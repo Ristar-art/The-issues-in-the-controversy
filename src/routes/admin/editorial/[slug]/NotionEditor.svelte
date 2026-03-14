@@ -26,10 +26,68 @@
   let editingBlockIndex: number | null = $state(null);
   let showSlashMenu = $state(false);
   let slashMenuPosition = $state({ x: 0, y: 0 });
+  let slashMenuDropUp = $state(false);
   let slashCommand = $state('');
   let slashMenuBlockIndex: number | null = $state(null);
   let showComponentPicker = $state(false);
   let componentPickerIndex: number | null = $state(null);
+
+  // Drag and drop state
+  let draggedIndex: number | null = $state(null);
+  let dropTargetIndex: number | null = $state(null);
+
+  function handleDragStart(event: DragEvent, index: number) {
+    draggedIndex = index;
+    if (event.dataTransfer) {
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/plain', String(index));
+    }
+    // Add a slight delay so the drag image renders before we style it
+    setTimeout(() => {
+      const el = document.querySelector(`[data-block-index="${index}"]`);
+      if (el) el.classList.add('dragging');
+    }, 0);
+  }
+
+  function handleDragOver(event: DragEvent, index: number) {
+    event.preventDefault();
+    if (event.dataTransfer) {
+      event.dataTransfer.dropEffect = 'move';
+    }
+    if (draggedIndex !== null && index !== draggedIndex) {
+      dropTargetIndex = index;
+    }
+  }
+
+  function handleDragLeave() {
+    dropTargetIndex = null;
+  }
+
+  function handleDrop(event: DragEvent, index: number) {
+    event.preventDefault();
+    if (draggedIndex === null || draggedIndex === index) {
+      resetDragState();
+      return;
+    }
+
+    const newBlocks = [...blocks];
+    const [movedBlock] = newBlocks.splice(draggedIndex, 1);
+    newBlocks.splice(index, 0, movedBlock);
+    onUpdate(newBlocks);
+
+    resetDragState();
+  }
+
+  function handleDragEnd() {
+    const el = document.querySelector('.dragging');
+    if (el) el.classList.remove('dragging');
+    resetDragState();
+  }
+
+  function resetDragState() {
+    draggedIndex = null;
+    dropTargetIndex = null;
+  }
 
   // Minimal toolbar for button blocks
   const buttonToolbar = [
@@ -204,7 +262,20 @@
   }
 
   function handleSlashTyped(rect: DOMRect, index: number) {
-    slashMenuPosition = { x: rect.x, y: rect.y };
+    const menuHeight = 260; // approximate height of the slash menu
+    const viewportHeight = window.innerHeight;
+    const spaceBelow = viewportHeight - rect.y;
+
+    if (spaceBelow < menuHeight) {
+      // Not enough room below — show above the cursor (dropup)
+      const bottomValue = viewportHeight - rect.y + 30;
+      slashMenuPosition = { x: rect.x, y: bottomValue };
+      slashMenuDropUp = true;
+    } else {
+      slashMenuPosition = { x: rect.x, y: rect.y };
+      slashMenuDropUp = false;
+    }
+
     showSlashMenu = true;
     slashCommand = '';
     slashMenuBlockIndex = index;
@@ -256,12 +327,21 @@
 
 <div class="notion-editor">
   {#each blocks as block, index (getBlockKey(block))}
-    <div class="block-wrapper group relative">
+    <div
+      class="block-wrapper group relative {dropTargetIndex === index ? 'drop-target' : ''} {draggedIndex === index ? 'dragging' : ''}"
+      data-block-index={index}
+      ondragover={(e) => handleDragOver(e, index)}
+      ondragleave={handleDragLeave}
+      ondrop={(e) => handleDrop(e, index)}
+    >
       <!-- Block handle (visible on hover) -->
       <div class="absolute -left-8 top-1 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-1">
         <button
-          class="p-1 text-gray-400 hover:text-gray-600 cursor-grab"
+          class="drag-handle p-1 text-gray-400 hover:text-gray-600 cursor-grab active:cursor-grabbing"
           title="Drag to move"
+          draggable="true"
+          ondragstart={(e) => handleDragStart(e, index)}
+          ondragend={handleDragEnd}
         >
           ⋮⋮
         </button>
@@ -401,7 +481,7 @@
 {#if showSlashMenu}
   <div
     class="fixed z-50 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[200px]"
-    style="left: {slashMenuPosition.x}px; top: {slashMenuPosition.y}px;"
+    style="left: {slashMenuPosition.x}px; {slashMenuDropUp ? `bottom: ${slashMenuPosition.y}px;` : `top: ${slashMenuPosition.y}px;`}"
   >
     {#each filteredBlockTypes as blockType}
       <button
@@ -471,6 +551,21 @@
 
   .block-wrapper {
     position: relative;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .block-wrapper.dragging {
+    opacity: 0.4;
+  }
+
+  .block-wrapper.drop-target {
+    border-top: 2px solid #0d9488;
+  }
+
+  .drag-handle {
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
   }
 
   .image-block {

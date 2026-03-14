@@ -6,7 +6,7 @@
       "slug": "the-new-covenant",
       "content": "",
       "componentIds": [],
-      "published": false,
+      "published": true,
       "blocks": [
         {
           "type": "text",
@@ -14,9 +14,30 @@
         },
         {
           "type": "text",
-          "text": "<p><span style=\"color: var(--color-graphite);\">The topics dealt with up to this point are outlined below. </span></p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Origins and Issues</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">The foundations</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Corporate identity and sin</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">The curse</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">God’s amazing solution</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Unfinished business</span></li></ol><p><br></p>"
+          "text": "<p><span style=\"color: var(--color-graphite);\">The topics dealt with up to this point are outlined below. </span></p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26); background-color: rgb(230, 0, 0);\">Origins and Issues</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(230, 0, 0);\">The foundations</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Corporate identity and sin</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>The curse</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">God’s amazing solution</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Unfinished business</li></ol><p><br></p>"
+        },
+        {
+          "type": "component",
+          "componentId": "component-1772379143802"
+        },
+        {
+          "type": "component",
+          "componentId": "component-1772381869420"
+        },
+        {
+          "type": "text",
+          "text": "<p><span style=\"color: var(--color-graphite);\">The topics dealt with up to this point are outlined below. </span></p><ol><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Origins and Issues</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">The foundations</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Corporate identity and sin</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>The curse</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">God’s amazing solution</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Unfinished business</li></ol><p><br></p>"
+        },
+        {
+          "type": "text",
+          "text": "<div class=\"ql-code-block-container\" spellcheck=\"false\"><div class=\"ql-code-block\">ckjvbabs f</div><div class=\"ql-code-block\"><br></div></div>"
+        },
+        {
+          "type": "component",
+          "componentId": "component-1772383191547"
         }
-      ]
+      ],
+      "featuredImage": "/bg-1772373369760.jpeg"
     }
   },
   {

@@ -12,6 +12,7 @@
     { type: 'text', label: 'Text', icon: 'T' },
     { type: 'image', label: 'Image', icon: '📷' },
     { type: 'button', label: 'Button', icon: '🔘' },
+    { type: 'divider', label: 'Line', icon: '―' },
     { type: 'layout', label: 'Layout', icon: '⊞' }
   ];
   
@@ -139,9 +140,17 @@
         newBlock.href = '';
         newBlock.align = 'left';
         break;
+      case 'divider':
+        newBlock.style = 'solid';
+        newBlock.width = 100;
+        newBlock.thickness = 1;
+        newBlock.color = '#d1d5db';
+        newBlock.align = 'center';
+        break;
       case 'layout':
         newBlock.layout = 'linear';
         newBlock.columns = 2;
+        newBlock.justifyItems = 'center';
         newBlock.blocks = [];
         break;
     }
@@ -285,15 +294,30 @@
       case 'button':
         return `<div class="${alignClass} mb-4"><a href="${block.href || '#'}" class="inline-block px-6 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 transition-colors">${block.label || 'Button'}</a></div>\n`;
         
+      case 'divider': {
+        const dividerWidth = block.width || 100;
+        const dividerThickness = block.thickness || 1;
+        const dividerStyle = block.style || 'solid';
+        const dividerColor = block.color || '#d1d5db';
+        const dividerAlign = block.align || 'center';
+        const marginAuto = dividerAlign === 'center' ? 'margin-left: auto; margin-right: auto;' : dividerAlign === 'right' ? 'margin-left: auto;' : '';
+        return `<div class="mb-4"><hr style="border: none; border-top: ${dividerThickness}px ${dividerStyle} ${dividerColor}; width: ${dividerWidth}%; ${marginAuto}" /></div>\n`;
+      }
+
       case 'layout': {
-        const layoutClass = block.layout === 'grid' 
-          ? `grid grid-cols-1 md:grid-cols-${block.columns || 2} gap-4` 
-          : 'space-y-4';
+        let layoutStyle = '';
+        let layoutClass = 'space-y-4';
+        if (block.layout === 'grid') {
+          const cols = block.columns || 2;
+          const ji = block.justifyItems || 'center';
+          layoutStyle = ` style="display: grid; grid-template-columns: repeat(${cols}, 1fr); gap: 1rem; justify-items: ${ji}"`;
+          layoutClass = '';
+        }
         let nestedHtml = '';
         for (const nested of block.blocks || []) {
           nestedHtml += generateBlockHtml(nested);
         }
-        return `<div class="${layoutClass} mb-4">${nestedHtml}</div>\n`;
+        return `<div class="${layoutClass} mb-4"${layoutStyle}>${nestedHtml}</div>\n`;
       }
         
       default:
@@ -758,6 +782,72 @@
                       oninput={(e) => updateBlock(index, { href: e.target.value })}
                     />
                     
+                  {:else if block.type === 'divider'}
+                    <div class="block-controls">
+                      <div class="control-group">
+                        <label>Style</label>
+                        <select
+                          value={block.style || 'solid'}
+                          onchange={(e) => updateBlock(index, { style: e.target.value })}
+                        >
+                          <option value="solid">Solid</option>
+                          <option value="dashed">Dashed</option>
+                          <option value="dotted">Dotted</option>
+                          <option value="double">Double</option>
+                          <option value="groove">Groove</option>
+                          <option value="ridge">Ridge</option>
+                        </select>
+                      </div>
+                      <div class="control-group">
+                        <label>Thickness: {block.thickness || 1}px</label>
+                        <input
+                          type="range"
+                          min="1"
+                          max="10"
+                          step="1"
+                          value={block.thickness || 1}
+                          oninput={(e) => updateBlock(index, { thickness: Number(e.target.value) })}
+                        />
+                      </div>
+                      <div class="control-group">
+                        <label>Width: {block.width || 100}%</label>
+                        <input
+                          type="range"
+                          min="10"
+                          max="100"
+                          step="5"
+                          value={block.width || 100}
+                          oninput={(e) => updateBlock(index, { width: Number(e.target.value) })}
+                        />
+                      </div>
+                      <div class="control-group">
+                        <label>Align</label>
+                        <select
+                          value={block.align || 'center'}
+                          onchange={(e) => updateBlock(index, { align: e.target.value })}
+                        >
+                          <option value="left">Left</option>
+                          <option value="center">Center</option>
+                          <option value="right">Right</option>
+                        </select>
+                      </div>
+                      <div class="control-group">
+                        <label>Color</label>
+                        <div class="divider-color-picker">
+                          <input
+                            type="color"
+                            value={block.color || '#d1d5db'}
+                            oninput={(e) => updateBlock(index, { color: e.target.value })}
+                          />
+                          <span class="color-hex">{block.color || '#d1d5db'}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Divider Preview -->
+                    <div class="divider-preview">
+                      <hr style="border: none; border-top: {block.thickness || 1}px {block.style || 'solid'} {block.color || '#d1d5db'}; width: {block.width || 100}%; {block.align === 'center' ? 'margin-left: auto; margin-right: auto;' : block.align === 'right' ? 'margin-left: auto;' : ''}" />
+                    </div>
+
                   {:else if block.type === 'layout'}
                     <div class="block-controls">
                       <div class="control-group">
@@ -773,7 +863,7 @@
                       {#if block.layout === 'grid'}
                         <div class="control-group">
                           <label>Columns</label>
-                          <select 
+                          <select
                             value={block.columns || 2}
                             onchange={(e) => updateBlock(index, { columns: Number(e.target.value) })}
                           >
@@ -781,6 +871,24 @@
                             <option value={2}>2</option>
                             <option value={3}>3</option>
                             <option value={4}>4</option>
+                            <option value={5}>5</option>
+                            <option value={6}>6</option>
+                            <option value={7}>7</option>
+                            <option value={8}>8</option>
+                            <option value={9}>9</option>
+                            <option value={10}>10</option>
+                          </select>
+                        </div>
+                        <div class="control-group">
+                          <label>Items Align</label>
+                          <select
+                            value={block.justifyItems || 'center'}
+                            onchange={(e) => updateBlock(index, { justifyItems: e.target.value })}
+                          >
+                            <option value="start">Start</option>
+                            <option value="center">Center</option>
+                            <option value="end">End</option>
+                            <option value="stretch">Stretch</option>
                           </select>
                         </div>
                       {/if}
@@ -1477,6 +1585,35 @@
     font-size: 0.875rem;
   }
   
+  /* Divider block */
+  .divider-color-picker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .divider-color-picker input[type="color"] {
+    width: 36px;
+    height: 28px;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    padding: 1px;
+    cursor: pointer;
+  }
+
+  .color-hex {
+    font-size: 0.8rem;
+    color: #6b7280;
+    font-family: monospace;
+  }
+
+  .divider-preview {
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+    background: #fafafa;
+    border-radius: 0.375rem;
+  }
+
   /* Nested blocks */
   .nested-blocks {
     border-left: 3px solid #0d9488;

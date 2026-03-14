@@ -18,5 +18,102 @@
       "layout": "linear",
       "minHeight": "200px"
     }
+  },
+  {
+    "id": "component-1772379143802",
+    "name": "Test Component",
+    "html": "<section class=\"py-8\">\n  <div class=\"container mx-auto px-4\">\n    <div class=\" mb-4\" style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; justify-items: center\"><div class=\"text-center mb-4\"><img src=\"/_.jpeg\" alt=\"\" class=\"rounded\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" class=\"rounded\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/earth-and-water.avif\" alt=\"\" class=\"rounded\" /></div>\n</div>\n\n  </div>\n</section>",
+    "category": "custom",
+    "description": "this an example of  the components",
+    "blocks": [
+      {
+        "type": "layout",
+        "layout": "grid",
+        "columns": 3,
+        "blocks": [
+          {
+            "type": "image",
+            "src": "/_.jpeg",
+            "alt": "",
+            "align": "center"
+          },
+          {
+            "type": "image",
+            "src": "/Beast.webp",
+            "alt": "",
+            "align": "center"
+          },
+          {
+            "type": "image",
+            "src": "/earth-and-water.avif",
+            "alt": "",
+            "align": "center"
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "",
+    "backgroundImage": "",
+    "backgroundSize": "cover",
+    "backgroundPosition": "center",
+    "minHeight": ""
+  },
+  {
+    "id": "component-1772381869420",
+    "name": "New Component",
+    "html": "<section class=\"py-8\">\n  <div class=\"container mx-auto px-4\">\n    <div class=\"mb-4\"><hr style=\"border: none; border-top: 1px solid #791a3e; width: 100%; margin-left: auto; margin-right: auto;\" /></div>\n\n  </div>\n</section>",
+    "category": "custom",
+    "description": "",
+    "blocks": [
+      {
+        "type": "divider",
+        "style": "solid",
+        "width": 100,
+        "thickness": 1,
+        "color": "#791a3e",
+        "align": "center"
+      }
+    ],
+    "backgroundColor": "",
+    "backgroundImage": "",
+    "backgroundSize": "cover",
+    "backgroundPosition": "center",
+    "minHeight": ""
+  },
+  {
+    "id": "component-1772383191547",
+    "name": "New Component2",
+    "html": "<section class=\"py-8\">\n  <div class=\"container mx-auto px-4\">\n    <div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" class=\"rounded\" style=\"width: 100%;\" /></div>\n<div class=\"mb-4\"><hr style=\"border: none; border-top: 1px solid #d1d5db; width: 100%; margin-left: auto; margin-right: auto;\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/_.jpeg\" alt=\"\" class=\"rounded\" style=\"width: 100%;\" /></div>\n\n  </div>\n</section>",
+    "category": "custom",
+    "description": "",
+    "blocks": [
+      {
+        "type": "image",
+        "src": "/Beast.webp",
+        "alt": "",
+        "align": "center",
+        "widthPercent": 100
+      },
+      {
+        "type": "divider",
+        "style": "solid",
+        "width": 100,
+        "thickness": 1,
+        "color": "#d1d5db",
+        "align": "center"
+      },
+      {
+        "type": "image",
+        "src": "/_.jpeg",
+        "alt": "",
+        "align": "center",
+        "widthPercent": 100
+      }
+    ],
+    "backgroundColor": "",
+    "backgroundImage": "",
+    "backgroundSize": "cover",
+    "backgroundPosition": "center",
+    "minHeight": ""
   }
-  ]
+]

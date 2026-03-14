@@ -90,9 +90,9 @@
         <span class="eyebrow">Admin</span>
         <h1 class="page-title">Component Library</h1>
       </div>
-      <a href="/admin/editorial" class="btn-back">
-        ← Back to Articles
-      </a>
+      <button class="btn-back" onclick={() => history.back()}>
+        ← Back to Article
+      </button>
     </div>
   </header>
 
@@ -207,7 +207,10 @@
     gap: 0.5rem;
     padding: 0.5rem 1rem;
     color: #6b7280;
-    text-decoration: none;
+    background: none;
+    border: none;
+    font-size: inherit;
+    cursor: pointer;
     border-radius: 0.375rem;
     transition: all 0.2s;
   }
