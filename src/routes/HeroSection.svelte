@@ -10,7 +10,7 @@
             
             <!-- Main Headline -->
             <h1 class="font-display text-5xl md:text-6xl lg:text-7xl text-[var(--color-ink)] mb-6 max-w-4xl leading-tight">
-                Understanding the Endgame of Heaven
+                The Endgame of Heaven
             </h1>
             
             <!-- Section Divider -->
