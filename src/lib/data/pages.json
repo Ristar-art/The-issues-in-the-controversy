@@ -47,7 +47,7 @@
       "slug": "the-truth-about-god",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -57,7 +57,7 @@
       "slug": "the-overview-of-daniel-and-revelations",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -67,7 +67,7 @@
       "slug": "analysis-of-the-judgment-of-the-kingdoms",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -77,7 +77,7 @@
       "slug": "the-character-of-god",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -87,7 +87,7 @@
       "slug": "the-gospel-of-the-kingdom",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -97,7 +97,7 @@
       "slug": "the-tragectory-of-the-kingdom-of-god-in-2000-years",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -107,7 +107,7 @@
       "slug": "prhophetic-symbols-and-their-meaning",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -117,7 +117,7 @@
       "slug": "types-of-governments",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
     }
   },
   {
@@ -127,7 +127,39 @@
       "slug": "the-issue",
       "content": "",
       "componentIds": [],
-      "published": false
+      "published": true
+    }
+  },
+  {
+    "id": 11,
+    "attributes": {
+      "title": "God's solution",
+      "slug": "gods-solution",
+      "componentIds": [],
+      "blocks": [
+        {
+          "type": "text",
+          "text": ""
+        }
+      ],
+      "published": false,
+      "featuredImage": null
+    }
+  },
+  {
+    "id": 12,
+    "attributes": {
+      "title": "Our Part",
+      "slug": "our-part",
+      "componentIds": [],
+      "blocks": [
+        {
+          "type": "text",
+          "text": ""
+        }
+      ],
+      "published": false,
+      "featuredImage": null
     }
   }
 ]

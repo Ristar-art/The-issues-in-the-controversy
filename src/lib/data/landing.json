@@ -30,22 +30,22 @@
       {
         "title": "The overview of Daniel and Revelations",
         "description": "A panoramic view of the prophecies in the book of Daniel and Revelations.",
-        "href": "#"
+        "href": "the-overview-of-daniel-and-revelations"
       },
       {
         "title": "Analysis of the Judgment of the kingdoms",
         "description": "A bird's eye view of the prophecies in the book of Revelations.",
-        "href": "#"
+        "href": "analysis-of-the-judgment-of-the-kingdoms"
       },
       {
         "title": "The character of God",
         "description": "A deep dive into understanding the character of God, how He interacts with humanity.",
-        "href": "#"
+        "href": "the-character-of-god"
       },
       {
         "title": "The Gospel of the Kingdom",
         "description": "Fast-track your business goals with our proven systems designed to overcome barriers and create a roadmap to real results.",
-        "href": "#"
+        "href": "the-gospel-of-the-kingdom"
       }
     ]
   },
@@ -97,7 +97,7 @@
     ],
     "cta": {
       "label": "View More",
-      "href": "#symbols"
+      "href": "prhophetic-symbols-and-their-meaning"
     }
   },
   "truthSection": {
@@ -110,7 +110,7 @@
     ],
     "cta": {
       "label": "Read More",
-      "href": "#truth"
+      "href": "the-truth-about-god"
     },
     "image": {
       "src": "/triquetra-9228907_1280.webp",
@@ -152,17 +152,17 @@
       {
         "title": "The Issue",
         "description": "What are the key areas of satans assault and why it worked.",
-        "cta": { "label": "Read More", "href": "#" }
+        "cta": { "label": "Read More", "href": "the-issue" }
       },
       {
-        "title": "Gods solution",
+        "title": "God's solution",
         "description": "What is the God's answer to the challenges layed against Him by satan?",
-        "cta": { "label": "Read More", "href": "#" }
+        "cta": { "label": "Read More", "href": "gods-solution" }
       },
       {
         "title": "Our Part",
         "description": "Understanding our role in the greater plan and how we can contribute positively.",
-        "cta": { "label": "Read More", "href": "#" }
+        "cta": { "label": "Read More", "href": "our-part" }
       }
     ]
   },
