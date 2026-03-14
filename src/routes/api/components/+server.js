@@ -1,23 +1,27 @@
 import { json } from '@sveltejs/kit';
-import { readFile, writeFile } from 'fs/promises';
-import { resolve } from 'path';
+import { dev } from '$app/environment';
+import componentsData from '$lib/data/components.json';
 
-const DB_PATH = resolve(process.cwd(), 'src/lib/data/components.json');
+let components = [...componentsData];
 
-async function readComponents() {
-  const raw = await readFile(DB_PATH, 'utf8');
-  return JSON.parse(raw);
+function readComponents() {
+  return components;
 }
 
-async function writeComponents(components) {
-  const data = JSON.stringify(components, null, 2);
-  await writeFile(DB_PATH, data, 'utf8');
+async function writeComponents(updatedComponents) {
+  components = updatedComponents;
+  if (dev) {
+    const { writeFile } = await import('fs/promises');
+    const { resolve } = await import('path');
+    const DB_PATH = resolve('src/lib/data/components.json');
+    await writeFile(DB_PATH, JSON.stringify(updatedComponents, null, 2), 'utf8');
+  }
 }
 
 export async function GET() {
   try {
-    const components = await readComponents();
-    return json(components);
+    const result = readComponents();
+    return json(result);
   } catch (err) {
     console.error('Failed to read components DB', err);
     return json({ error: 'Failed to read components DB' }, { status: 500 });
@@ -30,18 +34,16 @@ export async function POST({ request }) {
 
     // Handle single component update
     if (body && typeof body === 'object' && !Array.isArray(body) && body.id) {
-      const components = await readComponents();
-      const index = components.findIndex((c) => c.id === body.id);
+      const currentComponents = readComponents();
+      const index = currentComponents.findIndex((c) => c.id === body.id);
 
       if (index === -1) {
-        // Component doesn't exist, add it as new
-        components.push(body);
+        currentComponents.push(body);
       } else {
-        // Update existing component
-        components[index] = body;
+        currentComponents[index] = body;
       }
 
-      await writeComponents(components);
+      await writeComponents(currentComponents);
       return json({ ok: true });
     }
 
@@ -61,18 +63,18 @@ export async function POST({ request }) {
 export async function DELETE({ request }) {
   try {
     const body = await request.json();
-    
+
     if (!body || !body.id) {
       return json({ error: 'Component ID is required' }, { status: 400 });
     }
-    
-    const components = await readComponents();
-    const filtered = components.filter((c) => c.id !== body.id);
-    
-    if (filtered.length === components.length) {
+
+    const currentComponents = readComponents();
+    const filtered = currentComponents.filter((c) => c.id !== body.id);
+
+    if (filtered.length === currentComponents.length) {
       return json({ error: 'Component not found' }, { status: 404 });
     }
-    
+
     await writeComponents(filtered);
     return json({ ok: true });
   } catch (err) {

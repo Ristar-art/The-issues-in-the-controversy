@@ -1,29 +1,13 @@
 import { json } from '@sveltejs/kit';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const pagesFilePath = path.join(__dirname, '../../../lib/data/pages.json');
-const componentsFilePath = path.join(__dirname, '../../../lib/data/components.json');
+import pagesData from '$lib/data/pages.json';
+import componentsData from '$lib/data/components.json';
 
 function readPages() {
-  try {
-    const data = fs.readFileSync(pagesFilePath, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    return [];
-  }
+  return pagesData;
 }
 
 function readComponents() {
-  try {
-    const data = fs.readFileSync(componentsFilePath, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    return [];
-  }
+  return componentsData;
 }
 
 function getPageContent(page) {
@@ -85,8 +69,6 @@ export async function GET({ url }) {
    } catch (err) {
      console.error('Error searching local pages:', err);
    }
-
-
 
   return json(results);
 }
