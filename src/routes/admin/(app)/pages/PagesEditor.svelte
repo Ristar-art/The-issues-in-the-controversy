@@ -80,30 +80,60 @@
    * and dispatches a 'refresh' event on success to update the parent component.
    * Resets form fields after successful creation.
    */
+  // Upload a file to Firebase Storage via /api/media, then return the URL
+  async function uploadToStorage(file: File): Promise<string | null> {
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+      const response = await fetch('/api/media', {
+        method: 'POST',
+        body: formData
+      });
+      if (!response.ok) throw new Error('Failed to upload image');
+      const result = await response.json();
+      return result.url;
+    } catch (err: any) {
+      error = err.message;
+      return null;
+    }
+  }
+
+  // Open gallery picker popup
+  function openGalleryPicker(): Promise<string | null> {
+    return new Promise((resolve) => {
+      const popup = window.open('/admin/gallery?picker=true', 'gallery-picker', 'width=900,height=650');
+      function onMessage(e: MessageEvent) {
+        if (e.data?.type === 'gallery-pick') {
+          window.removeEventListener('message', onMessage);
+          resolve(e.data.url);
+        }
+      }
+      window.addEventListener('message', onMessage);
+      const check = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(check);
+          window.removeEventListener('message', onMessage);
+          resolve(null);
+        }
+      }, 500);
+    });
+  }
+
   async function handleImageUpload(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
 
     uploadingImage = true;
-    try {
-      const formData = new FormData();
-      formData.append('image', file);
+    const url = await uploadToStorage(file);
+    if (url) newFeaturedImage = url;
+    uploadingImage = false;
+    input.value = '';
+  }
 
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) throw new Error('Failed to upload image');
-
-      const result = await response.json();
-      newFeaturedImage = result.url;
-    } catch (err: any) {
-      error = err.message;
-    } finally {
-      uploadingImage = false;
-    }
+  async function pickNewFeaturedImage(): Promise<void> {
+    const url = await openGalleryPicker();
+    if (url) newFeaturedImage = url;
   }
 
   function removeFeaturedImage(): void {
@@ -116,24 +146,15 @@
     if (!file) return;
 
     uploadingEditImage = true;
-    try {
-      const formData = new FormData();
-      formData.append('image', file);
+    const url = await uploadToStorage(file);
+    if (url) editFeaturedImage = url;
+    uploadingEditImage = false;
+    input.value = '';
+  }
 
-      const response = await fetch('/api/upload-image', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) throw new Error('Failed to upload image');
-
-      const result = await response.json();
-      editFeaturedImage = result.url;
-    } catch (err: any) {
-      error = err.message;
-    } finally {
-      uploadingEditImage = false;
-    }
+  async function pickEditFeaturedImage(): Promise<void> {
+    const url = await openGalleryPicker();
+    if (url) editFeaturedImage = url;
   }
 
   function removeEditFeaturedImage(): void {
@@ -325,28 +346,42 @@
                     </button>
                   </div>
                 {:else}
-                  <label class="featured-image-upload {uploadingImage ? 'opacity-50 pointer-events-none' : ''}">
-                    {#if uploadingImage}
-                      <svg class="animate-spin h-6 w-6 text-stone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      <span class="text-sm text-stone font-body">Uploading...</span>
-                    {:else}
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
+                  <div class="featured-image-options">
+                    <button
+                      type="button"
+                      class="featured-image-option"
+                      onclick={pickNewFeaturedImage}
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
                         <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
                         <circle cx="9" cy="9" r="2"/>
                         <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
                       </svg>
-                      <span class="text-sm text-stone font-body">Click to upload featured image</span>
-                    {/if}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onchange={handleImageUpload}
-                      class="hidden"
-                    />
-                  </label>
+                      <span>Pick from Gallery</span>
+                    </button>
+                    <label class="featured-image-option {uploadingImage ? 'opacity-50 pointer-events-none' : ''}">
+                      {#if uploadingImage}
+                        <svg class="animate-spin h-5 w-5 text-stone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Uploading...</span>
+                      {:else}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
+                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                          <polyline points="17 8 12 3 7 8"/>
+                          <line x1="12" x2="12" y1="3" y2="15"/>
+                        </svg>
+                        <span>Upload from PC</span>
+                      {/if}
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onchange={handleImageUpload}
+                        class="hidden"
+                      />
+                    </label>
+                  </div>
                 {/if}
               </div>
               <button
@@ -413,28 +448,42 @@
                         </button>
                       </div>
                     {:else}
-                      <label class="featured-image-upload {uploadingEditImage ? 'opacity-50 pointer-events-none' : ''}">
-                        {#if uploadingEditImage}
-                          <svg class="animate-spin h-6 w-6 text-stone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          <span class="text-sm text-stone font-body">Uploading...</span>
-                        {:else}
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
+                      <div class="featured-image-options">
+                        <button
+                          type="button"
+                          class="featured-image-option"
+                          onclick={pickEditFeaturedImage}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
                             <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
                             <circle cx="9" cy="9" r="2"/>
                             <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
                           </svg>
-                          <span class="text-sm text-stone font-body">Click to upload featured image</span>
-                        {/if}
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onchange={handleEditImageUpload}
-                          class="hidden"
-                        />
-                      </label>
+                          <span>Pick from Gallery</span>
+                        </button>
+                        <label class="featured-image-option {uploadingEditImage ? 'opacity-50 pointer-events-none' : ''}">
+                          {#if uploadingEditImage}
+                            <svg class="animate-spin h-5 w-5 text-stone" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>Uploading...</span>
+                          {:else}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-stone">
+                              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                              <polyline points="17 8 12 3 7 8"/>
+                              <line x1="12" x2="12" y1="3" y2="15"/>
+                            </svg>
+                            <span>Upload from PC</span>
+                          {/if}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            onchange={handleEditImageUpload}
+                            class="hidden"
+                          />
+                        </label>
+                      </div>
                     {/if}
                   </div>
                   <div class="flex gap-3 pt-2">
@@ -606,19 +655,29 @@
     background-color: #b91c1c;
     color: #fef3c7;
   }
-  .featured-image-upload {
+  .featured-image-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .featured-image-option {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    padding: 1.5rem;
+    gap: 0.4rem;
+    padding: 1.25rem 0.75rem;
     border: 2px dashed var(--color-pearl);
+    background: none;
     cursor: pointer;
     transition: border-color 0.2s;
+    font-size: 0.8rem;
+    color: var(--color-stone);
+    font-family: inherit;
   }
-  .featured-image-upload:hover {
+  .featured-image-option:hover {
     border-color: var(--color-accent);
+    color: var(--color-ink);
   }
   .featured-image-preview {
     position: relative;

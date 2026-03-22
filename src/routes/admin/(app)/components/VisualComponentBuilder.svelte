@@ -33,13 +33,7 @@
   let backgroundSize = $state(component.backgroundSize || 'cover');
   let backgroundPosition = $state(component.backgroundPosition || 'center');
   let componentMinHeight = $state(component.minHeight || '');
-  let showBgImageSelector = $state(false);
   let showBgColorPicker = $state(false);
-  
-  // Available images for selection
-  let availableImages = $state([]);
-  let showImageSelectorForBlock = $state(null);
-  let showImageSelectorForNested = $state(null);
   
   // Color palette
   const colorPalette = [
@@ -85,32 +79,26 @@
   
 
   
-  // Load available images
-  async function loadAvailableImages() {
-    try {
-      const res = await fetch('/api/images');
-      if (res.ok) {
-        availableImages = await res.json();
+  // Open gallery picker popup and return a promise with the selected URL
+  function openGalleryPicker() {
+    return new Promise((resolve) => {
+      const popup = window.open('/admin/gallery?picker=true', 'gallery-picker', 'width=900,height=650');
+      function onMessage(e) {
+        if (e.data?.type === 'gallery-pick') {
+          window.removeEventListener('message', onMessage);
+          resolve(e.data.url);
+        }
       }
-    } catch (err) {
-      console.error('Failed to load images:', err);
-    }
-  }
-  
-  // Upload an image from the computer
-  async function uploadImage(file) {
-    const formData = new FormData();
-    formData.append('image', file);
-    try {
-      const res = await fetch('/api/upload-image', { method: 'POST', body: formData });
-      if (res.ok) {
-        const data = await res.json();
-        return data.url;
-      }
-    } catch (err) {
-      console.error('Failed to upload image:', err);
-    }
-    return null;
+      window.addEventListener('message', onMessage);
+      // If popup is closed without picking
+      const check = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(check);
+          window.removeEventListener('message', onMessage);
+          resolve(null);
+        }
+      }, 500);
+    });
   }
 
   // Add a new block
@@ -468,36 +456,15 @@
                     <button class="btn-remove-image" onclick={() => backgroundImage = ''}>×</button>
                   </div>
                 {:else}
-                  <button 
+                  <button
                     class="btn-choose-bg"
                     onclick={async () => {
-                      if (!showBgImageSelector) {
-                        await loadAvailableImages();
-                      }
-                      showBgImageSelector = !showBgImageSelector;
+                      const url = await openGalleryPicker();
+                      if (url) backgroundImage = url;
                     }}
                   >
-                    {showBgImageSelector ? 'Hide' : 'Choose'} Background Image
+                    Choose from Gallery
                   </button>
-                {/if}
-                {#if showBgImageSelector}
-                  <div class="image-selector">
-                    {#if availableImages.length > 0}
-                      {#each availableImages as img}
-                        <button
-                          class="image-option"
-                          onclick={() => {
-                            backgroundImage = img.url;
-                            showBgImageSelector = false;
-                          }}
-                        >
-                          📷 {img.name}
-                        </button>
-                      {/each}
-                    {:else}
-                      <p class="no-images">No images available</p>
-                    {/if}
-                  </div>
                 {/if}
               </div>
             </div>
@@ -707,51 +674,13 @@
                       <button
                         class="btn-choose-image"
                         onclick={async () => {
-                          if (showImageSelectorForBlock !== index) {
-                            await loadAvailableImages();
-                            showImageSelectorForBlock = index;
-                          } else {
-                            showImageSelectorForBlock = null;
-                          }
+                          const url = await openGalleryPicker();
+                          if (url) updateBlock(index, { src: url });
                         }}
                       >
-                        {showImageSelectorForBlock === index ? 'Hide gallery' : 'Gallery'}
+                        Pick from Gallery
                       </button>
-                      <label class="btn-upload-image">
-                        Upload from PC
-                        <input
-                          type="file"
-                          accept="image/*"
-                          hidden
-                          onchange={async (e) => {
-                            const file = e.target.files?.[0];
-                            if (!file) return;
-                            const url = await uploadImage(file);
-                            if (url) updateBlock(index, { src: url });
-                            e.target.value = '';
-                          }}
-                        />
-                      </label>
                     </div>
-                    {#if showImageSelectorForBlock === index}
-                      <div class="image-selector">
-                        {#if availableImages.length > 0}
-                          {#each availableImages as img}
-                            <button
-                              class="image-option"
-                              onclick={() => {
-                                updateBlock(index, { src: img.url });
-                                showImageSelectorForBlock = null;
-                              }}
-                            >
-                              📷 {img.name}
-                            </button>
-                          {/each}
-                        {:else}
-                          <p class="no-images">No images available</p>
-                        {/if}
-                      </div>
-                    {/if}
                     
                   {:else if block.type === 'button'}
                     <div class="block-controls">
@@ -968,52 +897,13 @@
                                   <button
                                     class="btn-choose-image"
                                     onclick={async () => {
-                                      const key = `${index}-${nestedIndex}`;
-                                      if (showImageSelectorForNested !== key) {
-                                        await loadAvailableImages();
-                                        showImageSelectorForNested = key;
-                                      } else {
-                                        showImageSelectorForNested = null;
-                                      }
+                                      const url = await openGalleryPicker();
+                                      if (url) updateNestedBlock(index, nestedIndex, { src: url });
                                     }}
                                   >
-                                    {showImageSelectorForNested === `${index}-${nestedIndex}` ? 'Hide gallery' : 'Gallery'}
+                                    Pick from Gallery
                                   </button>
-                                  <label class="btn-upload-image">
-                                    Upload from PC
-                                    <input
-                                      type="file"
-                                      accept="image/*"
-                                      hidden
-                                      onchange={async (e) => {
-                                        const file = e.target.files?.[0];
-                                        if (!file) return;
-                                        const url = await uploadImage(file);
-                                        if (url) updateNestedBlock(index, nestedIndex, { src: url });
-                                        e.target.value = '';
-                                      }}
-                                    />
-                                  </label>
                                 </div>
-                                {#if showImageSelectorForNested === `${index}-${nestedIndex}`}
-                                  <div class="image-selector">
-                                    {#if availableImages.length > 0}
-                                      {#each availableImages as img}
-                                        <button
-                                          class="image-option"
-                                          onclick={() => {
-                                            updateNestedBlock(index, nestedIndex, { src: img.url });
-                                            showImageSelectorForNested = null;
-                                          }}
-                                        >
-                                          📷 {img.name}
-                                        </button>
-                                      {/each}
-                                    {:else}
-                                      <p class="no-images">No images available</p>
-                                    {/if}
-                                  </div>
-                                {/if}
                               {/if}
                             </div>
                           {/each}
@@ -1541,50 +1431,6 @@
     background: #2563eb;
   }
 
-  .btn-upload-image {
-    padding: 0.5rem 0.75rem;
-    background: #0d9488;
-    color: white;
-    border: none;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-  }
-
-  .btn-upload-image:hover {
-    background: #0f766e;
-  }
-  
-  .image-selector {
-    margin-top: 0.5rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.375rem;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-  
-  .image-option {
-    width: 100%;
-    text-align: left;
-    padding: 0.5rem 0.75rem;
-    background: white;
-    border: none;
-    border-bottom: 1px solid #f3f4f6;
-    cursor: pointer;
-    font-size: 0.875rem;
-  }
-  
-  .image-option:hover {
-    background: #f9fafb;
-  }
-  
-  .no-images {
-    padding: 1rem;
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.875rem;
-  }
-  
   /* Divider block */
   .divider-color-picker {
     display: flex;

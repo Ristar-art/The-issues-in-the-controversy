@@ -3,7 +3,7 @@ import { adminDb } from '$lib/firebase/admin';
 import { blocksToHtml } from '$lib/utils/blocks-to-html';
 
 export async function load({ params }) {
-  // Find page by slug
+  // Find page by slug (preview shows unpublished too)
   const pagesSnapshot = await adminDb
     .collection('pages')
     .where('attributes.slug', '==', params.slug)
@@ -16,10 +16,6 @@ export async function load({ params }) {
 
   const pageDoc = pagesSnapshot.docs[0];
   const page = { id: pageDoc.id, ...pageDoc.data() };
-
-  if (!page.attributes.published) {
-    throw error(404, 'Article not found');
-  }
 
   let content = page.attributes.content;
 

@@ -1,30 +1,16 @@
 import { json } from '@sveltejs/kit';
-import { dev } from '$app/environment';
-import componentsData from '$lib/data/components.json';
+import { adminDb } from '$lib/firebase/admin';
 
-let components = [...componentsData];
-
-function readComponents() {
-  return components;
-}
-
-async function writeComponents(updatedComponents) {
-  components = updatedComponents;
-  if (dev) {
-    const { writeFile } = await import('fs/promises');
-    const { resolve } = await import('path');
-    const DB_PATH = resolve('src/lib/data/components.json');
-    await writeFile(DB_PATH, JSON.stringify(updatedComponents, null, 2), 'utf8');
-  }
-}
+const componentsRef = adminDb.collection('components');
 
 export async function GET() {
   try {
-    const result = readComponents();
-    return json(result);
+    const snapshot = await componentsRef.get();
+    const components = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return json(components);
   } catch (err) {
-    console.error('Failed to read components DB', err);
-    return json({ error: 'Failed to read components DB' }, { status: 500 });
+    console.error('Failed to read components:', err);
+    return json({ error: 'Failed to read components' }, { status: 500 });
   }
 }
 
@@ -32,31 +18,34 @@ export async function POST({ request }) {
   try {
     const body = await request.json();
 
-    // Handle single component update
+    // Handle single component upsert
     if (body && typeof body === 'object' && !Array.isArray(body) && body.id) {
-      const currentComponents = readComponents();
-      const index = currentComponents.findIndex((c) => c.id === body.id);
-
-      if (index === -1) {
-        currentComponents.push(body);
-      } else {
-        currentComponents[index] = body;
-      }
-
-      await writeComponents(currentComponents);
+      const docRef = componentsRef.doc(String(body.id));
+      const { id, ...data } = body;
+      await docRef.set(data, { merge: true });
       return json({ ok: true });
     }
 
     // Handle full array update (legacy support)
     if (Array.isArray(body)) {
-      await writeComponents(body);
+      const batch = adminDb.batch();
+      // Delete all existing
+      const existing = await componentsRef.get();
+      existing.docs.forEach(doc => batch.delete(doc.ref));
+      // Write new ones
+      for (const component of body) {
+        const { id, ...data } = component;
+        const docRef = componentsRef.doc(String(id || componentsRef.doc().id));
+        batch.set(docRef, data);
+      }
+      await batch.commit();
       return json({ ok: true });
     }
 
     return json({ error: 'Invalid request body' }, { status: 400 });
   } catch (err) {
-    console.error('Failed to write components DB', err);
-    return json({ error: 'Failed to write components DB' }, { status: 500 });
+    console.error('Failed to write component:', err);
+    return json({ error: 'Failed to write component' }, { status: 500 });
   }
 }
 
@@ -68,17 +57,17 @@ export async function DELETE({ request }) {
       return json({ error: 'Component ID is required' }, { status: 400 });
     }
 
-    const currentComponents = readComponents();
-    const filtered = currentComponents.filter((c) => c.id !== body.id);
+    const docRef = componentsRef.doc(String(body.id));
+    const doc = await docRef.get();
 
-    if (filtered.length === currentComponents.length) {
+    if (!doc.exists) {
       return json({ error: 'Component not found' }, { status: 404 });
     }
 
-    await writeComponents(filtered);
+    await docRef.delete();
     return json({ ok: true });
   } catch (err) {
-    console.error('Failed to delete component', err);
+    console.error('Failed to delete component:', err);
     return json({ error: 'Failed to delete component' }, { status: 500 });
   }
 }

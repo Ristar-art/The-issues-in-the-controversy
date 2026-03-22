@@ -1,29 +1,15 @@
 import { json, error } from '@sveltejs/kit';
-import { dev } from '$app/environment';
-import pagesData from '$lib/data/pages.json';
+import { adminDb } from '$lib/firebase/admin';
 
-let pages = [...pagesData];
-
-function readPages() {
-  return pages;
-}
-
-async function writePages(updatedPages) {
-  pages = updatedPages;
-  if (dev) {
-    // In dev, write back to disk so changes persist across restarts
-    const fs = await import('fs');
-    const path = await import('path');
-    const pagesFilePath = path.resolve('src/lib/data/pages.json');
-    fs.writeFileSync(pagesFilePath, JSON.stringify(updatedPages, null, 2));
-  }
-}
+const pagesRef = adminDb.collection('pages');
 
 export async function GET() {
   try {
-    const result = readPages();
-    return json(result);
+    const snapshot = await pagesRef.get();
+    const pages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return json(pages);
   } catch (err) {
+    console.error('Failed to read pages:', err);
     throw error(500, 'Internal server error');
   }
 }
@@ -31,11 +17,8 @@ export async function GET() {
 export async function POST({ request }) {
   try {
     const body = await request.json();
-    const currentPages = readPages();
 
-    const newId = currentPages.length > 0 ? Math.max(...currentPages.map(p => p.id)) + 1 : 1;
     const newPage = {
-      id: newId,
       attributes: {
         title: body.title,
         slug: body.slug,
@@ -47,11 +30,10 @@ export async function POST({ request }) {
       }
     };
 
-    currentPages.push(newPage);
-    await writePages(currentPages);
-
-    return json(newPage);
+    const docRef = await pagesRef.add(newPage);
+    return json({ id: docRef.id, ...newPage });
   } catch (err) {
+    console.error('Failed to create page:', err);
     throw error(500, 'Internal server error');
   }
 }
@@ -61,53 +43,57 @@ export async function PUT({ request }) {
     const body = await request.json();
     const { id, ...updates } = body;
 
-    if (typeof id !== 'number') {
+    if (!id) {
       throw error(400, 'Invalid request body');
     }
 
-    const currentPages = readPages();
-    const pageIndex = currentPages.findIndex(p => p.id === id);
+    const docRef = pagesRef.doc(String(id));
+    const doc = await docRef.get();
 
-    if (pageIndex === -1) {
+    if (!doc.exists) {
       throw error(404, 'Article not found');
     }
 
+    const currentData = doc.data();
     const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published', 'blocks', 'featuredImage'];
+    const attributeUpdates = {};
+
     for (const field of allowedFields) {
       if (updates.hasOwnProperty(field)) {
-        currentPages[pageIndex].attributes[field] = updates[field];
+        attributeUpdates[`attributes.${field}`] = updates[field];
       }
     }
 
-    await writePages(currentPages);
+    await docRef.update(attributeUpdates);
 
-    return json(currentPages[pageIndex]);
+    const updated = await docRef.get();
+    return json({ id: updated.id, ...updated.data() });
   } catch (err) {
+    if (err.status) throw err;
+    console.error('Failed to update page:', err);
     throw error(500, 'Internal server error');
   }
 }
 
 export async function DELETE({ url }) {
   try {
-    const idParam = url.searchParams.get('id');
-    if (!idParam) {
+    const id = url.searchParams.get('id');
+    if (!id) {
       throw error(400, 'Article ID required');
     }
-    const id = parseInt(idParam);
-    if (!id) {
-      throw error(400, 'Invalid Article ID');
-    }
 
-    const currentPages = readPages();
-    const filteredPages = currentPages.filter(p => p.id !== id);
+    const docRef = pagesRef.doc(String(id));
+    const doc = await docRef.get();
 
-    if (filteredPages.length === currentPages.length) {
+    if (!doc.exists) {
       throw error(404, 'Article not found');
     }
 
-    await writePages(filteredPages);
+    await docRef.delete();
     return json({ success: true });
   } catch (err) {
+    if (err.status) throw err;
+    console.error('Failed to delete page:', err);
     throw error(500, 'Internal server error');
   }
 }

@@ -5,7 +5,7 @@
     import "../app.css"
      let {children} = $props();
 
-    let isAdmin = $derived($page.url.pathname.startsWith('/admin'));
+    let isAdmin = $derived($page.url.pathname.startsWith('/admin') || $page.url.pathname === '/login');
 </script>
 
 <svelte:head>

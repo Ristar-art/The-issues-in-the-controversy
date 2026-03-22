@@ -10,9 +10,9 @@
     import CopyrightBar from '$lib/components/CopyrightBar.svelte';
     import SearchBar from '$lib/components/SearchBar.svelte';
     import FeaturedVideos from './FeaturedVideos.svelte';
-    import hero from '../../static/_.jpeg'
+    const hero = '/_.jpeg';
     const { data } = $props();
-    const { landing } = data;
+    const landing = data.landing ?? {};
 
     // SEO Configuration
     const siteUrl = 'https://the-issues-in-the-controversy.vercel.app'; // Replace with your actual domain
@@ -165,20 +165,20 @@
     <main>
         <!-- Hero section with H1 for SEO -->
         <HeroSection hero={hero} />
-        <SearchBar config={landing.searchBar} />
-        <KeyTopics keyTopics={landing.keyTopics} />
-        <Progress progress={landing.progress} /> 
-        <FeaturedVideos featured={landing.featuredVideos} />
-        <KeySections keySections={landing.keySections} />
-        <Symbols symbols={landing.symbols} />
-        <TheTruth truth={landing.truthSection} />
-        <GovernmentSection government={landing.government} />
+        {#if landing.searchBar}<SearchBar config={landing.searchBar} />{/if}
+        {#if landing.keyTopics}<KeyTopics keyTopics={landing.keyTopics} />{/if}
+        {#if landing.progress}<Progress progress={landing.progress} />{/if}
+        {#if landing.featuredVideos}<FeaturedVideos featured={landing.featuredVideos} />{/if}
+        {#if landing.keySections}<KeySections keySections={landing.keySections} />{/if}
+        {#if landing.symbols}<Symbols symbols={landing.symbols} />{/if}
+        {#if landing.truthSection}<TheTruth truth={landing.truthSection} />{/if}
+        {#if landing.government}<GovernmentSection government={landing.government} />{/if}
     </main>
-    
+
     <!-- Footer -->
     <footer>
-        <FooterSection footer={landing.footer} />
-        <CopyrightBar footer={landing.footer} />
+        {#if landing.footer}<FooterSection footer={landing.footer} />{/if}
+        {#if landing.footer}<CopyrightBar footer={landing.footer} />{/if}
     </footer>
 </div>
 

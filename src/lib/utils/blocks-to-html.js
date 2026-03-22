@@ -1,32 +1,7 @@
-import { error } from '@sveltejs/kit';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const pagesFilePath = path.join(__dirname, '../../../../lib/data/pages.json');
-const componentsFilePath = path.join(__dirname, '../../../../lib/data/components.json');
-
-function readPages() {
-  try {
-    const data = fs.readFileSync(pagesFilePath, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    return [];
-  }
-}
-
-function readComponents() {
-  try {
-    const data = fs.readFileSync(componentsFilePath, 'utf8');
-    return JSON.parse(data);
-  } catch (err) {
-    return [];
-  }
-}
-
-function sanitizeQuillHtml(html) {
+/**
+ * Sanitize Quill-specific HTML into standard HTML.
+ */
+export function sanitizeQuillHtml(html) {
   if (!html) return '';
   html = html.replace(/<span\s+class="ql-ui"[^>]*><\/span>/g, '');
   html = html.replace(/\s+contenteditable="false"/g, '');
@@ -74,7 +49,10 @@ function sanitizeQuillHtml(html) {
   return html;
 }
 
-function blocksToHtml(blocks, components) {
+/**
+ * Convert a blocks array into HTML, resolving component references.
+ */
+export function blocksToHtml(blocks, components) {
   if (!blocks || !Array.isArray(blocks)) return '';
   return blocks.map(block => {
     switch (block.type) {
@@ -116,35 +94,4 @@ function blocksToHtml(blocks, components) {
         return sanitizeQuillHtml(block.text || '');
     }
   }).join('\n');
-}
-
-export async function load({ params }) {
-  const pages = readPages();
-  const page = pages.find(p => p.attributes.slug === params.slug);
-
-  if (!page) {
-    throw error(404, 'Article not found');
-  }
-
-  let content = page.attributes.content;
-  const components = readComponents();
-
-  // If content is empty, build it from blocks
-  if (!content && page.attributes.blocks && page.attributes.blocks.length > 0) {
-    content = blocksToHtml(page.attributes.blocks, components);
-  }
-
-  // If componentIds exist, assemble content from components instead
-  if (page.attributes.componentIds && page.attributes.componentIds.length > 0) {
-    const pageComponents = page.attributes.componentIds.map(id => components.find(c => c.id === id)).filter(Boolean);
-    content = pageComponents.map(c => c.html).join('');
-  }
-
-  return {
-    article: {
-      id: page.id,
-      ...page.attributes,
-      content
-    }
-  };
 }
