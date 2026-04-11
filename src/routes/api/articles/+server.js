@@ -18,11 +18,15 @@ export async function POST({ request }) {
   try {
     const body = await request.json();
 
+    if (!body.title || !body.slug) {
+      throw error(400, 'Title and slug are required');
+    }
+
     const newPage = {
       attributes: {
         title: body.title,
         slug: body.slug,
-        content: body.content,
+        content: body.content ?? '',
         componentIds: body.componentIds || [],
         blocks: body.blocks || [{ type: 'text', text: '' }],
         published: false,
@@ -33,6 +37,7 @@ export async function POST({ request }) {
     const docRef = await pagesRef.add(newPage);
     return json({ id: docRef.id, ...newPage });
   } catch (err) {
+    if (err.status) throw err;
     console.error('Failed to create page:', err);
     throw error(500, 'Internal server error');
   }
@@ -59,8 +64,12 @@ export async function PUT({ request }) {
     const attributeUpdates = {};
 
     for (const field of allowedFields) {
-      if (updates.hasOwnProperty(field)) {
-        attributeUpdates[`attributes.${field}`] = updates[field];
+      if (Object.prototype.hasOwnProperty.call(updates, field)) {
+        // featuredImage: null is how the client signals "remove from article
+        // (but keep the asset in the gallery)". Persist null directly so the
+        // field definitely overwrites whatever was there before.
+        attributeUpdates[`attributes.${field}`] =
+          field === 'featuredImage' && !updates[field] ? null : updates[field];
       }
     }
 

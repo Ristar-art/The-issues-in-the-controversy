@@ -1,15 +1,15 @@
 <script>
   import VisualComponentBuilder from './VisualComponentBuilder.svelte';
-  
+
   /** @type {import('./$types').PageData} */
   let { data } = $props();
-  
+
   let components = $state(data.components || []);
   let customComponents = $state(data.customComponents || []);
-  
+
   let editingComponent = $state(null);
   let showEditor = $state(false);
-  
+
   function createComponent(category = 'custom') {
     const newComponent = {
       id: `component-${Date.now()}`,
@@ -22,12 +22,12 @@
     editingComponent = newComponent;
     showEditor = true;
   }
-  
+
   function editComponent(component) {
     editingComponent = { ...component };
     showEditor = true;
   }
-  
+
   async function saveComponent(updatedComponent) {
     try {
       const res = await fetch('/api/components', {
@@ -35,9 +35,9 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedComponent)
       });
-      
+
       if (!res.ok) throw new Error('Failed to save component');
-      
+
       // Refresh components
       const refreshRes = await fetch('/api/components');
       if (refreshRes.ok) {
@@ -55,14 +55,14 @@
 
   async function deleteComponent(component) {
     if (!confirm(`Delete "${component.name}"? This cannot be undone.`)) return;
-    
+
     try {
       const res = await fetch('/api/components', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id: component.id })
       });
-      
+
       if (!res.ok) throw new Error('Failed to delete component');
 
       // Refresh components
@@ -76,81 +76,103 @@
       alert(`Error deleting component: ${err.message}`);
     }
   }
-  
+
   function closeEditor() {
     showEditor = false;
     editingComponent = null;
   }
 </script>
 
-<main class="component-library-page">
-  <header class="page-header">
-    <div class="header-content">
-      <div class="title-section">
-        <span class="eyebrow">Admin</span>
-        <h1 class="page-title">Component Library</h1>
+<main class="container-editorial py-16">
+  <header class="mb-12">
+    <div class="header-row">
+      <div>
+        <span class="eyebrow">Content Management</span>
+        <h1 class="font-display text-4xl md:text-5xl mb-4">Component Library</h1>
+        <div class="section-divider"></div>
       </div>
-      <button class="btn-back" onclick={() => history.back()}>
-        ← Back to Article
+      <button class="btn-editorial back-btn" onclick={() => history.back()}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        Back to Article
       </button>
     </div>
   </header>
 
-  <div class="library-content">
-    <!-- Custom Components Section -->
-    <section class="component-section">
-      <div class="section-header">
-        <h2 class="section-title">
-          <span class="icon">📦</span>
-          Custom Components
-          <span class="subtitle">Reusable in any article</span>
-        </h2>
-        <button class="btn-create" onclick={() => createComponent('custom')}>
-          + Create Component
-        </button>
+  <section>
+    <div class="section-header">
+      <div>
+        <h2 class="font-headline text-2xl mb-1">Custom Components</h2>
+        <p class="text-sm text-stone font-body">Reusable blocks available in any article via the "/component" command.</p>
       </div>
-      
-      {#if customComponents.length === 0}
-        <div class="empty-section">
-          <div class="empty-icon">📦</div>
-          <h3>No custom components yet</h3>
-          <p>Create reusable components that can be inserted into any article using the "/component" command.</p>
-        </div>
-      {:else}
-        <div class="components-grid">
-          {#each customComponents as component}
-            <div class="component-card custom">
-              <div class="card-header">
-                <span class="component-icon">📦</span>
-                <h3>{component.name}</h3>
-              </div>
+      <button class="btn-editorial btn-editorial-accent" onclick={() => createComponent('custom')}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" x2="12" y1="5" y2="19"/>
+          <line x1="5" x2="19" y1="12" y2="12"/>
+        </svg>
+        Create Component
+      </button>
+    </div>
+
+    {#if customComponents.length === 0}
+      <div class="empty-state card-editorial">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="empty-icon">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+          <line x1="12" x2="12" y1="22.08" y2="12"/>
+        </svg>
+        <h3 class="font-headline text-xl mb-2">No Components Yet</h3>
+        <p class="text-sm text-stone font-body">Create reusable components that can be inserted into any article.</p>
+      </div>
+    {:else}
+      <div class="components-grid">
+        {#each customComponents as component}
+          <article class="card-editorial component-card">
+            <div class="card-body">
+              <h3 class="font-headline text-xl mb-2">{component.name}</h3>
               {#if component.description}
-                <p class="component-description">{component.description}</p>
+                <p class="text-sm text-stone font-body mb-4">{component.description}</p>
               {/if}
-              <div class="component-preview small">
+              <div class="component-preview">
                 {@html component.html}
               </div>
-              <div class="card-actions">
-                <button class="btn-edit" onclick={() => editComponent(component)}>
-                  Edit
-                </button>
-                <button class="btn-delete" onclick={() => deleteComponent(component)}>
-                  Delete
-                </button>
-              </div>
             </div>
-          {/each}
-        </div>
-      {/if}
-    </section>
-  </div>
+            <div class="card-actions">
+              <button
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border border-accent text-accent hover:bg-accent hover:text-paper transition-all"
+                onclick={() => editComponent(component)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"/>
+                  <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+                Edit
+              </button>
+              <button
+                class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border border-red-700 text-red-700 hover:bg-red-700 hover:text-white transition-all"
+                onclick={() => deleteComponent(component)}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 6h18"/>
+                  <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                  <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                </svg>
+                Delete
+              </button>
+            </div>
+          </article>
+        {/each}
+      </div>
+    {/if}
+  </section>
 </main>
 
 <!-- Component Editor Modal -->
 {#if showEditor && editingComponent}
   <div class="modal-overlay" onclick={closeEditor}>
     <div class="modal-content" onclick={(e) => e.stopPropagation()}>
-      <VisualComponentBuilder 
+      <VisualComponentBuilder
         component={editingComponent}
         onSave={saveComponent}
         onCancel={closeEditor}
@@ -160,177 +182,92 @@
 {/if}
 
 <style>
-  .component-library-page {
-    min-height: 100vh;
-    background: #f9fafb;
+  .text-stone {
+    color: var(--color-stone);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .border-accent {
+    border-color: var(--color-accent);
+  }
+  .hover\:bg-accent:hover {
+    background-color: var(--color-accent);
+  }
+  .hover\:text-paper:hover {
+    color: var(--color-paper);
+  }
+  .border-red-700 {
+    border-color: #b91c1c;
+  }
+  .text-red-700 {
+    color: #b91c1c;
+  }
+  .hover\:bg-red-700:hover {
+    background-color: #b91c1c;
+    color: #fef3c7;
   }
 
-  /* Header */
-  .page-header {
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
-    padding: 1rem 1.5rem;
-  }
-
-  .header-content {
-    max-width: 1400px;
-    margin: 0 auto;
+  .header-row {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    gap: 2rem;
+    flex-wrap: wrap;
   }
 
-  .title-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .eyebrow {
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #6b7280;
-    font-weight: 600;
-  }
-
-  .page-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0;
-    color: #111827;
-  }
-
-  .btn-back {
-    display: flex;
-    align-items: center;
+  .back-btn {
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    color: #6b7280;
-    background: none;
-    border: none;
-    font-size: inherit;
-    cursor: pointer;
-    border-radius: 0.375rem;
-    transition: all 0.2s;
-  }
-
-  .btn-back:hover {
-    background: #f3f4f6;
-    color: #374151;
-  }
-
-  /* Library Content */
-  .library-content {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-  }
-
-  /* Sections */
-  .component-section {
-    margin-bottom: 3rem;
   }
 
   .section-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
+    align-items: flex-end;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-pearl);
+    flex-wrap: wrap;
   }
 
-  .section-title {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #111827;
-    margin: 0;
+  .section-header .btn-editorial {
+    gap: 0.5rem;
   }
 
-  .section-title .icon {
-    font-size: 1.5rem;
-  }
-
-  .section-title .subtitle {
-    font-size: 0.875rem;
-    font-weight: 400;
-    color: #6b7280;
-    margin-left: 0.5rem;
-  }
-
-  /* Special Components */
-  .special-components {
+  .components-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.5rem;
   }
 
-  /* Component Cards */
   .component-card {
-    background: white;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.75rem;
-    padding: 1.5rem;
-    transition: all 0.2s;
-  }
-
-  .component-card.active {
-    border-color: #0d9488;
-  }
-
-  .component-card.empty {
-    border-style: dashed;
-    background: #fafafa;
-  }
-
-  .card-header {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    flex-direction: column;
+    overflow: hidden;
   }
 
-  .component-icon {
-    font-size: 1.5rem;
-  }
-
-  .card-header h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin: 0;
+  .card-body {
+    padding: 2rem 2rem 1rem;
     flex: 1;
   }
 
-  .badge {
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 600;
-    padding: 0.25rem 0.5rem;
-    background: #dbeafe;
-    color: #1e40af;
-    border-radius: 9999px;
-  }
-
-  .component-description {
-    color: #6b7280;
-    font-size: 0.875rem;
-    margin: 0 0 1rem 0;
-  }
-
   .component-preview {
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
+    border-top: 1px solid var(--color-pearl);
+    margin: 1rem -2rem 0;
+    padding: 1.25rem 2rem;
+    max-height: 180px;
     overflow: hidden;
-    margin-bottom: 1rem;
-    max-height: 200px;
-    overflow-y: auto;
+    background-color: var(--color-cream);
+    position: relative;
   }
 
-  .component-preview.small {
-    max-height: 150px;
+  .component-preview::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, var(--color-cream));
+    pointer-events: none;
   }
 
   .component-preview :global(*) {
@@ -339,131 +276,53 @@
 
   .card-actions {
     display: flex;
-    gap: 0.5rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1.25rem 2rem 2rem;
+    border-top: 1px solid var(--color-pearl);
   }
 
   .empty-state {
     text-align: center;
-    padding: 2rem;
-    color: #6b7280;
-  }
-
-  .empty-state p {
-    margin-bottom: 1rem;
-  }
-
-  /* Custom Components Grid */
-  .components-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .empty-section {
-    text-align: center;
     padding: 4rem 2rem;
-    background: white;
-    border-radius: 0.75rem;
-    border: 2px dashed #e5e7eb;
   }
 
   .empty-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-
-  .empty-section h3 {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #374151;
-    margin: 0 0 0.5rem 0;
-  }
-
-  .empty-section p {
-    color: #6b7280;
-    margin: 0;
-  }
-
-  /* Buttons */
-  .btn-create {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: #0d9488;
-    color: white;
-    border: none;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .btn-create:hover {
-    background: #0f766e;
-  }
-
-  .btn-edit {
-    padding: 0.375rem 0.75rem;
-    background: #f3f4f6;
-    color: #374151;
-    border: none;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-edit:hover {
-    background: #e5e7eb;
-  }
-
-  .btn-delete {
-    padding: 0.375rem 0.75rem;
-    background: #fef2f2;
-    color: #ef4444;
-    border: none;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-delete:hover {
-    background: #fee2e2;
+    color: var(--color-silver);
+    margin: 0 auto 1.5rem;
+    display: block;
   }
 
   /* Modal */
   .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(26, 26, 26, 0.6);
     z-index: 100;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    backdrop-filter: blur(2px);
   }
 
   .modal-content {
-    background: white;
-    border-radius: 0.75rem;
+    background: var(--color-paper);
     width: 100%;
     max-width: 1000px;
     max-height: 90vh;
     overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
   }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .components-grid {
       grid-template-columns: 1fr;
     }
 
+    .header-row,
     .section-header {
       flex-direction: column;
-      gap: 1rem;
       align-items: flex-start;
     }
   }

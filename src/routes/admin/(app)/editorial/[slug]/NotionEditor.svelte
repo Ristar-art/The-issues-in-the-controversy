@@ -480,59 +480,74 @@
 <!-- Slash command menu -->
 {#if showSlashMenu}
   <div
-    class="fixed z-50 bg-white rounded-lg shadow-lg border border-gray-200 py-2 min-w-[200px]"
+    class="slash-menu"
     style="left: {slashMenuPosition.x}px; {slashMenuDropUp ? `bottom: ${slashMenuPosition.y}px;` : `top: ${slashMenuPosition.y}px;`}"
   >
-    {#each filteredBlockTypes as blockType}
-      <button
-        class="w-full px-4 py-2 flex items-center gap-3 hover:bg-gray-100 text-left transition-colors"
-        onclick={() => executeSlashCommand(blockType)}
-      >
-        <span class="w-8 h-8 flex items-center justify-center bg-gray-100 rounded text-sm">
-          {blockType.icon}
-        </span>
-        <div>
-          <div class="font-medium text-sm">{blockType.label}</div>
-          <div class="text-xs text-gray-400">Type /{blockType.shortcut}</div>
-        </div>
-      </button>
-    {/each}
-    {#if filteredBlockTypes.length === 0}
-      <div class="px-4 py-2 text-sm text-gray-400">No commands found</div>
-    {/if}
+    <div class="slash-menu-header">
+      <span class="eyebrow slash-menu-eyebrow">Insert Block</span>
+    </div>
+    <div class="slash-menu-list">
+      {#each filteredBlockTypes as blockType}
+        <button
+          type="button"
+          class="slash-menu-item"
+          onclick={() => executeSlashCommand(blockType)}
+        >
+          <span class="slash-menu-icon">{blockType.icon}</span>
+          <div class="slash-menu-text">
+            <div class="slash-menu-label">{blockType.label}</div>
+            <div class="slash-menu-shortcut">/{blockType.shortcut}</div>
+          </div>
+        </button>
+      {/each}
+      {#if filteredBlockTypes.length === 0}
+        <div class="slash-menu-empty">No commands found</div>
+      {/if}
+    </div>
   </div>
 {/if}
 
 <!-- Component Picker Modal -->
 {#if showComponentPicker}
-  <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onclick={() => showComponentPicker = false}>
-    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-hidden" onclick={(e) => e.stopPropagation()}>
-      <div class="p-4 border-b flex justify-between items-center">
-        <h3 class="font-semibold text-lg">Select Component</h3>
-        <button class="text-gray-500 hover:text-gray-700" onclick={() => showComponentPicker = false}>×</button>
+  <div class="component-picker-overlay" onclick={() => showComponentPicker = false}>
+    <div class="component-picker card-editorial" onclick={(e) => e.stopPropagation()}>
+      <div class="component-picker-header">
+        <div>
+          <span class="eyebrow">Library</span>
+          <h3 class="font-headline component-picker-title">Select Component</h3>
+        </div>
+        <button
+          type="button"
+          class="component-picker-close"
+          onclick={() => showComponentPicker = false}
+          aria-label="Close"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" x2="6" y1="6" y2="18"/>
+            <line x1="6" x2="18" y1="6" y2="18"/>
+          </svg>
+        </button>
       </div>
-      <div class="p-4 overflow-y-auto max-h-[60vh]">
+      <div class="component-picker-body">
         {#if availableComponents.length === 0}
-          <div class="text-center py-8 text-gray-500">
-            <div class="text-4xl mb-2">📦</div>
-            <p class="mb-4">No custom components available</p>
-            <a href="/admin/components" class="text-teal-600 hover:underline">Create components in the library</a>
+          <div class="component-picker-empty">
+            <div class="component-picker-empty-mark">◇</div>
+            <p class="font-body">No custom components available</p>
+            <a href="/admin/components" class="link-editorial">Create components in the library</a>
           </div>
         {:else}
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="component-picker-grid">
             {#each availableComponents as component}
               <button
-                class="text-left p-4 border rounded-lg hover:border-teal-500 hover:bg-teal-50 transition-colors"
+                type="button"
+                class="component-card"
                 onclick={() => selectComponent(component.id)}
               >
-                <div class="flex items-center gap-2 mb-2">
-                  <span class="text-2xl">📦</span>
-                  <span class="font-medium">{component.name}</span>
-                </div>
+                <span class="eyebrow component-card-category">{component.category}</span>
+                <div class="component-card-name font-headline">{component.name}</div>
                 {#if component.description}
-                  <p class="text-sm text-gray-500">{component.description}</p>
+                  <p class="component-card-description font-body">{component.description}</p>
                 {/if}
-                <div class="mt-2 text-xs text-gray-400 uppercase">{component.category}</div>
               </button>
             {/each}
           </div>
@@ -634,5 +649,270 @@
 
   .button-block-wrapper :global(.ql-container) {
     font-size: inherit;
+  }
+
+  /* ---------- Slash command menu (editorial) ---------- */
+  .slash-menu {
+    position: fixed;
+    z-index: 60;
+    min-width: 280px;
+    max-height: 360px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-pearl);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+  }
+
+  .slash-menu-header {
+    padding: 0.85rem 1.1rem 0.6rem;
+    border-bottom: 1px solid var(--color-pearl);
+    background-color: var(--color-cream);
+  }
+
+  .slash-menu-eyebrow {
+    margin-bottom: 0 !important;
+    font-size: 0.625rem;
+  }
+
+  .slash-menu-list {
+    padding: 0.35rem 0;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .slash-menu-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.7rem 1.1rem;
+    background: none;
+    border: none;
+    border-left: 2px solid transparent;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: var(--color-ink);
+    transition: background-color 0.15s ease, border-left-color 0.15s ease;
+  }
+
+  .slash-menu-item:hover,
+  .slash-menu-item:focus-visible {
+    background-color: var(--color-cream);
+    border-left-color: var(--color-accent);
+    outline: none;
+  }
+
+  .slash-menu-icon {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-pearl);
+    background-color: var(--color-cream);
+    font-size: 0.95rem;
+    color: var(--color-graphite);
+  }
+
+  .slash-menu-item:hover .slash-menu-icon,
+  .slash-menu-item:focus-visible .slash-menu-icon {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .slash-menu-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    min-width: 0;
+  }
+
+  .slash-menu-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    line-height: 1.2;
+  }
+
+  .slash-menu-shortcut {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: var(--color-stone);
+    letter-spacing: 0.02em;
+  }
+
+  .slash-menu-empty {
+    padding: 1.25rem 1.1rem;
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 0.8rem;
+    color: var(--color-stone);
+    font-style: italic;
+  }
+
+  /* ---------- Component Picker Modal (editorial) ---------- */
+  .component-picker-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: rgba(26, 26, 26, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .component-picker {
+    width: 100%;
+    max-width: 720px;
+    max-height: 82vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-pearl);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+  }
+
+  /* Override card-editorial hover lift inside modal */
+  .component-picker:hover {
+    transform: none;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  }
+
+  .component-picker-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 2rem 2.25rem 1.5rem;
+    border-bottom: 1px solid var(--color-pearl);
+  }
+
+  .component-picker-title {
+    font-size: 1.75rem;
+    margin: 0.25rem 0 0;
+    color: var(--color-ink);
+    line-height: 1.2;
+  }
+
+  .component-picker-close {
+    background: none;
+    border: 1px solid var(--color-pearl);
+    color: var(--color-stone);
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .component-picker-close:hover {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
+  }
+
+  .component-picker-body {
+    padding: 2rem 2.25rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .component-picker-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--color-stone);
+  }
+
+  .component-picker-empty-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .component-picker-empty p {
+    margin: 0;
+    color: var(--color-graphite);
+    font-size: 0.95rem;
+  }
+
+  .component-picker-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .component-picker-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .component-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 1.25rem 1.35rem;
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-pearl);
+    text-align: left;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+
+  .component-card:hover,
+  .component-card:focus-visible {
+    border-color: var(--color-accent);
+    background-color: var(--color-cream);
+    outline: none;
+  }
+
+  .component-card-category {
+    margin-bottom: 0 !important;
+    font-size: 0.625rem;
+  }
+
+  .component-card-name {
+    font-size: 1.15rem;
+    color: var(--color-ink);
+    line-height: 1.25;
+  }
+
+  .component-card-description {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-stone);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 640px) {
+    .component-picker-header {
+      padding: 1.5rem 1.5rem 1rem;
+    }
+
+    .component-picker-body {
+      padding: 1.5rem;
+    }
+
+    .component-picker-title {
+      font-size: 1.4rem;
+    }
   }
 </style>

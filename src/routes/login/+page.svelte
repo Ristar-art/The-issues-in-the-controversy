@@ -1,5 +1,10 @@
 <script>
-  import { signInWithEmailAndPassword } from 'firebase/auth';
+  import {
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    GoogleAuthProvider,
+    signInWithPopup
+  } from 'firebase/auth';
   import { auth } from '$lib/firebase/client';
   import { goto } from '$app/navigation';
 
@@ -7,6 +12,92 @@
   let password = $state('');
   let error = $state('');
   let loading = $state(false);
+  let googleLoading = $state(false);
+
+  async function createSessionAndRedirect(user) {
+    const idToken = await user.getIdToken();
+    const res = await fetch('/api/session', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idToken })
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || 'Failed to create session');
+    }
+    window.location.href = '/admin';
+  }
+
+  async function handleGoogleLogin() {
+    error = '';
+    googleLoading = true;
+    try {
+      const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      const credential = await signInWithPopup(auth, provider);
+      await createSessionAndRedirect(credential.user);
+    } catch (err) {
+      console.error('Google login error:', err);
+      if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
+        // User closed the popup — silent.
+      } else if (err.code === 'auth/popup-blocked') {
+        error = 'Popup was blocked. Please allow popups and try again.';
+      } else if (err.code === 'auth/account-exists-with-different-credential') {
+        error = 'An account already exists with this email using a different sign-in method.';
+      } else if (err.code === 'auth/unauthorized-domain') {
+        error = 'This domain is not authorized for Google sign-in.';
+      } else {
+        error = err.message || 'Google sign-in failed. Please try again.';
+      }
+    } finally {
+      googleLoading = false;
+    }
+  }
+
+  let mode = $state('login'); // 'login' | 'reset'
+  let resetEmail = $state('');
+  let resetMessage = $state('');
+  let resetError = $state('');
+  let resetLoading = $state(false);
+
+  function showReset() {
+    mode = 'reset';
+    resetEmail = email;
+    resetMessage = '';
+    resetError = '';
+  }
+
+  function showLogin() {
+    mode = 'login';
+    resetMessage = '';
+    resetError = '';
+  }
+
+  async function handleReset(e) {
+    e.preventDefault();
+    resetError = '';
+    resetMessage = '';
+    resetLoading = true;
+
+    try {
+      await sendPasswordResetEmail(auth, resetEmail);
+      resetMessage = 'Password reset link sent. Check your inbox (and spam folder).';
+    } catch (err) {
+      console.error('Reset error:', err);
+      if (err.code === 'auth/invalid-email') {
+        resetError = 'Please enter a valid email address.';
+      } else if (err.code === 'auth/user-not-found') {
+        // Do not leak account existence — show same success message.
+        resetMessage = 'Password reset link sent. Check your inbox (and spam folder).';
+      } else if (err.code === 'auth/too-many-requests') {
+        resetError = 'Too many attempts. Please try again later.';
+      } else {
+        resetError = err.message || 'Something went wrong. Please try again.';
+      }
+    } finally {
+      resetLoading = false;
+    }
+  }
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -14,25 +105,8 @@
     loading = true;
 
     try {
-      console.log('Attempting sign in for:', email);
       const credential = await signInWithEmailAndPassword(auth, email, password);
-      console.log('Sign in successful, getting token...');
-      const idToken = await credential.user.getIdToken();
-      console.log('Token received, creating session...');
-
-      const res = await fetch('/api/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ idToken })
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to create session');
-      }
-
-      // Use window.location for a full page reload to pick up the new cookie
-      window.location.href = '/admin';
+      await createSessionAndRedirect(credential.user);
     } catch (err) {
       console.error('Login error:', err);
       if (err.code === 'auth/invalid-credential' || err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password') {
@@ -54,42 +128,102 @@
 
 <div class="login-container">
   <div class="login-card">
-    <h1 class="login-title">Admin Login</h1>
-    <p class="login-subtitle">Sign in to manage your content</p>
+    {#if mode === 'login'}
+      <h1 class="login-title">Admin Login</h1>
+      <p class="login-subtitle">Sign in to manage your content</p>
 
-    {#if error}
-      <div class="login-error">{error}</div>
-    {/if}
+      {#if error}
+        <div class="login-error">{error}</div>
+      {/if}
 
-    <form onsubmit={handleLogin}>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          bind:value={email}
-          placeholder="admin@example.com"
-          required
-          disabled={loading}
-        />
-      </div>
+      <form onsubmit={handleLogin}>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            bind:value={email}
+            placeholder="admin@example.com"
+            required
+            disabled={loading}
+          />
+        </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          bind:value={password}
-          placeholder="Enter your password"
-          required
-          disabled={loading}
-        />
-      </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            bind:value={password}
+            placeholder="Enter your password"
+            required
+            disabled={loading}
+          />
+        </div>
 
-      <button type="submit" class="login-button" disabled={loading}>
-        {loading ? 'Signing in...' : 'Sign In'}
+        <button type="submit" class="login-button" disabled={loading || googleLoading}>
+          {loading ? 'Signing in...' : 'Sign In'}
+        </button>
+      </form>
+
+      <div class="divider"><span>or</span></div>
+
+      <button
+        type="button"
+        class="google-button"
+        onclick={handleGoogleLogin}
+        disabled={loading || googleLoading}
+      >
+        <svg class="google-icon" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+          <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+          <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+          <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+          <path fill="none" d="M0 0h48v48H0z"/>
+        </svg>
+        {googleLoading ? 'Signing in...' : 'Continue with Google'}
       </button>
-    </form>
+
+      <div class="login-footer">
+        <button type="button" class="link-button" onclick={showReset}>
+          Forgot password?
+        </button>
+      </div>
+    {:else}
+      <h1 class="login-title">Reset Password</h1>
+      <p class="login-subtitle">Enter your email to receive a reset link</p>
+
+      {#if resetError}
+        <div class="login-error">{resetError}</div>
+      {/if}
+      {#if resetMessage}
+        <div class="login-success">{resetMessage}</div>
+      {/if}
+
+      <form onsubmit={handleReset}>
+        <div class="form-group">
+          <label for="resetEmail">Email</label>
+          <input
+            id="resetEmail"
+            type="email"
+            bind:value={resetEmail}
+            placeholder="admin@example.com"
+            required
+            disabled={resetLoading}
+          />
+        </div>
+
+        <button type="submit" class="login-button" disabled={resetLoading}>
+          {resetLoading ? 'Sending...' : 'Send Reset Link'}
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <button type="button" class="link-button" onclick={showLogin}>
+          Back to sign in
+        </button>
+      </div>
+    {/if}
   </div>
 </div>
 
@@ -137,6 +271,88 @@
     padding: 0.75rem 1rem;
     font-size: 0.875rem;
     margin-bottom: 1.25rem;
+  }
+
+  .login-success {
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .login-footer {
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+
+  .link-button {
+    background: none;
+    border: none;
+    color: var(--color-accent);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    text-decoration: underline;
+  }
+
+  .link-button:hover {
+    color: var(--color-accent-light);
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+    color: var(--color-stone);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-pearl);
+  }
+
+  .google-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.65rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    border: 1px solid var(--color-pearl);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
+
+  .google-button:hover:not(:disabled) {
+    background: var(--color-cream);
+    border-color: var(--color-stone);
+  }
+
+  .google-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .google-icon {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
   }
 
   .form-group {

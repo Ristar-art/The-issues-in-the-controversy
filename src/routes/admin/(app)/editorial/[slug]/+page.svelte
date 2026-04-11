@@ -197,36 +197,21 @@
   }
 </script>
 
-<main class="notion-editor-page">
-  <!-- Floating Header -->
-  <header class="floating-header">
-    <div class="header-content">
+<main class="editorial-editor-page">
+  <!-- Editorial Sticky Header -->
+  <header class="editorial-header">
+    <div class="container-editorial editorial-header-inner">
       <div class="title-section">
         <span class="eyebrow">Article Editor</span>
-        <h1 class="page-title">{article.attributes.title}</h1>
-        <p class="slug">/{article.attributes.slug}</p>
+        <h1 class="font-display page-title">{article.attributes.title}</h1>
+        <p class="slug font-body">/{article.attributes.slug}</p>
       </div>
-      
+
       <div class="actions-section">
-        <!-- HTML Mode Toggle -->
-        <button onclick={toggleHtmlMode} class="btn-html-toggle {htmlMode ? 'active' : ''}">
-          {htmlMode ? 'Block Editor' : 'HTML Mode'}
-        </button>
-
-        <!-- Preview Link -->
-        <a href="/admin/preview/{article.attributes.slug}" class="btn-preview">
-          Preview
-        </a>
-
-        <!-- Component Library Link -->
-        <a href="/admin/components" class="btn-library">
-          📦 Component Library
-        </a>
-
         <!-- Save Status Indicator -->
-        <div class="save-status">
+        <div class="save-status" aria-live="polite">
           {#if saveStatus === 'saving'}
-            <span class="status saving">Saving...</span>
+            <span class="status saving">Saving…</span>
           {:else if saveStatus === 'saved'}
             <span class="status saved">Saved</span>
           {:else}
@@ -234,20 +219,50 @@
           {/if}
         </div>
 
-        <!-- Publish Toggle -->
+        <!-- Publish Badge -->
         <span class="publish-badge {article.attributes.published ? 'published' : 'draft'}">
           {article.attributes.published ? 'Published' : 'Draft'}
         </span>
-        
+
+        <div class="action-divider" aria-hidden="true"></div>
+
+        <!-- HTML Mode Toggle -->
         <button
+          type="button"
+          onclick={toggleHtmlMode}
+          class="btn-editorial btn-sm {htmlMode ? 'is-active' : ''}"
+        >
+          {htmlMode ? 'Block Editor' : 'HTML Mode'}
+        </button>
+
+        <!-- Preview Link -->
+        <a
+          href="/admin/preview/{article.attributes.slug}"
+          class="btn-editorial btn-sm"
+          target="_blank"
+          rel="noopener"
+        >
+          Preview
+        </a>
+
+        <!-- Component Library Link -->
+        <a href="/admin/components" class="btn-editorial btn-sm">
+          Component Library
+        </a>
+
+        <!-- Publish Toggle -->
+        <button
+          type="button"
           onclick={togglePublish}
-          class="btn-publish {article.attributes.published ? 'unpublish' : 'publish'}"
+          class="btn-editorial btn-sm"
         >
           {article.attributes.published ? 'Unpublish' : 'Publish'}
         </button>
-        
-        <button 
-          class="btn-save"
+
+        <!-- Save Button -->
+        <button
+          type="button"
+          class="btn-editorial btn-editorial-accent btn-sm"
           onclick={saveArticle}
         >
           Save Article
@@ -257,39 +272,40 @@
   </header>
 
   <!-- Main Editor Area -->
-  <div class="editor-container">
+  <div class="container-editorial editor-container">
     <div class="editor-wrapper">
       {#if htmlMode}
         <!-- HTML Source Editor -->
-        <div class="html-editor-container">
+        <section class="html-editor card-editorial">
           <div class="html-editor-header">
-            <span class="html-editor-label">&lt;/&gt; HTML Source</span>
+            <span class="eyebrow html-editor-label">&lt;/&gt; HTML Source</span>
           </div>
           <textarea
-            class="html-editor-textarea"
+            class="html-editor-textarea font-body"
             value={htmlSource}
             oninput={updateHtmlSource}
             spellcheck="false"
           ></textarea>
-        </div>
+        </section>
       {:else}
         <!-- Notion-Style Editor -->
-        <div class="notion-editor-container">
+        <section class="notion-editor-container card-editorial">
           <NotionEditor
             {blocks}
             availableComponents={customComponents}
             onUpdate={updateBlocks}
             onSave={saveArticle}
           />
-        </div>
+        </section>
       {/if}
     </div>
   </div>
 
   <!-- Keyboard Shortcuts Help -->
-  <div class="shortcuts-help">
+  <aside class="shortcuts-help" aria-label="Keyboard shortcuts">
+    <span class="eyebrow shortcuts-title">Shortcuts</span>
     <div class="shortcut">
-      <kbd>Ctrl</kbd> + <kbd>S</kbd>
+      <kbd>Ctrl</kbd><kbd>S</kbd>
       <span>Save</span>
     </div>
     <div class="shortcut">
@@ -304,321 +320,152 @@
       <kbd>/component</kbd>
       <span>Add Component</span>
     </div>
-  </div>
+  </aside>
 </main>
 
 <style>
-  .notion-editor-page {
+  .editorial-editor-page {
     min-height: 100vh;
-    background: #ffffff;
+    background-color: var(--color-cream);
     position: relative;
   }
 
-  /* Floating Header */
-  .floating-header {
-    position: fixed;
+  /* Editorial Sticky Header */
+  .editorial-header {
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.96);
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid #e5e7eb;
-    padding: 0.75rem 1.5rem;
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-pearl);
   }
 
-  .header-content {
-    max-width: 1400px;
-    margin: 0 auto;
+  .editorial-header-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 2rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
   }
 
   .title-section {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+    min-width: 0;
   }
 
-  .eyebrow {
-    font-size: 0.625rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #6b7280;
-    font-weight: 600;
+  .title-section :global(.eyebrow) {
+    margin-bottom: 0.25rem;
   }
 
   .page-title {
-    font-size: 1.25rem;
-    font-weight: 600;
+    font-size: 1.5rem;
     margin: 0;
-    color: #111827;
+    color: var(--color-ink);
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 38ch;
   }
 
   .slug {
-    font-size: 0.75rem;
-    color: #9ca3af;
+    font-size: 0.8rem;
+    color: var(--color-stone);
     margin: 0;
+    letter-spacing: 0.02em;
   }
 
   .actions-section {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
-  .btn-preview {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: #eef2ff;
-    color: #4338ca;
-    border: 1px solid #c7d2fe;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
+  /* Small-sized editorial buttons for header density */
+  :global(.btn-editorial.btn-sm) {
+    padding: 0.55rem 1.1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
     text-decoration: none;
-    transition: all 0.2s;
   }
 
-  .btn-preview:hover {
-    background: #c7d2fe;
+  :global(.btn-editorial.btn-sm.is-active) {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
   }
 
-  .btn-library {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: #f3f4f6;
-    color: #374151;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s;
+  .action-divider {
+    width: 1px;
+    height: 22px;
+    background-color: var(--color-pearl);
   }
 
-  .btn-library:hover {
-    background: #e5e7eb;
-  }
-
+  /* Save status pill */
   .save-status {
-    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
   }
 
   .status {
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--color-pearl);
+    color: var(--color-stone);
+    background-color: var(--color-paper);
   }
 
   .status.saved {
-    background: #dcfce7;
-    color: #166534;
+    border-color: var(--color-pearl);
+    color: var(--color-graphite);
   }
 
   .status.saving {
-    background: #dbeafe;
-    color: #1e40af;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
   .status.unsaved {
-    background: #fef3c7;
-    color: #92400e;
+    border-color: var(--color-ink);
+    color: var(--color-ink);
   }
 
+  /* Publish badge — editorial eyebrow style */
   .publish-badge {
-    font-size: 0.625rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid transparent;
   }
 
   .publish-badge.published {
-    background: #dcfce7;
-    color: #166534;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    border-color: var(--color-ink);
   }
 
   .publish-badge.draft {
-    background: #fef3c7;
-    color: #92400e;
-  }
-
-  .btn-publish {
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border: 1px solid;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-publish.publish {
-    background: white;
-    color: #059669;
-    border-color: #059669;
-  }
-
-  .btn-publish.publish:hover {
-    background: #059669;
-    color: white;
-  }
-
-  .btn-publish.unpublish {
-    background: white;
-    color: #ea580c;
-    border-color: #ea580c;
-  }
-
-  .btn-publish.unpublish:hover {
-    background: #ea580c;
-    color: white;
-  }
-
-  .btn-save {
-    padding: 0.5rem 1rem;
-    background: #0d9488;
-    color: white;
-    border: none;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-
-  .btn-save:hover {
-    background: #0f766e;
-  }
-
-  /* Auto-applied Components */
-  .auto-component {
-    border: 1px solid #e5e7eb;
-    background: #fafafa;
-  }
-
-  .auto-component-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    background: #f3f4f6;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .auto-component.missing .auto-component-label {
-    background: #fef3c7;
-    color: #92400e;
-  }
-
-  .edit-link {
-    color: #0d9488;
-    text-decoration: none;
-    font-weight: 500;
-  }
-
-  .edit-link:hover {
-    text-decoration: underline;
-  }
-
-  .component-content {
-    padding: 0;
-  }
-
-  .component-content :global(*) {
-    max-width: 100%;
-  }
-
-  /* HTML Mode Toggle */
-  .btn-html-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .btn-html-toggle:hover {
-    background: #e5e7eb;
-  }
-
-  .btn-html-toggle.active {
-    background: #1e293b;
-    color: #e2e8f0;
-    border-color: #1e293b;
-  }
-
-  .btn-html-toggle.active:hover {
-    background: #334155;
-  }
-
-  /* HTML Editor */
-  .html-editor-container {
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    background: #1e1e2e;
-  }
-
-  .html-editor-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 1rem;
-    background: #181825;
-    border-bottom: 1px solid #313244;
-  }
-
-  .html-editor-label {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #89b4fa;
-    font-family: monospace;
-    letter-spacing: 0.05em;
-  }
-
-  .html-editor-textarea {
-    width: 100%;
-    min-height: 60vh;
-    padding: 1.5rem;
-    background: #1e1e2e;
-    color: #cdd6f4;
-    border: none;
-    outline: none;
-    resize: vertical;
-    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
-    font-size: 0.875rem;
-    line-height: 1.7;
-    tab-size: 2;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  .html-editor-textarea::selection {
-    background: #45475a;
+    background-color: transparent;
+    color: var(--color-stone);
+    border-color: var(--color-pearl);
   }
 
   /* Editor Container */
   .editor-container {
-    padding: 2rem;
-    margin-top: 80px;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
   }
 
   .editor-wrapper {
@@ -627,67 +474,142 @@
   }
 
   .notion-editor-container {
-    background: white;
-    min-height: 40vh;
+    background-color: var(--color-paper);
+    min-height: 60vh;
+    padding: 3rem 3.5rem;
   }
 
-  /* Keyboard Shortcuts */
+  /* Remove card hover lift on the large editor surface — it's distracting while typing. */
+  :global(.editor-wrapper .card-editorial:hover) {
+    transform: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  /* HTML Editor — editorial dark surface */
+  .html-editor {
+    overflow: hidden;
+    background-color: var(--color-ink);
+  }
+
+  .html-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    background-color: var(--color-charcoal);
+    border-bottom: 1px solid var(--color-graphite);
+  }
+
+  .html-editor-label {
+    color: var(--color-cream) !important;
+    margin-bottom: 0 !important;
+    font-family: 'Source Sans Pro', monospace;
+  }
+
+  .html-editor-textarea {
+    width: 100%;
+    min-height: 60vh;
+    padding: 2rem 2.5rem;
+    background-color: var(--color-ink);
+    color: var(--color-pearl);
+    border: none;
+    outline: none;
+    resize: vertical;
+    font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    tab-size: 2;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .html-editor-textarea::selection {
+    background-color: var(--color-graphite);
+  }
+
+  /* Keyboard Shortcuts Help — editorial floating card */
   .shortcuts-help {
     position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 1.5rem;
+    right: 1.5rem;
     display: flex;
-    gap: 1rem;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1rem 1.25rem;
+    background-color: var(--color-paper);
+    border: 1px solid var(--color-pearl);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
     font-size: 0.75rem;
-    color: #6b7280;
+    color: var(--color-stone);
     z-index: 50;
+    max-width: 220px;
+  }
+
+  .shortcuts-title {
+    margin-bottom: 0 !important;
+    font-size: 0.625rem;
   }
 
   .shortcut {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: var(--color-graphite);
   }
 
   .shortcut kbd {
-    background: #f3f4f6;
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    border: 1px solid #d1d5db;
-    font-family: monospace;
+    background-color: var(--color-cream);
+    padding: 0.2rem 0.45rem;
+    border: 1px solid var(--color-pearl);
+    font-family: 'SF Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--color-ink);
+    min-width: 1.25rem;
+    text-align: center;
+  }
+
+  .shortcut kbd + kbd {
+    margin-left: 0.2rem;
   }
 
   /* Responsive */
-  @media (max-width: 768px) {
-    .editor-container {
-      padding: 1rem;
-    }
-
-    .shortcuts-help {
-      display: none;
-    }
-
-    .header-content {
+  @media (max-width: 900px) {
+    .editorial-header-inner {
       flex-direction: column;
-      gap: 1rem;
       align-items: flex-start;
+      gap: 1.25rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
     }
 
     .actions-section {
       width: 100%;
-      flex-wrap: wrap;
       justify-content: flex-start;
       gap: 0.5rem;
     }
 
-    .btn-library {
-      font-size: 0.75rem;
-      padding: 0.375rem 0.75rem;
+    .action-divider {
+      display: none;
+    }
+
+    .page-title {
+      font-size: 1.25rem;
+      white-space: normal;
+      max-width: 100%;
+    }
+
+    .notion-editor-container {
+      padding: 2rem 1.5rem;
+    }
+
+    .editor-container {
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+    }
+
+    .shortcuts-help {
+      display: none;
     }
   }
 </style>

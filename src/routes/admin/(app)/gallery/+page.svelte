@@ -1,6 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { page } from '$app/state';
+  import { compressImageToWebp } from '$lib/utils/compress-image';
 
   let media = $state([]);
   let loading = $state(true);
@@ -54,8 +55,9 @@
 
     for (const file of files) {
       uploadProgress = `Uploading ${uploaded + 1} of ${files.length}: ${file.name}`;
+      const toUpload = await compressImageToWebp(file);
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append('file', toUpload);
 
       try {
         const res = await fetch('/api/media', { method: 'POST', body: formData });

@@ -1,6 +1,6 @@
 import { json, error } from '@sveltejs/kit';
+import { randomUUID } from 'node:crypto';
 import { getMediaBucket } from '$lib/firebase/admin';
-import { dev } from '$app/environment';
 
 const MEDIA_TYPES = {
   // Images
@@ -30,13 +30,17 @@ const MAX_SIZES = {
   video: 200 * 1024 * 1024,   // 200MB
 };
 
-function getPublicUrl(bucket, filePath) {
+function getPublicUrl(bucket, filePath, token) {
   const bucketName = bucket.name;
-  if (dev) {
-    // Emulator URL format
-    return `http://localhost:9199/v0/b/${bucketName}/o/${encodeURIComponent(filePath)}?alt=media`;
-  }
-  return `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(filePath)}?alt=media`;
+  const base = `https://firebasestorage.googleapis.com/v0/b/${bucketName}/o/${encodeURIComponent(filePath)}?alt=media`;
+  return token ? `${base}&token=${token}` : base;
+}
+
+/** Extract first download token from object metadata (may be undefined). */
+function getDownloadToken(metadata) {
+  const tokens = metadata?.metadata?.firebaseStorageDownloadTokens;
+  if (!tokens) return undefined;
+  return String(tokens).split(',')[0];
 }
 
 /** GET — list all media files from Firebase Storage */
@@ -67,10 +71,26 @@ export async function GET({ url }) {
           continue;
         }
 
+        let token = getDownloadToken(metadata);
+        if (!token) {
+          // Backfill a token so legacy uploads become viewable
+          token = randomUUID();
+          try {
+            await file.setMetadata({
+              metadata: {
+                ...(metadata.metadata || {}),
+                firebaseStorageDownloadTokens: token,
+              },
+            });
+          } catch {
+            token = undefined;
+          }
+        }
+
         allFiles.push({
           name: file.name.split('/').pop(),
           path: file.name,
-          url: getPublicUrl(bucket, file.name),
+          url: getPublicUrl(bucket, file.name, token),
           contentType: metadata.contentType || 'application/octet-stream',
           size: Number(metadata.size || 0),
           category: prefix,
@@ -119,24 +139,23 @@ export async function POST({ request }) {
     const bucket = getMediaBucket();
     const bucketFile = bucket.file(filePath);
     const buffer = Buffer.from(await file.arrayBuffer());
+    const downloadToken = randomUUID();
 
     await bucketFile.save(buffer, {
-      metadata: { contentType },
+      metadata: {
+        contentType,
+        metadata: {
+          firebaseStorageDownloadTokens: downloadToken,
+        },
+      },
     });
-
-    // Make publicly readable
-    try {
-      await bucketFile.makePublic();
-    } catch {
-      // In emulator or if permissions don't allow, that's okay — URL still works
-    }
 
     const [metadata] = await bucketFile.getMetadata();
 
     return json({
       name: safeName,
       path: filePath,
-      url: getPublicUrl(bucket, filePath),
+      url: getPublicUrl(bucket, filePath, downloadToken),
       contentType,
       size: Number(metadata.size || file.size),
       category: folder,

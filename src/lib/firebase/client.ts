@@ -20,16 +20,16 @@ export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
 
-if (import.meta.env.DEV) {
-	try {
-		connectFirestoreEmulator(db, 'localhost', 8080);
-	} catch {}
-	try {
-		connectAuthEmulator(auth, 'http://localhost:9099');
-	} catch {}
-	try {
-		connectStorageEmulator(storage, 'localhost', 9199);
-	} catch {}
-}
+// if (import.meta.env.DEV) {
+// 	try {
+// 		connectFirestoreEmulator(db, 'localhost', 8080);
+// 	} catch {}
+// 	try {
+// 		connectAuthEmulator(auth, 'http://localhost:9099');
+// 	} catch {}
+// 	try {
+// 		connectStorageEmulator(storage, 'localhost', 9199);
+// 	} catch {}
+// }
 
 export default app;

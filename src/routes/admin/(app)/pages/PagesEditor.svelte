@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { createEventDispatcher, onMount } from 'svelte';
+  import { compressImageToWebp } from '$lib/utils/compress-image';
 
   // Define interfaces for type safety
   interface Article {
@@ -82,8 +83,9 @@
    */
   // Upload a file to Firebase Storage via /api/media, then return the URL
   async function uploadToStorage(file: File): Promise<string | null> {
+    const toUpload = await compressImageToWebp(file);
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append('file', toUpload);
     try {
       const response = await fetch('/api/media', {
         method: 'POST',
@@ -157,8 +159,28 @@
     if (url) editFeaturedImage = url;
   }
 
-  function removeEditFeaturedImage(): void {
+  async function removeEditFeaturedImage(): Promise<void> {
+    // Clear locally first so the UI responds immediately.
     editFeaturedImage = '';
+
+    // Only persist if we're editing an existing article. The file in the
+    // gallery is left alone — we only strip the reference from the doc.
+    if (!editingId) return;
+
+    try {
+      const response: Response = await fetch('/api/articles', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: editingId,
+          featuredImage: null,
+        })
+      });
+      if (!response.ok) throw new Error('Failed to remove featured image');
+      dispatch('refresh');
+    } catch (err: any) {
+      error = err.message;
+    }
   }
 
   async function createArticle(): Promise<void> {
