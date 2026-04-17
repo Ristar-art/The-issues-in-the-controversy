@@ -158,9 +158,9 @@
 </svelte:head>
 
 <!-- Main content with semantic HTML structure -->
-<div class="font-sans">
+<div class="font-sans dark-editorial">
     <!-- Header with structured navigation -->
-    
+
     <!-- Main content area -->
     <main>
         <!-- Hero section with H1 for SEO -->

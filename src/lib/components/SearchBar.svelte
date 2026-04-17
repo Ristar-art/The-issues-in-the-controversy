@@ -14,68 +14,37 @@
 
   function updateDropdownPosition() {
     if (!containerRef || !showResults) return;
-    
     const rect = containerRef.getBoundingClientRect();
     const spaceBelow = window.innerHeight - rect.bottom;
     const spaceAbove = rect.top;
     const dropdownHeight = 384;
-    
-    if (spaceBelow < dropdownHeight && spaceAbove > spaceBelow) {
-      positionAbove = true;
-    } else {
-      positionAbove = false;
-    }
+    positionAbove = spaceBelow < dropdownHeight && spaceAbove > spaceBelow;
   }
 
   $effect(() => {
-    if (showResults) {
-      setTimeout(updateDropdownPosition, 0);
-    }
+    if (showResults) setTimeout(updateDropdownPosition, 0);
   });
 
   async function search() {
-    console.log('🔍 Search input changed:', searchTerm);
-    
     if (searchTerm.length < 1) {
-      console.log('📝 Search cleared - hiding results');
       searchResults = [];
       showResults = false;
       isSearching = false;
       clearTimeout(debounceTimer);
       return;
     }
-
-    // Show results immediately when typing
     showResults = true;
     isSearching = true;
-    console.log('⏳ Starting search debounce for:', searchTerm);
-
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(async () => {
       try {
-        console.log('🚀 Executing search for:', searchTerm);
         const response = await fetch(`/api/search?q=${encodeURIComponent(searchTerm)}`);
-        
-        if (!response.ok) {
-          throw new Error(`Search failed: ${response.status}`);
-        }
-        
+        if (!response.ok) throw new Error(`Search failed: ${response.status}`);
         const data = await response.json();
-        console.log('📦 Raw API response:', data);
-        
-        if (data.error) {
-          throw new Error(data.error);
-        }
-        
+        if (data.error) throw new Error(data.error);
         searchResults = Array.isArray(data) ? data : [];
-        console.log(`✅ Search completed! Found ${searchResults.length} results:`, searchResults.map(r => ({ 
-          id: r.id, 
-          title: r.attributes.title, 
-          type: r.type,
-          contentPreview: r.attributes.content?.substring(0, 50) + '...'
-        })));
       } catch (error) {
-        console.error('❌ Search error:', error);
+        console.error('Search error:', error);
         searchResults = [];
       } finally {
         isSearching = false;
@@ -85,29 +54,13 @@
 
   function handleResultClick(result) {
     const attrs = result?.attributes ?? {};
-
-    console.log('🖱️ Result clicked:', {
-      id: result?.id,
-      title: attrs.title,
-      type: result?.type,
-      slug: attrs.slug
-    });
-    
     showResults = false;
     searchTerm = '';
-
-    // Navigate to the appropriate page based on type
-    if (result?.type === 'page' && attrs.slug) {
-      console.log('🔗 Navigating to page:', `/${attrs.slug}`);
-      goto(`/${attrs.slug}`);
-    } else if (attrs.slug) {
-      console.log('🔗 Navigating to slug:', `/${attrs.slug}`);
-      goto(`/${attrs.slug}`);
-    }
+    if (result?.type === 'page' && attrs.slug) goto(`/${attrs.slug}`);
+    else if (attrs.slug) goto(`/${attrs.slug}`);
   }
 
   function clearSearch() {
-    console.log('🧹 Clearing search');
     searchTerm = '';
     searchResults = [];
     showResults = false;
@@ -116,98 +69,90 @@
   function getContentSnippet(result) {
     const rawContent = result?.attributes?.content ?? result?.content ?? '';
     if (!rawContent) return '';
-
     const plainText = rawContent.replace(/<[^>]*>/g, '');
     if (!plainText) return '';
-
     return plainText.length > 100 ? `${plainText.substring(0, 100)}...` : plainText;
   }
 </script>
 
-<div class="relative w-[75%] max-w-xl mx-auto py-8 border-b border-[var(--color-pearl)]" bind:this={containerRef}>
-  <div class="relative">
-    <!-- Search Icon -->
-    <div class="absolute left-0 top-1/2 transform -translate-y-1/2">
-      <svg class="w-5 h-5 text-[var(--color-warm-gray)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-      </svg>
+<section class="bg-[var(--c-bg)] border-t border-[var(--c-border)]">
+  <div class="max-w-3xl mx-auto px-6 py-10 relative" bind:this={containerRef}>
+    <div class="relative flex items-center bg-[var(--c-surface)] border border-[var(--c-border)] rounded-sm">
+      <!-- Search Icon -->
+      <div class="pl-4 pr-2">
+        <svg class="w-5 h-5 text-[var(--c-fg-dim)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+
+      <!-- Search Input -->
+      <input
+        type="text"
+        placeholder={config?.placeholder ?? 'Search the archives...'}
+        class="w-full bg-transparent py-3 pr-4 font-body text-[var(--c-fg)] placeholder-[var(--c-fg-dim)] focus:outline-none"
+        bind:value={searchTerm}
+        on:input={search}
+        on:focus={() => { if (searchTerm.length >= 1) showResults = true; }}
+        on:keydown={(e) => {
+          if (e.key === 'Escape') { showResults = false; e.currentTarget.blur(); }
+        }}
+      />
+
+      <!-- Search Button -->
+      <button
+        class="px-4 md:px-6 py-3 font-mono-editorial text-xs font-bold uppercase tracking-[0.2em] text-[var(--c-teal)] hover:text-[var(--c-fg)] border-l border-[var(--c-border)] transition-colors"
+        on:click={search}
+      >
+        {config?.buttonLabel ?? 'Search'}
+      </button>
     </div>
-    
-    <!-- Search Input -->
-    <input
-      type="text"
-      placeholder={config.placeholder}
-      class="w-full pl-10 pr-4 py-3 bg-transparent border-none font-body text-[var(--color-ink)] placeholder-[var(--color-silver)] focus:outline-none focus:ring-0"
-      bind:value={searchTerm}
-      on:input={search}
-      on:focus={() => { 
-        if (searchTerm.length >= 1) {
-          showResults = true; 
-        }
-      }}
-      on:keydown={(e) => {
-        if (e.key === 'Escape') {
-          showResults = false;
-          e.currentTarget.blur();
-        }
-      }}
-    />
-    
-    <!-- Search Button -->
-    <button
-      class="absolute right-0 top-1/2 transform -translate-y-1/2 font-body text-sm font-semibold text-[var(--color-stone)] hover:text-[var(--color-accent)] transition-colors uppercase tracking-wider"
-      on:click={search}
-    >
-      {config.buttonLabel}
-    </button>
+
+    <!-- Search Results Dropdown -->
+    {#if showResults && searchTerm.length >= 1}
+      <div bind:this={dropdownRef} class="absolute {positionAbove ? 'bottom-full mb-2' : 'top-full mt-2'} left-6 right-6 bg-[var(--c-surface)] border border-[var(--c-border)] shadow-2xl z-50 max-h-96 overflow-y-auto">
+        {#if isSearching}
+          <div class="px-6 py-4 text-[var(--c-fg-muted)] text-center font-body">
+            <span class="inline-block w-4 h-4 border-2 border-[var(--c-border)] border-t-[var(--c-teal)] rounded-full animate-spin mr-2"></span>
+            Searching...
+          </div>
+        {:else if searchResults.length === 0}
+          <div class="px-6 py-4 text-[var(--c-fg-muted)] text-center font-body">
+            No results found for "{searchTerm}"
+          </div>
+        {:else}
+          {#each searchResults as result (result?.id)}
+            {#if result}
+              <button
+                type="button"
+                class="w-full text-left px-6 py-4 hover:bg-[var(--c-surface-2)] cursor-pointer border-b border-[var(--c-border)] last:border-b-0 transition-colors"
+                on:click={() => handleResultClick(result)}
+              >
+                <div class="font-headline text-[var(--c-fg)] mb-1">{result.attributes?.title ?? result.title ?? 'Untitled'}</div>
+                <div class="font-body text-sm text-[var(--c-fg-muted)]">
+                  {#if result.type === 'page'}
+                    <span class="text-[var(--c-teal)] font-mono-editorial uppercase tracking-[0.2em] text-xs">Topic</span>
+                  {:else}
+                    <span class="text-[var(--c-teal)] font-mono-editorial uppercase tracking-[0.2em] text-xs">Article</span>
+                  {/if}
+                  {#if getContentSnippet(result)}
+                    <span class="mx-2 text-[var(--c-fg-dim)]">•</span>
+                    {getContentSnippet(result)}
+                  {/if}
+                </div>
+              </button>
+            {/if}
+          {/each}
+        {/if}
+      </div>
+    {/if}
   </div>
 
-  <!-- Search Results Dropdown -->
-  {#if showResults && searchTerm.length >= 1}
-    <div bind:this={dropdownRef} class="absolute {positionAbove ? 'bottom-full mb-2' : 'top-full mt-2'} left-0 right-0 bg-[var(--color-paper)] border border-[var(--color-pearl)] shadow-xl z-50 max-h-96 overflow-y-auto">
-      {#if isSearching}
-        <div class="px-6 py-4 text-[var(--color-stone)] text-center font-body">
-          <span class="inline-block w-4 h-4 border-2 border-[var(--color-pearl)] border-t-[var(--color-accent)] rounded-full animate-spin mr-2"></span>
-          Searching...
-        </div>
-      {:else if searchResults.length === 0}
-        <div class="px-6 py-4 text-[var(--color-stone)] text-center font-body">
-          No results found for "{searchTerm}"
-        </div>
-      {:else}
-        {#each searchResults as result (result?.id)}
-          {#if result}
-            <button
-              type="button"
-              class="w-full text-left px-6 py-4 hover:bg-[var(--color-cream)] cursor-pointer border-b border-[var(--color-pearl)] last:border-b-0 transition-colors"
-              on:click={() => handleResultClick(result)}
-            >
-              <div class="font-headline text-[var(--color-ink)] mb-1">{result.attributes?.title ?? result.title ?? 'Untitled'}</div>
-              <div class="font-body text-sm text-[var(--color-stone)]">
-                {#if result.type === 'page'}
-                  <span class="text-[var(--color-accent)] font-semibold uppercase tracking-wider text-xs">Topic</span>
-                {:else}
-                  <span class="text-[var(--color-accent)] font-semibold uppercase tracking-wider text-xs">Article</span>
-                {/if}
-                {#if getContentSnippet(result)}
-                  <span class="mx-2 text-[var(--color-silver)]">•</span>
-                  {getContentSnippet(result)}
-                {/if}
-              </div>
-            </button>
-          {/if}
-        {/each}
-      {/if}
-    </div>
+  {#if showResults}
+    <button
+      type="button"
+      class="fixed inset-0 z-40 cursor-default"
+      on:click={clearSearch}
+      aria-label="Close search results"
+    ></button>
   {/if}
-</div>
-
-<!-- Click outside to close results -->
-{#if showResults}
-  <button 
-    type="button"
-    class="fixed inset-0 z-40 cursor-default" 
-    on:click={clearSearch}
-    aria-label="Close search results"
-  ></button>
-{/if}
+</section>

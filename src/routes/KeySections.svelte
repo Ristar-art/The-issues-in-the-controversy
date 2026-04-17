@@ -1,46 +1,59 @@
- <!-- src/lib/components/KeySections.svelte -->
+<!-- src/routes/KeySections.svelte — The Framework -->
 <script>
     let { keySections } = $props();
+    const items = keySections?.items ?? [];
+    const phases = ['Phase 01 · Analysis', 'Phase 02 · Intervention', 'Phase 03 · Activation'];
+    const icons = [
+        'M12 9v4m0 4h.01M4.93 19h14.14a2 2 0 001.74-3l-7.07-12a2 2 0 00-3.48 0L3.19 16a2 2 0 001.74 3z',
+        'M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z',
+        'M5 13l4 4L19 7'
+    ];
 </script>
 
-<section class="py-24 bg-[var(--color-cream)]">
-    <div class="container mx-auto px-4 max-w-6xl">
-        <!-- Section Header -->
-        <div class="mb-16 max-w-3xl">
-            <span class="eyebrow">Essential Reading</span>
-            <h2 class="font-display text-4xl md:text-5xl text-[var(--color-ink)] mb-6">{keySections.title}</h2>
-            <div class="section-divider"></div>
+<section class="py-24 md:py-32 bg-[var(--c-bg)] border-t border-[var(--c-border)]">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">
+        <!-- Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <p class="eyebrow-dim mb-4">The Framework</p>
+            <h2 class="font-display text-3xl md:text-5xl text-[var(--c-fg)] mb-4">
+                {keySections?.title ?? 'The Issue, The Remedy, Our Part'}
+            </h2>
+            <div class="section-divider-dark mx-auto"></div>
         </div>
-        
-        <!-- Key Sections Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {#each keySections.items as section, index}
-                <article class="group bg-[var(--color-paper)] p-8 card-editorial">
-                    <!-- Section Number -->
-                    <div class="flex items-center justify-between mb-6">
-                        <span class="font-display text-4xl text-[var(--color-pearl)] group-hover:text-[var(--color-accent)] transition-colors duration-300">
-                            {String(index + 1).padStart(2, '0')}
-                        </span>
-                        <svg class="w-6 h-6 text-[var(--color-silver)] group-hover:text-[var(--color-accent)] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                    </div>
-                    
-                    <!-- Content -->
-                    <h3 class="font-headline text-2xl text-[var(--color-ink)] mb-4 group-hover:text-[var(--color-accent)] transition-colors duration-300">
+
+        <!-- Phase Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 border border-[var(--c-border)]">
+            {#each items.slice(0, 3) as section, index}
+                <article class="group relative p-8 md:p-12 border-b md:border-b-0 md:border-r last:border-r-0 last:border-b-0 border-[var(--c-border)] hover:bg-[var(--c-surface)] transition-colors">
+                    <p class="eyebrow-dark mb-6">
+                        {phases[index] ?? `Phase 0${index + 1}`}
+                    </p>
+
+                    <h3 class="font-display text-2xl md:text-3xl text-[var(--c-fg)] mb-6 uppercase tracking-tight">
                         {section.title}
                     </h3>
-                    <p class="font-body text-[var(--color-stone)] leading-relaxed mb-6">
+
+                    <p class="font-body text-[var(--c-fg-muted)] leading-relaxed mb-10">
                         {section.description}
                     </p>
-                    
-                    <!-- CTA -->
-                    <a href={section.cta.href} class="link-editorial inline-flex items-center text-sm">
-                        {section.cta.label}
-                        <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                        </svg>
-                    </a>
+
+                    <svg class="w-10 h-10 text-[var(--c-teal-dim)] group-hover:text-[var(--c-teal)] transition-colors mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d={icons[index] ?? icons[0]} />
+                    </svg>
+
+                    {#if section.cta?.href}
+                        <a href={section.cta.href} class="link-dark">
+                            {section.cta.label ?? 'Read more'}
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    {/if}
+
+                    <!-- Phase index corner -->
+                    <span class="absolute top-6 right-6 font-mono-editorial text-xs tracking-[0.25em] text-[var(--c-fg-dim)]">
+                        / {String(index + 1).padStart(2, '0')}
+                    </span>
                 </article>
             {/each}
         </div>
