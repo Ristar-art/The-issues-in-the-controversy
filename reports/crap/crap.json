@@ -1,0 +1,1258 @@
+[
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "<anon method-3>",
+    "line": 57,
+    "complexity": 21,
+    "coverage": 0,
+    "crap": 42
+  },
+  {
+    "file": "src/lib/utils/compress-image.js",
+    "fn": "compressImageToWebp",
+    "line": 15,
+    "complexity": 18,
+    "coverage": 0,
+    "crap": 36
+  },
+  {
+    "file": "src/routes/[slug]/+page.server.js",
+    "fn": "load",
+    "line": 5,
+    "complexity": 13,
+    "coverage": 0,
+    "crap": 26
+  },
+  {
+    "file": "src/routes/admin/(app)/preview/[slug]/+page.server.js",
+    "fn": "load",
+    "line": 5,
+    "complexity": 12,
+    "coverage": 0,
+    "crap": 24
+  },
+  {
+    "file": "src/routes/api/media/+server.js",
+    "fn": "GET",
+    "line": 47,
+    "complexity": 10,
+    "coverage": 0,
+    "crap": 20
+  },
+  {
+    "file": "src/routes/api/media/+server.js",
+    "fn": "POST",
+    "line": 113,
+    "complexity": 8,
+    "coverage": 0,
+    "crap": 16
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-5>",
+    "line": 32,
+    "complexity": 8,
+    "coverage": 0,
+    "crap": 16
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "<anon method-1>",
+    "line": 9,
+    "complexity": 7,
+    "coverage": 0,
+    "crap": 14
+  },
+  {
+    "file": "src/routes/api/articles/+server.js",
+    "fn": "POST",
+    "line": 17,
+    "complexity": 7,
+    "coverage": 0,
+    "crap": 14
+  },
+  {
+    "file": "src/routes/api/articles/+server.js",
+    "fn": "PUT",
+    "line": 46,
+    "complexity": 7,
+    "coverage": 0,
+    "crap": 14
+  },
+  {
+    "file": "src/routes/api/components/+server.js",
+    "fn": "POST",
+    "line": 17,
+    "complexity": 7,
+    "coverage": 0,
+    "crap": 14
+  },
+  {
+    "file": "src/routes/admin/(app)/editorial/[slug]/+page.js",
+    "fn": "load",
+    "line": 2,
+    "complexity": 5,
+    "coverage": 0,
+    "crap": 10
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-8>",
+    "line": 49,
+    "complexity": 5,
+    "coverage": 0,
+    "crap": 10
+  },
+  {
+    "file": "src/routes/api/articles/+server.js",
+    "fn": "DELETE",
+    "line": 87,
+    "complexity": 4,
+    "coverage": 0,
+    "crap": 8
+  },
+  {
+    "file": "src/routes/api/components/+server.js",
+    "fn": "DELETE",
+    "line": 52,
+    "complexity": 4,
+    "coverage": 0,
+    "crap": 8
+  },
+  {
+    "file": "src/routes/api/media/+server.js",
+    "fn": "DELETE",
+    "line": 172,
+    "complexity": 4,
+    "coverage": 0,
+    "crap": 8
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "blocksToHtml",
+    "line": 55,
+    "complexity": 3,
+    "coverage": 0,
+    "crap": 6
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "getComponentContent",
+    "line": 4,
+    "complexity": 3,
+    "coverage": 0,
+    "crap": 6
+  },
+  {
+    "file": "src/routes/api/upload-image/+server.js",
+    "fn": "POST",
+    "line": 5,
+    "complexity": 3,
+    "coverage": 0,
+    "crap": 6
+  },
+  {
+    "file": "src/hooks.server.js",
+    "fn": "handle",
+    "line": 4,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/lib/firebase/admin.ts",
+    "fn": "createAdminApp",
+    "line": 11,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "sanitizeQuillHtml",
+    "line": 4,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "<anon method-2>",
+    "line": 39,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/+page.js",
+    "fn": "load",
+    "line": 1,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/admin/(app)/components/+page.js",
+    "fn": "load",
+    "line": 2,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-65>",
+    "line": 463,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-69>",
+    "line": 488,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-73>",
+    "line": 514,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/admin/+layout.server.js",
+    "fn": "load",
+    "line": 3,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/api/landing/+server.js",
+    "fn": "GET",
+    "line": 4,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/api/media/+server.js",
+    "fn": "getPublicUrl",
+    "line": 33,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/api/media/+server.js",
+    "fn": "getDownloadToken",
+    "line": 40,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "GET",
+    "line": 14,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/api/session/+server.js",
+    "fn": "POST",
+    "line": 4,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/routes/login/+page.server.js",
+    "fn": "load",
+    "line": 3,
+    "complexity": 2,
+    "coverage": 0,
+    "crap": 4
+  },
+  {
+    "file": "src/lib/firebase/admin.ts",
+    "fn": "getMediaBucket",
+    "line": 39,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "<anon method-4>",
+    "line": 79,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.js",
+    "fn": "<anon method-1>",
+    "line": 79,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.js",
+    "fn": "<anon method-2>",
+    "line": 81,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.js",
+    "fn": "loadViaImgElement",
+    "line": 104,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.js",
+    "fn": "<anon method-3>",
+    "line": 105,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.js",
+    "fn": "<anon method-4>",
+    "line": 108,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.js",
+    "fn": "<anon method-5>",
+    "line": 112,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils.js",
+    "fn": "slugify",
+    "line": 1,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/[slug]/+page.server.js",
+    "fn": "<anon method-1>",
+    "line": 34,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/[slug]/+page.server.js",
+    "fn": "<anon method-2>",
+    "line": 45,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/[slug]/+page.server.js",
+    "fn": "<anon method-3>",
+    "line": 45,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/[slug]/+page.server.js",
+    "fn": "<anon method-4>",
+    "line": 47,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/components/+page.js",
+    "fn": "<anon method-1>",
+    "line": 9,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/editorial/[slug]/+page.js",
+    "fn": "<anon method-1>",
+    "line": 12,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/editorial/[slug]/+page.js",
+    "fn": "<anon method-2>",
+    "line": 26,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-1>",
+    "line": 6,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-2>",
+    "line": 7,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-3>",
+    "line": 10,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-4>",
+    "line": 13,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-5>",
+    "line": 16,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-6>",
+    "line": 19,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-7>",
+    "line": 23,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-8>",
+    "line": 24,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-9>",
+    "line": 29,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-10>",
+    "line": 34,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-11>",
+    "line": 41,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-12>",
+    "line": 42,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-13>",
+    "line": 49,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-14>",
+    "line": 54,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-15>",
+    "line": 55,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-16>",
+    "line": 70,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-17>",
+    "line": 84,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-18>",
+    "line": 93,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-19>",
+    "line": 104,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-20>",
+    "line": 109,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-21>",
+    "line": 110,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-22>",
+    "line": 110,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-23>",
+    "line": 110,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-24>",
+    "line": 124,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-25>",
+    "line": 131,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-26>",
+    "line": 139,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-27>",
+    "line": 147,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-28>",
+    "line": 153,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-29>",
+    "line": 164,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-30>",
+    "line": 177,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-31>",
+    "line": 184,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-32>",
+    "line": 195,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-33>",
+    "line": 208,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-34>",
+    "line": 215,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-35>",
+    "line": 223,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-36>",
+    "line": 229,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-37>",
+    "line": 237,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-38>",
+    "line": 244,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-39>",
+    "line": 268,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-40>",
+    "line": 277,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-41>",
+    "line": 286,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-42>",
+    "line": 299,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-43>",
+    "line": 301,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-44>",
+    "line": 310,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-45>",
+    "line": 318,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-46>",
+    "line": 319,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-47>",
+    "line": 329,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-48>",
+    "line": 331,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-49>",
+    "line": 338,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-50>",
+    "line": 344,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-51>",
+    "line": 363,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-52>",
+    "line": 369,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-53>",
+    "line": 375,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-54>",
+    "line": 381,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-55>",
+    "line": 388,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-56>",
+    "line": 394,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-57>",
+    "line": 404,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-58>",
+    "line": 414,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-59>",
+    "line": 423,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-60>",
+    "line": 429,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-61>",
+    "line": 437,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-62>",
+    "line": 443,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-63>",
+    "line": 451,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-64>",
+    "line": 458,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-66>",
+    "line": 471,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-67>",
+    "line": 476,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-68>",
+    "line": 482,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-70>",
+    "line": 496,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-71>",
+    "line": 501,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-72>",
+    "line": 508,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-74>",
+    "line": 522,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-75>",
+    "line": 527,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-76>",
+    "line": 534,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-77>",
+    "line": 541,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-78>",
+    "line": 554,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-79>",
+    "line": 564,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-80>",
+    "line": 576,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-81>",
+    "line": 598,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-82>",
+    "line": 610,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/pages/PagesEditor.test.js",
+    "fn": "<anon method-83>",
+    "line": 618,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/preview/[slug]/+page.server.js",
+    "fn": "<anon method-1>",
+    "line": 30,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/preview/[slug]/+page.server.js",
+    "fn": "<anon method-2>",
+    "line": 41,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/preview/[slug]/+page.server.js",
+    "fn": "<anon method-3>",
+    "line": 41,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/admin/(app)/preview/[slug]/+page.server.js",
+    "fn": "<anon method-4>",
+    "line": 43,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/articles/+server.js",
+    "fn": "GET",
+    "line": 6,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/articles/+server.js",
+    "fn": "<anon method-1>",
+    "line": 9,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/components/+server.js",
+    "fn": "GET",
+    "line": 6,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/components/+server.js",
+    "fn": "<anon method-1>",
+    "line": 9,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/components/+server.js",
+    "fn": "<anon method-2>",
+    "line": 34,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/images/+server.js",
+    "fn": "GET",
+    "line": 7,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/images/+server.js",
+    "fn": "<anon method-1>",
+    "line": 11,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/images/+server.js",
+    "fn": "<anon method-2>",
+    "line": 11,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/images/+server.js",
+    "fn": "<anon method-3>",
+    "line": 12,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/media/+server.js",
+    "fn": "<anon method-1>",
+    "line": 103,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-1>",
+    "line": 7,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-2>",
+    "line": 8,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-3>",
+    "line": 26,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-4>",
+    "line": 30,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-6>",
+    "line": 41,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-7>",
+    "line": 44,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-9>",
+    "line": 51,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-10>",
+    "line": 51,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/search/+server.js",
+    "fn": "<anon method-11>",
+    "line": 53,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/api/session/+server.js",
+    "fn": "DELETE",
+    "line": 30,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/sitemap.xml/+server.js",
+    "fn": "GET",
+    "line": 2,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/sitemap.xml/+server.js",
+    "fn": "<anon method-1>",
+    "line": 89,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  }
+]

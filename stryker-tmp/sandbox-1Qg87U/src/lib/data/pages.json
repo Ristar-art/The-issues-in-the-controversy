@@ -1,0 +1,165 @@
+[
+  {
+    "id": 1,
+    "attributes": {
+      "title": "The New Covenant",
+      "slug": "the-new-covenant",
+      "content": "",
+      "componentIds": [],
+      "published": true,
+      "blocks": [
+        {
+          "type": "text",
+          "text": "<p>Some time ago we started a series of articles focused on the issue of the great conflict between God and Satan. It is our intention to compile these articles and make them into a book entitled, “<strong>The Mother of all Wars.</strong>”&nbsp;</p><p><br></p>"
+        },
+        {
+          "type": "text",
+          "text": "<p><span style=\"color: var(--color-graphite);\">The topics dealt with up to this point are outlined below. </span></p><ol><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26); background-color: rgb(230, 0, 0);\">Origins and Issues</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(230, 0, 0);\">The foundations</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Corporate identity and sin</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>The curse</li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">God’s amazing solution</span></li><li data-list=\"ordered\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Unfinished business</li></ol><p><br></p>"
+        },
+        {
+          "type": "component",
+          "componentId": "component-1772379143802"
+        },
+        {
+          "type": "component",
+          "componentId": "component-1772381869420"
+        },
+        {
+          "type": "text",
+          "text": "<p><span style=\"color: var(--color-graphite);\">The topics dealt with up to this point are outlined below. </span></p><ol><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Origins and Issues</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">The foundations</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">Corporate identity and sin</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>The curse</li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span><span style=\"color: rgb(26, 26, 26);\">God’s amazing solution</span></li><li data-list=\"bullet\"><span class=\"ql-ui\" contenteditable=\"false\"></span>Unfinished business</li></ol><p><br></p>"
+        },
+        {
+          "type": "text",
+          "text": "<div class=\"ql-code-block-container\" spellcheck=\"false\"><div class=\"ql-code-block\">ckjvbabs f</div><div class=\"ql-code-block\"><br></div></div>"
+        },
+        {
+          "type": "component",
+          "componentId": "component-1772383191547"
+        }
+      ],
+      "featuredImage": "/bg-1772373369760.jpeg"
+    }
+  },
+  {
+    "id": 2,
+    "attributes": {
+      "title": "The truth about God",
+      "slug": "the-truth-about-god",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 3,
+    "attributes": {
+      "title": "The overview of Daniel and Revelations",
+      "slug": "the-overview-of-daniel-and-revelations",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 4,
+    "attributes": {
+      "title": "Analysis of the Judgment of the kingdoms",
+      "slug": "analysis-of-the-judgment-of-the-kingdoms",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 5,
+    "attributes": {
+      "title": "The character of God",
+      "slug": "the-character-of-god",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 6,
+    "attributes": {
+      "title": "The Gospel of the Kingdom",
+      "slug": "the-gospel-of-the-kingdom",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 7,
+    "attributes": {
+      "title": "The tragectory of the Kingdom of God in 2000 years",
+      "slug": "the-tragectory-of-the-kingdom-of-god-in-2000-years",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 8,
+    "attributes": {
+      "title": "Prhophetic Symbols and their Meaning",
+      "slug": "prhophetic-symbols-and-their-meaning",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 9,
+    "attributes": {
+      "title": "Types of Governments",
+      "slug": "types-of-governments",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 10,
+    "attributes": {
+      "title": "The Issue",
+      "slug": "the-issue",
+      "content": "",
+      "componentIds": [],
+      "published": true
+    }
+  },
+  {
+    "id": 11,
+    "attributes": {
+      "title": "God's solution",
+      "slug": "gods-solution",
+      "componentIds": [],
+      "blocks": [
+        {
+          "type": "text",
+          "text": ""
+        }
+      ],
+      "published": false,
+      "featuredImage": null
+    }
+  },
+  {
+    "id": 12,
+    "attributes": {
+      "title": "Our Part",
+      "slug": "our-part",
+      "componentIds": [],
+      "blocks": [
+        {
+          "type": "text",
+          "text": ""
+        }
+      ],
+      "published": false,
+      "featuredImage": null
+    }
+  }
+]

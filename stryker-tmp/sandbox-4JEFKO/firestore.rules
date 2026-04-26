@@ -1,0 +1,24 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Landing page: anyone can read, only authenticated admins can write
+    match /landing/{document=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Pages/Articles: anyone can read published, only admins can write
+    match /pages/{pageId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Components: anyone can read, only admins can write
+    match /components/{componentId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

@@ -1,0 +1,243 @@
+
+> the-issues-in-the-controversy@0.0.1 dev
+> vite dev
+
+Port 5173 is in use, trying another one...
+Port 5174 is in use, trying another one...
+Port 5175 is in use, trying another one...
+
+  VITE v6.3.4  ready in 743 ms
+
+  ➜  Local:   http://localhost:5176/
+  ➜  Network: use --host to expose
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:26:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:44:63 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:45:69 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:46:69 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:94:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:95:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:96:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:104:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:128:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:6 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:12:6 `dropdownRef` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:47:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:87:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:119:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:119:4 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:121:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:123:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+https://svelte.dev/e/a11y_click_events_have_key_events
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:123:8 `<div>` with a click handler must have an ARIA role
+https://svelte.dev/e/a11y_no_static_element_interactions
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:123:47 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:126:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:41 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+9:26:58 PM [vite] (ssr) Error when evaluating SSR module /src/routes/+page.svelte: src/routes/FeaturedVideos.svelte:47:16 Mixing old (on:click) and new syntaxes for event handling is not allowed. Use only the onclick syntax
+https://svelte.dev/e/mixed_event_handler_syntaxes
+  Plugin: vite-plugin-svelte
+  File: src/routes/FeaturedVideos.svelte:47:16
+   45 |                  type="button"
+   46 |                  class="group relative w-full aspect-video bg-[var(--c-surface)] overflow-hidden mb-6 block border border-[var(--c-border)]"
+   47 |                  on:click={() => openModal(featureVideo)}
+                                                                 ^
+   48 |                  aria-label={`Play ${featureVideo.title}`}
+   49 |              >
+[Error [CompileError]: src/routes/FeaturedVideos.svelte:47:16 Mixing old (on:click) and new syntaxes for event handling is not allowed. Use only the onclick syntax
+https://svelte.dev/e/mixed_event_handler_syntaxes] {
+  id: 'src/routes/FeaturedVideos.svelte',
+  frame: ' 45 |                  type="button"\n' +
+    ' 46 |                  class="group relative w-full aspect-video bg-[var(--c-surface)] overflow-hidden mb-6 block border border-[var(--c-border)]"\n' +
+    ' 47 |                  on:click={() => openModal(featureVideo)}\n' +
+    '                                                               ^\n' +
+    ' 48 |                  aria-label={`Play ${featureVideo.title}`}\n' +
+    ' 49 |              >',
+  code: 'mixed_event_handler_syntaxes',
+  loc: { line: 47, column: 16, file: 'src/routes/FeaturedVideos.svelte' },
+  plugin: 'vite-plugin-svelte',
+  pluginCode: '<script>\n' +
+    '    let { featured } = $props();\n' +
+    '    let selectedVideo = $state(null);\n' +
+    '\n' +
+    '    function getVideoId(url) {\n' +
+    '        if (!url) return null;\n' +
+    "        if (url.includes('/embed/')) return url.split('/embed/')[1]?.split('?')[0];\n" +
+    "        if (url.includes('youtu.be/')) return url.split('youtu.be/')[1]?.split('?')[0];\n" +
+    '        try {\n' +
+    '            const parsed = new URL(url);\n' +
+    "            return parsed.searchParams.get('v');\n" +
+    '        } catch { return null; }\n' +
+    '    }\n' +
+    '\n' +
+    '    function getThumbnailUrl(id) {\n' +
+    '        return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;\n' +
+    '    }\n' +
+    '\n' +
+    '    function openModal(video) { selectedVideo = video; }\n' +
+    '    function closeModal() { selectedVideo = null; }\n' +
+    '\n' +
+    '    const videos = featured?.videos ?? [];\n' +
+    '    const featureVideo = videos[0];\n' +
+    '    const gridVideos = videos.slice(1, 5);\n' +
+    '</script>\n' +
+    '\n' +
+    '<section class="py-24 md:py-32 bg-[var(--c-bg)] border-t border-[var(--c-border)]">\n' +
+    '    <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">\n' +
+    '\n' +
+    '        <!-- Header -->\n' +
+    '        <div class="text-center max-w-2xl mx-auto mb-16">\n' +
+    '            <p class="eyebrow-dim mb-4">The Visual Argument · Chapter VII</p>\n' +
+    '            <h2 class="font-display text-3xl md:text-5xl text-[var(--c-fg)] mb-6">\n' +
+    "                {featured?.title ?? 'Seeing Is Believing'}\n" +
+    '            </h2>\n' +
+    '            <p class="font-body text-[var(--c-fg-muted)] leading-relaxed">\n' +
+    "                {featured?.subtitle ?? 'A filmed record of the evidence. Play the exhibits. Decide for yourself.'}\n" +
+    '            </p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <!-- Feature video -->\n' +
+    '        {#if featureVideo}\n' +
+    '            {@const fId = getVideoId(featureVideo.embedUrl)}\n' +
+    '            <button\n' +
+    '                type="button"\n' +
+    '                class="group relative w-full aspect-video bg-[var(--c-surface)] overflow-hidden mb-6 block border border-[var(--c-border)]"\n' +
+    '                on:click={() => openModal(featureVideo)}\n' +
+    '                aria-label={`Play ${featureVideo.title}`}\n' +
+    '            >\n' +
+    '                {#if fId}\n' +
+    '                    <img\n' +
+    '                        src={getThumbnailUrl(fId)}\n' +
+    '                        alt={featureVideo.title}\n' +
+    '                        class="absolute inset-0 w-full h-full object-cover img-dark group-hover:scale-[1.02] transition-transform duration-700"\n' +
+    '                        loading="lazy"\n' +
+    '                    />\n' +
+    '                {/if}\n' +
+    '                <div class="absolute inset-0 bg-gradient-to-t from-[var(--c-void)] via-transparent to-transparent"></div>\n' +
+    '\n' +
+    '                <!-- Play button -->\n' +
+    '                <span class="absolute inset-0 flex items-center justify-center">\n' +
+    '                    <span class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[var(--c-teal-strong)] flex items-center justify-center shadow-[0_0_60px_rgba(45,212,191,0.4)] group-hover:bg-[var(--c-teal)] transition-colors">\n' +
+    '                        <svg class="w-7 h-7 text-[var(--c-void)] ml-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">\n' +
+    '                            <path d="M8 5v14l11-7z" />\n' +
+    '                        </svg>\n' +
+    '                    </span>\n' +
+    '                </span>\n' +
+    '\n' +
+    '                <!-- Bottom caption strip -->\n' +
+    '                <div class="absolute bottom-0 left-0 right-0 bg-[var(--c-void)]/85 backdrop-blur-sm px-6 md:px-10 py-5 border-t border-[var(--c-border)] text-left">\n' +
+    '                    <p class="eyebrow-dim mb-2">Feature Transmission · Runtime 00:42:18</p>\n' +
+    '                    <h3 class="font-display text-xl md:text-2xl text-[var(--c-fg)] uppercase tracking-tight">\n' +
+    '                        {featureVideo.title}\n' +
+    '                    </h3>\n' +
+    '                </div>\n' +
+    '            </button>\n' +
+    '        {/if}\n' +
+    '\n' +
+    '        <!-- Secondary videos -->\n' +
+    '        {#if gridVideos.length}\n' +
+    '            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">\n' +
+    '                {#each gridVideos as video}\n' +
+    '                    {@const vId = getVideoId(video.embedUrl)}\n' +
+    '                    <button\n' +
+    '                        type="button"\n' +
+    '                        class="group text-left"\n' +
+    '                        on:click={() => openModal(video)}\n' +
+    '                    >\n' +
+    '                        <div class="relative aspect-video overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] mb-3">\n' +
+    '                            {#if vId}\n' +
+    '                                <img\n' +
+    '                                    src={getThumbnailUrl(vId)}\n' +
+    '                                    alt={video.title}\n' +
+    '                                    class="absolute inset-0 w-full h-full object-cover img-dark group-hover:scale-105 transition-transform duration-500"\n' +
+    '                                    loading="lazy"\n' +
+    '                                />\n' +
+    '                            {/if}\n' +
+    '                            <div class="absolute inset-0 bg-gradient-to-t from-[var(--c-void)]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>\n' +
+    '                            <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">\n' +
+    '                                <span class="w-10 h-10 rounded-full bg-[var(--c-teal-strong)] flex items-center justify-center">\n' +
+    '                                    <svg class="w-4 h-4 text-[var(--c-void)] ml-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">\n' +
+    '                                        <path d="M8 5v14l11-7z" />\n' +
+    '                                    </svg>\n' +
+    '                                </span>\n' +
+    '                            </span>\n' +
+    '                        </div>\n' +
+    '                        <h4 class="font-headline text-sm md:text-base text-[var(--c-fg)] group-hover:text-[var(--c-teal)] transition-colors leading-snug">\n' +
+    '                            {video.title}\n' +
+    '                        </h4>\n' +
+    '                    </button>\n' +
+    '                {/each}\n' +
+    '            </div>\n' +
+    '        {/if}\n' +
+    '    </div>\n' +
+    '</section>\n' +
+    '\n' +
+    '<!-- Modal -->\n' +
+    '{#if selectedVideo}\n' +
+    '    <div\n' +
+    '        class="fixed inset-0 bg-[var(--c-void)]/95 backdrop-blur-sm z-50 flex items-center justify-center p-4"\n' +
+    '        role="dialog"\n' +
+    '        aria-modal="true"\n' +
+    '        aria-label={selectedVideo.title}\n' +
+    '    >\n' +
+    '        <button\n' +
+    '            type="button"\n' +
+    '            class="absolute inset-0 w-full h-full cursor-default"\n' +
+    '            aria-label="Close modal"\n' +
+    '            onclick={closeModal}\n' +
+    '        ></button>\n' +
+    '        <div class="relative max-w-5xl w-full">\n' +
+    '            <button\n' +
+    '                type="button"\n' +
+    '                class="absolute -top-10 right-0 text-[var(--c-fg)] hover:text-[var(--c-teal)] font-mono-editorial text-xs tracking-[0.25em] uppercase z-10"\n' +
+    '                onclick={closeModal}\n' +
+    '            >\n' +
+    '                Close ✕\n' +
+    '            </button>\n' +
+    '            <div class="aspect-video bg-black border border-[var(--c-border)] relative z-10">\n' +
+    '                <iframe\n' +
+    '                    src={selectedVideo.embedUrl}\n' +
+    '                    title={selectedVideo.title}\n' +
+    '                    class="w-full h-full"\n' +
+    '                    allow="autoplay; encrypted-media; picture-in-picture"\n' +
+    '                    allowfullscreen\n' +
+    '                ></iframe>\n' +
+    '            </div>\n' +
+    '            <h3 class="mt-4 font-display text-xl text-[var(--c-fg)] relative z-10">\n' +
+    '                {selectedVideo.title}\n' +
+    '            </h3>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '{/if}\n',
+  runnerError: Error: RunnerError
+      at reviveInvokeError (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:552:18)
+      at Object.invoke (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:635:15)
+      at async SSRCompatModuleRunner.getModuleInformation (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1205:73)
+      at async request (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1227:88)
+      at async eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:4:1371)
+      at async ESModulesEvaluator.runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:5)
+      at async SSRCompatModuleRunner.directRequest (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1284:61)
+      at async SSRCompatModuleRunner.directRequest (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/chunks/dep-Bn81Esdm.js:25274:23)
+      at async SSRCompatModuleRunner.cachedRequest (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1180:76)
+      at async SSRCompatModuleRunner.import (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1117:12)
+}
+9:26:59 PM [vite] (ssr) page reload .claude/settings.local.json
+9:27:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+9:27:25 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
