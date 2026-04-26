@@ -2,725 +2,242 @@
 > the-issues-in-the-controversy@0.0.1 dev
 > vite dev
 
+Port 5173 is in use, trying another one...
+Port 5174 is in use, trying another one...
+Port 5175 is in use, trying another one...
 
-  VITE v6.3.4  ready in 584 ms
+  VITE v6.3.4  ready in 743 ms
 
-  ➜  Local:   http://localhost:5173/
+  ➜  Local:   http://localhost:5176/
   ➜  Network: use --host to expose
-11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:8:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:9:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:10:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:26:52 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:11:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:26:52 PM [vite-plugin-svelte] src/lib/components/FooterSection.svelte:13:24 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
-https://svelte.dev/e/a11y_consider_explicit_label
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:64:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:26:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
 https://svelte.dev/e/event_directive_deprecated
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:65:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:44:63 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
 https://svelte.dev/e/event_directive_deprecated
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:66:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:45:69 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
 https://svelte.dev/e/event_directive_deprecated
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:75:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+9:26:09 PM [vite-plugin-svelte] src/lib/components/Navigation.svelte:46:69 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
 https://svelte.dev/e/event_directive_deprecated
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:93:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:94:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:95:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:96:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:104:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:128:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:6 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:12:6 `dropdownRef` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
+https://svelte.dev/e/non_reactive_update
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:47:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:87:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+https://svelte.dev/e/event_directive_deprecated
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:119:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
 https://svelte.dev/e/a11y_click_events_have_key_events
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:93:20 `<div>` with a click handler must have an ARIA role
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:119:4 `<div>` with a click handler must have an ARIA role
 https://svelte.dev/e/a11y_no_static_element_interactions
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:95:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:121:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
 https://svelte.dev/e/event_directive_deprecated
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:117:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:123:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
 https://svelte.dev/e/a11y_click_events_have_key_events
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:117:4 `<div>` with a click handler must have an ARIA role
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:123:8 `<div>` with a click handler must have an ARIA role
 https://svelte.dev/e/a11y_no_static_element_interactions
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:117:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:123:47 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
 https://svelte.dev/e/event_directive_deprecated
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:26:52 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:26:52 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:27:08 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:28:00 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-11:28:00 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-11:28:00 PM [vite] (ssr) page reload .svelte-kit/generated/root.svelte
-11:31:33 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-11:31:33 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-11:31:49 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:32:16 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:32:19 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:32:43 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-11:32:43 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-11:32:49 PM [vite] (client) page reload test-search.html
-11:32:57 PM [vite] (client) page reload test-search.html
-11:33:43 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:79:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
+9:26:09 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:126:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
 https://svelte.dev/e/event_directive_deprecated
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:80:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:81:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:90:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:114:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:47 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:8:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:9:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:10:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:33:48 PM [vite-plugin-svelte] src/lib/components/HeaderBar.svelte:11:11 '#' is not a valid href attribute
-https://svelte.dev/e/a11y_invalid_attribute
-11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:29:16 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:45:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:33:48 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:46:8 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:79:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:80:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:81:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:90:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:112:20 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:114:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:136:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:48 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:33:48 PM [vite-plugin-svelte] src/lib/components/FooterSection.svelte:13:24 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
-https://svelte.dev/e/a11y_consider_explicit_label
-11:38:02 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-11:38:02 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:88:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
-https://svelte.dev/e/event_directive_deprecated
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:89:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
-https://svelte.dev/e/event_directive_deprecated
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:90:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
-https://svelte.dev/e/event_directive_deprecated
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:121:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:121:20 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:123:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:145:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:145:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:145:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:38:02 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:39:32 PM [vite-plugin-svelte] src/routes/topics/+page.svelte:92:4 Unused CSS selector ".line-clamp-3"
-https://svelte.dev/e/css_unused_selector
-11:39:32 PM [vite-plugin-svelte] src/routes/topics/+page.svelte:101:4 Unused CSS selector ".text-teal-dark"
-https://svelte.dev/e/css_unused_selector
-11:40:15 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-11:40:15 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:97:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:108:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:132:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:97:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:108:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:130:20 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:132:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:154:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:40:15 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:41:32 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-11:41:32 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
-https://svelte.dev/e/event_directive_deprecated
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
-https://svelte.dev/e/event_directive_deprecated
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:100:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
-https://svelte.dev/e/event_directive_deprecated
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:133:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:41:33 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
-    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:450:18)
-    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:272:19)
-    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
-    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
-    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:270:48)
-    at Object.eval [as handle] (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:79:56)
-    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:265:27)
-    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
-    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
-    at respond (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:263:65) {
-  status: 404,
-  text: 'Not Found'
+9:26:41 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+9:26:58 PM [vite] (ssr) Error when evaluating SSR module /src/routes/+page.svelte: src/routes/FeaturedVideos.svelte:47:16 Mixing old (on:click) and new syntaxes for event handling is not allowed. Use only the onclick syntax
+https://svelte.dev/e/mixed_event_handler_syntaxes
+  Plugin: vite-plugin-svelte
+  File: src/routes/FeaturedVideos.svelte:47:16
+   45 |                  type="button"
+   46 |                  class="group relative w-full aspect-video bg-[var(--c-surface)] overflow-hidden mb-6 block border border-[var(--c-border)]"
+   47 |                  on:click={() => openModal(featureVideo)}
+                                                                 ^
+   48 |                  aria-label={`Play ${featureVideo.title}`}
+   49 |              >
+[Error [CompileError]: src/routes/FeaturedVideos.svelte:47:16 Mixing old (on:click) and new syntaxes for event handling is not allowed. Use only the onclick syntax
+https://svelte.dev/e/mixed_event_handler_syntaxes] {
+  id: 'src/routes/FeaturedVideos.svelte',
+  frame: ' 45 |                  type="button"\n' +
+    ' 46 |                  class="group relative w-full aspect-video bg-[var(--c-surface)] overflow-hidden mb-6 block border border-[var(--c-border)]"\n' +
+    ' 47 |                  on:click={() => openModal(featureVideo)}\n' +
+    '                                                               ^\n' +
+    ' 48 |                  aria-label={`Play ${featureVideo.title}`}\n' +
+    ' 49 |              >',
+  code: 'mixed_event_handler_syntaxes',
+  loc: { line: 47, column: 16, file: 'src/routes/FeaturedVideos.svelte' },
+  plugin: 'vite-plugin-svelte',
+  pluginCode: '<script>\n' +
+    '    let { featured } = $props();\n' +
+    '    let selectedVideo = $state(null);\n' +
+    '\n' +
+    '    function getVideoId(url) {\n' +
+    '        if (!url) return null;\n' +
+    "        if (url.includes('/embed/')) return url.split('/embed/')[1]?.split('?')[0];\n" +
+    "        if (url.includes('youtu.be/')) return url.split('youtu.be/')[1]?.split('?')[0];\n" +
+    '        try {\n' +
+    '            const parsed = new URL(url);\n' +
+    "            return parsed.searchParams.get('v');\n" +
+    '        } catch { return null; }\n' +
+    '    }\n' +
+    '\n' +
+    '    function getThumbnailUrl(id) {\n' +
+    '        return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;\n' +
+    '    }\n' +
+    '\n' +
+    '    function openModal(video) { selectedVideo = video; }\n' +
+    '    function closeModal() { selectedVideo = null; }\n' +
+    '\n' +
+    '    const videos = featured?.videos ?? [];\n' +
+    '    const featureVideo = videos[0];\n' +
+    '    const gridVideos = videos.slice(1, 5);\n' +
+    '</script>\n' +
+    '\n' +
+    '<section class="py-24 md:py-32 bg-[var(--c-bg)] border-t border-[var(--c-border)]">\n' +
+    '    <div class="max-w-7xl mx-auto px-6 md:px-12 lg:px-24">\n' +
+    '\n' +
+    '        <!-- Header -->\n' +
+    '        <div class="text-center max-w-2xl mx-auto mb-16">\n' +
+    '            <p class="eyebrow-dim mb-4">The Visual Argument · Chapter VII</p>\n' +
+    '            <h2 class="font-display text-3xl md:text-5xl text-[var(--c-fg)] mb-6">\n' +
+    "                {featured?.title ?? 'Seeing Is Believing'}\n" +
+    '            </h2>\n' +
+    '            <p class="font-body text-[var(--c-fg-muted)] leading-relaxed">\n' +
+    "                {featured?.subtitle ?? 'A filmed record of the evidence. Play the exhibits. Decide for yourself.'}\n" +
+    '            </p>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <!-- Feature video -->\n' +
+    '        {#if featureVideo}\n' +
+    '            {@const fId = getVideoId(featureVideo.embedUrl)}\n' +
+    '            <button\n' +
+    '                type="button"\n' +
+    '                class="group relative w-full aspect-video bg-[var(--c-surface)] overflow-hidden mb-6 block border border-[var(--c-border)]"\n' +
+    '                on:click={() => openModal(featureVideo)}\n' +
+    '                aria-label={`Play ${featureVideo.title}`}\n' +
+    '            >\n' +
+    '                {#if fId}\n' +
+    '                    <img\n' +
+    '                        src={getThumbnailUrl(fId)}\n' +
+    '                        alt={featureVideo.title}\n' +
+    '                        class="absolute inset-0 w-full h-full object-cover img-dark group-hover:scale-[1.02] transition-transform duration-700"\n' +
+    '                        loading="lazy"\n' +
+    '                    />\n' +
+    '                {/if}\n' +
+    '                <div class="absolute inset-0 bg-gradient-to-t from-[var(--c-void)] via-transparent to-transparent"></div>\n' +
+    '\n' +
+    '                <!-- Play button -->\n' +
+    '                <span class="absolute inset-0 flex items-center justify-center">\n' +
+    '                    <span class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-[var(--c-teal-strong)] flex items-center justify-center shadow-[0_0_60px_rgba(45,212,191,0.4)] group-hover:bg-[var(--c-teal)] transition-colors">\n' +
+    '                        <svg class="w-7 h-7 text-[var(--c-void)] ml-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">\n' +
+    '                            <path d="M8 5v14l11-7z" />\n' +
+    '                        </svg>\n' +
+    '                    </span>\n' +
+    '                </span>\n' +
+    '\n' +
+    '                <!-- Bottom caption strip -->\n' +
+    '                <div class="absolute bottom-0 left-0 right-0 bg-[var(--c-void)]/85 backdrop-blur-sm px-6 md:px-10 py-5 border-t border-[var(--c-border)] text-left">\n' +
+    '                    <p class="eyebrow-dim mb-2">Feature Transmission · Runtime 00:42:18</p>\n' +
+    '                    <h3 class="font-display text-xl md:text-2xl text-[var(--c-fg)] uppercase tracking-tight">\n' +
+    '                        {featureVideo.title}\n' +
+    '                    </h3>\n' +
+    '                </div>\n' +
+    '            </button>\n' +
+    '        {/if}\n' +
+    '\n' +
+    '        <!-- Secondary videos -->\n' +
+    '        {#if gridVideos.length}\n' +
+    '            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">\n' +
+    '                {#each gridVideos as video}\n' +
+    '                    {@const vId = getVideoId(video.embedUrl)}\n' +
+    '                    <button\n' +
+    '                        type="button"\n' +
+    '                        class="group text-left"\n' +
+    '                        on:click={() => openModal(video)}\n' +
+    '                    >\n' +
+    '                        <div class="relative aspect-video overflow-hidden bg-[var(--c-surface)] border border-[var(--c-border)] mb-3">\n' +
+    '                            {#if vId}\n' +
+    '                                <img\n' +
+    '                                    src={getThumbnailUrl(vId)}\n' +
+    '                                    alt={video.title}\n' +
+    '                                    class="absolute inset-0 w-full h-full object-cover img-dark group-hover:scale-105 transition-transform duration-500"\n' +
+    '                                    loading="lazy"\n' +
+    '                                />\n' +
+    '                            {/if}\n' +
+    '                            <div class="absolute inset-0 bg-gradient-to-t from-[var(--c-void)]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>\n' +
+    '                            <span class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">\n' +
+    '                                <span class="w-10 h-10 rounded-full bg-[var(--c-teal-strong)] flex items-center justify-center">\n' +
+    '                                    <svg class="w-4 h-4 text-[var(--c-void)] ml-0.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">\n' +
+    '                                        <path d="M8 5v14l11-7z" />\n' +
+    '                                    </svg>\n' +
+    '                                </span>\n' +
+    '                            </span>\n' +
+    '                        </div>\n' +
+    '                        <h4 class="font-headline text-sm md:text-base text-[var(--c-fg)] group-hover:text-[var(--c-teal)] transition-colors leading-snug">\n' +
+    '                            {video.title}\n' +
+    '                        </h4>\n' +
+    '                    </button>\n' +
+    '                {/each}\n' +
+    '            </div>\n' +
+    '        {/if}\n' +
+    '    </div>\n' +
+    '</section>\n' +
+    '\n' +
+    '<!-- Modal -->\n' +
+    '{#if selectedVideo}\n' +
+    '    <div\n' +
+    '        class="fixed inset-0 bg-[var(--c-void)]/95 backdrop-blur-sm z-50 flex items-center justify-center p-4"\n' +
+    '        role="dialog"\n' +
+    '        aria-modal="true"\n' +
+    '        aria-label={selectedVideo.title}\n' +
+    '    >\n' +
+    '        <button\n' +
+    '            type="button"\n' +
+    '            class="absolute inset-0 w-full h-full cursor-default"\n' +
+    '            aria-label="Close modal"\n' +
+    '            onclick={closeModal}\n' +
+    '        ></button>\n' +
+    '        <div class="relative max-w-5xl w-full">\n' +
+    '            <button\n' +
+    '                type="button"\n' +
+    '                class="absolute -top-10 right-0 text-[var(--c-fg)] hover:text-[var(--c-teal)] font-mono-editorial text-xs tracking-[0.25em] uppercase z-10"\n' +
+    '                onclick={closeModal}\n' +
+    '            >\n' +
+    '                Close ✕\n' +
+    '            </button>\n' +
+    '            <div class="aspect-video bg-black border border-[var(--c-border)] relative z-10">\n' +
+    '                <iframe\n' +
+    '                    src={selectedVideo.embedUrl}\n' +
+    '                    title={selectedVideo.title}\n' +
+    '                    class="w-full h-full"\n' +
+    '                    allow="autoplay; encrypted-media; picture-in-picture"\n' +
+    '                    allowfullscreen\n' +
+    '                ></iframe>\n' +
+    '            </div>\n' +
+    '            <h3 class="mt-4 font-display text-xl text-[var(--c-fg)] relative z-10">\n' +
+    '                {selectedVideo.title}\n' +
+    '            </h3>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '{/if}\n',
+  runnerError: Error: RunnerError
+      at reviveInvokeError (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:552:18)
+      at Object.invoke (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:635:15)
+      at async SSRCompatModuleRunner.getModuleInformation (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1205:73)
+      at async request (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1227:88)
+      at async eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:4:1371)
+      at async ESModulesEvaluator.runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:5)
+      at async SSRCompatModuleRunner.directRequest (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1284:61)
+      at async SSRCompatModuleRunner.directRequest (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/chunks/dep-Bn81Esdm.js:25274:23)
+      at async SSRCompatModuleRunner.cachedRequest (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1180:76)
+      at async SSRCompatModuleRunner.import (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1117:12)
 }
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:98:8 Using `on:input` to listen to the input event is deprecated. Use the event attribute `oninput` instead
-https://svelte.dev/e/event_directive_deprecated
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:99:8 Using `on:focus` to listen to the focus event is deprecated. Use the event attribute `onfocus` instead
-https://svelte.dev/e/event_directive_deprecated
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:100:8 Using `on:keydown` to listen to the keydown event is deprecated. Use the event attribute `onkeydown` instead
-https://svelte.dev/e/event_directive_deprecated
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:131:20 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:133:24 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:155:36 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:6:8 `searchTerm` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:7:8 `searchResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:8:8 `isSearching` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-11:49:32 PM [vite-plugin-svelte] src/lib/components/SearchBar.svelte:9:8 `showResults` is updated, but is not declared with `$state(...)`. Changing its value will not correctly trigger updates
-https://svelte.dev/e/non_reactive_update
-SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
-    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:450:18)
-    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:272:19)
-    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
-    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
-    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:270:48)
-    at Object.eval [as handle] (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:79:56)
-    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:265:27)
-    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
-    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
-    at respond (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:263:65) {
-  status: 404,
-  text: 'Not Found'
-}
-SvelteKitError: Not found: /.well-known/appspecific/com.chrome.devtools.json
-    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:450:18)
-    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:272:19)
-    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
-    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
-    at resolve (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:270:48)
-    at Object.eval [as handle] (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:79:56)
-    at eval (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:265:27)
-    at AsyncLocalStorage.run (node:internal/async_local_storage/async_context_frame:63:14)
-    at with_event (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:53:20)
-    at respond (eval at runInlinedModule (file:///Users/boiketlomochochoko/Desktop/The%20issues%20in%20the%20controversy/node_modules/vite/dist/node/module-runner.js:1062:11), <anonymous>:263:65) {
-  status: 404,
-  text: 'Not Found'
-}
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/9.js
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-7:23:45 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-7:23:45 PM [vite] (client) page reload .svelte-kit/generated/root.js
-7:23:45 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-7:50:26 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-7:50:26 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-8:03:51 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-8:03:51 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-8:06:18 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-8:06:18 PM [vite] (ssr) page reload src/routes/+page.svelte
-8:06:20 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-8:06:20 PM [vite] (ssr) page reload src/routes/+page.svelte
-8:06:54 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-8:06:54 PM [vite] (ssr) page reload src/routes/+page.svelte
-8:10:19 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-8:10:19 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-8:11:01 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-8:11:01 PM [vite] (ssr) page reload src/routes/+page.svelte
-8:11:02 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-8:11:02 PM [vite] (ssr) page reload src/routes/+page.svelte
-8:11:17 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-8:11:17 PM [vite] (ssr) page reload src/routes/+page.svelte
-8:12:09 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-8:12:09 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/9.js
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-8:15:29 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-8:15:29 PM [vite] (client) page reload .svelte-kit/generated/root.js
-8:15:29 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-8:15:45 PM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-8:15:45 PM [vite] (ssr) page reload src/routes/+page.svelte
-6:41:21 PM [vite] (client) page reload src/routes/search.json/+server.js
-6:41:21 PM [vite] (ssr) page reload src/routes/search.json/+server.js
-6:41:21 PM [vite] (client) page reload src/routes/search.json/search/[slug]/+page.svelte
-6:41:21 PM [vite] (ssr) page reload src/routes/search.json/search/[slug]/+page.svelte
-6:41:21 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
-6:49:46 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-6:49:46 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-6:55:42 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-6:55:42 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-6:56:00 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-6:56:00 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
-6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
-6:56:12 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-6:56:12 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-6:56:12 PM [vite] (client) page reload .svelte-kit/generated/root.js
-6:56:12 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
-6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
-6:58:46 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-6:58:46 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-6:58:46 PM [vite] (client) page reload .svelte-kit/generated/root.js
-6:58:46 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-7:02:13 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-7:02:13 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:23:10 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:23:10 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:23:15 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:23:15 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:23:19 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:23:19 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:23:32 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:23:32 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:23:34 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:23:34 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:23:36 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:23:36 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:23:59 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:23:59 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:36 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:36 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:40 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:40 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:42 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:42 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:45 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:45 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:50 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:50 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:51 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:51 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:53 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:53 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:24:54 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:24:54 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-9:28:24 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
-9:28:24 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
-9:28:39 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
-9:28:39 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
-9:28:43 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
-9:28:43 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
-9:42:41 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
-9:42:41 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
-9:43:10 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-9:43:10 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
-11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/app.js
-11:36:23 AM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-11:36:23 AM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-11:36:23 AM [vite] (client) page reload .svelte-kit/generated/root.js
-11:36:23 AM [vite] (ssr) page reload .svelte-kit/generated/root.js
-11:53:24 AM [vite] (client) hmr update /src/app.css
-11:53:24 AM [vite] (ssr) page reload src/app.css
-11:53:31 AM [vite] (client) hmr update /src/routes/+page.svelte, /src/app.css
-11:53:31 AM [vite] (ssr) page reload src/routes/+page.svelte
-11:53:41 AM [vite] (client) hmr update /src/routes/HeroSection.svelte, /src/app.css
-11:53:41 AM [vite] (ssr) page reload src/routes/HeroSection.svelte
-11:53:55 AM [vite] (client) hmr update /src/routes/KeyTopics.svelte, /src/app.css
-11:53:55 AM [vite] (ssr) page reload src/routes/KeyTopics.svelte
-11:54:06 AM [vite] (client) hmr update /src/routes/Progress.svelte, /src/app.css
-11:54:06 AM [vite] (ssr) page reload src/routes/Progress.svelte
-11:54:17 AM [vite] (client) hmr update /src/routes/Symbols.svelte, /src/app.css
-11:54:17 AM [vite] (ssr) page reload src/routes/Symbols.svelte
-11:54:27 AM [vite] (client) hmr update /src/routes/TheTruth.svelte, /src/app.css
-11:54:27 AM [vite] (ssr) page reload src/routes/TheTruth.svelte
-11:54:37 AM [vite] (client) hmr update /src/routes/GovernmentSection.svelte, /src/app.css
-11:54:37 AM [vite] (ssr) page reload src/routes/GovernmentSection.svelte
-11:54:52 AM [vite] (client) hmr update /src/routes/KeySections.svelte, /src/app.css
-11:54:52 AM [vite] (ssr) page reload src/routes/KeySections.svelte
-11:55:10 AM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-11:55:10 AM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-11:55:36 AM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-11:55:36 AM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-12:01:47 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:02:03 PM [vite] (client) hmr update /src/lib/components/FooterSection.svelte, /src/app.css
-12:02:03 PM [vite] (ssr) page reload src/lib/components/FooterSection.svelte
-12:10:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:10:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:11:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:15:09 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:15:09 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:15:42 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:15:42 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:23:15 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:23:15 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:23:50 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:23:50 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:24:00 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/0.js
-12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/1.js
-12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/3.js
-12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/nodes/4.js
-12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/app.js
-12:24:01 PM [vite] (client) page reload .svelte-kit/generated/client/matchers.js
-12:24:01 PM [vite] (ssr) page reload .svelte-kit/generated/server/internal.js
-12:24:01 PM [vite] (client) page reload .svelte-kit/generated/root.js
-12:24:01 PM [vite] (ssr) page reload .svelte-kit/generated/root.js
-12:24:11 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:24:11 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:29:43 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:29:43 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:36:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:36:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
-https://svelte.dev/e/a11y_no_noninteractive_element_interactions
-12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:92:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:92:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:96:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:96:8 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:30:07 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:98:12 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
-https://svelte.dev/e/a11y_consider_explicit_label
-12:30:29 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:30:29 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:30:34 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:30:50 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:30:50 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:32:53 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:32:53 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:33:39 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:33:39 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:34:05 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:34:05 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:34:06 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:34:09 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:34:11 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:34:17 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:34:19 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:34:19 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:34:55 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:35:09 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:35:09 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:38:04 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:38:57 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:39:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:39:21 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:39:21 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:39:32 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:39:38 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:39:38 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:49:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:49:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
-https://svelte.dev/e/a11y_no_noninteractive_element_interactions
-12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:101:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:101:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:105:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:105:8 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:39:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:12 Buttons and links should either contain text or have an `aria-label` or `aria-labelledby` attribute
-https://svelte.dev/e/a11y_consider_explicit_label
-12:40:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:40:31 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:40:31 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:40:35 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:41:33 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:43:05 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:43:05 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:54:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:54:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:56:50 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:56:50 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:57:52 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:57:52 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:58:30 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:58:30 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
-https://svelte.dev/e/a11y_no_noninteractive_element_interactions
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:60:20 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:113:12 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:36 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:117:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:58:16 Non-interactive element `<article>` should not be assigned mouse or keyboard event listeners
-https://svelte.dev/e/a11y_no_noninteractive_element_interactions
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:60:20 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:107:4 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:109:8 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 Visible, non-interactive elements with a click event must be accompanied by a keyboard event handler. Consider whether an interactive element such as `<button type="button">` or `<a>` might be more appropriate
-https://svelte.dev/e/a11y_click_events_have_key_events
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:111:8 `<div>` with a click handler must have an ARIA role
-https://svelte.dev/e/a11y_no_static_element_interactions
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:113:12 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:38 PM [vite-plugin-svelte] src/routes/FeaturedVideos.svelte:117:16 Using `on:click` to listen to the click event is deprecated. Use the event attribute `onclick` instead
-https://svelte.dev/e/event_directive_deprecated
-12:58:39 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:58:49 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:59:27 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:59:29 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:59:31 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:59:39 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-12:59:40 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-12:59:40 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:00:41 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:00:41 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:00:57 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:00:57 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:01:07 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:01:07 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:01:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:01:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:02:00 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:02:00 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:02:52 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:02:52 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:03:54 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:03:54 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:03:59 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:03:59 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:04:24 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:04:24 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:04:38 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:04:38 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:05:13 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:05:13 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:06:30 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:06:30 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:07:24 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:07:29 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:07:29 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:07:43 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:07:45 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:07:45 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:08:56 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:08:56 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:09:07 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:09:07 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:09:15 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:09:15 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:09:34 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:09:34 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:10:21 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:10:21 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:10:40 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:10:40 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:11:42 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:11:42 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:13:06 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:13:06 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:14:12 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:14:12 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:15:13 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:15:13 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:15:21 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:15:21 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:15:25 PM [vite] (client) hmr update /src/routes/FeaturedVideos.svelte, /src/app.css
-1:15:25 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
-1:38:11 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-1:38:11 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-1:38:19 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-1:38:19 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-1:38:23 PM [vite] (client) hmr update /src/lib/components/SearchBar.svelte, /src/app.css
-1:38:23 PM [vite] (ssr) page reload src/lib/components/SearchBar.svelte
-1:41:05 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:05 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:07 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:07 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:15 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:15 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:19 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:19 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:20 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:20 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:24 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:24 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:30 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:30 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:30 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:30 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:31 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:31 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:34 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:34 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:36 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:36 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:41:58 PM [vite] (client) page reload src/lib/data/landing.json
-1:41:58 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:42:00 PM [vite] (client) page reload src/lib/data/landing.json
-1:42:00 PM [vite] (ssr) page reload src/lib/data/landing.json
-1:48:03 PM [vite] (client) hmr update /src/routes/topics/+page.svelte, /src/app.css, /src/routes/topics/+page.svelte?svelte&type=style&lang.css
-1:48:03 PM [vite] (ssr) page reload src/routes/topics/+page.svelte
-1:51:01 PM [vite] (client) hmr update /src/routes/topics/+page.svelte, /src/app.css
-1:51:01 PM [vite] (ssr) page reload src/routes/topics/+page.svelte
-1:56:58 PM [vite] (client) hmr update /src/routes/topics/+page.svelte, /src/app.css
-1:56:58 PM [vite] (ssr) page reload src/routes/topics/+page.svelte
+9:26:59 PM [vite] (ssr) page reload .claude/settings.local.json
+9:27:20 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte
+9:27:25 PM [vite] (ssr) page reload src/routes/FeaturedVideos.svelte

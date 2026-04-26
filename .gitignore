@@ -28,3 +28,13 @@ firebase-debug.log
 firestore-debug.log
 ui-debug.log
 storage-debug.log
+.fallow/
+
+*storybook.log
+storybook-static
+
+# Quality reports
+/coverage
+/reports
+/stryker-tmp
+.stryker-tmp
