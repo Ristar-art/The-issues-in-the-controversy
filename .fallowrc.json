@@ -1,0 +1,55 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json",
+  "entry": [
+    "src/app.html",
+    "src/app.d.ts",
+    "src/hooks.server.js",
+    "src/routes/**/+{page,layout,server,error}.{ts,js,svelte}",
+    "src/routes/**/+{page,layout}.{server,client}.{ts,js}",
+    "src/routes/**/+{server,layout.server,page.server}.{ts,js}",
+    "src/lib/**/*.{ts,js,svelte}",
+    "scripts/**/*.{ts,js,mjs}",
+    "vite.config.ts",
+    "svelte.config.js",
+    "vitest.config.ts",
+    "vitest-setup.ts",
+    "stryker.config.json"
+  ],
+  "ignorePatterns": [
+    ".svelte-kit/**",
+    ".vercel/**",
+    "build/**",
+    "node_modules/**",
+    "static/**",
+    ".storybook/**",
+    "src/stories/**",
+    "**/*.stories.{ts,js,svelte}",
+    "**/*.test.{ts,js}",
+    "**/*.spec.{ts,js}",
+    "stitch_issues_site_redesign/**",
+    "reports/**",
+    "coverage/**",
+    "stryker-tmp/**"
+  ],
+  "rules": {
+    "unused-files": "warn",
+    "unused-exports": "warn",
+    "unused-types": "warn",
+    "unused-dependencies": "warn",
+    "unused-dev-dependencies": "warn",
+    "circular-dependencies": "warn",
+    "unresolved-imports": "warn",
+    "duplicate-exports": "warn"
+  },
+  "health": {
+    "maxCyclomatic": 15,
+    "maxCognitive": 15,
+    "maxCrap": 30.0
+  },
+  "duplicates": {
+    "enabled": true,
+    "mode": "mild",
+    "minTokens": 50,
+    "minLines": 5
+  }
+}

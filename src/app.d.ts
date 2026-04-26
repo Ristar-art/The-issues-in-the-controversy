@@ -9,7 +9,15 @@ declare global {
 				email?: string;
 			};
 		}
-		// interface PageData {}
+		interface PageData {
+			footer?: {
+				tagline?: string;
+				quickLinks?: { label: string; href: string }[];
+				socialLinks?: { icon: string; href: string }[];
+				copyright?: string;
+				credit?: string;
+			};
+		}
 		// interface PageState {}
 		// interface Platform {}
 	}

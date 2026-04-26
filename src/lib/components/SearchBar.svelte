@@ -75,12 +75,12 @@
   }
 </script>
 
-<section class="bg-[var(--c-bg)] border-t border-[var(--c-border)]">
+<section class="bg-[var(--ea-surface)]">
   <div class="max-w-3xl mx-auto px-6 py-10 relative" bind:this={containerRef}>
-    <div class="relative flex items-center bg-[var(--c-surface)] border border-[var(--c-border)] rounded-sm">
+    <div class="relative flex items-center bg-[var(--ea-surface-high)] rounded-md focus-within:bg-[var(--ea-surface-lowest)] focus-within:border-b-2 focus-within:border-[var(--ea-primary)] transition-colors">
       <!-- Search Icon -->
       <div class="pl-4 pr-2">
-        <svg class="w-5 h-5 text-[var(--c-fg-dim)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <svg class="w-5 h-5 text-[var(--ea-on-surface-variant)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </div>
@@ -89,7 +89,7 @@
       <input
         type="text"
         placeholder={config?.placeholder ?? 'Search the archives...'}
-        class="w-full bg-transparent py-3 pr-4 font-body text-[var(--c-fg)] placeholder-[var(--c-fg-dim)] focus:outline-none"
+        class="w-full bg-transparent py-3 pr-4 font-body text-[var(--ea-on-surface)] placeholder-[var(--ea-on-surface-variant)] focus:outline-none"
         bind:value={searchTerm}
         on:input={search}
         on:focus={() => { if (searchTerm.length >= 1) showResults = true; }}
@@ -100,7 +100,7 @@
 
       <!-- Search Button -->
       <button
-        class="px-4 md:px-6 py-3 font-mono-editorial text-xs font-bold uppercase tracking-[0.2em] text-[var(--c-teal)] hover:text-[var(--c-fg)] border-l border-[var(--c-border)] transition-colors"
+        class="px-4 md:px-6 py-3 font-label text-xs font-bold uppercase tracking-[0.2em] text-[var(--ea-primary)] hover:text-[var(--ea-secondary)] transition-colors"
         on:click={search}
       >
         {config?.buttonLabel ?? 'Search'}
@@ -109,14 +109,14 @@
 
     <!-- Search Results Dropdown -->
     {#if showResults && searchTerm.length >= 1}
-      <div bind:this={dropdownRef} class="absolute {positionAbove ? 'bottom-full mb-2' : 'top-full mt-2'} left-6 right-6 bg-[var(--c-surface)] border border-[var(--c-border)] shadow-2xl z-50 max-h-96 overflow-y-auto">
+      <div bind:this={dropdownRef} class="absolute {positionAbove ? 'bottom-full mb-2' : 'top-full mt-2'} left-6 right-6 bg-[var(--ea-surface-lowest)] shadow-2xl rounded-md z-50 max-h-96 overflow-y-auto">
         {#if isSearching}
-          <div class="px-6 py-4 text-[var(--c-fg-muted)] text-center font-body">
-            <span class="inline-block w-4 h-4 border-2 border-[var(--c-border)] border-t-[var(--c-teal)] rounded-full animate-spin mr-2"></span>
+          <div class="px-6 py-4 text-[var(--ea-on-surface-variant)] text-center font-body">
+            <span class="inline-block w-4 h-4 border-2 border-[var(--ea-outline-variant)] border-t-[var(--ea-primary)] rounded-full animate-spin mr-2"></span>
             Searching...
           </div>
         {:else if searchResults.length === 0}
-          <div class="px-6 py-4 text-[var(--c-fg-muted)] text-center font-body">
+          <div class="px-6 py-4 text-[var(--ea-on-surface-variant)] text-center font-body">
             No results found for "{searchTerm}"
           </div>
         {:else}
@@ -124,18 +124,18 @@
             {#if result}
               <button
                 type="button"
-                class="w-full text-left px-6 py-4 hover:bg-[var(--c-surface-2)] cursor-pointer border-b border-[var(--c-border)] last:border-b-0 transition-colors"
+                class="w-full text-left px-6 py-4 hover:bg-[var(--ea-surface-low)] cursor-pointer transition-colors"
                 on:click={() => handleResultClick(result)}
               >
-                <div class="font-headline text-[var(--c-fg)] mb-1">{result.attributes?.title ?? result.title ?? 'Untitled'}</div>
-                <div class="font-body text-sm text-[var(--c-fg-muted)]">
+                <div class="font-headline text-lg text-[var(--ea-primary)] mb-1">{result.attributes?.title ?? result.title ?? 'Untitled'}</div>
+                <div class="font-body text-sm text-[var(--ea-on-surface-variant)]">
                   {#if result.type === 'page'}
-                    <span class="text-[var(--c-teal)] font-mono-editorial uppercase tracking-[0.2em] text-xs">Topic</span>
+                    <span class="text-[var(--ea-secondary)] font-label uppercase tracking-[0.2em] text-xs font-bold">Topic</span>
                   {:else}
-                    <span class="text-[var(--c-teal)] font-mono-editorial uppercase tracking-[0.2em] text-xs">Article</span>
+                    <span class="text-[var(--ea-secondary)] font-label uppercase tracking-[0.2em] text-xs font-bold">Article</span>
                   {/if}
                   {#if getContentSnippet(result)}
-                    <span class="mx-2 text-[var(--c-fg-dim)]">•</span>
+                    <span class="mx-2 text-[var(--ea-on-surface-variant)]/60">•</span>
                     {getContentSnippet(result)}
                   {/if}
                 </div>

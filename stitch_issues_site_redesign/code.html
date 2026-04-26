@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Controversy | The Intellectual Curator</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Newsreader & Public Sans -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#383838",
+                    "tertiary": "#232323",
+                    "surface": "#fcf9f5",
+                    "secondary-fixed": "#ffdbc8",
+                    "secondary-container": "#fdc2a0",
+                    "on-tertiary-fixed-variant": "#474746",
+                    "on-error-container": "#93000a",
+                    "background": "#fcf9f5",
+                    "on-error": "#ffffff",
+                    "primary-container": "#1b3e3d",
+                    "on-primary": "#ffffff",
+                    "on-tertiary-fixed": "#1b1b1c",
+                    "outline-variant": "#c1c8c7",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f6f3ef",
+                    "on-surface-variant": "#414848",
+                    "surface-tint": "#426463",
+                    "on-primary-fixed": "#00201f",
+                    "inverse-primary": "#a9cecc",
+                    "surface-dim": "#dcdad6",
+                    "primary": "#012827",
+                    "on-surface": "#1c1c1a",
+                    "on-tertiary-container": "#a3a1a1",
+                    "primary-fixed": "#c5eae8",
+                    "surface-container-high": "#eae8e4",
+                    "on-primary-fixed-variant": "#2a4c4b",
+                    "tertiary-fixed-dim": "#c8c6c5",
+                    "on-primary-container": "#85a9a7",
+                    "primary-fixed-dim": "#a9cecc",
+                    "on-secondary-fixed-variant": "#653d23",
+                    "on-secondary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#fcf9f5",
+                    "on-secondary-fixed": "#311301",
+                    "inverse-on-surface": "#f3f0ec",
+                    "surface-variant": "#e5e2de",
+                    "tertiary-fixed": "#e5e2e1",
+                    "on-tertiary": "#ffffff",
+                    "inverse-surface": "#31302e",
+                    "secondary-fixed-dim": "#f4ba98",
+                    "secondary": "#805439",
+                    "on-secondary-container": "#794e33",
+                    "on-background": "#1c1c1a",
+                    "outline": "#717978",
+                    "surface-container-highest": "#e5e2de",
+                    "surface-container": "#f0ede9",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Public Sans", "sans-serif"],
+                    "label": ["Public Sans", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .perspective-splitter {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#fcf9f5]/80 dark:bg-stone-950/80 backdrop-blur-xl shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center px-12 py-6 max-w-[1920px] mx-auto">
+<div class="font-serif text-3xl font-black tracking-tighter text-[#1B3E3D] dark:text-stone-100 cursor-pointer">
+                The Controversy
+            </div>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-[#1B3E3D] dark:text-white border-b-2 border-[#1B3E3D] dark:border-[#2d5c5a] pb-1 font-serif font-medium tracking-tight text-lg cursor-pointer active:opacity-70 transition-colors duration-300" href="#">Timeline</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans uppercase tracking-widest text-[10px] font-bold hover:text-[#805439] transition-colors duration-300 cursor-pointer active:opacity-70" href="#">The Issue</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans uppercase tracking-widest text-[10px] font-bold hover:text-[#805439] transition-colors duration-300 cursor-pointer active:opacity-70" href="#">Solution</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans uppercase tracking-widest text-[10px] font-bold hover:text-[#805439] transition-colors duration-300 cursor-pointer active:opacity-70" href="#">Our Part</a>
+<a class="text-stone-500 dark:text-stone-400 font-sans uppercase tracking-widest text-[10px] font-bold hover:text-[#805439] transition-colors duration-300 cursor-pointer active:opacity-70" href="#">Watch</a>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#1B3E3D] dark:text-[#2d5c5a] cursor-pointer" data-icon="search">search</span>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Section 1: Hero -->
+<section class="relative h-[921px] min-h-[700px] flex items-center overflow-hidden mx-12 rounded-xl">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover" data-alt="Cinematic wide-screen view of Earth from deep space with soft blue atmosphere and glowing city lights against a black star-filled void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnckCJuvVhCEVLGzBl2Kv98T4iZu1zQ5-gTkkodFcGt_cOjZ76CsjHqqpY2DaBAXDRhc5v4aVP1Mb2LtCtStK4jzntDOEFuXyv9b8GqOUOVYmtgsUKCW7PqJ_tPhtEgS1oK3xGhusNFwaltTfwkT3EJmmiLO-bJiBKSZ0o7iYzSIuWz_wuuve1M6zS1r-5Ndq-wm9VssrShUXwtG2hSaNJ4du4ILmvZq83JNOq3GFkl1Rxx-wAH69yzg4u6JnPYdrABmwfG45m2Q"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-primary/80 via-primary/20 to-transparent"></div>
+</div>
+<div class="relative z-10 px-16 max-w-4xl">
+<p class="font-label text-primary-fixed uppercase tracking-[0.3em] text-sm mb-6">A Masterclass in Prophecy</p>
+<h1 class="font-headline text-7xl md:text-8xl text-white leading-[0.9] tracking-tight mb-8">
+                    The Endgame <br/> of <span class="italic font-light">Heaven</span>
+</h1>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-label uppercase tracking-widest text-xs hover:opacity-90 transition-all">
+                    Explore Topics
+                </button>
+</div>
+</section>
+<!-- Section 2: Foundational Overviews -->
+<section class="px-12 py-32 grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="md:col-span-2 bg-surface-container-low p-16 rounded-xl flex flex-col justify-between group cursor-pointer hover:bg-surface-container-high transition-colors">
+<div>
+<span class="material-symbols-outlined text-6xl text-primary mb-12" data-icon="menu_book">menu_book</span>
+<h2 class="font-headline text-5xl text-primary mb-6">Daniel &amp; Revelations</h2>
+<p class="font-body text-on-surface-variant max-w-md leading-relaxed">The cornerstone of apocalyptic literature, decoded through a historical-grammatical lens. Understanding the map before navigating the terrain.</p>
+</div>
+<div class="pt-12">
+<span class="font-label text-[10px] uppercase tracking-widest text-secondary font-bold group-hover:underline">Deep Dive</span>
+</div>
+</div>
+<div class="bg-primary p-12 rounded-xl flex flex-col justify-end text-white">
+<h3 class="font-headline text-3xl mb-4">Analysis of the Judgment</h3>
+<p class="font-body text-on-primary-container text-sm leading-relaxed mb-6">A forensic examination of the heavenly courts and the cosmic investigative process.</p>
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="gavel">gavel</span>
+</div>
+<div class="bg-surface-container p-12 rounded-xl flex flex-col justify-end border-b-4 border-secondary">
+<h3 class="font-headline text-3xl text-primary mb-4">Types of Governments</h3>
+<p class="font-body text-on-surface-variant text-sm leading-relaxed mb-6">Comparing earthly hierarchies with the principles of the Kingdom of Grace.</p>
+<span class="material-symbols-outlined text-secondary" data-icon="account_balance">account_balance</span>
+</div>
+</section>
+<!-- Section 3: Historical Timeline -->
+<section class="py-24 bg-surface-container-low/50">
+<div class="px-12 mb-16 flex items-end justify-between">
+<div>
+<h2 class="font-headline text-5xl text-primary mb-2">Historical Timeline</h2>
+<p class="font-label text-secondary uppercase tracking-widest text-[10px]">The Arc of Human Agency</p>
+</div>
+<div class="flex gap-4">
+<button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<button class="w-12 h-12 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="flex overflow-x-auto no-scrollbar gap-8 px-12 pb-8">
+<!-- Card 1 -->
+<div class="min-w-[400px] bg-surface-container-lowest p-8 shadow-sm group">
+<div class="h-64 overflow-hidden mb-6 rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Close up of ancient crumbling stone ruins with cuneiform inscriptions in warm golden desert sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxbAlswj7UEL39uMGNUlTRhNu-FMH45lIvq3czHLXAhMEiDzB4ahW-3G7pf5JkY_d22O8bxRyOHGFtlGJDPhZLVa2WcRjunwPSv_cS_fZbbsKzxLTa2uGomyRYqLi1IVbXh62xrlxBtmebldXtZtglKAQKs2hF9i2g9picdFpU3wbLykmJokWMqLX8wX__5KzlDixgBXnoJm8k2SRJqLIDe38HvMCp29GxrT4yNc-bwnDLbCWWjN1BAry728_XRiYN4SzK3mfzjg"/>
+</div>
+<div class="flex items-center gap-4 mb-4">
+<span class="font-label text-xs bg-secondary-container px-3 py-1 rounded-full text-on-secondary-container">605 BC</span>
+<span class="h-px flex-1 bg-outline-variant/30"></span>
+</div>
+<h4 class="font-headline text-3xl text-primary mb-4">The Lion of Babylon</h4>
+<p class="font-body text-on-surface-variant text-sm">The emergence of centralized power and the head of gold in the prophetic vision.</p>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[400px] bg-surface-container-lowest p-8 shadow-sm group">
+<div class="h-64 overflow-hidden mb-6 rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Dramatic vast river landscape with steep rocky canyon walls and intense sunlight reflecting off the water surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjoF--nGiu-VsLaYyPF5LVoHckv6_EfcaQw6p8a6eLGklnbqvJSBeJqC2lcWQuEIhDanx1MXKt3Y26m9SL-w3KwB1Vqcy3-LRKP81UP91gKSHPVutJB3MKfRoRr35pDRCGp6THz_cYzMVedpfkDkxI8e8ZPImaYCkAMI5z4FThJPjdWbm4RI8Pskb0WbLBuUHCucY0sma3AtgPvJ5kSUBgN-wXIS6pLthAi_qLki2P9lOSS2Tc55sYzbKZ2tGBJacEaTtycblLrA"/>
+</div>
+<div class="flex items-center gap-4 mb-4">
+<span class="font-label text-xs bg-secondary-container px-3 py-1 rounded-full text-on-secondary-container">1446 BC</span>
+<span class="h-px flex-1 bg-outline-variant/30"></span>
+</div>
+<h4 class="font-headline text-3xl text-primary mb-4">The Exodus</h4>
+<p class="font-body text-on-surface-variant text-sm">A template for liberation and the establishment of a theocratic covenant.</p>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[400px] bg-surface-container-lowest p-8 shadow-sm group">
+<div class="h-64 overflow-hidden mb-6 rounded-lg">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Architectural detail of ancient Greek columns in white marble against a clear blue sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4hTwsK_4oI9k1Yk07Fy2rKRbaaaipy9LrzJPhM6woSa0ycVY-N9ujnGGZ_Fnm-Sc5YCN_lgr4wUY0uS6M0JBNyURbWqfhyqyAHvTSygNQVVPa38qb15kh4vzdWdPfrxdV6YJMIV6Y0uLev6mjEbb9__Rncz4_69S3gX5vYEen2cDJLNJfWqVjWjjg6RV0f5WYUiEaZfTnnab6ljONqYH1Kw-MG-5M735nfGYIDIkhg0oUadw_O16TiONQoZySESczAPWcYyazNQ"/>
+</div>
+<div class="flex items-center gap-4 mb-4">
+<span class="font-label text-xs bg-secondary-container px-3 py-1 rounded-full text-on-secondary-container">331 BC</span>
+<span class="h-px flex-1 bg-outline-variant/30"></span>
+</div>
+<h4 class="font-headline text-3xl text-primary mb-4">The Hellenistic Surge</h4>
+<p class="font-body text-on-surface-variant text-sm">The leopard of Daniel 7 and the rapid expansion of humanistic philosophy.</p>
+</div>
+</div>
+</section>
+<!-- Section 4: Video Masterclasses -->
+<section class="px-12 py-32 bg-primary text-white overflow-hidden">
+<div class="mb-20">
+<p class="font-label text-on-primary-container uppercase tracking-widest text-xs mb-4">Digital Lectures</p>
+<h2 class="font-headline text-6xl">The Visual Argument</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="relative group cursor-pointer aspect-video rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="High quality cinematic interior of a dark stone cathedral with a single beam of light hitting a golden altar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUN0odMWILvUqz7srFWlWMZW0evinafkSckkAzfzxyXWQWZAs6FMDq3-wWXYhUA8M2bOfcAhLTPuRwDx_jHjPbOPsoxU9OMjUrzxnK0QEuTrzh0bWJr6a46U26g67Pr_rhc1AN2_tF2J6KWYnESwqKto4QCcpzbtsR6cx_wRl4YhyDg0_Hehs5m4K4ywDVp9VtpHeOI3vy9tHhotDLOSvYMoB-GjRibeo6dwpMGJlinm-nYmhm5I4BfBkhFNHtqUdwnA2ZQU0I2w"/>
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-all">
+<div class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-4xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+</div>
+<div class="space-y-8">
+<div class="pb-8 border-b border-white/10">
+<p class="font-label text-primary-fixed-dim text-xs mb-2">Series 01 - EP 04</p>
+<h3 class="font-headline text-4xl mb-4">The Sanctuary Mechanism</h3>
+<p class="font-body text-on-primary-container leading-relaxed">An immersive walkthrough of the Mosaic Tabernacle as a biological and spiritual map of the human condition.</p>
+</div>
+<div class="flex gap-6">
+<button class="bg-primary-container border border-white/10 px-6 py-3 rounded text-xs font-label uppercase tracking-widest hover:bg-white/5 transition-all">View All Episodes</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: The Framework -->
+<section class="px-12 py-32 grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="bg-surface-container p-16 flex flex-col justify-between h-[600px] border-l-4 border-secondary">
+<div>
+<h2 class="font-headline text-5xl text-primary mb-8 leading-none">The Issue</h2>
+<p class="font-body text-on-surface-variant text-lg">A cosmic rebellion rooted in the distortion of God's character. The primary controversy is not about power, but about truth.</p>
+</div>
+<span class="material-symbols-outlined text-7xl text-secondary/30" data-icon="broken_image">broken_image</span>
+</div>
+<div class="bg-primary-container p-16 flex flex-col justify-between h-[600px] text-white">
+<div>
+<h2 class="font-headline text-5xl mb-8 leading-none">God's <br/><span class="italic font-light">Solution</span></h2>
+<p class="font-body text-on-primary-container text-lg">The sacrifice that reconciles justice with mercy, restoring the broken mirror of humanity through self-emptying love.</p>
+</div>
+<span class="material-symbols-outlined text-7xl text-primary-fixed/20" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="bg-[#fde7da] p-16 flex flex-col justify-between h-[600px]">
+<div>
+<h2 class="font-headline text-5xl text-primary mb-8 leading-none">Our Part</h2>
+<p class="font-body text-on-secondary-fixed-variant text-lg">The active surrender of the will and the cultivation of discernment in an age of digital noise and spiritual apathy.</p>
+</div>
+<span class="material-symbols-outlined text-7xl text-secondary/30" data-icon="handshake">handshake</span>
+</div>
+</section>
+<!-- Section 6: Deciphering the Code -->
+<section class="px-12 py-32 bg-surface">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-24">
+<h2 class="font-headline text-6xl text-primary mb-6">Deciphering the Code</h2>
+<p class="font-body text-on-surface-variant">Unlocking the prophetic lexicon through textual evidence.</p>
+</div>
+<div class="space-y-12">
+<div class="flex items-start gap-12 p-8 hover:bg-surface-container-low transition-colors rounded-xl">
+<span class="material-symbols-outlined text-4xl text-primary mt-1" data-icon="air">air</span>
+<div>
+<h4 class="font-headline text-3xl mb-2">Winds</h4>
+<p class="font-body text-on-surface-variant leading-relaxed">Representing strife, political commotion, and the destructive forces of human conflict in the prophetic theater.</p>
+</div>
+</div>
+<div class="flex items-start gap-12 p-8 hover:bg-surface-container-low transition-colors rounded-xl">
+<span class="material-symbols-outlined text-4xl text-primary mt-1" data-icon="waves">waves</span>
+<div>
+<h4 class="font-headline text-3xl mb-2">Waters</h4>
+<p class="font-body text-on-surface-variant leading-relaxed">The dense populations, nations, and diverse linguistic groups from which new powers emerge.</p>
+</div>
+</div>
+<div class="flex items-start gap-12 p-8 hover:bg-surface-container-low transition-colors rounded-xl">
+<span class="material-symbols-outlined text-4xl text-primary mt-1" data-icon="pets">pets</span>
+<div>
+<h4 class="font-headline text-3xl mb-2">Beasts</h4>
+<p class="font-body text-on-surface-variant leading-relaxed">Sovereign nations or political powers defined by their specific characteristics and territorial dominance.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 7: The Truth About God -->
+<section class="py-40 bg-surface-container-highest flex flex-col items-center text-center">
+<div class="bg-secondary/10 px-4 py-1 rounded-full text-secondary font-label text-[10px] uppercase tracking-widest mb-8">Systemic Synthesis</div>
+<h2 class="font-headline text-7xl text-primary mb-10 max-w-4xl leading-tight">The ultimate controversy is not about the end of the world, but about the <span class="italic">character of its Creator.</span></h2>
+<button class="bg-primary text-on-primary px-12 py-5 rounded font-label uppercase tracking-widest text-xs shadow-xl hover:-translate-y-1 transition-all">
+                The Verdict
+            </button>
+</section>
+<!-- Section 8: Governing the Soul -->
+<section class="px-12 py-24 bg-tertiary text-white">
+<div class="mb-16">
+<h2 class="font-headline text-4xl">Governing the Soul</h2>
+<div class="h-1 w-20 bg-secondary mt-4"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="bg-tertiary-container p-12 rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-secondary-fixed mb-6" data-icon="crown">crown</span>
+<h3 class="font-headline text-3xl mb-4">Monarchy</h3>
+<p class="font-body text-on-tertiary-container text-sm leading-relaxed">The internal struggle for singular rule within the human heart—the ego as king.</p>
+</div>
+<div class="bg-tertiary-container p-12 rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-primary-fixed mb-6" data-icon="temple_hindu">temple_hindu</span>
+<h3 class="font-headline text-3xl mb-4">Theocracy</h3>
+<p class="font-body text-on-tertiary-container text-sm leading-relaxed">A government where the Divine law of love is the supreme and only authority.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-16 px-12 mt-24 bg-stone-100 dark:bg-stone-900 border-t border-stone-200/20 flex flex-col items-center gap-8">
+<div class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">
+            The Controversy
+        </div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-sans text-xs tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-[#1B3E3D] dark:hover:text-white transition-all opacity-80 hover:opacity-100 underline underline-offset-4" href="#">Editorial Policy</a>
+<a class="font-sans text-xs tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-[#1B3E3D] dark:hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Privacy</a>
+<a class="font-sans text-xs tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-[#1B3E3D] dark:hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Terms</a>
+<a class="font-sans text-xs tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-[#1B3E3D] dark:hover:text-white transition-all opacity-80 hover:opacity-100" href="#">Archives</a>
+<a class="font-sans text-xs tracking-wider uppercase text-stone-500 dark:text-stone-400 hover:text-[#1B3E3D] dark:hover:text-white transition-all opacity-80 hover:opacity-100" href="#">About</a>
+</div>
+<div class="text-stone-500 dark:text-stone-400 font-sans text-[10px] tracking-widest uppercase mt-8">
+            © 2024 The Controversy Editorial. All Rights Reserved.
+        </div>
+</footer>
+</body></html>

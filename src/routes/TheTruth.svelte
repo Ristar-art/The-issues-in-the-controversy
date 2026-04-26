@@ -1,52 +1,43 @@
-<!-- src/routes/TheTruth.svelte — Truth About God full-bleed CTA -->
+<!-- src/routes/TheTruth.svelte — Systemic Synthesis -->
 <script>
     let { truth } = $props();
+    const baseTitle = truth?.title ?? 'The truth about God';
 </script>
 
-<section class="relative overflow-hidden py-28 md:py-40 border-t border-[var(--c-border)]">
-    {#if truth?.image?.src}
-        <img
-            src={truth.image.src}
-            alt=""
-            aria-hidden="true"
-            class="absolute inset-0 w-full h-full object-cover img-dark opacity-50"
-        />
+<section class="py-28 md:py-40 bg-[var(--ea-surface-highest)] flex flex-col items-center text-center px-6 md:px-12">
+    <span class="inline-block bg-[var(--ea-secondary)]/10 text-[var(--ea-secondary)] px-4 py-1 rounded-full font-label text-[10px] uppercase tracking-[0.3em] mb-8">
+        Systemic Synthesis
+    </span>
+
+    <h2 class="font-headline text-5xl md:text-6xl lg:text-7xl text-[var(--ea-primary)] mb-10 max-w-4xl leading-[1.05]">
+        The ultimate controversy is not about the end of the world, but about the
+        <span class="italic font-light">character of its Creator.</span>
+    </h2>
+
+    {#if truth?.question}
+        <p class="font-body italic text-lg md:text-xl text-[var(--ea-on-surface-variant)] max-w-2xl mb-10 leading-relaxed">
+            {truth.question}
+        </p>
     {/if}
-    <div class="absolute inset-0 bg-gradient-to-b from-[var(--c-void)] via-[var(--c-void)]/85 to-[var(--c-void)]"></div>
-    <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(13,148,136,0.12) 0%, transparent 60%);"></div>
 
-    <div class="relative max-w-3xl mx-auto px-6 md:px-12 text-center">
-        <p class="eyebrow-dim mb-6">Decision Point</p>
-        <h2 class="font-display text-3xl md:text-5xl lg:text-6xl text-[var(--c-fg)] uppercase tracking-tight leading-tight mb-8">
-            {truth?.title ?? 'The Truth About God'}
-        </h2>
+    {#if truth?.points?.length}
+        <ul class="grid gap-3 mb-12 max-w-xl mx-auto text-left">
+            {#each truth.points as point, i}
+                <li class="flex items-start gap-4 font-body text-[var(--ea-on-surface-variant)] leading-relaxed">
+                    <span class="font-label text-xs text-[var(--ea-secondary)] mt-1 tracking-[0.2em] font-bold">0{i + 1}</span>
+                    <span>{point}</span>
+                </li>
+            {/each}
+        </ul>
+    {/if}
 
-        {#if truth?.question}
-            <p class="font-body text-lg md:text-xl text-[var(--c-fg-muted)] italic leading-relaxed mb-10 max-w-2xl mx-auto">
-                {truth.question}
-            </p>
-        {/if}
+    {#if truth?.cta?.href}
+        <a href={`/${truth.cta.href}`} class="ea-btn-primary shadow-xl">
+            {truth.cta.label ?? 'The Verdict'}
+        </a>
+    {:else}
+        <a href="#" class="ea-btn-primary shadow-xl">The Verdict</a>
+    {/if}
 
-        {#if truth?.points?.length}
-            <ul class="grid gap-3 mb-12 max-w-xl mx-auto text-left">
-                {#each truth.points as point, i}
-                    <li class="flex items-start gap-4 font-body text-[var(--c-fg-muted)] leading-relaxed">
-                        <span class="font-mono-editorial text-xs text-[var(--c-teal)] mt-1.5 tracking-[0.2em]">
-                            0{i + 1}
-                        </span>
-                        <span>{point}</span>
-                    </li>
-                {/each}
-            </ul>
-        {/if}
-
-        {#if truth?.cta?.href}
-            <a href={truth.cta.href} class="btn-dark">
-                {truth.cta.label ?? 'Recover the Signal'}
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-                </svg>
-            </a>
-        {/if}
-    </div>
+    <p class="sr-only">{baseTitle}</p>
 </section>
