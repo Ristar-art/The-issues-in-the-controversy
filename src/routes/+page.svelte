@@ -223,7 +223,7 @@ const keyTopicThird ={
         <section class="relative">
             <div class="relative overflow-hidden min-h-[560px] md:min-h-[720px] lg:h-screen lg:max-h-[1000px] flex items-center">
                 <img src={hero} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-tr from-[var(--ea-primary)]/85 via-[var(--ea-primary)]/40 to-transparent"></div>
+                <!-- <div class="absolute inset-0 bg-gradient-to-tr from-[var(--ea-primary)]/85 via-[var(--ea-primary)]/40 to-transparent"></div> -->
                 <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[var(--ea-primary)]/50"></div>
 
                 <div class="relative z-10 w-full px-6 md:px-12 lg:px-16 py-16 md:py-24 max-w-4xl">
@@ -232,7 +232,7 @@ const keyTopicThird ={
                         The Endgame
 of <br />of <span class="italic font-light">Heaven</span>
                     </h1>
-                    <p class="font-body !text-[var(--ea-primary-fixed)] text-base md:text-lg max-w-xl leading-relaxed mb-10 fl">
+                    <p class="font-body !text-white text-base text-shadow-[2px_2px_4px_rgba(0,0,0,0.5)] md:text-lg max-w-xl leading-relaxed mb-10 fl">
 I beheld till the thrones were cast down, and the Ancient of days did sit, whose garment was white as snow, and the hair of his head like the pure wool: his throne was like the fiery flame, and his wheels as burning fire.
 
 A fiery stream issued and came forth from before him: thousand thousands ministered unto him, and ten thousand times ten thousand stood before him: the judgment was set, and the books were opened.  <span class="italic font-light">Daniel 7:9-10</span>                   
@@ -374,7 +374,7 @@ A fiery stream issued and came forth from before him: thousand thousands ministe
                         {#if fId}
                             <img src={getThumbnailUrl(fId)} alt={featureVideo.title} class="w-full h-full object-cover" loading="lazy" />
                         {/if}
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-all">
+                        <div class="absolute inset-0  flex items-center justify-center group-hover:bg-black/20 transition-all">
                             <span class="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 transition-transform">
                                 <svg class="w-9 h-9 text-white ml-1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                                     <path d="M8 5v14l11-7z" />
