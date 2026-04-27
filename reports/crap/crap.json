@@ -1,19 +1,11 @@
 [
   {
-    "file": "src/lib/utils/blocks-to-html.js",
-    "fn": "<anon method-3>",
-    "line": 57,
-    "complexity": 21,
-    "coverage": 0,
-    "crap": 42
-  },
-  {
     "file": "src/lib/utils/compress-image.js",
     "fn": "compressImageToWebp",
     "line": 15,
     "complexity": 18,
-    "coverage": 0,
-    "crap": 36
+    "coverage": 19,
+    "crap": 27.55
   },
   {
     "file": "src/routes/[slug]/+page.server.js",
@@ -30,6 +22,14 @@
     "complexity": 12,
     "coverage": 0,
     "crap": 24
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "<anon method-3>",
+    "line": 57,
+    "complexity": 21,
+    "coverage": 100,
+    "crap": 21
   },
   {
     "file": "src/routes/api/media/+server.js",
@@ -54,14 +54,6 @@
     "complexity": 8,
     "coverage": 0,
     "crap": 16
-  },
-  {
-    "file": "src/lib/utils/blocks-to-html.js",
-    "fn": "<anon method-1>",
-    "line": 9,
-    "complexity": 7,
-    "coverage": 0,
-    "crap": 14
   },
   {
     "file": "src/routes/api/articles/+server.js",
@@ -129,11 +121,11 @@
   },
   {
     "file": "src/lib/utils/blocks-to-html.js",
-    "fn": "blocksToHtml",
-    "line": 55,
-    "complexity": 3,
-    "coverage": 0,
-    "crap": 6
+    "fn": "<anon method-1>",
+    "line": 9,
+    "complexity": 7,
+    "coverage": 100,
+    "crap": 7
   },
   {
     "file": "src/routes/api/search/+server.js",
@@ -163,22 +155,6 @@
     "file": "src/lib/firebase/admin.ts",
     "fn": "createAdminApp",
     "line": 11,
-    "complexity": 2,
-    "coverage": 0,
-    "crap": 4
-  },
-  {
-    "file": "src/lib/utils/blocks-to-html.js",
-    "fn": "sanitizeQuillHtml",
-    "line": 4,
-    "complexity": 2,
-    "coverage": 0,
-    "crap": 4
-  },
-  {
-    "file": "src/lib/utils/blocks-to-html.js",
-    "fn": "<anon method-2>",
-    "line": 39,
     "complexity": 2,
     "coverage": 0,
     "crap": 4
@@ -280,6 +256,14 @@
     "crap": 4
   },
   {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "blocksToHtml",
+    "line": 55,
+    "complexity": 3,
+    "coverage": 100,
+    "crap": 3
+  },
+  {
     "file": "src/lib/firebase/admin.ts",
     "fn": "getMediaBucket",
     "line": 39,
@@ -289,8 +273,328 @@
   },
   {
     "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "sanitizeQuillHtml",
+    "line": 4,
+    "complexity": 2,
+    "coverage": 100,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "<anon method-2>",
+    "line": 39,
+    "complexity": 2,
+    "coverage": 100,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-1>",
+    "line": 7,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-2>",
+    "line": 8,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-3>",
+    "line": 9,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
     "fn": "<anon method-4>",
-    "line": 79,
+    "line": 13,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-5>",
+    "line": 17,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-6>",
+    "line": 21,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-7>",
+    "line": 26,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-8>",
+    "line": 31,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-9>",
+    "line": 36,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-10>",
+    "line": 44,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-11>",
+    "line": 51,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-12>",
+    "line": 57,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-13>",
+    "line": 66,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-14>",
+    "line": 74,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-15>",
+    "line": 81,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-16>",
+    "line": 82,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-17>",
+    "line": 86,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-18>",
+    "line": 90,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-19>",
+    "line": 94,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-20>",
+    "line": 98,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-21>",
+    "line": 104,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-22>",
+    "line": 110,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-23>",
+    "line": 116,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-24>",
+    "line": 122,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-25>",
+    "line": 129,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-26>",
+    "line": 136,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-27>",
+    "line": 142,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-28>",
+    "line": 150,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-29>",
+    "line": 156,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-30>",
+    "line": 162,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-31>",
+    "line": 169,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-32>",
+    "line": 176,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-33>",
+    "line": 183,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-34>",
+    "line": 189,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-35>",
+    "line": 197,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-36>",
+    "line": 203,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-37>",
+    "line": 209,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-38>",
+    "line": 215,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.test.ts",
+    "fn": "<anon method-39>",
+    "line": 224,
     "complexity": 1,
     "coverage": 0,
     "crap": 2
@@ -344,8 +648,160 @@
     "crap": 2
   },
   {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-1>",
+    "line": 4,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-2>",
+    "line": 5,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-3>",
+    "line": 9,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-4>",
+    "line": 14,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-5>",
+    "line": 20,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-6>",
+    "line": 28,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-7>",
+    "line": 36,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-8>",
+    "line": 43,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-9>",
+    "line": 50,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-10>",
+    "line": 58,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-11>",
+    "line": 66,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-12>",
+    "line": 74,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-13>",
+    "line": 82,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-14>",
+    "line": 90,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-15>",
+    "line": 98,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-16>",
+    "line": 106,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-17>",
+    "line": 114,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/lib/utils/compress-image.test.ts",
+    "fn": "<anon method-18>",
+    "line": 123,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
     "file": "src/lib/utils.js",
     "fn": "slugify",
+    "line": 1,
+    "complexity": 1,
+    "coverage": 0,
+    "crap": 2
+  },
+  {
+    "file": "src/routes/+layout.server.ts",
+    "fn": "load",
     "line": 1,
     "complexity": 1,
     "coverage": 0,
@@ -1254,5 +1710,13 @@
     "complexity": 1,
     "coverage": 0,
     "crap": 2
+  },
+  {
+    "file": "src/lib/utils/blocks-to-html.js",
+    "fn": "<anon method-4>",
+    "line": 79,
+    "complexity": 1,
+    "coverage": 100,
+    "crap": 1
   }
 ]
