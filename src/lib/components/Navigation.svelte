@@ -129,10 +129,10 @@
 
         <div class="hidden md:flex items-center gap-10">
             <a href="/" class="font-headline text-lg {textClass} border-b-2 {borderClass} pb-0.5 tracking-tight">Home</a>
-            <a href="/topics" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Topics</a>
-            <a href="/about" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">About</a>
-            <a href="/blog" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Blog</a>
-            <a href="/contact" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Contact</a>
+            <a href="/topics" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Topics</a>
+            <a href="/about" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">About</a>
+            <a href="/blog" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Blog</a>
+            <a href="/contact" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Contact</a>
         </div>
 
         <div class="flex items-center gap-4">
@@ -158,7 +158,7 @@
 
     {#if isOpen}
         <div class="md:hidden border-t border-[var(--ea-outline-variant)]/40 {mobileBgClass}">
-            <div class="px-6 py-5 flex flex-col gap-4 font-label text-xs uppercase tracking-[0.25em] {mutedClass}">
+            <div class="px-6 py-5 flex flex-col gap-4 font-label text-sm uppercase tracking-[0.25em] {mutedClass}">
                 <a href="/" on:click={toggle} class="hover:text-[var(--ea-secondary)]">Timeline</a>
                 <a href="#topics" on:click={toggle} class="hover:text-[var(--ea-secondary)]">The Issue</a>
                 <a href="/gods-solution" on:click={toggle} class="hover:text-[var(--ea-secondary)]">Solution</a>
