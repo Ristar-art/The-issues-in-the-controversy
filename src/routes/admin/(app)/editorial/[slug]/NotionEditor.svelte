@@ -96,10 +96,6 @@
 
   // Available block types for slash commands
   const blockTypes = [
-    { type: 'heading', label: 'Heading', icon: 'H', shortcut: 'h1' },
-    { type: 'text', label: 'Text', icon: 'T', shortcut: 'text' },
-    { type: 'image', label: 'Image', icon: '📷', shortcut: 'image' },
-    { type: 'button', label: 'Button', icon: '🔘', shortcut: 'button' },
     { type: 'component', label: 'Component', icon: '📦', shortcut: 'component' }
   ];
 
@@ -227,6 +223,25 @@
       showComponentPicker = false;
       componentPickerIndex = null;
     }
+  }
+
+  function closeComponentPicker() {
+    if (componentPickerIndex !== null) {
+      const block = blocks[componentPickerIndex];
+      if (block?.type === 'component' && !block.componentId) {
+        const restoredIndex = componentPickerIndex;
+        const newBlocks = [...blocks];
+        newBlocks[restoredIndex] = { type: 'text', text: '<p><br></p>' };
+        onUpdate(newBlocks);
+        setTimeout(() => {
+          editingBlockIndex = restoredIndex;
+          const element = document.querySelector(`[data-block-index="${restoredIndex}"] .ql-editor`);
+          if (element) (element as HTMLElement).focus();
+        }, 50);
+      }
+    }
+    showComponentPicker = false;
+    componentPickerIndex = null;
   }
 
   function removeComponentFromBlock(index: number) {
@@ -509,7 +524,7 @@
 
 <!-- Component Picker Modal -->
 {#if showComponentPicker}
-  <div class="component-picker-overlay" onclick={() => showComponentPicker = false}>
+  <div class="component-picker-overlay" onclick={closeComponentPicker}>
     <div class="component-picker card-editorial" onclick={(e) => e.stopPropagation()}>
       <div class="component-picker-header">
         <div>
@@ -519,7 +534,7 @@
         <button
           type="button"
           class="component-picker-close"
-          onclick={() => showComponentPicker = false}
+          onclick={closeComponentPicker}
           aria-label="Close"
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

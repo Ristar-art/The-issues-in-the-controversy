@@ -18,7 +18,7 @@
       const [articlesRes, componentsRes, imagesRes] = await Promise.all([
         fetch('/api/articles'),
         fetch('/api/components'),
-        fetch('/api/images')
+        fetch('/api/media?type=images')
       ]);
 
       if (articlesRes.ok) articles = await articlesRes.json();
@@ -68,7 +68,9 @@
   </div>
 
   {#if loading}
-    <div class="loading">Loading dashboard...</div>
+    <div class="loading">
+      <div class="spinner" aria-label="Loading dashboard"></div>
+    </div>
   {:else}
     <!-- Search Bar -->
     <div class="search-section">
@@ -213,10 +215,23 @@
   }
 
   .loading {
-    text-align: center;
-    color: var(--color-stone);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 4rem 0;
-    font-size: 0.95rem;
+  }
+
+  .spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 3px solid var(--color-pearl);
+    border-top-color: var(--color-ink);
+    border-radius: 50%;
+    animation: spinner-rotate 0.8s linear infinite;
+  }
+
+  @keyframes spinner-rotate {
+    to { transform: rotate(360deg); }
   }
 
   /* Search */
