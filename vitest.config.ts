@@ -38,6 +38,7 @@ export default defineConfig({
         exclude: [
           '**/node_modules/**',
           '**/.svelte-kit/**',
+          '**/stryker-tmp/**',
           '**/*.stories.{ts,js,svelte}',
           // Pre-existing broken test: imports $app/navigation and runs against an
           // already-compiled @testing-library/svelte. Re-enable once migrated.
