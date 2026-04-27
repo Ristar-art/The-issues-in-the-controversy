@@ -129,14 +129,14 @@
 
         <div class="hidden md:flex items-center gap-10">
             <a href="/" class="font-headline text-lg {textClass} border-b-2 {borderClass} pb-0.5 tracking-tight">Home</a>
-            <a href="/topics" class="font-label text-[10px] uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Topics</a>
-            <a href="/about" class="font-label text-[10px] uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">About</a>
-            <a href="/blog" class="font-label text-[10px] uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Blog</a>
-            <a href="/contact" class="font-label text-[10px] uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Contact</a>
+            <a href="/topics" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Topics</a>
+            <a href="/about" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">About</a>
+            <a href="/blog" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Blog</a>
+            <a href="/contact" class="font-label text-xs uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Contact</a>
         </div>
 
         <div class="flex items-center gap-4">
-            <a href="/topics" class="hidden sm:inline-flex font-label text-[10px] uppercase tracking-[0.28em] font-bold {textClass} border-b-2 border-[var(--ea-secondary-fixed-dim)] pb-0.5 hover:border-[var(--ea-secondary)] transition-colors">
+            <a href="/topics" class="hidden sm:inline-flex font-label text-xs uppercase tracking-[0.28em] font-bold {textClass} border-b-2 border-[var(--ea-secondary-fixed-dim)] pb-0.5 hover:border-[var(--ea-secondary)] transition-colors">
                 Search
             </a>
             <button
