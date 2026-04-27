@@ -214,7 +214,9 @@
     role="region"
   >
     {#if loading}
-      <div class="loading-state">Loading media...</div>
+      <div class="loading-state">
+        <div class="spinner" aria-label="Loading media"></div>
+      </div>
     {:else if filteredMedia().length === 0}
       <div class="empty-state">
         {#if searchQuery.trim()}
@@ -475,6 +477,19 @@
     min-height: 250px;
     color: var(--color-stone);
     font-size: 0.9rem;
+  }
+
+  .spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 3px solid var(--color-pearl);
+    border-top-color: var(--color-ink);
+    border-radius: 50%;
+    animation: spinner-rotate 0.8s linear infinite;
+  }
+
+  @keyframes spinner-rotate {
+    to { transform: rotate(360deg); }
   }
 
   .empty-state p {
