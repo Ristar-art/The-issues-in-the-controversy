@@ -568,7 +568,7 @@
                     Preview
                   </a>
                   <button
-                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border border-accent text-accent hover:bg-accent hover:text-paper transition-all"
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border border-accent text-accent hover:bg-accent hover:text-paper transition-all cursor-pointer"
                     onclick={() => goto(`/admin/editorial/${article.attributes.slug}`)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -578,7 +578,7 @@
                     Edit Content
                   </button>
                   <button
-                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border {article.attributes.published ? 'border-orange-700 text-orange-700 hover:bg-orange-700 hover:text-white' : 'border-green-700 text-green-700 hover:bg-green-700 hover:text-white'} transition-all"
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border {article.attributes.published ? 'border-orange-700 text-orange-700 hover:bg-orange-700 hover:text-white' : 'border-green-700 text-green-700 hover:bg-green-700 hover:text-white'} transition-all cursor-pointer"
                     onclick={() => togglePublish(article)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -594,7 +594,7 @@
                     {article.attributes.published ? 'Unpublish' : 'Publish'}
                   </button>
                   <button
-                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border border-red-700 text-red-700 hover:bg-red-700 hover:text-white transition-all"
+                    class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold uppercase tracking-wider border border-red-700 text-red-700 hover:bg-red-700 hover:text-white transition-all cursor-pointer"
                     onclick={() => deleteArticle(article.id)}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
