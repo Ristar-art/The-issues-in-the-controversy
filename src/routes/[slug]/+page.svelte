@@ -6,90 +6,167 @@
     <title>{data.article.title} — The Issues in the Controversy</title>
 </svelte:head>
 
-<div class="font-body ea-root">
+<div class="doc-article">
     <main>
         {#if data.article.featuredImage}
             <!-- ============================================ -->
             <!-- HERO with featured image                       -->
             <!-- ============================================ -->
-            <section class="relative">
-                <div class="relative overflow-hidden min-h-[480px] md:min-h-[620px] lg:h-[80vh] lg:max-h-[860px] flex items-end">
-                    <img
-                        src={data.article.featuredImage}
-                        alt={data.article.title}
-                        class="absolute inset-0 w-full h-full object-cover"
-                    />
-                    <!-- <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--ea-primary)]/30 to-[var(--ea-primary)]/85"></div> -->
-
-                    <div class="relative z-10 w-full px-6 md:px-12 lg:px-16 py-16 md:py-24 max-w-5xl">
-                        <a
-                            href="/topics"
-                            class="inline-flex items-center gap-2 ea-eyebrow-light mb-6 hover:text-white transition-colors"
-                        >
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                            </svg>
-                            Back to Topics
-                        </a>
-                        <h1 class="font-headline !text-white text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.02] tracking-tight max-w-4xl">
-                            {data.article.title}
-                        </h1>
-                    </div>
+            <section class="doc-article__hero">
+                <img src={data.article.featuredImage} alt={data.article.title} class="doc-article__hero-img" />
+                <div class="doc-article__hero-scrim" aria-hidden="true"></div>
+                <div class="doc-article__hero-content">
+                    <a href="/topics" class="doc-article__back doc-article__back--light">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                        </svg>
+                        Back to Topics
+                    </a>
+                    <h1 class="doc-article__title doc-article__title--onmedia">{data.article.title}</h1>
                 </div>
             </section>
         {:else}
             <!-- ============================================ -->
             <!-- HEADER without featured image                  -->
             <!-- ============================================ -->
-            <section class="px-6 md:px-12 pt-24 md:pt-32 pb-12 md:pb-16">
-                <div class="max-w-4xl">
-                    <a
-                        href="/topics"
-                        class="inline-flex items-center gap-2 ea-eyebrow mb-6 hover:text-[var(--ea-primary)] transition-colors"
-                    >
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                        Back to Topics
-                    </a>
-                    <h1 class="font-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[var(--ea-primary)] leading-[1.02] tracking-tight">
-                        {data.article.title}
-                    </h1>
-                </div>
+            <section class="doc-article__head">
+                <a href="/topics" class="doc-article__back">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to Topics
+                </a>
+                <h1 class="doc-article__title">{data.article.title}</h1>
             </section>
         {/if}
 
         <!-- ============================================ -->
         <!-- ARTICLE BODY                                   -->
         <!-- ============================================ -->
-        <section class="px-6 md:px-12 py-16 md:py-24">
-            <div class="max-w-3xl mx-auto">
-                <div class="h-px w-20 bg-[var(--ea-secondary)] mb-12"></div>
-                <article class="article-content font-body text-[var(--ea-on-surface-variant)]">
-                    {@html data.article.content}
-                </article>
+        <section class="doc-article__body">
+            <div class="doc-article__rule" aria-hidden="true"></div>
+            <article class="article-content">
+                {@html data.article.content}
+            </article>
 
-                <div class="mt-20 pt-10 border-t border-[var(--ea-outline-variant)] flex flex-wrap items-center justify-between gap-6">
-                    <a
-                        href="/topics"
-                        class="inline-flex items-center gap-2 font-label text-[10px] uppercase tracking-[0.28em] font-bold text-[var(--ea-secondary)] border-b-2 border-[var(--ea-secondary-fixed-dim)] pb-1 hover:border-[var(--ea-secondary)] transition-colors"
-                    >
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                        </svg>
-                        All Topics
-                    </a>
-                    <a href="/" class="ea-btn-ghost">Return Home</a>
-                </div>
+            <div class="doc-article__foot">
+                <a href="/topics" class="doc-article__cta">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    All Topics
+                </a>
+                <a href="/" class="doc-article__home">Return Home</a>
             </div>
         </section>
     </main>
 </div>
 
 <style>
+    .doc-article {
+        --nav-h: 5.2rem;
+        --read: color-mix(in srgb, var(--doc-ink) 86%, var(--doc-bg));
+        min-height: 100vh;
+        background: var(--doc-bg);
+        color: var(--doc-ink);
+        font-family: 'Public Sans', sans-serif;
+        transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    /* ---------- Hero (featured image) — always cinematic ---------- */
+    .doc-article__hero {
+        position: relative;
+        min-height: 60vh;
+        display: flex;
+        align-items: flex-end;
+        overflow: hidden;
+    }
+    .doc-article__hero-img {
+        position: absolute; inset: 0;
+        width: 100%; height: 100%; object-fit: cover;
+        filter: saturate(0.78) contrast(1.06) brightness(0.82);
+    }
+    .doc-article__hero-scrim {
+        position: absolute; inset: 0;
+        background: linear-gradient(to top, var(--doc-bg) 1%, rgba(11,11,13,0.35) 45%, rgba(11,11,13,0.15) 100%);
+    }
+    .doc-article__hero-content {
+        position: relative; z-index: 2;
+        width: 100%; max-width: 72rem;
+        padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 7rem);
+    }
+    .doc-article__title--onmedia { color: #f4efe7 !important; text-shadow: 0 2px 30px rgba(0,0,0,0.45); }
+    .doc-article__back--light { color: #e7b083 !important; }
+    .doc-article__back--light:hover { color: #f4efe7 !important; }
+
+    /* ---------- Header (no image) ---------- */
+    .doc-article__head {
+        padding: calc(var(--nav-h) + clamp(2.5rem, 6vw, 4.5rem)) clamp(1.5rem, 6vw, 7rem) clamp(1.5rem, 4vw, 3rem);
+        max-width: 64rem;
+    }
+
+    .doc-article__back {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem; letter-spacing: 0.26em; text-transform: uppercase;
+        color: var(--doc-ember); text-decoration: none;
+        margin-bottom: 1.75rem;
+        transition: color 0.3s ease;
+    }
+    .doc-article__back:hover { color: var(--doc-ember-soft); }
+    .doc-article__back svg { width: 0.95rem; height: 0.95rem; }
+
+    .doc-article__title {
+        font-family: 'Newsreader', Georgia, serif;
+        font-weight: 400;
+        color: var(--doc-ink);
+        font-size: clamp(2.4rem, 6vw, 5rem);
+        line-height: 1.04;
+        letter-spacing: -0.02em;
+        max-width: 24ch;
+        margin: 0;
+    }
+
+    /* ---------- Body ---------- */
+    .doc-article__body { padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 6vw, 7rem); }
+    .doc-article__rule { width: 80px; height: 2px; background: var(--doc-ember); margin: 0 auto clamp(2.5rem, 5vw, 3.5rem); }
+
+    .doc-article__foot {
+        max-width: 44rem;
+        margin: clamp(3.5rem, 7vw, 5rem) auto 0;
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--doc-line);
+        display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.5rem;
+    }
+    .doc-article__cta {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem; letter-spacing: 0.24em; text-transform: uppercase;
+        color: var(--doc-ember-soft); text-decoration: none;
+        border-bottom: 1px solid var(--doc-line); padding-bottom: 0.4rem;
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .doc-article__cta:hover { border-bottom-color: var(--doc-ember); color: var(--doc-ember); }
+    .doc-article__cta svg { width: 0.95rem; height: 0.95rem; }
+    .doc-article__home {
+        display: inline-flex; align-items: center;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem; letter-spacing: 0.22em; text-transform: uppercase;
+        color: var(--doc-ink); text-decoration: none;
+        border: 1px solid var(--doc-line); border-radius: 2px;
+        padding: 0.85rem 1.4rem;
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    .doc-article__home:hover { border-color: var(--doc-ember); color: var(--doc-ember-soft); }
+
+    /* ---------- Prose ---------- */
     .article-content {
+        max-width: 44rem;
+        margin: 0 auto;
+        font-family: 'Public Sans', sans-serif;
         font-size: 1.0625rem;
         line-height: 1.85;
+        color: var(--read);
     }
 
     .article-content :global(h1),
@@ -99,34 +176,30 @@
     .article-content :global(h5),
     .article-content :global(h6) {
         font-family: 'Newsreader', 'Times New Roman', serif;
-        color: var(--ea-primary);
+        font-weight: 500;
+        color: var(--doc-ink);
         line-height: 1.15;
         margin-top: 2.5rem;
         margin-bottom: 1rem;
         letter-spacing: -0.01em;
     }
-
     .article-content :global(h1) { font-size: 2.5rem; }
     .article-content :global(h2) { font-size: 2rem; }
     .article-content :global(h3) { font-size: 1.5rem; }
     .article-content :global(h4) { font-size: 1.25rem; }
 
-    .article-content :global(p) {
-        margin: 1.25rem 0;
-    }
+    .article-content :global(p) { margin: 1.25rem 0; }
 
     .article-content :global(a) {
-        color: var(--ea-secondary);
+        color: var(--doc-ember-soft);
         text-decoration: underline;
-        text-decoration-color: var(--ea-secondary-fixed-dim);
+        text-decoration-color: var(--doc-line);
         text-underline-offset: 3px;
-        transition: text-decoration-color 0.2s;
+        transition: text-decoration-color 0.2s, color 0.2s;
     }
-    .article-content :global(a:hover) {
-        text-decoration-color: var(--ea-secondary);
-    }
+    .article-content :global(a:hover) { color: var(--doc-ember); text-decoration-color: var(--doc-ember); }
 
-    .article-content :global(strong) { color: var(--ea-primary); font-weight: 600; }
+    .article-content :global(strong) { color: var(--doc-ink); font-weight: 600; }
     .article-content :global(em) { font-style: italic; }
 
     .article-content :global(ol) {
@@ -135,54 +208,46 @@
         margin-top: 1rem !important;
         margin-bottom: 1rem !important;
     }
-
     .article-content :global(ul) {
         list-style-type: disc !important;
         margin-left: 2rem !important;
         margin-top: 1rem !important;
         margin-bottom: 1rem !important;
     }
-
-    .article-content :global(li) {
-        margin: 0.4rem 0 !important;
-        display: list-item !important;
-    }
+    .article-content :global(li) { margin: 0.4rem 0 !important; display: list-item !important; }
+    .article-content :global(li::marker) { color: var(--doc-ember); }
 
     .article-content :global(blockquote) {
         font-family: 'Newsreader', 'Times New Roman', serif;
         font-size: 1.375rem;
         font-style: italic;
-        color: var(--ea-primary);
-        border-left: 3px solid var(--ea-secondary);
+        color: var(--doc-ink);
+        border-left: 3px solid var(--doc-ember);
         padding: 0.25rem 0 0.25rem 1.75rem;
         margin: 2.25rem 0;
         line-height: 1.5;
     }
 
     .article-content :global(pre) {
-        background: var(--ea-primary);
-        color: var(--ea-primary-fixed);
+        background: var(--doc-bg-3);
+        color: var(--doc-ink);
         padding: 1.25rem 1.5rem;
+        border: 1px solid var(--doc-line);
         border-radius: 0.5rem;
         overflow-x: auto;
         margin: 1.5rem 0;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
         font-size: 0.9em;
         line-height: 1.6;
     }
-
-    .article-content :global(pre code) {
-        color: inherit;
-        background: none;
-    }
-
+    .article-content :global(pre code) { color: inherit; background: none; }
     .article-content :global(code) {
-        background: var(--ea-surface-container);
-        color: var(--ea-primary);
+        background: var(--doc-bg-3);
+        color: var(--doc-ember-soft);
         padding: 0.15em 0.4em;
         border-radius: 0.25rem;
         font-size: 0.92em;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: 'JetBrains Mono', 'Courier New', monospace;
     }
 
     .article-content :global(img) {
@@ -191,11 +256,10 @@
         border-radius: 0.5rem;
         margin: 2rem 0;
     }
-
     .article-content :global(hr) {
         border: 0;
         height: 1px;
-        background: var(--ea-outline-variant);
+        background: var(--doc-line);
         margin: 3rem 0;
     }
 
