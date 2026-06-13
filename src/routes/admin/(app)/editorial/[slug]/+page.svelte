@@ -4,7 +4,7 @@
 
   // Define TypeScript interfaces
   interface Block {
-    type: 'heading' | 'text' | 'image' | 'button' | 'layout' | 'component';
+    type: 'heading' | 'text' | 'image' | 'button' | 'layout' | 'component' | 'html';
     text?: string;
     level?: number;
     color?: string;
@@ -18,6 +18,8 @@
     columns?: number;
     blocks?: Block[];
     componentId?: string;
+    html?: string;
+    detachedFrom?: { id: string; name: string };
   }
 
   interface Component {

@@ -81,8 +81,11 @@ export function blocksToHtml(blocks, components) {
             return component.html;
           }
         }
-        return '';
+        // Fallback to detached snapshot if the component was deleted
+        return block.html || '';
       }
+      case 'html':
+        return block.html || '';
       case 'layout':
         if (block.blocks) {
           const cols = block.columns || 2;
