@@ -31,6 +31,7 @@
   let slashMenuBlockIndex: number | null = $state(null);
   let showComponentPicker = $state(false);
   let componentPickerIndex: number | null = $state(null);
+  let htmlEditingIndex: number | null = $state(null);
 
   // Drag and drop state
   let draggedIndex: number | null = $state(null);
@@ -116,7 +117,25 @@
       const component = availableComponents.find(c => c.id === block.componentId);
       return component ? `[${component.name}]` : '[Component]';
     }
+    if (block.type === 'html') return block.html || '';
     return '';
+  }
+
+  function updateHtmlBlock(index: number, html: string) {
+    const newBlocks = [...blocks];
+    const block = newBlocks[index];
+    if (!block || block.type !== 'html') return;
+    newBlocks[index] = { ...block, html };
+    onUpdate(newBlocks);
+  }
+
+  function convertHtmlToText(index: number) {
+    const newBlocks = [...blocks];
+    const block = newBlocks[index];
+    if (!block || block.type !== 'html') return;
+    newBlocks[index] = { type: 'text', text: block.html || '' };
+    onUpdate(newBlocks);
+    htmlEditingIndex = null;
   }
 
   function updateBlockContent(index: number, content: string) {
@@ -463,6 +482,43 @@
               >
                 Choose Component
               </button>
+            </div>
+          {/if}
+        </div>
+      {:else if block.type === 'html'}
+        <div class="html-block mb-4 border border-dashed border-amber-400 rounded-lg bg-amber-50">
+          <div class="flex items-center justify-between px-4 py-2 border-b border-amber-200 bg-amber-100/60">
+            <div class="flex items-center gap-2 text-xs uppercase tracking-wider text-amber-900">
+              <span>◇ Detached HTML</span>
+              {#if block.detachedFrom?.name}
+                <span class="text-amber-700/80 normal-case tracking-normal">from "{block.detachedFrom.name}"</span>
+              {/if}
+            </div>
+            <div class="flex items-center gap-3 text-xs">
+              <button
+                class="text-amber-900 hover:underline"
+                onclick={() => htmlEditingIndex = htmlEditingIndex === index ? null : index}
+              >
+                {htmlEditingIndex === index ? 'Done' : 'Edit HTML'}
+              </button>
+              <button
+                class="text-amber-900 hover:underline"
+                onclick={() => convertHtmlToText(index)}
+                title="Convert to a regular text block"
+              >
+                Convert to text
+              </button>
+            </div>
+          </div>
+          {#if htmlEditingIndex === index}
+            <textarea
+              class="w-full min-h-[160px] p-3 font-mono text-sm bg-white border-0 focus:outline-none"
+              value={block.html ?? ''}
+              oninput={(e) => updateHtmlBlock(index, (e.target as HTMLTextAreaElement).value)}
+            ></textarea>
+          {:else}
+            <div class="p-4 bg-white">
+              {@html block.html || '<em class="text-gray-400">Empty HTML block</em>'}
             </div>
           {/if}
         </div>
