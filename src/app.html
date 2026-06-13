@@ -4,6 +4,17 @@
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/openface.jpg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			(function () {
+				try {
+					var t = localStorage.getItem('doc-theme');
+					if (t !== 'light' && t !== 'dark') t = 'dark';
+					document.documentElement.setAttribute('data-doc-theme', t);
+				} catch (e) {
+					document.documentElement.setAttribute('data-doc-theme', 'dark');
+				}
+			})();
+		</script>
 		%sveltekit.head%
 		<title>The Issues in the Controversy</title>
 

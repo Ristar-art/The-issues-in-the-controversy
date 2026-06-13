@@ -1,12 +1,12 @@
 export function load() {
   return {
     footer: {
-      tagline: 'From the family at open face fellowship.',
+      tagline: 'From the family at openface fellowship.',
       quickLinks: [
         { label: 'Home', href: '/' },
         { label: 'About', href: '/about us' },
         { label: 'Topics', href: '/topics' },
-        { label: 'Blog', href: '/blog' },
+        // { label: 'Blog', href: '/blog' },
         { label: 'Contact', href: '/contact' }
       ],
       socialLinks: [

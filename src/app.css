@@ -41,6 +41,23 @@
   --ea-outline-variant: #c1c8c7;
   --ea-peach: #fde7da;
 
+  /* Documentary / Storytelling theme — shared across nav, search, footer.
+     Dark is the default; [data-doc-theme='light'] overrides below. */
+  --doc-bg: #0b0b0d;
+  --doc-bg-2: #121316;
+  --doc-bg-3: #17181c;
+  --doc-ink: #f1ebe0;
+  --doc-muted: #a7a094;
+  --doc-dim: #6d675e;
+  --doc-ember: #d97a43;
+  --doc-ember-soft: #e3a376;
+  --doc-line: rgba(241, 235, 224, 0.12);
+  --doc-line-soft: rgba(241, 235, 224, 0.07);
+  --doc-nav-bg: rgba(11, 11, 13, 0.85);
+  --doc-nav-veil: rgba(11, 11, 13, 0.65);
+  --doc-nav-mobile-bg: rgba(11, 11, 13, 0.96);
+  --doc-shadow: rgba(0, 0, 0, 0.55);
+
   /* Dark editorial legacy (kept for admin/other pages) */
   --c-void: #050507;
   --c-bg: #0a0a0c;
@@ -54,6 +71,24 @@
   --c-teal: #2dd4bf;
   --c-teal-strong: #14b8a6;
   --c-teal-dim: #0d9488;
+}
+
+/* Documentary theme — LIGHT mode (warm paper / editorial daylight) */
+:root[data-doc-theme='light'] {
+  --doc-bg: #f4efe6;
+  --doc-bg-2: #ece4d7;
+  --doc-bg-3: #e3d9c8;
+  --doc-ink: #1f1c16;
+  --doc-muted: #5b5448;
+  --doc-dim: #8c8474;
+  --doc-ember: #b85c28;
+  --doc-ember-soft: #9c4d1d;
+  --doc-line: rgba(31, 28, 22, 0.16);
+  --doc-line-soft: rgba(31, 28, 22, 0.08);
+  --doc-nav-bg: rgba(244, 239, 230, 0.85);
+  --doc-nav-veil: rgba(244, 239, 230, 0.72);
+  --doc-nav-mobile-bg: rgba(244, 239, 230, 0.97);
+  --doc-shadow: rgba(31, 28, 22, 0.22);
 }
 
 body {

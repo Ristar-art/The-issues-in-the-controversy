@@ -1,151 +1,115 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { page } from '$app/stores';
 
     let { landing = false } = $props();
     let isOpen = $state(false);
     let visible = $state(true);
-    let isDarkBg = $state(false);
+    let scrolled = $state(false);
+    let theme = $state<'dark' | 'light'>('dark');
     let lastY = 0;
     const THRESHOLD = 8;
 
+    const navLinks = [
+        { href: '/', label: 'Home' },
+        { href: '/topics', label: 'Topics' },
+        { href: '/about', label: 'About' },
+        { href: '/blog', label: 'Blog' },
+        { href: '/contact', label: 'Contact' }
+    ];
+
+    let pathname = $derived($page.url.pathname);
+    function isActive(href: string) {
+        if (href === '/') return pathname === '/';
+        return pathname === href || pathname.startsWith(href + '/');
+    }
+
     function toggle() { isOpen = !isOpen; }
 
-    function getLuminance(hex: string) {
-        const rgb = hex.replace('#', '').match(/.{2}/g)?.map((x: string) => parseInt(x, 16) / 255) ?? [];
-        const [r, g, b] = (rgb as number[]).map((c: number) => c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
-        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    }
-
-    function parseRgb(color: string): [number, number, number, number] | null {
-        const m = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-        if (!m) return null;
-        return [parseInt(m[1]), parseInt(m[2]), parseInt(m[3]), m[4] !== undefined ? parseFloat(m[4]) : 1];
-    }
-
-    function rgbToHex(r: number, g: number, b: number) {
-        return '#' + [r, g, b].map(x => Math.round(x).toString(16).padStart(2, '0')).join('');
-    }
-
-    function effectiveBgAt(x: number, y: number): [number, number, number] | null {
-        const stack: [number, number, number, number][] = [];
-        let el = document.elementFromPoint(x, y) as HTMLElement | null;
-        const navEl = document.querySelector('nav');
-        while (el) {
-            if (navEl && (el === navEl || navEl.contains(el))) {
-                el = el.parentElement;
-                continue;
-            }
-            const c = getComputedStyle(el).backgroundColor;
-            const rgba = parseRgb(c);
-            if (rgba && rgba[3] > 0) {
-                stack.push(rgba);
-                if (rgba[3] >= 1) break;
-            }
-            el = el.parentElement;
-        }
-        if (!stack.length) {
-            const bodyRgba = parseRgb(getComputedStyle(document.body).backgroundColor);
-            if (bodyRgba) stack.push(bodyRgba);
-        }
-        if (!stack.length) return null;
-        let [r, g, b] = [255, 255, 255];
-        for (let i = stack.length - 1; i >= 0; i--) {
-            const [sr, sg, sb, sa] = stack[i];
-            r = sr * sa + r * (1 - sa);
-            g = sg * sa + g * (1 - sa);
-            b = sb * sa + b * (1 - sa);
-        }
-        return [r, g, b];
-    }
-
-    function checkBackground() {
-        const navEl = document.querySelector('nav') as HTMLElement | null;
-        const rect = navEl?.getBoundingClientRect();
-        const sampleY = rect ? rect.bottom + 4 : 30;
-        const xs = [window.innerWidth * 0.25, window.innerWidth * 0.5, window.innerWidth * 0.75];
-        let darkVotes = 0;
-        let total = 0;
-        for (const x of xs) {
-            const rgb = effectiveBgAt(x, sampleY);
-            if (!rgb) continue;
-            total++;
-            if (getLuminance(rgbToHex(rgb[0], rgb[1], rgb[2])) < 0.5) darkVotes++;
-        }
-        if (total > 0) isDarkBg = darkVotes * 2 >= total;
+    function toggleTheme() {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-doc-theme', theme);
+        try { localStorage.setItem('doc-theme', theme); } catch (e) { /* ignore */ }
     }
 
     onMount(() => {
+        theme = document.documentElement.getAttribute('data-doc-theme') === 'light' ? 'light' : 'dark';
         lastY = window.scrollY;
-        checkBackground();
-
-        const observer = new MutationObserver(checkBackground);
-        observer.observe(document.body, { attributes: true, attributeFilter: ['style', 'class'], subtree: true, childList: true });
+        scrolled = lastY > 12;
 
         let scrollRaf = 0;
         function onScroll() {
             const y = window.scrollY;
             const dy = y - lastY;
             if (Math.abs(dy) >= THRESHOLD) {
-                if (y <= 0) {
-                    visible = true;
-                } else if (dy < 0) {
-                    visible = true;
-                } else {
-                    visible = false;
-                    isOpen = false;
-                }
+                if (y <= 0) visible = true;
+                else if (dy < 0) visible = true;
+                else { visible = false; isOpen = false; }
                 lastY = y;
             }
             if (!scrollRaf) {
                 scrollRaf = requestAnimationFrame(() => {
                     scrollRaf = 0;
-                    checkBackground();
+                    scrolled = window.scrollY > 12;
                 });
             }
         }
         window.addEventListener('scroll', onScroll, { passive: true });
-        window.addEventListener('resize', checkBackground);
-        return () => {
-            window.removeEventListener('scroll', onScroll);
-            window.removeEventListener('resize', checkBackground);
-            observer.disconnect();
-        };
+        return () => window.removeEventListener('scroll', onScroll);
     });
-
-    let textClass = $derived(isDarkBg ? 'text-white' : 'text-[var(--ea-primary-container)]');
-    let mutedClass = $derived(isDarkBg ? 'text-white/70 hover:text-white' : 'text-[var(--ea-on-surface-variant)] hover:text-[var(--ea-secondary)]');
-    let logoClass = $derived(isDarkBg ? 'text-white' : 'text-[var(--ea-primary-container)]');
-    let borderClass = $derived(isDarkBg ? 'border-white' : 'border-[var(--ea-primary-container)]');
-    let mobileBgClass = $derived(isDarkBg ? 'bg-black/90' : 'bg-[var(--ea-surface)]');
 </script>
 
 <nav
-    class="fixed top-0 left-0 right-0 z-50 bg-[var(--ea-surface)] transition-transform duration-300 ease-out {visible ? 'translate-y-0' : '-translate-y-full'}"
+    class="doc-nav"
+    class:doc-nav--hero={landing && !scrolled}
+    class:doc-nav--hidden={!visible}
 >
-    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 md:px-12 py-5 md:py-6">
-        <a href="/" class="font-headline text-2xl md:text-3xl font-bold tracking-tight {logoClass}">
-            <img src="/logoimage.jpg" style="width: 4rem; height: auto; ;" >
+    <div class="doc-nav__inner">
+        <a href="/" class="doc-nav__logo" aria-label="Home">
+            <img src="/logoimage.jpg" alt="The Issues in the Controversy" />
         </a>
 
-        <div class="hidden md:flex items-center gap-10">
-            <a href="/" class="font-headline text-lg {textClass} border-b-2 {borderClass} pb-0.5 tracking-tight">Home</a>
-            <a href="/topics" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Topics</a>
-            <a href="/about" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">About</a>
-            <a href="/blog" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Blog</a>
-            <a href="/contact" class="font-label text-sm uppercase tracking-[0.28em] font-bold {mutedClass} transition-colors">Contact</a>
+        <div class="doc-nav__links">
+            {#each navLinks as link}
+                <a
+                    href={link.href}
+                    class={link.href === '/' ? 'doc-nav__home' : 'doc-nav__link'}
+                    class:is-active={isActive(link.href)}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
+                >
+                    {link.label}
+                </a>
+            {/each}
         </div>
 
-        <div class="flex items-center gap-4">
-            <a href="/topics" class="hidden sm:inline-flex font-label text-xs uppercase tracking-[0.28em] font-bold {textClass} border-b-2 border-[var(--ea-secondary-fixed-dim)] pb-0.5 hover:border-[var(--ea-secondary)] transition-colors">
-                Search
-            </a>
+        <div class="doc-nav__actions">
+            <a href="/topics" class="doc-nav__search">Search</a>
             <button
-                class="md:hidden {textClass}"
+                class="doc-nav__theme"
+                on:click={toggleTheme}
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+            >
+                {#if theme === 'dark'}
+                    <!-- sun -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4" stroke-width="1.6" />
+                        <path stroke-linecap="round" stroke-width="1.6" d="M12 2v2.5M12 19.5V22M4.22 4.22l1.77 1.77M18.01 18.01l1.77 1.77M2 12h2.5M19.5 12H22M4.22 19.78l1.77-1.77M18.01 5.99l1.77-1.77" />
+                    </svg>
+                {:else}
+                    <!-- moon -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+                    </svg>
+                {/if}
+            </button>
+            <button
+                class="doc-nav__burger"
                 on:click={toggle}
                 aria-label="Toggle menu"
                 aria-expanded={isOpen}
             >
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
                     {#if isOpen}
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
                     {:else}
@@ -157,14 +121,158 @@
     </div>
 
     {#if isOpen}
-        <div class="md:hidden border-t border-[var(--ea-outline-variant)]/40 {mobileBgClass}">
-            <div class="px-6 py-5 flex flex-col gap-4 font-label text-sm uppercase tracking-[0.25em] {mutedClass}">
-                <a href="/" on:click={toggle} class="hover:text-[var(--ea-secondary)]">Timeline</a>
-                <a href="#topics" on:click={toggle} class="hover:text-[var(--ea-secondary)]">The Issue</a>
-                <a href="/gods-solution" on:click={toggle} class="hover:text-[var(--ea-secondary)]">Solution</a>
-                <a href="/our-part" on:click={toggle} class="hover:text-[var(--ea-secondary)]">Our Part</a>
-                <a href="/topics" on:click={toggle} class="hover:text-[var(--ea-secondary)]">Watch</a>
-            </div>
+        <div class="doc-nav__mobile">
+            {#each navLinks as link}
+                <a
+                    href={link.href}
+                    on:click={toggle}
+                    class:is-active={isActive(link.href)}
+                    aria-current={isActive(link.href) ? 'page' : undefined}
+                >
+                    {link.label}
+                </a>
+            {/each}
         </div>
     {/if}
 </nav>
+
+<style>
+    .doc-nav {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 50;
+        border-bottom: 1px solid var(--doc-line);
+        background: var(--doc-nav-bg);
+        backdrop-filter: blur(14px) saturate(1.1);
+        -webkit-backdrop-filter: blur(14px) saturate(1.1);
+        transition: transform 0.4s ease, background 0.4s ease, border-color 0.4s ease, backdrop-filter 0.4s ease;
+    }
+    /* Transparent cinematic veil — only over the landing hero at the top */
+    .doc-nav--hero {
+        background: linear-gradient(to bottom, var(--doc-nav-veil), transparent);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        border-bottom-color: transparent;
+    }
+    .doc-nav--hidden { transform: translateY(-100%); }
+
+    .doc-nav__inner {
+        max-width: 80rem;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem clamp(1.5rem, 5vw, 3.5rem);
+    }
+
+    .doc-nav__logo { display: inline-flex; align-items: center; }
+    .doc-nav__logo img {
+        width: 3.4rem; height: auto; border-radius: 4px;
+        filter: contrast(1.05);
+    }
+
+    .doc-nav__links { display: none; align-items: center; gap: clamp(1.5rem, 3vw, 2.75rem); }
+    @media (min-width: 900px) { .doc-nav__links { display: flex; } }
+
+    .doc-nav__home {
+        font-family: 'Newsreader', Georgia, serif;
+        font-size: 1.25rem;
+        color: var(--doc-ink);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+        line-height: 1;
+        transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .doc-nav__home:hover { color: var(--doc-ember-soft); }
+
+    .doc-nav__link {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--doc-muted);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        padding-bottom: 2px;
+        line-height: 1;
+        transition: color 0.3s ease, border-color 0.3s ease;
+    }
+    .doc-nav__link:hover { color: var(--doc-ember-soft); }
+
+    /* Active-route indicator — applies to whichever link matches the path */
+    .doc-nav__home.is-active,
+    .doc-nav__link.is-active {
+        color: var(--doc-ink);
+        border-bottom-color: var(--doc-ember);
+    }
+    .doc-nav__link.is-active { color: var(--doc-ember-soft); }
+
+    .doc-nav__actions { display: flex; align-items: center; gap: 1.25rem; }
+    .doc-nav__search {
+        display: none;
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem;
+        font-weight: 500;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--doc-ink);
+        text-decoration: none;
+        border: 1px solid var(--doc-line);
+        padding: 0.55rem 1rem;
+        border-radius: 2px;
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+    @media (min-width: 640px) { .doc-nav__search { display: inline-flex; } }
+    .doc-nav__search:hover { border-color: var(--doc-ember); color: var(--doc-ember-soft); }
+
+    .doc-nav__theme {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        border: 1px solid var(--doc-line);
+        border-radius: 999px;
+        background: none;
+        cursor: pointer;
+        color: var(--doc-ink);
+        transition: border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    }
+    .doc-nav__theme:hover { border-color: var(--doc-ember); color: var(--doc-ember-soft); transform: rotate(-12deg); }
+    .doc-nav__theme svg { width: 1.15rem; height: 1.15rem; }
+
+    .doc-nav__burger {
+        display: inline-flex;
+        background: none; border: none; cursor: pointer;
+        color: var(--doc-ink);
+        padding: 0.25rem;
+    }
+    .doc-nav__burger svg { width: 1.6rem; height: 1.6rem; }
+    @media (min-width: 900px) { .doc-nav__burger { display: none; } }
+
+    .doc-nav__mobile {
+        background: var(--doc-nav-mobile-bg);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border-top: 1px solid var(--doc-line);
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 1rem clamp(1.5rem, 5vw, 3.5rem) 1.5rem;
+    }
+    .doc-nav__mobile a {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--doc-muted);
+        text-decoration: none;
+        padding: 0.6rem 0;
+        border-bottom: 1px solid var(--doc-line-soft);
+        transition: color 0.3s ease;
+    }
+    .doc-nav__mobile a:hover { color: var(--doc-ember-soft); }
+    .doc-nav__mobile a.is-active { color: var(--doc-ember); }
+</style>
