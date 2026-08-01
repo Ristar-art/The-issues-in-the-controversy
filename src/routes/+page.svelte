@@ -597,6 +597,14 @@
        ============================================================ */
     .doc-hero {
         position: relative;
+        /* Height alone tracks the hero photo's proportions (2554 × 1659), so
+           `cover` has almost nothing to trim off the top and bottom. Driving
+           this off the width via `height` rather than `aspect-ratio` is
+           deliberate: an aspect-ratio box whose height gets clamped resolves
+           its *width* from the ratio too, which pulls the section in from the
+           edge of the screen. Capped at the viewport so wide monitors don't
+           get a runaway hero; floored so it always covers the fold. */
+        height: min(calc(100vw * 1659 / 2554), 100svh);
         min-height: calc(100svh - var(--nav-h));
         display: flex;
         align-items: center;
@@ -609,12 +617,15 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: center;
         filter: saturate(0.7) contrast(1.08) brightness(0.78);
-        transform: scale(1.05);
+        transform: scale(1.06);
         animation: docKenBurns 24s ease-out forwards;
     }
+    /* Settle on the full frame rather than pushing past it, so the drift
+       never eats the edges of the photo. */
     @keyframes docKenBurns {
-        to { transform: scale(1.14); }
+        to { transform: scale(1); }
     }
     .doc-hero__scrim {
         position: absolute;
@@ -623,16 +634,24 @@
             linear-gradient(to top, var(--bg) 2%, rgba(11,11,13,0.35) 45%, rgba(11,11,13,0.55) 100%),
             radial-gradient(120% 100% at 15% 70%, rgba(11,11,13,0.7), transparent 60%);
     }
+    /* Cinematic framing without an opaque band clipping the photo: the bars
+       fade out instead of cutting a hard edge. */
     .doc-letterbox {
         position: absolute;
         left: 0;
         right: 0;
         height: clamp(28px, 6vh, 64px);
-        background: var(--bg);
         z-index: 3;
+        pointer-events: none;
     }
-    .doc-letterbox--top { top: 0; }
-    .doc-letterbox--bottom { bottom: 0; }
+    .doc-letterbox--top {
+        top: 0;
+        background: linear-gradient(to bottom, rgba(11,11,13,0.85), rgba(11,11,13,0));
+    }
+    .doc-letterbox--bottom {
+        bottom: 0;
+        background: linear-gradient(to top, rgba(11,11,13,0.85), rgba(11,11,13,0));
+    }
 
     .doc-hero__rail {
         position: absolute;
@@ -991,7 +1010,7 @@
         .doc-glossary__row { grid-template-columns: 1fr; gap: 0.5rem; }
     }
     @media (prefers-reduced-motion: reduce) {
-        .doc-hero__img { animation: none; }
+        .doc-hero__img { animation: none; transform: none; }
         .doc-scrollcue__line { animation: none; }
     }
 </style>
