@@ -1,5 +1,6 @@
 <script>
     import SearchBar from '$lib/components/SearchBar.svelte';
+    import { getVideoId, getThumbnailUrl, episodeLabel } from '$lib/data/videos.js';
 
     const { data } = $props();
     const landing = data.landing ?? {};
@@ -53,26 +54,13 @@
     }
 
     // ----- Featured Videos (Screening Room) -----
-    const videos = [
-        { title: 'Introduction to The Series', embedUrl: 'https://www.youtube.com/embed/Xu8IJtZBdqc' },
-        { title: 'Foundations', embedUrl: 'https://www.youtube.com/embed/8KA32Gaam7Y' },
-        { title: "A Bird's Eye View", embedUrl: 'https://www.youtube.com/embed/WMXqrUp98RY' },
-        { title: 'The Kingdom of God', embedUrl: 'https://www.youtube.com/embed/Sj43-YLaFQc' }
-    ];
-    const featureVideo = videos[0];
-    const sideVideos = videos.slice(1, 4);
+    // Pulled from the YouTube playlist server-side; see $lib/server/youtube.js.
+    const videos = $derived(data.videos ?? []);
+    const featureVideo = $derived(videos[0] ?? null);
+    // The landing page stays a curated teaser; /videos carries the full list.
+    const sideVideos = $derived(videos.slice(1, 4));
     let selectedVideo = $state(null);
 
-    function getVideoId(url) {
-        if (!url) return null;
-        if (url.includes('/embed/')) return url.split('/embed/')[1]?.split('?')[0];
-        if (url.includes('youtu.be/')) return url.split('youtu.be/')[1]?.split('?')[0];
-        try {
-            const parsed = new URL(url);
-            return parsed.searchParams.get('v');
-        } catch { return null; }
-    }
-    function getThumbnailUrl(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
     function openModal(video) { selectedVideo = video; }
     function closeModal() { selectedVideo = null; }
 
@@ -292,7 +280,7 @@
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                         </span>
                         <span class="doc-player__meta">
-                            <span class="doc-tc">Series 01 · EP 01</span>
+                            <span class="doc-tc">Series 01 · {episodeLabel(featureVideo)}</span>
                             <span class="doc-player__name">{featureVideo.title}</span>
                         </span>
                     </button>
@@ -301,7 +289,7 @@
                 <div class="doc-playlist">
                     <p class="doc-playlist__intro">An immersive walkthrough of the Endgame of Heaven — the series, episode by episode.</p>
                     <ul>
-                        {#each sideVideos as video, i}
+                        {#each sideVideos as video}
                             {@const vId = getVideoId(video.embedUrl)}
                             <li>
                                 <button type="button" class="doc-track" onclick={() => openModal(video)}>
@@ -310,14 +298,14 @@
                                         <span class="doc-track__play" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
                                     </span>
                                     <span class="doc-track__text">
-                                        <span class="doc-tc">EP {String(i + 2).padStart(2, '0')}</span>
+                                        <span class="doc-tc">{episodeLabel(video)}</span>
                                         <span class="doc-track__name">{video.title}</span>
                                     </span>
                                 </button>
                             </li>
                         {/each}
                     </ul>
-                    <a href="/topics" class="doc-btn doc-btn--ghost">View All Episodes</a>
+                    <a href="/videos" class="doc-btn doc-btn--ghost">View All Episodes</a>
                 </div>
             </div>
         </section>
