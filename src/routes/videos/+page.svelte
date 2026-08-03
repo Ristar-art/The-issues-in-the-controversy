@@ -318,8 +318,8 @@
         position: absolute;
         inset: 0;
         background:
-            linear-gradient(to top, var(--doc-bg) 2%, rgba(11, 11, 13, 0.35) 45%, rgba(11, 11, 13, 0.6) 100%),
-            radial-gradient(120% 100% at 15% 70%, rgba(11, 11, 13, 0.75), transparent 60%);
+            linear-gradient(to top, var(--doc-bg) 2%, rgba(11, 11, 13, 0.12) 45%, rgba(11, 11, 13, 0.22) 100%),
+            radial-gradient(110% 90% at 12% 72%, rgba(11, 11, 13, 0.62), transparent 58%);
     }
     .doc-vid__herocontent {
         position: relative;
