@@ -4,7 +4,9 @@
 
   let articles = $state([]);
   let components = $state([]);
-  let images = $state([]);
+  // Only the tally is shown here, and /api/media reports it directly, so there
+  // is no reason to pull down every image record to call `.length` on it.
+  let imageCount = $state(0);
   let loading = $state(true);
   let searchQuery = $state('');
 
@@ -18,14 +20,14 @@
       const [articlesRes, componentsRes, imagesRes] = await Promise.all([
         fetch('/api/articles'),
         fetch('/api/components'),
-        fetch('/api/media?type=images')
+        fetch('/api/media?type=images&limit=1')
       ]);
 
       if (articlesRes.ok) articles = await articlesRes.json();
       if (componentsRes.ok) components = await componentsRes.json();
       if (imagesRes.ok) {
         const data = await imagesRes.json();
-        images = Array.isArray(data) ? data : [];
+        imageCount = data?.counts?.images ?? 0;
       }
     } catch (err) {
       console.error('Failed to load dashboard data:', err);
@@ -115,7 +117,7 @@
         <span class="stat-label">Components</span>
       </div>
       <div class="stat-card">
-        <span class="stat-number">{images.length}</span>
+        <span class="stat-number">{imageCount}</span>
         <span class="stat-label">Images</span>
       </div>
     </div>
@@ -136,7 +138,7 @@
         </a>
         <a href="/admin/gallery" class="nav-card">
           <h3>Gallery</h3>
-          <p>{images.length} file{images.length !== 1 ? 's' : ''}</p>
+          <p>{imageCount} file{imageCount !== 1 ? 's' : ''}</p>
           <span class="nav-arrow">&rarr;</span>
         </a>
       </div>
