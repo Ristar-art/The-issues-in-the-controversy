@@ -10,9 +10,9 @@ export function load() {
         { label: 'Contact', href: '/contact' }
       ],
       socialLinks: [
-        { icon: 'twitter', href: '#' },
+        { icon: 'facebook', href: '#' },
         { icon: 'instagram', href: '#' },
-        { icon: 'linkedin', href: '#' }
+        { icon: 'tiktok', href: '#' }
       ],
       copyright: '© Open face fellowship. All Rights Reserved.'
     }

@@ -606,7 +606,7 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
-        filter: saturate(0.7) contrast(1.08) brightness(0.78);
+        filter: saturate(0.88) contrast(1.04) brightness(1);
         transform: scale(1.06);
         animation: docKenBurns 24s ease-out forwards;
     }
@@ -619,8 +619,8 @@
         position: absolute;
         inset: 0;
         background:
-            linear-gradient(to top, var(--bg) 2%, rgba(11,11,13,0.35) 45%, rgba(11,11,13,0.55) 100%),
-            radial-gradient(120% 100% at 15% 70%, rgba(11,11,13,0.7), transparent 60%);
+            linear-gradient(to top, var(--bg) 2%, rgba(11,11,13,0.12) 45%, rgba(11,11,13,0.22) 100%),
+            radial-gradient(110% 90% at 12% 72%, rgba(11,11,13,0.62), transparent 58%);
     }
     /* Cinematic framing without an opaque band clipping the photo: the bars
        fade out instead of cutting a hard edge. */
@@ -634,11 +634,11 @@
     }
     .doc-letterbox--top {
         top: 0;
-        background: linear-gradient(to bottom, rgba(11,11,13,0.85), rgba(11,11,13,0));
+        background: linear-gradient(to bottom, rgba(11,11,13,0.55), rgba(11,11,13,0));
     }
     .doc-letterbox--bottom {
         bottom: 0;
-        background: linear-gradient(to top, rgba(11,11,13,0.85), rgba(11,11,13,0));
+        background: linear-gradient(to top, rgba(11,11,13,0.55), rgba(11,11,13,0));
     }
 
     .doc-hero__rail {

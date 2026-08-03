@@ -3,6 +3,8 @@
   import { page } from '$app/state';
   import { compressImageToWebp } from '$lib/utils/compress-image';
 
+  const PAGE_SIZE = 10;
+
   let media = $state([]);
   let loading = $state(true);
   let uploading = $state(false);
@@ -13,6 +15,14 @@
   let copied = $state(false);
   let dragOver = $state(false);
   let error = $state('');
+
+  // Pagination — the server returns one page at a time, so these mirror its
+  // reply rather than being derived from `media`. Named `currentPage` because
+  // `page` is SvelteKit's route store, imported above.
+  let currentPage = $state(1);
+  let totalPages = $state(1);
+  let total = $state(0);
+  let counts = $state({ all: 0, images: 0, audio: 0, video: 0 });
 
   // Picker mode — when opened from component builder
   let pickerMode = $derived(page.url.searchParams.get('picker') === 'true');
@@ -35,16 +45,47 @@
     loading = true;
     error = '';
     try {
-      const typeParam = filter !== 'all' ? `?type=${filter}` : '';
-      const res = await fetch(`/api/media${typeParam}`);
+      const params = new URLSearchParams({ page: String(currentPage), limit: String(PAGE_SIZE) });
+      if (filter !== 'all') params.set('type', filter);
+      const q = searchQuery.trim();
+      if (q) params.set('q', q);
+
+      const res = await fetch(`/api/media?${params}`);
       if (!res.ok) throw new Error('Failed to load media');
-      media = await res.json();
+      const data = await res.json();
+
+      media = data.files;
+      total = data.total;
+      totalPages = data.totalPages;
+      counts = data.counts;
+      // The server clamps an out-of-range page; follow it so the controls and
+      // the grid can't disagree about which page is showing.
+      currentPage = data.page;
     } catch (err) {
       error = err.message;
       console.error(err);
     } finally {
       loading = false;
     }
+  }
+
+  /** Any change to what's being listed sends you back to the first page. */
+  function resetAndFetch() {
+    currentPage = 1;
+    return fetchMedia();
+  }
+
+  function goToPage(n) {
+    const target = Math.min(Math.max(n, 1), totalPages);
+    if (target === currentPage) return;
+    currentPage = target;
+    selectedFile = null;
+    fetchMedia();
+  }
+
+  function setFilter(next) {
+    filter = next;
+    resetAndFetch();
   }
 
   async function uploadFiles(files) {
@@ -74,7 +115,8 @@
 
     uploadProgress = '';
     uploading = false;
-    await fetchMedia();
+    // Newest-first ordering puts fresh uploads on page 1.
+    await resetAndFetch();
   }
 
   function handleFileInput(e) {
@@ -140,20 +182,22 @@
     return '?';
   }
 
-  onMount(fetchMedia);
-
-  let filteredMedia = $derived(() => {
-    const q = searchQuery.trim().toLowerCase();
-    if (!q) return media;
-    return media.filter(f => f.name.toLowerCase().includes(q));
+  onMount(() => {
+    fetchMedia();
+    return () => clearTimeout(searchTimer);
   });
 
-  let counts = $derived({
-    all: media.length,
-    images: media.filter(f => f.category === 'images').length,
-    audio: media.filter(f => f.category === 'audio').length,
-    video: media.filter(f => f.category === 'video').length,
-  });
+  // Search is a server round trip now (it has to be — filtering in the browser
+  // would only ever search the ten files already on screen), so keystrokes are
+  // debounced instead of firing a request each.
+  let searchTimer;
+  function handleSearchInput() {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(resetAndFetch, 300);
+  }
+
+  let rangeStart = $derived(total === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1);
+  let rangeEnd = $derived(Math.min(currentPage * PAGE_SIZE, total));
 </script>
 
 <div class="gallery">
@@ -179,16 +223,16 @@
   <!-- Filters -->
   <div class="toolbar">
     <div class="filter-tabs">
-      <button class:active={filter === 'all'} onclick={() => { filter = 'all'; fetchMedia(); }}>
+      <button class:active={filter === 'all'} onclick={() => setFilter('all')}>
         All ({counts.all})
       </button>
-      <button class:active={filter === 'images'} onclick={() => { filter = 'images'; fetchMedia(); }}>
+      <button class:active={filter === 'images'} onclick={() => setFilter('images')}>
         Images ({counts.images})
       </button>
-      <button class:active={filter === 'audio'} onclick={() => { filter = 'audio'; fetchMedia(); }}>
+      <button class:active={filter === 'audio'} onclick={() => setFilter('audio')}>
         Audio ({counts.audio})
       </button>
-      <button class:active={filter === 'video'} onclick={() => { filter = 'video'; fetchMedia(); }}>
+      <button class:active={filter === 'video'} onclick={() => setFilter('video')}>
         Video ({counts.video})
       </button>
     </div>
@@ -197,6 +241,7 @@
       class="search-input"
       placeholder="Filter by name..."
       bind:value={searchQuery}
+      oninput={handleSearchInput}
     />
   </div>
 
@@ -217,7 +262,7 @@
       <div class="loading-state">
         <div class="spinner" aria-label="Loading media"></div>
       </div>
-    {:else if filteredMedia().length === 0}
+    {:else if media.length === 0}
       <div class="empty-state">
         {#if searchQuery.trim()}
           <p>No files match "{searchQuery}".</p>
@@ -228,7 +273,7 @@
       </div>
     {:else}
       <div class="media-grid">
-        {#each filteredMedia() as file}
+        {#each media as file (file.path)}
           <button
             class="media-card"
             class:selected={selectedFile?.path === file.path}
@@ -265,6 +310,36 @@
       <div class="drop-overlay">Drop files to upload</div>
     {/if}
   </div>
+
+  <!-- Pagination -->
+  {#if !loading && total > 0}
+    <div class="pager">
+      <span class="pager-range">
+        {rangeStart}&ndash;{rangeEnd} of {total}
+      </span>
+      <div class="pager-controls">
+        <button
+          class="pager-btn"
+          onclick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          aria-label="Previous page"
+        >
+          Prev
+        </button>
+        <span class="pager-page" aria-live="polite">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          class="pager-btn"
+          onclick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          aria-label="Next page"
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  {/if}
 
   <!-- Detail Panel -->
   {#if selectedFile}
@@ -427,6 +502,55 @@
 
   .search-input:focus {
     border-color: var(--color-stone);
+  }
+
+  /* Pagination */
+  .pager {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+
+  .pager-range {
+    font-size: 0.8rem;
+    color: var(--color-stone);
+  }
+
+  .pager-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .pager-btn {
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--color-pearl);
+    background: var(--color-paper);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .pager-btn:hover:not(:disabled) {
+    border-color: var(--color-stone);
+  }
+
+  .pager-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .pager-page {
+    font-size: 0.8rem;
+    color: var(--color-stone);
+    min-width: 8.5rem;
+    text-align: center;
   }
 
   /* Error */

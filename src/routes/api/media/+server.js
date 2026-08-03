@@ -43,34 +43,92 @@ function getDownloadToken(metadata) {
   return String(tokens).split(',')[0];
 }
 
-/** GET — list all media files from Firebase Storage */
+const CATEGORIES = ['images', 'audio', 'video'];
+const DEFAULT_LIMIT = 10;
+const MAX_LIMIT = 100;
+
+/**
+ * @param {string | null} value
+ * @param {number} fallback
+ */
+function readInt(value, fallback) {
+  const n = Number.parseInt(value ?? '', 10);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+/** @param {string | undefined} iso */
+function timeOf(iso) {
+  const t = Date.parse(iso ?? '');
+  return Number.isNaN(t) ? 0 : t;
+}
+
+/**
+ * GET — one page of media files, newest first.
+ *
+ * Storage lists objects lexicographically, not by date, and the gallery orders
+ * newest-first across all three folders — so serving page N still means knowing
+ * every object's date. What pagination buys is the per-object work: `getFiles`
+ * already returns each object's full metadata in the list response (one request
+ * per 1000 objects), so the expensive part is the token backfill *write*, and
+ * that now runs only for the files on the page being returned rather than for
+ * the whole bucket on every load.
+ *
+ * Query: ?type=images|audio|video &q=<name filter> &page=<1-based> &limit=<n>
+ */
 export async function GET({ url }) {
-  const filterType = url.searchParams.get('type'); // 'images' | 'audio' | 'video' | null (all)
+  const filterType = url.searchParams.get('type'); // null = all
+  const query = (url.searchParams.get('q') || '').trim().toLowerCase();
+  const limit = Math.min(Math.max(readInt(url.searchParams.get('limit'), DEFAULT_LIMIT), 1), MAX_LIMIT);
+  const requestedPage = Math.max(readInt(url.searchParams.get('page'), 1), 1);
 
   try {
     const bucket = getMediaBucket();
-    const prefixes = filterType ? [filterType] : ['images', 'audio', 'video'];
-    const allFiles = [];
 
-    for (const prefix of prefixes) {
+    // Every folder is listed even when one is filtered for, so the toolbar's
+    // per-category counts stay accurate while a filter is applied.
+    const listed = [];
+    for (const category of CATEGORIES) {
       let files;
       try {
-        [files] = await bucket.getFiles({ prefix: `${prefix}/` });
+        [files] = await bucket.getFiles({ prefix: `${category}/` });
       } catch {
         // Folder might not exist yet, skip
         continue;
       }
-
       for (const file of files) {
         if (file.name.endsWith('/')) continue;
+        listed.push({ file, category, metadata: file.metadata || {} });
+      }
+    }
 
-        let metadata;
-        try {
-          [metadata] = await file.getMetadata();
-        } catch {
-          continue;
-        }
+    /** @type {Record<string, number>} */
+    const counts = { all: listed.length, images: 0, audio: 0, video: 0 };
+    for (const entry of listed) counts[entry.category]++;
 
+    // Filter and search run server-side: paginating a client-side search would
+    // only ever search the page already on screen.
+    let matches = listed;
+    if (filterType && CATEGORIES.includes(filterType)) {
+      matches = matches.filter((entry) => entry.category === filterType);
+    }
+    if (query) {
+      matches = matches.filter((entry) =>
+        (entry.file.name.split('/').pop() || '').toLowerCase().includes(query)
+      );
+    }
+
+    matches.sort((a, b) => timeOf(b.metadata.timeCreated) - timeOf(a.metadata.timeCreated));
+
+    const total = matches.length;
+    const totalPages = Math.max(1, Math.ceil(total / limit));
+    // Clamped rather than 404'd: deleting the last file on the last page would
+    // otherwise strand the client on a page that no longer exists.
+    const currentPage = Math.min(requestedPage, totalPages);
+    const start = (currentPage - 1) * limit;
+    const pageEntries = matches.slice(start, start + limit);
+
+    const files = await Promise.all(
+      pageEntries.map(async ({ file, category, metadata }) => {
         let token = getDownloadToken(metadata);
         if (!token) {
           // Backfill a token so legacy uploads become viewable
@@ -87,22 +145,20 @@ export async function GET({ url }) {
           }
         }
 
-        allFiles.push({
+        return {
           name: file.name.split('/').pop(),
           path: file.name,
           url: getPublicUrl(bucket, file.name, token),
           contentType: metadata.contentType || 'application/octet-stream',
           size: Number(metadata.size || 0),
-          category: prefix,
+          category,
           created: metadata.timeCreated || new Date().toISOString(),
           updated: metadata.updated || metadata.timeCreated || new Date().toISOString(),
-        });
-      }
-    }
+        };
+      })
+    );
 
-    allFiles.sort((a, b) => new Date(b.created) - new Date(a.created));
-
-    return json(allFiles);
+    return json({ files, page: currentPage, limit, total, totalPages, counts });
   } catch (err) {
     console.error('Failed to list media:', err);
     throw error(500, 'Failed to list media');

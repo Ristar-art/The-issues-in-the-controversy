@@ -3,7 +3,10 @@
     import { page } from '$app/stores';
 
     type NavChild = { href: string; label: string };
-    type NavLink = { href: string; label: string; children?: NavChild[] };
+    // A dropdown is a set of titled columns rather than one flat list, so the
+    // destinations read as collections instead of six equal siblings.
+    type NavSection = { title: string; items: NavChild[] };
+    type NavLink = { href: string; label: string; sections?: NavSection[] };
 
     let { landing = false } = $props();
     let isOpen = $state(false);
@@ -23,13 +26,26 @@
         {
             href: '/topics',
             label: 'Explore',
-            children: [
-                { href: '/topics', label: 'Topics' },
-                { href: '/videos', label: 'Videos' },
-                { href: '/seals', label: 'Seals' },
-                { href: '/beast', label: 'Beast' },
-                { href: '/symbols', label: 'Symbols' },
-                { href: '/books', label: 'Books' }
+            sections: [
+                {
+                    title: 'Studies',
+                    items: [{ href: '/topics', label: 'Topics' }]
+                },
+                {
+                    title: 'Literary Genres',
+                    items: [
+                        { href: '/videos', label: 'Videos' },
+                        { href: '/books', label: 'Books' }
+                    ]
+                },
+                {
+                    title: 'Visions',
+                    items: [
+                        { href: '/seals', label: 'Seals' },
+                        { href: '/beasts', label: 'Beasts' },
+                        { href: '/symbols', label: 'Symbols' }
+                    ]
+                }
             ]
         },
         { href: '/about', label: 'About' },
@@ -42,9 +58,14 @@
         if (href === '/') return pathname === '/';
         return pathname === href || pathname.startsWith(href + '/');
     }
-    // A group reads as active whenever the route sits on any of its children.
+    function childLinks(link: NavLink): NavChild[] {
+        return link.sections?.flatMap((s) => s.items) ?? [];
+    }
+    // A group reads as active whenever the route sits on any of its children,
+    // whichever section that child happens to live in.
     function isGroupActive(link: NavLink) {
-        return link.children ? link.children.some((c) => isActive(c.href)) : isActive(link.href);
+        const kids = childLinks(link);
+        return kids.length ? kids.some((c) => isActive(c.href)) : isActive(link.href);
     }
 
     function toggle() { isOpen = !isOpen; }
@@ -118,7 +139,7 @@
 
         <div class="doc-nav__links">
             {#each navLinks as link}
-                {#if link.children}
+                {#if link.sections}
                     <!-- Opens on hover for pointers, on click/Enter for
                          keyboard and touch, where hover never fires. -->
                     <div
@@ -150,16 +171,21 @@
 
                         {#if openGroup === link.label}
                             <div class="doc-nav__menu">
-                                {#each link.children as child}
-                                    <a
-                                        href={child.href}
-                                        class="doc-nav__menuitem"
-                                        class:is-active={isActive(child.href)}
-                                        aria-current={isActive(child.href) ? 'page' : undefined}
-                                        on:click={closeGroup}
-                                    >
-                                        {child.label}
-                                    </a>
+                                {#each link.sections as section}
+                                    <div class="doc-nav__menucol">
+                                        <p class="doc-nav__menutitle">{section.title}</p>
+                                        {#each section.items as child}
+                                            <a
+                                                href={child.href}
+                                                class="doc-nav__menuitem"
+                                                class:is-active={isActive(child.href)}
+                                                aria-current={isActive(child.href) ? 'page' : undefined}
+                                                on:click={closeGroup}
+                                            >
+                                                {child.label}
+                                            </a>
+                                        {/each}
+                                    </div>
                                 {/each}
                             </div>
                         {/if}
@@ -218,7 +244,7 @@
     {#if isOpen}
         <div class="doc-nav__mobile">
             {#each navLinks as link}
-                {#if link.children}
+                {#if link.sections}
                     <button
                         type="button"
                         class="doc-nav__mobiletrigger"
@@ -240,15 +266,18 @@
                     </button>
                     {#if openMobileGroup === link.label}
                         <div class="doc-nav__mobilesub">
-                            {#each link.children as child}
-                                <a
-                                    href={child.href}
-                                    on:click={toggle}
-                                    class:is-active={isActive(child.href)}
-                                    aria-current={isActive(child.href) ? 'page' : undefined}
-                                >
-                                    {child.label}
-                                </a>
+                            {#each link.sections as section}
+                                <p class="doc-nav__mobilesubtitle">{section.title}</p>
+                                {#each section.items as child}
+                                    <a
+                                        href={child.href}
+                                        on:click={toggle}
+                                        class:is-active={isActive(child.href)}
+                                        aria-current={isActive(child.href) ? 'page' : undefined}
+                                    >
+                                        {child.label}
+                                    </a>
+                                {/each}
                             {/each}
                         </div>
                     {/if}
@@ -361,15 +390,19 @@
     }
     .doc-nav__caret.is-open { transform: rotate(180deg); }
 
+    /* Anchored to the trigger's left edge rather than centred on it: at the
+       900px breakpoint a panel this wide, centred, would hang off the left of
+       the viewport. Growing rightwards keeps it on screen at every width. */
     .doc-nav__menu {
         position: absolute;
         top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        min-width: 13rem;
-        display: flex;
-        flex-direction: column;
-        padding: 0.5rem 0;
+        left: 0;
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(9.5rem, max-content);
+        gap: 0 0.75rem;
+        max-width: min(48rem, calc(100vw - 2rem));
+        padding: 1rem 0.75rem 1.15rem;
         background: var(--doc-nav-mobile-bg);
         backdrop-filter: blur(14px) saturate(1.1);
         -webkit-backdrop-filter: blur(14px) saturate(1.1);
@@ -380,8 +413,29 @@
         animation: docMenuIn 0.18s ease-out;
     }
     @keyframes docMenuIn {
-        from { opacity: 0; transform: translate(-50%, -6px); }
-        to { opacity: 1; transform: translate(-50%, 0); }
+        from { opacity: 0; transform: translateY(-6px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- Grouped columns ---------- */
+    .doc-nav__menucol {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+    /* A hairline under each heading separates the collections without needing
+       vertical rules, which would collide with the items' active indicator. */
+    .doc-nav__menutitle {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.625rem;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--doc-dim);
+        margin: 0 0 0.45rem;
+        padding: 0 0.75rem 0.5rem;
+        border-bottom: 1px solid var(--doc-line-soft);
+        white-space: nowrap;
     }
     .doc-nav__menuitem {
         font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -391,7 +445,7 @@
         text-transform: uppercase;
         color: var(--doc-muted);
         text-decoration: none;
-        padding: 0.7rem 1.25rem;
+        padding: 0.55rem 0.75rem;
         border-left: 2px solid transparent;
         transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease;
     }
@@ -508,4 +562,17 @@
         border-bottom: none;
         padding: 0.55rem 0;
     }
+    /* The sheet is one narrow column, so the groups stack instead of sitting
+       side by side — same headings, read top to bottom. */
+    .doc-nav__mobilesubtitle {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.5625rem;
+        font-weight: 500;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--doc-dim);
+        opacity: 0.7;
+        margin: 0.7rem 0 0.15rem;
+    }
+    .doc-nav__mobilesubtitle:first-child { margin-top: 0.2rem; }
 </style>
