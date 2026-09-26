@@ -113,7 +113,7 @@
 <svelte:window on:keydown={onKeydown} />
 
 <svelte:head>
-    <title>Videos — The Issues in the Controversy</title>
+    <title>Videos - The Issues in the Controversy</title>
     <meta
         name="description"
         content="Every episode of The Endgame of Heaven — an immersive walkthrough of the prophecies of Daniel and Revelation, episode by episode."

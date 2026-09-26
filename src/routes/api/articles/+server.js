@@ -1,5 +1,6 @@
 import { json, error } from '@sveltejs/kit';
 import { adminDb } from '$lib/firebase/admin';
+import { normalizeFocus } from '$lib/utils/image-focus';
 
 const pagesRef = adminDb.collection('pages');
 
@@ -30,7 +31,8 @@ export async function POST({ request }) {
         componentIds: body.componentIds || [],
         blocks: body.blocks || [{ type: 'text', text: '' }],
         published: false,
-        featuredImage: body.featuredImage || null
+        featuredImage: body.featuredImage || null,
+        featuredImageFocus: body.featuredImage ? normalizeFocus(body.featuredImageFocus) : null
       }
     };
 
@@ -60,7 +62,7 @@ export async function PUT({ request }) {
     }
 
     const currentData = doc.data();
-    const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published', 'blocks', 'featuredImage'];
+    const allowedFields = ['title', 'slug', 'content', 'componentIds', 'published', 'blocks', 'featuredImage', 'featuredImageFocus'];
     const attributeUpdates = {};
 
     for (const field of allowedFields) {
@@ -68,9 +70,23 @@ export async function PUT({ request }) {
         // featuredImage: null is how the client signals "remove from article
         // (but keep the asset in the gallery)". Persist null directly so the
         // field definitely overwrites whatever was there before.
-        attributeUpdates[`attributes.${field}`] =
-          field === 'featuredImage' && !updates[field] ? null : updates[field];
+        if (field === 'featuredImage') {
+          attributeUpdates['attributes.featuredImage'] = updates[field] || null;
+        } else if (field === 'featuredImageFocus') {
+          // Clamped server-side so a bad payload can never produce an
+          // object-position the pages cannot render.
+          attributeUpdates['attributes.featuredImageFocus'] =
+            updates[field] ? normalizeFocus(updates[field]) : null;
+        } else {
+          attributeUpdates[`attributes.${field}`] = updates[field];
+        }
       }
+    }
+
+    // Dropping the image drops its focal point with it, even if the client
+    // forgot to say so.
+    if (attributeUpdates['attributes.featuredImage'] === null) {
+      attributeUpdates['attributes.featuredImageFocus'] = null;
     }
 
     await docRef.update(attributeUpdates);

@@ -58,6 +58,30 @@
   --doc-nav-mobile-bg: rgba(11, 11, 13, 0.96);
   --doc-shadow: rgba(0, 0, 0, 0.55);
 
+  /* The seven churches — one hue per condition, shared by the churches chart
+     and the letters under it. Each has a light-mode value below, because a
+     tone that carries on the dark ground disappears on paper. */
+  --ch-ephesus: #e8e2d4;
+  --ch-smyrna: #a89f8e;
+  --ch-pergamos: #edb445;
+  --ch-thyatira: #ec4128;
+  --ch-sardis: #a9bb9b;
+  --ch-philadelphia: #f2d94f;
+  --ch-laodicea: #4d78ff;
+
+  /* Revelation 17 — the beast chart. The status colours are the ones the
+     source chart uses (fallen / standing / not yet come), pulled back far
+     enough to sit beside the parchment palette. Circle labels are dark ink in
+     both themes, so every fill here has to stay light enough to carry it. */
+  --bh-fallen: #6fae52;
+  --bh-present: #e0523a;
+  --bh-future: #e8bd42;
+  --bh-woman: #a566bd;
+  --bh-beast: #c2402c;
+  --bh-beast-edge: #7e2417;
+  --bh-horn: #efe8db;
+  --bh-ink: #14120e;
+
   /* Dark editorial legacy (kept for admin/other pages) */
   --c-void: #050507;
   --c-bg: #0a0a0c;
@@ -89,6 +113,23 @@
   --doc-nav-veil: rgba(244, 239, 230, 0.72);
   --doc-nav-mobile-bg: rgba(244, 239, 230, 0.97);
   --doc-shadow: rgba(31, 28, 22, 0.22);
+
+  --ch-ephesus: #8c7d5f;
+  --ch-smyrna: #5c5548;
+  --ch-pergamos: #a97a10;
+  --ch-thyatira: #c0301a;
+  --ch-sardis: #5f7a4d;
+  --ch-philadelphia: #97810f;
+  --ch-laodicea: #1f4fd8;
+
+  --bh-fallen: #5f9c45;
+  --bh-present: #d24429;
+  --bh-future: #dcae2e;
+  --bh-woman: #8c4ea6;
+  --bh-beast: #b8391f;
+  --bh-beast-edge: #6d1d12;
+  --bh-horn: #2b2620;
+  --bh-ink: #14120e;
 }
 
 body {

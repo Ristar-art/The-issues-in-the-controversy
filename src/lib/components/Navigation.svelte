@@ -23,33 +23,37 @@
 
     const navLinks: NavLink[] = [
         { href: '/', label: 'Home' },
+        { href: '/faoundations', label: 'Faoundations' },
         {
             href: '/topics',
             label: 'Explore',
             sections: [
                 {
                     title: 'Studies',
-                    items: [{ href: '/topics', label: 'Topics' }]
-                },
-                {
-                    title: 'Literary Genres',
                     items: [
-                        { href: '/videos', label: 'Videos' },
-                        { href: '/books', label: 'Books' }
-                    ]
+                        { href: '/overview', label: 'Overview' },
+                        { href: '/symbols', label: 'Symbols' },
+                        { href: '/scene/revelation-4', label: 'Throne Room' },
+                        { href: '/churches', label: '7 Churches' },
+                ]
                 },
                 {
-                    title: 'Visions',
+                    title: "Christ's Kingdom",
                     items: [
                         { href: '/seals', label: 'Seals' },
-                        { href: '/beasts', label: 'Beasts' },
-                        { href: '/symbols', label: 'Symbols' }
+                        { href: '/flashbacks', label: 'Flashbacks' },
+                        { href: '/the-144000', label: 'The 144,000' },                    ]
+                },
+                {
+                    title: "Beast's Kingdom",
+                    items: [
+                        { href: '/beast', label: 'The Beast' },
                     ]
                 }
             ]
         },
+        { href: '/videos', label: 'Videos' },
         { href: '/about', label: 'About' },
-        { href: '/blog', label: 'Blog' },
         { href: '/contact', label: 'Contact' }
     ];
 
@@ -204,7 +208,7 @@
         </div>
 
         <div class="doc-nav__actions">
-            <a href="/topics" class="doc-nav__search">Search</a>
+            <a href="/topics" class="doc-nav__search">Topics</a>
             <button
                 class="doc-nav__theme"
                 on:click={toggleTheme}

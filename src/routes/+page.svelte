@@ -1,6 +1,9 @@
 <script>
     import SearchBar from '$lib/components/SearchBar.svelte';
     import { getVideoId, getThumbnailUrl, episodeLabel } from '$lib/data/videos.js';
+    import { SEALS, SEALS_TITLE, SEALS_SUBTITLE } from '$lib/data/seals.js';
+    import { FEATURED_SYMBOLS } from '$lib/data/symbols.js';
+    import { THESIS_ITEMS, CENTRAL_QUESTION } from '$lib/data/thesis.js';
 
     const { data } = $props();
     const landing = data.landing ?? {};
@@ -11,12 +14,14 @@
     const heroCta = { label: 'Begin the Story', href: '/topics' };
     const heroCtaSecondary = { label: 'Read the Brief', href: '#chapters' };
 
+
     // ----- Chapters (Key Topics) -----
     const chapters = [
+        
         {
             title: 'The Overview of Daniel and Revelation',
             description: 'A panoramic view of the prophecies in the books of Daniel and Revelation.',
-            href: 'the-overview-of-daniel-and-revelations'
+            href: 'the-overview-of-daniel-and-revelation'
         },
         {
             title: 'Analysis of the Judgment of the Kingdoms',
@@ -36,17 +41,10 @@
     ];
 
     // ----- The Seven Seals (Progress) -----
-    const progressTitle = 'The Seven Seals';
-    const progressEyebrow = 'The state of the Church, the kingdom of Christ.';
-    const progressDefaults = [
-        { era: '1st Seal', title: 'The White Horse', body: 'The church in its infancy, while it was still pure, in the age of the apostles.', img:"/white horse.jpg", alt:"An image of the rider on a white horse" },
-        { era: '2nd Seal', title: 'The Red Horse', body: 'The church in the age of compromise, while it was being widely adopted and also being corrupted.',img:"/red horse.jpg", alt:"An image of the rider on a red horse" },
-        { era: '3rd Seal', title: 'The Black Horse', body: 'The age where the word of God was being sold by the church.',img:"/black horse.jpg", alt: "An image of the rider on a black horse" },
-        { era: '4th Seal', title: 'The Pale Horse', body: 'An era where the church became the source of death.',img:"/pale horse.jpg", alt: "An image of the rider on a pale horse" },
-        { era: '5th Seal', title: 'The Souls Under The Altar', body: 'The period of the pre-advent judgement. The saints of God are vindicated.',img:"/the fith seal.jpg", alt: "An image of the souls under the altar" },
-        { era: '6th Seal', title: 'The Apocalyptic Events', body: 'The Spirit of God and His protection are withdrawn from earth.',img:"/Appocalips.jpg", alt: "An image of apocalyptic events" },
-        { era: '7th Seal', title: 'The Seven Trumpets', body: 'The close of probation. There is no more grace given.',img:"/seven trampets.jpg", alt:"An image of seven angels with seven trumpets" }
-    ];
+    // The full treatment lives at /seals; this strip is the teaser for it.
+    const progressTitle = SEALS_TITLE;
+    const progressEyebrow = SEALS_SUBTITLE;
+    const progressDefaults = SEALS;
 
     let timelineScroller;
     function scrollTimelineBy(dx) {
@@ -65,25 +63,14 @@
     function closeModal() { selectedVideo = null; }
 
     // ----- The Thesis (Issue / Solution / Our Part) -----
-    const thesisItems = [
-        { num: 'I', title: 'The Issue', description: 'What are the key areas of satan’s assault and why it worked.', cta: { href: 'the-issue', label: 'Read More' } },
-        { num: 'II', title: "God's Solution", description: "What is God's answer to the challenges laid against Him by satan?", cta: { href: 'gods-solution', label: 'Read More' } },
-        { num: 'III', title: 'Our Part', description: 'Understanding our role in the greater plan and how we can contribute positively.', cta: { href: 'our-part', label: 'Read More' } }
-    ];
+    const thesisItems = THESIS_ITEMS;
 
     // ----- Symbols (Decoding the Code) -----
-    const symbolsItems = [
-        { title: 'A Beast', description: 'Kingdom / Political Power' },
-        { title: 'A Woman', description: 'A Religious Body' },
-        { title: 'Earth and Water', description: 'Geography' }
-    ];
+    // The full lexicon lives at /symbols; these three are its front rank.
+    const symbolsItems = FEATURED_SYMBOLS;
 
     // ----- The Truth -----
-    const truthPoints = [
-        'Who and what is God the Father?',
-        'What is the identity of Jesus Christ, the Word of God?',
-        'Is the Holy Spirit a self-existent being like the Father and Jesus Christ?'
-    ];
+    const truthPoints = CENTRAL_QUESTION.points;
 
     // ----- Government -----
     const governmentItems = [
@@ -116,7 +103,7 @@
 </script>
 
 <svelte:head>
-    <title>The Endgame of Heaven — A Prophecy Documentary | Daniel & Revelation</title>
+    <title>The Endgame of Heaven | Daniel & Revelation</title>
     <meta name="title" content="The Endgame of Heaven — A Prophecy Documentary | Daniel & Revelation" />
     <meta name="description" content="A documentary journey through the prophecies of Daniel and Revelation — the seven seals, the character of God, and the great controversy unfolding to its end." />
     <meta name="keywords" content="biblical prophecy, book of daniel, book of revelation, seven seals, character of god, prophetic symbols, kingdom of god, spiritual warfare" />
@@ -203,7 +190,7 @@
         <!-- ======================================================== -->
         <!-- CHAPTERS — Key Topics                                      -->
         <!-- ======================================================== -->
-        <section id="chapters" class="doc-chapters" use:reveal>
+        <!-- <section id="chapters" class="doc-chapters" use:reveal>
             <header class="doc-section-head">
                 <p class="doc-act">Act I · The Foundations</p>
                 <h2 class="doc-section-title">Chapters</h2>
@@ -225,7 +212,7 @@
                     </li>
                 {/each}
             </ol>
-        </section>
+        </section> -->
 
         <!-- ======================================================== -->
         <!-- THE SEVEN SEALS — Filmstrip                                -->
@@ -259,6 +246,8 @@
                     </article>
                 {/each}
             </div>
+
+            <a href="/seals" class="doc-btn doc-btn--ghost doc-seals__more">Open the Seven Seals</a>
         </section>
 
         <!-- ======================================================== -->
@@ -287,7 +276,7 @@
                 {/if}
 
                 <div class="doc-playlist">
-                    <p class="doc-playlist__intro">An immersive walkthrough of the Endgame of Heaven — the series, episode by episode.</p>
+                    <p class="doc-playlist__intro">An immersive walkthrough of the Endgame of Heaven - the series, episode by episode.</p>
                     <ul>
                         {#each sideVideos as video}
                             {@const vId = getVideoId(video.embedUrl)}
@@ -347,7 +336,7 @@
                     </div>
                 {/each}
             </dl>
-            <a href="prhophetic-symbols-and-their-meaning" class="doc-textlink doc-textlink--center">View the Full Lexicon</a>
+            <a href="/symbols" class="doc-textlink doc-textlink--center">View the Full Lexicon</a>
         </section>
 
         <!-- ======================================================== -->
@@ -809,18 +798,23 @@
         transition: filter 0.6s ease, transform 0.9s ease;
     }
     .doc-still:hover .doc-still__img { filter: grayscale(0) contrast(1.05) brightness(1); transform: scale(1.04); }
+    /* The timecode sits on the photo, over its own dark scrim, so its text
+       stays light in both themes rather than following --ink. */
     .doc-still__tc {
         position: absolute;
         left: 0.85rem; bottom: 0.7rem;
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.625rem; letter-spacing: 0.2em;
-        color: var(--ink);
-        background: rgba(11,11,13,0.7);
+        color: #f1ebe0;
+        background: rgba(11,11,13,0.78);
         padding: 0.3rem 0.55rem;
         backdrop-filter: blur(4px);
     }
     .doc-still__title { font-size: clamp(1.4rem, 2.5vw, 1.9rem); margin-bottom: 0.7rem; }
     .doc-still__body { font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
+    /* The strip scrolls sideways, so the way onward sits under it rather than
+       at its end, where it would be hidden until the last card is reached. */
+    .doc-seals__more { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
 
     /* ============================================================
        SCREENING ROOM

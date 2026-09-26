@@ -3,6 +3,13 @@
   import { page } from '$app/stores';
   import { createEventDispatcher, onMount } from 'svelte';
   import { compressImageToWebp } from '$lib/utils/compress-image';
+  import FeaturedImageFocus from '$lib/components/FeaturedImageFocus.svelte';
+  import { DEFAULT_FOCUS, normalizeFocus, focusToObjectPosition } from '$lib/utils/image-focus';
+
+  interface Focus {
+    x: number;
+    y: number;
+  }
 
   // Define interfaces for type safety
   interface Article {
@@ -12,6 +19,7 @@
       slug: string;
       published: boolean;
       featuredImage?: string;
+      featuredImageFocus?: Focus | null;
     };
   }
 
@@ -26,6 +34,7 @@
   let newArticleTitle: string = '';
   let newArticleSlug: string = '';
   let newFeaturedImage: string = '';
+  let newFeaturedFocus: Focus = { ...DEFAULT_FOCUS };
   let uploadingImage: boolean = false;
   let creating: boolean = false;
 
@@ -34,6 +43,7 @@
   let editTitle: string = '';
   let editSlug: string = '';
   let editFeaturedImage: string = '';
+  let editFeaturedFocus: Focus = { ...DEFAULT_FOCUS };
   let uploadingEditImage: boolean = false;
 
   // Event dispatcher to communicate with parent component
@@ -128,18 +138,26 @@
 
     uploadingImage = true;
     const url = await uploadToStorage(file);
-    if (url) newFeaturedImage = url;
+    if (url) {
+      newFeaturedImage = url;
+      // A different image means the old focal point no longer means anything.
+      newFeaturedFocus = { ...DEFAULT_FOCUS };
+    }
     uploadingImage = false;
     input.value = '';
   }
 
   async function pickNewFeaturedImage(): Promise<void> {
     const url = await openGalleryPicker();
-    if (url) newFeaturedImage = url;
+    if (url) {
+      newFeaturedImage = url;
+      newFeaturedFocus = { ...DEFAULT_FOCUS };
+    }
   }
 
   function removeFeaturedImage(): void {
     newFeaturedImage = '';
+    newFeaturedFocus = { ...DEFAULT_FOCUS };
   }
 
   async function handleEditImageUpload(event: Event): Promise<void> {
@@ -149,19 +167,26 @@
 
     uploadingEditImage = true;
     const url = await uploadToStorage(file);
-    if (url) editFeaturedImage = url;
+    if (url) {
+      editFeaturedImage = url;
+      editFeaturedFocus = { ...DEFAULT_FOCUS };
+    }
     uploadingEditImage = false;
     input.value = '';
   }
 
   async function pickEditFeaturedImage(): Promise<void> {
     const url = await openGalleryPicker();
-    if (url) editFeaturedImage = url;
+    if (url) {
+      editFeaturedImage = url;
+      editFeaturedFocus = { ...DEFAULT_FOCUS };
+    }
   }
 
   async function removeEditFeaturedImage(): Promise<void> {
     // Clear locally first so the UI responds immediately.
     editFeaturedImage = '';
+    editFeaturedFocus = { ...DEFAULT_FOCUS };
 
     // Only persist if we're editing an existing article. The file in the
     // gallery is left alone — we only strip the reference from the doc.
@@ -174,6 +199,7 @@
         body: JSON.stringify({
           id: editingId,
           featuredImage: null,
+          featuredImageFocus: null,
         })
       });
       if (!response.ok) throw new Error('Failed to remove featured image');
@@ -195,6 +221,7 @@
           title: newArticleTitle,
           slug: newArticleSlug,
           featuredImage: newFeaturedImage || undefined,
+          featuredImageFocus: newFeaturedImage ? newFeaturedFocus : undefined,
         })
       });
       if (!response.ok) throw new Error('Failed to create article');
@@ -206,6 +233,7 @@
       newArticleTitle = '';
       newArticleSlug = '';
       newFeaturedImage = '';
+      newFeaturedFocus = { ...DEFAULT_FOCUS };
     } catch (err: any) {
       error = err.message;
     } finally {
@@ -250,6 +278,7 @@
           title,
           slug,
           featuredImage: editFeaturedImage || null,
+          featuredImageFocus: editFeaturedImage ? editFeaturedFocus : null,
         })
       });
       if (!response.ok) throw new Error('Failed to update article');
@@ -293,6 +322,7 @@
     editTitle = article.attributes.title;
     editSlug = article.attributes.slug;
     editFeaturedImage = article.attributes.featuredImage || '';
+    editFeaturedFocus = normalizeFocus(article.attributes.featuredImageFocus);
   }
 
   function cancelEditing(): void {
@@ -300,6 +330,7 @@
     editTitle = '';
     editSlug = '';
     editFeaturedImage = '';
+    editFeaturedFocus = { ...DEFAULT_FOCUS };
   }
 </script>
 
@@ -354,7 +385,7 @@
                 <label class="block text-sm font-semibold uppercase tracking-wider text-stone mb-2">Featured Image</label>
                 {#if newFeaturedImage}
                   <div class="featured-image-preview">
-                    <img src={newFeaturedImage} alt="Featured" class="featured-image-img" />
+                    <FeaturedImageFocus src={newFeaturedImage} bind:focus={newFeaturedFocus} />
                     <button
                       type="button"
                       onclick={removeFeaturedImage}
@@ -456,7 +487,7 @@
                     <label class="block text-sm font-semibold uppercase tracking-wider text-stone mb-2">Featured Image</label>
                     {#if editFeaturedImage}
                       <div class="featured-image-preview">
-                        <img src={editFeaturedImage} alt="Featured" class="featured-image-img" />
+                        <FeaturedImageFocus src={editFeaturedImage} bind:focus={editFeaturedFocus} />
                         <button
                           type="button"
                           onclick={removeEditFeaturedImage}
@@ -527,7 +558,12 @@
               {:else}
                 {#if article.attributes.featuredImage}
                   <div class="article-featured-thumb mb-4">
-                    <img src={article.attributes.featuredImage} alt="Featured" class="article-featured-thumb-img" />
+                    <img
+                      src={article.attributes.featuredImage}
+                      alt="Featured"
+                      class="article-featured-thumb-img"
+                      style="object-position: {focusToObjectPosition(article.attributes.featuredImageFocus)};"
+                    />
                   </div>
                 {/if}
                 <div class="flex items-start justify-between gap-4 mb-4">
@@ -704,17 +740,13 @@
   .featured-image-preview {
     position: relative;
     border: 1px solid var(--color-pearl);
-  }
-  .featured-image-img {
-    width: 100%;
-    height: 10rem;
-    object-fit: cover;
-    display: block;
+    padding: 0.75rem;
   }
   .featured-image-remove {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
+    z-index: 3;
     background: rgba(0, 0, 0, 0.6);
     color: white;
     border: none;
