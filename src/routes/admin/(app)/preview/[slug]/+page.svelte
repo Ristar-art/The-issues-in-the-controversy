@@ -1,5 +1,11 @@
 <script>
+  import { focusToObjectPosition } from '$lib/utils/image-focus';
+
   export let data;
+
+  // Mirrors the public page: the focal point chosen in the pages editor decides
+  // what stays visible once the hero crops the image.
+  $: heroPosition = focusToObjectPosition(data.article.featuredImageFocus);
 </script>
 
 <div class="preview-page">
@@ -28,7 +34,7 @@
   <!-- Hero Image -->
   {#if data.article.featuredImage}
     <div class="hero-image">
-      <img src={data.article.featuredImage} alt={data.article.title} />
+      <img src={data.article.featuredImage} alt={data.article.title} style="object-position: {heroPosition};" />
       <div class="hero-overlay">
         <h1 class="hero-title">{data.article.title}</h1>
       </div>

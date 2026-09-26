@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-    <title>{isNotFound ? '404 — Page Not Found' : `${status} — Error`} · The Issues in the Controversy</title>
+    <title>{isNotFound ? '404 - Page Not Found' : `${status} - Error`} · The Issues in the Controversy</title>
     <meta name="robots" content="noindex" />
 </svelte:head>
 

@@ -1,4 +1,6 @@
 // src/routes/sitemap.xml/+server.js
+import { SEALS } from '$lib/data/seals.js';
+
 export async function GET() {
     const baseUrl = 'https://the-issues-in-the-controversy.vercel.app/'; // Replace with your actual domain
     
@@ -75,7 +77,80 @@ export async function GET() {
             changefreq: 'yearly',
             priority: '0.5',
             lastmod: new Date().toISOString().split('T')[0]
-        }
+        },
+        {
+            url: '/the-144000',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/churches',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/seals',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/beast',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/symbols',
+            changefreq: 'monthly',
+            priority: '0.8',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/overview',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/overview/revelation',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/overview/daniel',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/flashbacks',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/scene/revelation-4',
+            changefreq: 'monthly',
+            priority: '0.8',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        {
+            url: '/faoundations',
+            changefreq: 'monthly',
+            priority: '0.9',
+            lastmod: new Date().toISOString().split('T')[0]
+        },
+        // One entry per seal, taken from the same list the pages render from.
+        ...SEALS.map(seal => ({
+            url: `/seals/${seal.id}`,
+            changefreq: 'monthly',
+            priority: '0.7',
+            lastmod: new Date().toISOString().split('T')[0]
+        }))
     ];
 
     // Generate XML sitemap

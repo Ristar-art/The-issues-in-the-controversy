@@ -31,7 +31,7 @@
 </script>
 
 <svelte:head>
-    <title>Topics — The Issues in the Controversy</title>
+    <title>Topics - The Issues in the Controversy</title>
     <meta name="description" content="Explore our comprehensive topics on biblical prophecy, Daniel, Revelation, and God's character." />
 </svelte:head>
 

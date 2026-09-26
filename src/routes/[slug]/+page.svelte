@@ -1,9 +1,16 @@
 <script>
+    import { focusToObjectPosition } from '$lib/utils/image-focus';
+    import HeroExpand from '$lib/components/HeroExpand.svelte';
+
     export let data;
+
+    // Which part of the featured image survives the hero crop — set per page
+    // in the admin pages editor.
+    $: heroPosition = focusToObjectPosition(data.article.featuredImageFocus);
 </script>
 
 <svelte:head>
-    <title>{data.article.title} — The Issues in the Controversy</title>
+    <title>{data.article.title} - The Issues in the Controversy</title>
 </svelte:head>
 
 <div class="doc-article">
@@ -13,8 +20,22 @@
             <!-- HERO with featured image                       -->
             <!-- ============================================ -->
             <section class="doc-article__hero">
-                <img src={data.article.featuredImage} alt={data.article.title} class="doc-article__hero-img" />
+                <img
+                    src={data.article.featuredImage}
+                    alt={data.article.title}
+                    class="doc-article__hero-img"
+                    style="object-position: {heroPosition};"
+                />
                 <div class="doc-article__hero-scrim" aria-hidden="true"></div>
+
+                <!-- The hero crops to a focal point set in the admin editor;
+                     this is how a reader sees the frame it was cut from. -->
+                <HeroExpand
+                    src={data.article.featuredImage}
+                    alt={data.article.title}
+                    caption={data.article.title}
+                />
+
                 <div class="doc-article__hero-content">
                     <a href="/topics" class="doc-article__back doc-article__back--light">
                         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -89,6 +110,12 @@
     .doc-article__hero-scrim {
         position: absolute; inset: 0;
         background: linear-gradient(to top, var(--doc-bg) 1%, rgba(11,11,13,0.35) 45%, rgba(11,11,13,0.15) 100%);
+    }
+    /* The hero owns the hover; the hint only obeys it. */
+    .doc-article__hero:hover :global(.hero-expand__hint) { opacity: 1; transform: none; }
+    /* Touch shows the hint permanently, so the title has to make room for it. */
+    @media (max-width: 700px) {
+        .doc-article__hero-content { padding-bottom: 5.5rem; }
     }
     .doc-article__hero-content {
         position: relative; z-index: 2;
