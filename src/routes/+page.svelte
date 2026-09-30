@@ -2,13 +2,11 @@
     import SearchBar from '$lib/components/SearchBar.svelte';
     import { getVideoId, getThumbnailUrl, episodeLabel } from '$lib/data/videos.js';
     import { SEALS, SEALS_TITLE, SEALS_SUBTITLE } from '$lib/data/seals.js';
-    import { FEATURED_SYMBOLS } from '$lib/data/symbols.js';
-    import { THESIS_ITEMS, CENTRAL_QUESTION } from '$lib/data/thesis.js';
 
     const { data } = $props();
     const landing = data.landing ?? {};
 
-    const hero = '/homescreen (1).webp';
+    const hero = '/thetrhoneroom.jpg';
 
     // ----- Hero content -----
     const heroCta = { label: 'Begin the Story', href: '/topics' };
@@ -61,23 +59,6 @@
 
     function openModal(video) { selectedVideo = video; }
     function closeModal() { selectedVideo = null; }
-
-    // ----- The Thesis (Issue / Solution / Our Part) -----
-    const thesisItems = THESIS_ITEMS;
-
-    // ----- Symbols (Decoding the Code) -----
-    // The full lexicon lives at /symbols; these three are its front rank.
-    const symbolsItems = FEATURED_SYMBOLS;
-
-    // ----- The Truth -----
-    const truthPoints = CENTRAL_QUESTION.points;
-
-    // ----- Government -----
-    const governmentItems = [
-        { title: 'The Legal Law', description: 'The governance that works from outside to compel behaviour.' },
-        { title: 'The Nature Law', description: 'The governance that works from within to influence behaviour.' },
-        { title: 'The Politics of the Universe', description: 'The role of politics in how the masses choose the form of government they want to be under.' }
-    ];
 
     // ----- Scroll reveal -----
     function reveal(node) {
@@ -236,14 +217,21 @@
 
             <div bind:this={timelineScroller} class="doc-filmstrip no-scrollbar">
                 {#each progressDefaults as e, i}
-                    <article class="doc-still">
+                    <!-- The whole still is the link — each one opens that
+                         seal's own study rather than the index. -->
+                    <a class="doc-still" href="/seals/{e.id}">
                         <div class="doc-still__frame">
                             <img src={e.img} alt={e.alt} class="doc-still__img" loading="lazy" />
                             <span class="doc-still__tc">SEAL {String(i + 1).padStart(2, '0')} / 07</span>
                         </div>
-                        <h3 class="doc-still__title">{e.title}</h3>
+                        <h3 class="doc-still__title">
+                            {e.title}
+                            <svg class="doc-still__go" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+                            </svg>
+                        </h3>
                         <p class="doc-still__body">{e.body}</p>
-                    </article>
+                    </a>
                 {/each}
             </div>
 
@@ -255,7 +243,7 @@
         <!-- ======================================================== -->
         <section class="doc-screening" use:reveal>
             <header class="doc-section-head">
-                <p class="doc-act">Act III · The Screening Room</p>
+                <p class="doc-act">The Judgment Room</p>
                 <h2 class="doc-section-title">Revelation, Made Clear</h2>
             </header>
 
@@ -300,88 +288,11 @@
         </section>
 
         <!-- ======================================================== -->
-        <!-- THE THESIS — Issue / Solution / Our Part                   -->
-        <!-- ======================================================== -->
-        <section class="doc-thesis" use:reveal>
-            <header class="doc-section-head">
-                <p class="doc-act">Act IV · The Thesis</p>
-                <h2 class="doc-section-title">The Issue, The Answer, Our Part</h2>
-            </header>
-            <div class="doc-thesis__grid">
-                {#each thesisItems as item}
-                    <article class="doc-panel">
-                        <span class="doc-panel__num">{item.num}</span>
-                        <h3 class="doc-panel__title">{item.title}</h3>
-                        <p class="doc-panel__desc">{item.description}</p>
-                        <a href={`/${item.cta.href}`} class="doc-textlink">{item.cta.label}</a>
-                    </article>
-                {/each}
-            </div>
-        </section>
-
-        <!-- ======================================================== -->
-        <!-- DECODING THE SYMBOLS                                       -->
-        <!-- ======================================================== -->
-        <section class="doc-symbols" use:reveal>
-            <header class="doc-section-head">
-                <p class="doc-act">Reference · The Lexicon</p>
-                <h2 class="doc-section-title">Decoding the Symbols</h2>
-                <p class="doc-section-sub">Unlocking the prophetic vocabulary through textual evidence.</p>
-            </header>
-            <dl class="doc-glossary">
-                {#each symbolsItems as item}
-                    <div class="doc-glossary__row">
-                        <dt>{item.title}</dt>
-                        <dd>{item.description}</dd>
-                    </div>
-                {/each}
-            </dl>
-            <a href="/symbols" class="doc-textlink doc-textlink--center">View the Full Lexicon</a>
-        </section>
-
-        <!-- ======================================================== -->
-        <!-- THE TRUTH — Interrogation                                  -->
-        <!-- ======================================================== -->
-        <section class="doc-truth" use:reveal>
-            <p class="doc-act doc-act--center">The Central Question</p>
-            <h2 class="doc-truth__title">What is the truth<br />about <span class="doc-em">God?</span></h2>
-            <p class="doc-truth__sub">Is God a trinity?</p>
-            <ol class="doc-truth__list">
-                {#each truthPoints as point, i}
-                    <li>
-                        <span class="doc-tc">Q{String(i + 1).padStart(2, '0')}</span>
-                        <span>{point}</span>
-                    </li>
-                {/each}
-            </ol>
-            <a href="the-truth-about-god" class="doc-btn doc-btn--solid">Read the Investigation</a>
-        </section>
-
-        <!-- ======================================================== -->
-        <!-- GOVERNING THE SOUL — Government                            -->
-        <!-- ======================================================== -->
-        <section class="doc-gov" use:reveal>
-            <header class="doc-section-head">
-                <p class="doc-act">Act V · The Governments</p>
-                <h2 class="doc-section-title">The Framewoks of Governance</h2>
-            </header>
-            <div class="doc-gov__grid">
-                {#each governmentItems as item, i}
-                    <article class="doc-gov__card">
-                        <span class="doc-tc">{String(i + 1).padStart(2, '0')}</span>
-                        <h3 class="doc-gov__title">{item.title}</h3>
-                        <p class="doc-gov__desc">{item.description}</p>
-                    </article>
-                {/each}
-            </div>
-        </section>
-
-        <!-- ======================================================== -->
         <!-- END CARD                                                   -->
         <!-- ======================================================== -->
         <section class="doc-endcard" use:reveal>
-            <p class="doc-kicker">The story continues</p>
-            <h2 class="doc-endcard__title">Watch it all unfold.</h2>
+            <p class="doc-kicker">The Battle For The Kingdom</p>
+            <h2 class="doc-endcard__title">Be A Part Of It.</h2>
             <a href="/topics" class="doc-btn doc-btn--solid">Explore Every Topic</a>
         </section>
     </main>
@@ -500,7 +411,6 @@
         background: var(--ember);
         opacity: 0.7;
     }
-    .doc-act--center { justify-content: center; }
 
     /* ---------- Buttons ---------- */
     .doc-btn {
@@ -523,21 +433,6 @@
     .doc-btn--ghost { color: var(--ink); border: 1px solid var(--line); }
     .doc-btn--ghost:hover { border-color: var(--ember); color: var(--ember-soft); }
 
-    .doc-textlink {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.6875rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: var(--ember-soft);
-        text-decoration: none;
-        border-bottom: 1px solid var(--line);
-        padding-bottom: 0.35rem;
-        transition: border-color 0.3s ease, color 0.3s ease;
-        align-self: flex-start;
-    }
-    .doc-textlink:hover { border-color: var(--ember); color: var(--ember); }
-    .doc-textlink--center { display: block; width: max-content; margin: 3rem auto 0; }
-
     /* ---------- Section scaffolding ---------- */
     main > section { padding-inline: clamp(1.5rem, 6vw, 7rem); }
 
@@ -556,15 +451,13 @@
     .doc-section-sub { margin-top: 1rem; color: var(--muted); max-width: 40ch; }
 
     /* Reveal animation */
-    .doc-coldopen, .doc-chapters, .doc-seals, .doc-screening,
-    .doc-thesis, .doc-symbols, .doc-truth, .doc-gov, .doc-endcard {
+    .doc-coldopen, .doc-chapters, .doc-seals, .doc-screening, .doc-endcard {
         opacity: 0;
         transform: translateY(28px);
         transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .doc-coldopen:global(.is-in), .doc-chapters:global(.is-in), .doc-seals:global(.is-in),
-    .doc-screening:global(.is-in), .doc-thesis:global(.is-in), .doc-symbols:global(.is-in),
-    .doc-truth:global(.is-in), .doc-gov:global(.is-in), .doc-endcard:global(.is-in) {
+    .doc-screening:global(.is-in), .doc-endcard:global(.is-in) {
         opacity: 1;
         transform: none;
     }
@@ -777,13 +670,28 @@
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         padding-bottom: 1.5rem;
+        /* The strip bleeds to both screen edges, then re-creates the section
+           gutter with its own padding so the first card lines up with the
+           headings above it. Mandatory snapping measures from the padding-box
+           edge, so without a matching scroll-padding it snaps the first card
+           flush to the screen and swallows that left gutter on load. */
         margin-inline: calc(-1 * clamp(1.5rem, 6vw, 7rem));
         padding-inline: clamp(1.5rem, 6vw, 7rem);
+        scroll-padding-inline: clamp(1.5rem, 6vw, 7rem);
     }
     .doc-still {
         flex: 0 0 auto;
+        display: block;
         width: clamp(260px, 70vw, 400px);
         scroll-snap-align: start;
+        text-decoration: none;
+        color: inherit;
+    }
+    /* The strip scrolls, so a card reached by keyboard has to bring itself
+       into view with room to spare rather than sitting half-clipped. */
+    .doc-still:focus-visible {
+        outline: 2px solid var(--ember);
+        outline-offset: 6px;
     }
     .doc-still__frame {
         position: relative;
@@ -810,7 +718,26 @@
         padding: 0.3rem 0.55rem;
         backdrop-filter: blur(4px);
     }
-    .doc-still__title { font-size: clamp(1.4rem, 2.5vw, 1.9rem); margin-bottom: 0.7rem; }
+    .doc-still__title {
+        display: flex;
+        align-items: baseline;
+        gap: 0.6rem;
+        font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+        margin-bottom: 0.7rem;
+        transition: color 0.3s ease;
+    }
+    .doc-still:hover .doc-still__title { color: var(--ember); }
+    /* Holds its place when hidden, so the title does not shift on hover. */
+    .doc-still__go {
+        flex: none;
+        width: 1rem;
+        height: 1rem;
+        opacity: 0;
+        transform: translateX(-4px);
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .doc-still:hover .doc-still__go,
+    .doc-still:focus-visible .doc-still__go { opacity: 1; transform: none; }
     .doc-still__body { font-size: 0.9rem; line-height: 1.6; color: var(--muted); }
     /* The strip scrolls sideways, so the way onward sits under it rather than
        at its end, where it would be hidden until the last card is reached. */
@@ -873,81 +800,6 @@
     .doc-track:hover .doc-track__name { color: var(--ember-soft); }
 
     /* ============================================================
-       THESIS
-       ============================================================ */
-    .doc-thesis { padding-block: clamp(4rem, 9vh, 8rem); background: var(--bg-2); }
-    .doc-thesis__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-    .doc-panel {
-        background: var(--bg);
-        padding: clamp(2rem, 3.5vw, 3.5rem);
-        display: flex; flex-direction: column; gap: 1.1rem;
-        min-height: 22rem;
-        transition: background 0.4s ease;
-    }
-    .doc-panel:hover { background: var(--bg-3); }
-    .doc-panel__num {
-        font-family: 'Newsreader', serif; font-style: italic;
-        font-size: 3rem; color: var(--ember); line-height: 1;
-    }
-    .doc-panel__title { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
-    .doc-panel__desc { flex: 1; line-height: 1.65; }
-
-    /* ============================================================
-       SYMBOLS / GLOSSARY
-       ============================================================ */
-    .doc-symbols { padding-block: clamp(4rem, 9vh, 8rem); max-width: 60rem; margin-inline: auto; }
-    .doc-glossary { margin: 0; }
-    .doc-glossary__row {
-        display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
-        align-items: baseline;
-        padding: clamp(1.4rem, 3vw, 2.2rem) 0;
-        border-top: 1px solid var(--line);
-    }
-    .doc-glossary__row:last-child { border-bottom: 1px solid var(--line); }
-    .doc-glossary dt { font-family: 'Newsreader', serif; font-size: clamp(1.5rem, 3vw, 2.3rem); color: var(--ink); }
-    .doc-glossary dd {
-        margin: 0;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
-        color: var(--ember-soft);
-    }
-
-    /* ============================================================
-       THE TRUTH
-       ============================================================ */
-    .doc-truth {
-        padding-block: clamp(6rem, 14vh, 12rem);
-        text-align: center;
-        background:
-            radial-gradient(80% 60% at 50% 0%, rgba(217,122,67,0.10), transparent 70%),
-            var(--bg);
-        border-top: 1px solid var(--line-soft);
-        border-bottom: 1px solid var(--line-soft);
-        display: flex; flex-direction: column; align-items: center;
-    }
-    .doc-truth__title { font-size: clamp(2.8rem, 8vw, 6.5rem); margin: 1.5rem 0; }
-    .doc-truth__sub { font-family: 'Newsreader', serif; font-style: italic; font-size: 1.3rem; color: var(--muted); margin-bottom: 3rem; }
-    .doc-truth__list { list-style: none; margin: 0 0 3.5rem; padding: 0; text-align: left; max-width: 38rem; display: flex; flex-direction: column; gap: 1.2rem; }
-    .doc-truth__list li { display: grid; grid-template-columns: auto 1fr; gap: 1.2rem; align-items: start; color: var(--ink); line-height: 1.5; }
-    .doc-truth__list .doc-tc { color: var(--ember); padding-top: 0.2rem; }
-
-    /* ============================================================
-       GOVERNMENT
-       ============================================================ */
-    .doc-gov { padding-block: clamp(4rem, 9vh, 8rem); background: var(--bg-2); }
-    .doc-gov__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1rem, 2.5vw, 2rem); }
-    .doc-gov__card {
-        border: 1px solid var(--line);
-        padding: clamp(1.8rem, 3vw, 2.8rem);
-        display: flex; flex-direction: column; gap: 1rem;
-        transition: border-color 0.4s ease, transform 0.4s ease;
-    }
-    .doc-gov__card:hover { border-color: var(--ember); transform: translateY(-4px); }
-    .doc-gov__card .doc-tc { color: var(--ember); }
-    .doc-gov__title { font-size: clamp(1.4rem, 2.4vw, 2rem); }
-    .doc-gov__desc { font-size: 0.92rem; line-height: 1.6; }
-
-    /* ============================================================
        END CARD
        ============================================================ */
     .doc-endcard {
@@ -983,16 +835,17 @@
        ============================================================ */
     @media (max-width: 900px) {
         .doc-screening__grid { grid-template-columns: 1fr; }
-        .doc-thesis__grid { grid-template-columns: 1fr; }
-        .doc-gov__grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
         .doc-chapter { grid-template-columns: auto 1fr; }
         .doc-chapter__go { display: none; }
-        .doc-glossary__row { grid-template-columns: 1fr; gap: 0.5rem; }
     }
     @media (prefers-reduced-motion: reduce) {
         .doc-hero__img { animation: none; transform: none; }
         .doc-scrollcue__line { animation: none; }
+        /* The arrow still appears on hover — it just stops sliding in. */
+        .doc-still__go { transition: none; transform: none; }
+        .doc-still__img { transition: none; }
+        .doc-still:hover .doc-still__img { transform: none; }
     }
 </style>

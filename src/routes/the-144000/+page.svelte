@@ -19,6 +19,7 @@
     } from '$lib/data/the-144000.js';
     import { PRINCIPLE, getCase } from '$lib/data/heard-seen.js';
     import HeardSeen from '$lib/components/HeardSeen.svelte';
+    import HeroExpand from '$lib/components/HeroExpand.svelte';
 
     // The chapter's own argument runs through Revelation 5 before it runs
     // through Revelation 7: the precedent first, then the case it decides.
@@ -65,6 +66,14 @@
                 fetchpriority="high"
             />
             <span class="doc-sd__hero-veil" aria-hidden="true"></span>
+
+            <!-- The hero crops the plate to a tall frame and veils it for the
+                 type; this gives the whole of it back. -->
+            <HeroExpand
+                src="/The 144 000.jpg"
+                alt="An angel with the seal of the living God sealing a man in the forehead, before ranks under the banners of the twelve tribes"
+                caption="The sealing of the 144,000 — Revelation 7"
+            />
 
             <div class="doc-sd__hero-text">
                 <p class="doc-sd__eyebrow">Revelation 7 · Between the fifth seal and the sixth</p>
@@ -587,6 +596,8 @@
         overflow: hidden;
         border-bottom: 1px solid var(--doc-line);
     }
+    /* The hero owns the hover; the hint only obeys it. */
+    .doc-sd__hero:hover :global(.hero-expand__hint) { opacity: 1; transform: none; }
     .doc-sd__hero-img {
         position: absolute;
         inset: 0;
@@ -612,6 +623,11 @@
        than themed - the same treatment the seals hero uses. */
     .doc-sd__hero-text :where(h1) { color: #f6f3ec; }
     .doc-sd__hero-text .doc-sd__lede { color: rgba(246, 243, 236, 0.82); }
+    /* Touch has no hover, so the viewer's hint stands permanently in the
+       bottom corner — the hero text has to clear it. */
+    @media (max-width: 700px) {
+        .doc-sd__hero-text { padding-bottom: 6rem; }
+    }
 
     .doc-sd__title {
         font-size: clamp(3.2rem, 11vw, 7.5rem);

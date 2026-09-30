@@ -37,7 +37,7 @@
      judgement of Christ's kingdom opens the seven seals; the seventh seal
      opens the seven trumpets; the seventh trumpet ends with Christ as the
      sole ruler, and no other kingdom left standing. Every seal below links to
-     its own section further down the page. -->
+     its own study at /seals/[slug]. -->
 <figure class="ov">
     <figcaption class="ov__cap">
         <p class="ov__kicker">The shape of it</p>
@@ -75,7 +75,7 @@
                 <div class="ov__band">
                     {#each sixSeals as seal, i}
                         <a
-                            href="#{seal.id}"
+                            href="/seals/{seal.id}"
                             class="ov__cell"
                             data-tone={toneOf(seal.id)}
                             data-dim={hovered !== null && hovered !== seal.id}
@@ -103,7 +103,7 @@
 
                 <div class="ov__origin">
                     <a
-                        href="#{seventhSeal.id}"
+                        href="/seals/{seventhSeal.id}"
                         class="ov__node"
                         data-tone={toneOf(seventhSeal.id)}
                         data-dim={hovered !== null && hovered !== seventhSeal.id}
