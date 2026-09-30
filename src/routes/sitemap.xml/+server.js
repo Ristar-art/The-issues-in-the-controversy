@@ -1,241 +1,88 @@
 // src/routes/sitemap.xml/+server.js
 import { SEALS } from '$lib/data/seals.js';
+import { SITE_URL } from '$lib/seo';
+import { adminDb } from '$lib/firebase/admin';
+
+// Routes that exist as files. Anything listed here must resolve — a sitemap
+// full of 404s costs crawl budget and trust, which is how the old list of
+// renamed URLs (/daniel-overview, /gods-solution and the rest) hurt us.
+const STATIC_PAGES = [
+    { url: '/', changefreq: 'weekly', priority: '1.0' },
+    { url: '/faoundations', changefreq: 'monthly', priority: '0.9' },
+    { url: '/overview', changefreq: 'monthly', priority: '0.9' },
+    { url: '/overview/daniel', changefreq: 'monthly', priority: '0.9' },
+    { url: '/overview/revelation', changefreq: 'monthly', priority: '0.9' },
+    { url: '/seals', changefreq: 'monthly', priority: '0.9' },
+    { url: '/churches', changefreq: 'monthly', priority: '0.9' },
+    { url: '/the-144000', changefreq: 'monthly', priority: '0.9' },
+    { url: '/beast', changefreq: 'monthly', priority: '0.9' },
+    { url: '/flashbacks', changefreq: 'monthly', priority: '0.9' },
+    { url: '/symbols', changefreq: 'monthly', priority: '0.8' },
+    { url: '/scene/revelation-4', changefreq: 'monthly', priority: '0.8' },
+    { url: '/topics', changefreq: 'weekly', priority: '0.8' },
+    { url: '/videos', changefreq: 'weekly', priority: '0.8' },
+    { url: '/about', changefreq: 'yearly', priority: '0.6' },
+    { url: '/contact', changefreq: 'yearly', priority: '0.5' }
+];
+
+/**
+ * Published articles, read from the same collection /[slug] renders from so
+ * the sitemap cannot list a draft or miss a new study.
+ */
+async function articlePages() {
+    try {
+        const snapshot = await adminDb
+            .collection('pages')
+            .where('attributes.published', '==', true)
+            .get();
+
+        return snapshot.docs
+            .map((doc) => doc.data()?.attributes?.slug)
+            .filter(Boolean)
+            .map((slug) => ({ url: `/${slug}`, changefreq: 'monthly', priority: '0.7' }));
+    } catch (err) {
+        // A sitemap missing the articles beats a 500 that loses all of it.
+        console.error('sitemap: could not read published pages', err);
+        return [];
+    }
+}
+
+/** @param {string} value */
+function escapeXml(value) {
+    return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
 
 export async function GET() {
-    const baseUrl = 'https://the-issues-in-the-controversy.vercel.app/'; // Replace with your actual domain
-    
-    // Define your site's pages
+    const lastmod = new Date().toISOString().split('T')[0];
+
     const pages = [
-        {
-            url: '/',
-            changefreq: 'weekly',
-            priority: '1.0',
-            lastmod: new Date().toISOString().split('T')[0] // Today's date
-        },
-        {
-            url: '/the-issue',
-            changefreq: 'monthly',
-            priority: '0.8',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/gods-solution',
-            changefreq: 'monthly',
-            priority: '0.8',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/our-part',
-            changefreq: 'monthly',
-            priority: '0.8',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/daniel-overview',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/revelation-overview',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/character-of-god',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/gospel-kingdom',
-            changefreq: 'monthly',
-            priority: '0.8',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/prophetic-symbols',
-            changefreq: 'monthly',
-            priority: '0.7',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/government-types',
-            changefreq: 'monthly',
-            priority: '0.7',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/about',
-            changefreq: 'yearly',
-            priority: '0.6',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/contact',
-            changefreq: 'yearly',
-            priority: '0.5',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/the-144000',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/churches',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/seals',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/beast',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/symbols',
-            changefreq: 'monthly',
-            priority: '0.8',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/overview',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/overview/revelation',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/overview/daniel',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/flashbacks',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/scene/revelation-4',
-            changefreq: 'monthly',
-            priority: '0.8',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        {
-            url: '/faoundations',
-            changefreq: 'monthly',
-            priority: '0.9',
-            lastmod: new Date().toISOString().split('T')[0]
-        },
-        // One entry per seal, taken from the same list the pages render from.
-        ...SEALS.map(seal => ({
+        ...STATIC_PAGES,
+        ...SEALS.map((seal) => ({
             url: `/seals/${seal.id}`,
             changefreq: 'monthly',
-            priority: '0.7',
-            lastmod: new Date().toISOString().split('T')[0]
-        }))
+            priority: '0.7'
+        })),
+        ...(await articlePages())
     ];
 
-    // Generate XML sitemap
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
-        xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-${pages.map(page => `    <url>
-        <loc>${baseUrl}${page.url}</loc>
-        <lastmod>${page.lastmod}</lastmod>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${pages
+    .map(
+        (page) => `    <url>
+        <loc>${escapeXml(SITE_URL + encodeURI(page.url))}</loc>
+        <lastmod>${lastmod}</lastmod>
         <changefreq>${page.changefreq}</changefreq>
         <priority>${page.priority}</priority>
-    </url>`).join('\n')}
+    </url>`
+    )
+    .join('\n')}
 </urlset>`;
 
     return new Response(sitemap, {
         headers: {
             'Content-Type': 'application/xml',
-            'Cache-Control': 'max-age=3600' // Cache for 1 hour
+            'Cache-Control': 'max-age=3600'
         }
     });
 }
-
-// Optional: If you want to generate this dynamically based on your file system
-// You can use this alternative approach:
-
-/*
-import { readdir } from 'fs/promises';
-import { join } from 'path';
-
-export async function GET() {
-    const baseUrl = 'https://yoursite.com';
-    
-    try {
-        // Dynamically find all routes in your src/routes directory
-        const routesDir = join(process.cwd(), 'src/routes');
-        const routes = await getRoutes(routesDir);
-        
-        const sitemap = generateSitemap(baseUrl, routes);
-        
-        return new Response(sitemap, {
-            headers: {
-                'Content-Type': 'application/xml',
-                'Cache-Control': 'max-age=3600'
-            }
-        });
-    } catch (error) {
-        console.error('Error generating sitemap:', error);
-        return new Response('Error generating sitemap', { status: 500 });
-    }
-}
-
-async function getRoutes(dir, routes = [], basePath = '') {
-    const files = await readdir(dir, { withFileTypes: true });
-    
-    for (const file of files) {
-        if (file.isDirectory() && !file.name.startsWith('[') && !file.name.startsWith('(')) {
-            const newPath = basePath + '/' + file.name;
-            routes.push(newPath);
-            await getRoutes(join(dir, file.name), routes, newPath);
-        }
-    }
-    
-    return routes;
-}
-
-function generateSitemap(baseUrl, routes) {
-    const pages = routes.map(route => ({
-        url: route === '' ? '/' : route,
-        changefreq: 'monthly',
-        priority: route === '/' ? '1.0' : '0.8',
-        lastmod: new Date().toISOString().split('T')[0]
-    }));
-    
-    return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map(page => `    <url>
-        <loc>${baseUrl}${page.url}</loc>
-        <lastmod>${page.lastmod}</lastmod>
-        <changefreq>${page.changefreq}</changefreq>
-        <priority>${page.priority}</priority>
-    </url>`).join('\n')}
-</urlset>`;
-}
-*/

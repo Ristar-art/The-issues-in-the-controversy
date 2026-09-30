@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import {
         SYMBOL_GROUPS,
         ALL_SYMBOLS,
@@ -29,14 +30,12 @@
     let matches = $derived(groups.reduce((sum, group) => sum + group.items.length, 0));
 </script>
 
-<svelte:head>
-    <title>The Lexicon - Decoding the Symbols | The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="The prophetic lexicon of Daniel and Revelation — beasts, horns, waters, women, times and days, each defined by the passage that defines it."
-    />
-    <meta name="keywords" content="prophetic symbols, biblical symbols, beast, horn, waters, woman, day for a year, babylon, daniel, revelation" />
-</svelte:head>
+<Seo
+    title="The Lexicon — Decoding the Symbols"
+    description="The prophetic lexicon of Daniel and Revelation — beasts, horns, waters, women, times and days, each defined by the passage that defines it."
+    keywords="prophetic symbols, biblical symbols, beast, horn, waters, woman, day for a year, babylon, daniel, revelation"
+/>
+
 
 <div class="doc-sy">
     <main>

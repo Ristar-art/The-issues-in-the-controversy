@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import { onMount } from 'svelte';
     import { getVideoId, getThumbnailUrl, episodeLabel } from '$lib/data/videos.js';
 
@@ -107,19 +108,16 @@
         };
     });
 
-    const siteUrl = 'https://the-issues-in-the-controversy.vercel.app';
 </script>
 
 <svelte:window on:keydown={onKeydown} />
 
-<svelte:head>
-    <title>Videos - The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Every episode of The Endgame of Heaven — an immersive walkthrough of the prophecies of Daniel and Revelation, episode by episode."
-    />
-    <link rel="canonical" href={`${siteUrl}/videos`} />
-</svelte:head>
+<Seo
+    title="Videos"
+    description="The full documentary series — an immersive walkthrough of the prophecies of Daniel and Revelation, episode by episode."
+    keywords="the endgame of heaven, prophecy documentary, daniel and revelation video series, bible prophecy episodes"
+/>
+
 
 <div class="doc-vid">
     <main>

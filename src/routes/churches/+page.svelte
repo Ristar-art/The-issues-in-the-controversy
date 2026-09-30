@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import {
         CHURCHES,
         CHURCHES_TITLE,
@@ -34,14 +35,13 @@
     const total = String(CHURCHES.length).padStart(2, '0');
 </script>
 
-<svelte:head>
-    <title>The Seven Churches — The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="The seven churches of Revelation 2 and 3 read as seven conditions of one church — each with a starting point and no ending point, so that all seven stand together at the end: Christianity under oppressive rival religions, under a persecuting state, under the Orthodox Church, under Rome, under Protestantism, under the little book, and under the little book in apostasy."
-    />
-    <meta name="keywords" content="seven churches, revelation 2, revelation 3, ephesus, smyrna, pergamos, thyatira, sardis, philadelphia, laodicea, seven conditions of the church, orthodox church, little book movement, seven candlesticks" />
-</svelte:head>
+<Seo
+    title="The Seven Churches"
+    description="The seven churches of Revelation 2 and 3 read as seven conditions of one church — each with a starting point and no ending point, so that all seven stand together at the end: Christianity under oppressive rival religions, under a persecuting state, under the Orthodox Church, under Rome, under Protestantism, under the little book, and under the little book in apostasy."
+    keywords="seven churches, revelation 2, revelation 3, ephesus, smyrna, pergamos, thyatira, sardis, philadelphia, laodicea, seven conditions of the church, seven candlesticks"
+    image="/Lamb Of God.jpeg"
+/>
+
 
 <div class="doc-ch">
     <main>

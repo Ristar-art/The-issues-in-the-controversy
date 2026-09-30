@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import OverviewNav from '$lib/components/OverviewNav.svelte';
     import { DIVISIONS, DIVISION_WIDTHS, OUTLINE_ITEMS } from '$lib/data/revelation-outline.js';
     import {
@@ -83,14 +84,12 @@
     }
 </script>
 
-<svelte:head>
-    <title>The Day of the Lord - The Book of Revelation | The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Revelation read as the day of the Lord: seven premises, the book in four divisions, and one history told twice - Christ's kingdom judged in chapters 4–11, the beast's kingdom in 12–19."
-    />
-    <meta name="keywords" content="day of the lord, book of revelation, outline of revelation, seven seals, 144000, mark of the beast, midnight cry, three angels, revelation 17" />
-</svelte:head>
+<Seo
+    title="The Day of the Lord — The Book of Revelation"
+    description="Revelation read as the day of the Lord: seven premises, the book in four divisions, and one history told twice — Christ's kingdom judged in chapters 4–11, the beast's kingdom in 12–19."
+    keywords="day of the lord, book of revelation, outline of revelation, seven seals, 144000, mark of the beast, midnight cry, three angels, revelation 17"
+/>
+
 
 <div class="doc-rv">
     <OverviewNav current="revelation" />

@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import {
         SUBTITLE,
         QUESTION,
@@ -46,14 +47,13 @@
     }
 </script>
 
-<svelte:head>
-    <title>The 144,000 — The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Revelation 7 read in its place: the sealing of the hundred and forty and four thousand falls under the fifth seal, before the day of wrath, and answers the question chapter 6 ends with - who shall be able to stand?"
-    />
-    <meta name="keywords" content="144000, the 144000, revelation 7, sealed in their foreheads, four winds, seal of God, mark of the beast, great multitude, white robes, the great tribulation, twelve tribes, ephraim and dan, philadelphia, brotherly love, day of atonement, blotting out of sins, perfected kingdom, fifth seal" />
-</svelte:head>
+<Seo
+    title="The 144,000"
+    description="Revelation 7 read in its place: the sealing of the hundred and forty and four thousand falls under the fifth seal, before the day of wrath, and answers the question chapter 6 ends with — who shall be able to stand?"
+    keywords="144000, the 144000, revelation 7, sealed in their foreheads, four winds, seal of God, mark of the beast, great multitude, white robes, the great tribulation, twelve tribes, day of atonement, fifth seal"
+    image="/The 144 000.jpg"
+/>
+
 
 <div class="doc-sd">
     <main>

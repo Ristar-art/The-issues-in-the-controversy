@@ -51,7 +51,35 @@ export async function load({ params }) {
     article: {
       id: page.id,
       ...page.attributes,
-      content
+      content,
+      // Articles are written in the admin editor, which has no summary field,
+      // so the search snippet is taken from the opening prose rather than
+      // left to Google to invent.
+      excerpt: excerptFrom(content)
     }
   };
+}
+
+/**
+ * First ~160 characters of readable text from rendered article HTML.
+ * @param {string} [html]
+ */
+function excerptFrom(html) {
+  if (!html) return '';
+  const text = html
+    .replace(/<(script|style)[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (text.length <= 160) return text;
+  // Cut on a word boundary so the snippet does not end mid-word.
+  const cut = text.slice(0, 160);
+  return `${cut.slice(0, cut.lastIndexOf(' ')).trimEnd()}…`;
 }

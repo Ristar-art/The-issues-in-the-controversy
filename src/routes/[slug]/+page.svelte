@@ -1,17 +1,35 @@
 <script>
     import { focusToObjectPosition } from '$lib/utils/image-focus';
     import HeroExpand from '$lib/components/HeroExpand.svelte';
+    import Seo from '$lib/components/Seo.svelte';
+    import { SITE_URL, SITE_DESCRIPTION, DEFAULT_IMAGE, absolute } from '$lib/seo';
 
     export let data;
 
     // Which part of the featured image survives the hero crop — set per page
     // in the admin pages editor.
     $: heroPosition = focusToObjectPosition(data.article.featuredImageFocus);
+
+    $: description = data.article.excerpt || SITE_DESCRIPTION;
+    $: shareImage = data.article.featuredImage || DEFAULT_IMAGE;
+    $: jsonld = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: data.article.title,
+        description,
+        image: absolute(shareImage),
+        mainEntityOfPage: absolute(`/${data.article.slug}`),
+        publisher: { '@id': `${SITE_URL}/#organization` }
+    };
 </script>
 
-<svelte:head>
-    <title>{data.article.title} - The Issues in the Controversy</title>
-</svelte:head>
+<Seo
+    title={data.article.title}
+    {description}
+    image={shareImage}
+    type="article"
+    {jsonld}
+/>
 
 <div class="doc-article">
     <main>

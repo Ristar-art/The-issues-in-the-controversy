@@ -1,5 +1,7 @@
 <script>
     import HeroExpand from '$lib/components/HeroExpand.svelte';
+    import Seo from '$lib/components/Seo.svelte';
+    import { SITE_URL, absolute } from '$lib/seo';
 
     let { data } = $props();
 
@@ -21,15 +23,40 @@
 
     let sections = $derived(detail.sections ?? []);
     let description = $derived(detail.summary || detail.subtitle || seal.body);
+
+    // A seal is one step inside a series, so the breadcrumb is worth stating
+    // outright — it is what a search result shows under the title.
+    let jsonld = $derived({
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'Article',
+                headline: `${seal.title} — ${seal.era}`,
+                description,
+                image: absolute(seal.img),
+                articleSection: 'The Seven Seals',
+                isPartOf: { '@type': 'WebPage', '@id': absolute('/seals') },
+                publisher: { '@id': `${SITE_URL}/#organization` }
+            },
+            {
+                '@type': 'BreadcrumbList',
+                itemListElement: [
+                    { '@type': 'ListItem', position: 1, name: 'Home', item: absolute('/') },
+                    { '@type': 'ListItem', position: 2, name: 'The Seven Seals', item: absolute('/seals') },
+                    { '@type': 'ListItem', position: 3, name: seal.title, item: absolute(`/seals/${seal.id}`) }
+                ]
+            }
+        ]
+    });
 </script>
 
-<svelte:head>
-    <title>{seal.title} - The Seven Seals | The Issues in the Controversy</title>
-    <meta name="description" content={description} />
-    <meta property="og:title" content={`${seal.title} — ${seal.era}`} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="article" />
-</svelte:head>
+<Seo
+    title={`${seal.title} — ${seal.era} of Revelation`}
+    {description}
+    image={seal.img}
+    type="article"
+    {jsonld}
+/>
 
 <div class="doc-sd">
     <article>

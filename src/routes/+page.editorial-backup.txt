@@ -186,7 +186,7 @@ const keyTopicThird ={
     // ----- SEO -----
     const siteUrl = 'https://the-issues-in-the-controversy.vercel.app';
     const pageUrl = `${siteUrl}/`;
-    const imageUrl = `${siteUrl}/_.jpeg`;
+    const imageUrl = `${siteUrl}/thetrhoneroom.jpg`;
 </script>
 
 <svelte:head>
