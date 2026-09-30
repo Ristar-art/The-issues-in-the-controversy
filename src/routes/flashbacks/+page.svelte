@@ -50,16 +50,30 @@
     <main>
         <!-- ============================= HEADER ============================= -->
         <section class="doc-fb__head">
-            <p class="doc-fb__eyebrow">Study · Revelation 6 – 11</p>
-            <h1 class="doc-fb__title">The<br /><span class="doc-fb__em">Flashbacks</span></h1>
-            <p class="doc-fb__lede">
-                Twice in Revelation the same thing happens. A sequence of seven is running - the
-                seals, and then the trumpets - and both times, between the sixth and the seventh, the
-                vision stops going forward and turns back. Read straight through, those two stops look
-                like gaps in the count. They are not. Each chart below takes the middle out and puts
-                it back, so you can see for yourself that nothing in either sequence is missing when
-                it is gone.
-            </p>
+            <!-- Text first, chart second — the stacked order and the two-column
+                 order (text left, chart right from 900px) are the same. -->
+            <div class="doc-fb__head-text">
+                <p class="doc-fb__eyebrow">Study · Revelation 6 – 11</p>
+                <h1 class="doc-fb__title">The<br /><span class="doc-fb__em">Flashbacks</span></h1>
+                <p class="doc-fb__lede">
+                    Twice in Revelation the same thing happens. A sequence of seven is running - the
+                    seals, and then the trumpets - and both times, between the sixth and the seventh, the
+                    vision stops going forward and turns back. Read straight through, those two stops look
+                    like gaps in the count. They are not. Each chart below takes the middle out and puts
+                    it back, so you can see for yourself that nothing in either sequence is missing when
+                    it is gone.
+                </p>
+            </div>
+
+            <figure class="doc-fb__head-fig">
+                <img
+                    src="/flashbacks.jpg"
+                    alt="Chart of the flashbacks in Revelation: chapters 4 through 11b laid out left to right, with chapter 7 (the 144,000) and chapters 10 – 11a (the little book and the two witnesses) arrowed back to an earlier point in the sequence."
+                    width="640"
+                    height="480"
+                />
+            </figure>
+
             <nav class="doc-fb__jump" aria-label="The two flashbacks">
                 <a href="#seals">
                     <span class="doc-fb__jump-n">01</span>
@@ -374,7 +388,34 @@
     /* ------------------------------- Header ------------------------------- */
     .doc-fb__head {
         padding: clamp(3rem, 7vw, 5.5rem) var(--pad-x) clamp(2.5rem, 5vw, 3.5rem);
-        max-width: 64rem;
+        max-width: 84rem;
+        display: grid;
+        gap: clamp(2rem, 4vw, 3.5rem);
+        align-items: center;
+    }
+    .doc-fb__head-fig {
+        margin: 0;
+        min-width: 0;
+    }
+    /* The chart's own background is black, so it gets a plate of its own
+       rather than bleeding into the cream of the light theme. */
+    .doc-fb__head-fig img {
+        display: block;
+        width: 100%;
+        height: auto;
+        background: #000;
+        border: 1px solid var(--doc-line);
+        border-radius: 2px;
+    }
+    @media (min-width: 900px) {
+        .doc-fb__head {
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            align-items: center;
+        }
+        .doc-fb__head-text { grid-column: 1; grid-row: 1; }
+        .doc-fb__head-fig { grid-column: 2; grid-row: 1; }
+        /* The index belongs under both, not under the prose alone. */
+        .doc-fb__jump { grid-column: 1 / -1; grid-row: 2; }
     }
     .doc-fb__eyebrow {
         font-family: 'JetBrains Mono', ui-monospace, monospace;
@@ -410,9 +451,9 @@
 
     /* The page carries two studies; the index says so before the first chart. */
     .doc-fb__jump {
+        /* Spacing comes from the header grid's gap now. */
         display: grid;
         gap: 0.75rem;
-        margin-top: 2.5rem;
         max-width: 46rem;
     }
     @media (min-width: 720px) {
