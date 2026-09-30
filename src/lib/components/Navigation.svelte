@@ -34,20 +34,21 @@
                         { href: '/overview', label: 'Overview' },
                         { href: '/symbols', label: 'Symbols' },
                         { href: '/scene/revelation-4', label: 'Throne Room' },
-                        { href: '/churches', label: '7 Churches' },
-                ]
+{ href: '/churches', label: 'The 7 Churches' }
+                    ]
                 },
                 {
                     title: "Christ's Kingdom",
                     items: [
-                        { href: '/seals', label: 'Seals' },
+                        { href: '/seals', label: 'The 7 Seals' },
                         { href: '/flashbacks', label: 'Flashbacks' },
-                        { href: '/the-144000', label: 'The 144,000' },                    ]
+                        { href: '/the-144000', label: 'The 144,000' }
+                    ]
                 },
                 {
                     title: "Beast's Kingdom",
                     items: [
-                        { href: '/beast', label: 'The Beast' },
+                        { href: '/beast', label: 'The Beast' }
                     ]
                 }
             ]
