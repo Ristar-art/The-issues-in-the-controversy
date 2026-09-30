@@ -129,19 +129,28 @@ When extending search, be aware of:
 ### Sitemap generation
 
 - `src/routes/sitemap.xml/+server.js`
-  - Static `GET` handler that returns XML sitemap.
-  - `baseUrl` is currently hard-coded to `https://the-issues-in-the-controversy.vercel.app/`.
-  - `pages` array lists canonical paths with `changefreq`, `priority`, and yesterday/today’s date via `new Date().toISOString().split('T')[0]`.
+  - Async `GET` handler that returns XML sitemap.
+  - `baseUrl` comes from `SITE_URL` in `src/lib/seo.js` (set via `VITE_SITE_URL`), not hard-coded.
+  - `STATIC_PAGES` lists canonical paths with `changefreq` and `priority`; every entry must resolve to a real route, since a sitemap full of 404s costs crawl budget. `articlePages()` appends published Firestore pages from the `pages` collection.
   - Serializes `<urlset>` manually and returns a `Response` with `Content-Type: application/xml` and `Cache-Control: max-age=3600`.
-  - There is commented-out alternative code that could dynamically derive routes from the filesystem if needed in the future.
 
-If you change main routes or add new content sections with dedicated URLs, update `pages` here to keep the sitemap accurate.
+If you change main routes or add new content sections with dedicated URLs, update `STATIC_PAGES` here to keep the sitemap accurate.
+
+### SEO
+
+- `src/lib/seo.js`
+  - Single source of truth: `SITE_URL`, `SITE_NAME`, `SITE_DESCRIPTION`, `DEFAULT_IMAGE` and its dimensions, and `absolute()` for building crawler-safe absolute URLs.
+  - Moving to a real domain means setting `VITE_SITE_URL`; nothing else needs editing.
+- `src/lib/components/Seo.svelte`
+  - The one place the `<head>` tags live. Each public page renders exactly one, supplying its own title/description/image; canonical, Open Graph and Twitter tags are derived.
+- `src/routes/robots.txt/+server.js`
+  - Served from a route rather than `static/` so the sitemap line follows `SITE_URL`. Disallows `/admin/` and `/login`.
 
 ### Static assets
 
 - `static/`
-  - Contains all images and public assets (favicon, OG image, robots.txt, etc.).
-  - Section components reference images like `/_.jpeg`, `/Beast.webp`, `/triquetra-9228907_1280.webp`, `/law-753482_1280.webp`, etc.
+  - Contains all images and public assets (favicon, OG image, etc.). `robots.txt` is deliberately **not** here — it is a route, so it can interpolate `SITE_URL`.
+  - Section components reference images like `/thetrhoneroom.jpg`, `/Beast.webp`, `/triquetra-9228907_1280.webp`, `/law-753482_1280.webp`, etc.
   - Meta tags in `+page.svelte` reference `logoimage.jpg` and other icons; ensure corresponding files exist in `static/` when adjusting branding.
 
 ## Notes for future changes

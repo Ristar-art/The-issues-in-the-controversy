@@ -38,7 +38,7 @@
 
 <div class="doc-footer">
     <div class="doc-footer__logo">
-        <img src="/logoimage.jpg" alt="The Issues in the Controversy" />
+        <img src="/logoimage.jpg" alt="The Endgame of Heaven" />
     </div>
 
     {#if footer.tagline}

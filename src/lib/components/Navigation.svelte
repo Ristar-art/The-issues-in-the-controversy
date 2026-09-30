@@ -139,7 +139,7 @@
 >
     <div class="doc-nav__inner">
         <a href="/" class="doc-nav__logo" aria-label="Home">
-            <img src="/logoimage.jpg" alt="The Issues in the Controversy" />
+            <img src="/logoimage.jpg" alt="The Endgame of Heaven" />
         </a>
 
         <div class="doc-nav__links">

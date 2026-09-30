@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import OverviewNav from '$lib/components/OverviewNav.svelte';
     import { VISION_ROWS, VISION_COLUMNS, VISION_WIDTHS, VISION_CELLS } from '$lib/data/daniel-visions.js';
     import {
@@ -101,14 +102,13 @@
     }
 </script>
 
-<svelte:head>
-    <title>Daniel - The Restoration of the Kingdom | The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Daniel read as the restoration of a kingdom that lost everything: four visions for four aspects of that kingdom, and chapter 7 as the key to Revelation's judgment."
-    />
-    <meta name="keywords" content="daniel 2, daniel 7, daniel 8, daniel 11, restoration of the kingdom, government of god, pre-advent judgment, little horn, 2300 days, babylon captivity" />
-</svelte:head>
+<Seo
+    title="Daniel — The Restoration of the Kingdom"
+    description="Daniel read as the restoration of a kingdom that lost everything: four visions for four aspects of that kingdom, and chapter 7 as the key to Revelation's judgment."
+    keywords="daniel 2, daniel 7, daniel 8, daniel 11, restoration of the kingdom, government of god, pre-advent judgment, little horn, 2300 days, babylon captivity"
+    image="/courtroom.jpg"
+/>
+
 
 <div class="doc-dn">
     <OverviewNav current="daniel" />

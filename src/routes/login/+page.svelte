@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
   import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
@@ -122,9 +123,8 @@
   }
 </script>
 
-<svelte:head>
-  <title>Admin Login</title>
-</svelte:head>
+<Seo title="Admin Login" noindex />
+
 
 <div class="login-container">
   <div class="login-card">

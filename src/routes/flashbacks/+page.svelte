@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import SealsFlashback from '$lib/components/SealsFlashback.svelte';
     import TrumpetsFlashback from '$lib/components/TrumpetsFlashback.svelte';
     import { SEALS_ARGUMENT, QUESTION, ANSWER } from '$lib/data/flashback-seals.js';
@@ -37,14 +38,12 @@
     }
 </script>
 
-<svelte:head>
-    <title>The Flashbacks - The Seals and the Trumpets Run Unbroken | The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Revelation 7 sits between the sixth seal and the seventh; Revelation 10:1 – 11:14 sits between the sixth trumpet and the seventh. Neither is a gap in the sequence. Two interactive charts showing that the seals and the trumpets each run continuously from the first to the seventh."
-    />
-    <meta name="keywords" content="seven seals, seven trumpets, revelation 7, 144000, revelation 10, two witnesses, flashback, sixth seal, seventh seal, who shall be able to stand, mystery of God finished" />
-</svelte:head>
+<Seo
+    title="The Flashbacks — The Seals and the Trumpets Run Unbroken"
+    description="Revelation 7 sits between the sixth seal and the seventh; Revelation 10:1 – 11:14 sits between the sixth trumpet and the seventh. Neither is a gap in the sequence. Two interactive charts showing that the seals and the trumpets each run continuously from the first to the seventh."
+    keywords="seven seals, seven trumpets, revelation 7, 144000, revelation 10, two witnesses, flashback, sixth seal, seventh seal, mystery of God finished"
+/>
+
 
 <div class="doc-fb">
     <main>

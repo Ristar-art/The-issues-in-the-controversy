@@ -1,5 +1,7 @@
 <script>
     import SearchBar from '$lib/components/SearchBar.svelte';
+    import Seo from '$lib/components/Seo.svelte';
+    import { SITE_URL, SITE_NAME, SITE_ALTERNATE_NAME, SITE_DESCRIPTION, absolute } from '$lib/seo';
     import { getVideoId, getThumbnailUrl, episodeLabel } from '$lib/data/videos.js';
     import { SEALS, SEALS_TITLE, SEALS_SUBTITLE } from '$lib/data/seals.js';
 
@@ -78,35 +80,39 @@
     }
 
     // ----- SEO -----
-    const siteUrl = 'https://the-issues-in-the-controversy.vercel.app';
-    const pageUrl = `${siteUrl}/`;
-    const imageUrl = `${siteUrl}/_.jpeg`;
+    // The site and the film series share a home page, so the structured data
+    // names both: the site as the WebSite, the fellowship as its publisher.
+    const homeJsonLd = {
+        '@context': 'https://schema.org',
+        '@graph': [
+            {
+                '@type': 'WebSite',
+                '@id': `${SITE_URL}/#website`,
+                url: `${SITE_URL}/`,
+                name: SITE_NAME,
+                alternateName: SITE_ALTERNATE_NAME,
+                description: SITE_DESCRIPTION,
+                inLanguage: 'en',
+                publisher: { '@id': `${SITE_URL}/#organization` }
+            },
+            {
+                '@type': 'Organization',
+                '@id': `${SITE_URL}/#organization`,
+                name: SITE_NAME,
+                url: `${SITE_URL}/`,
+                logo: absolute('/logoimage.jpg')
+            }
+        ]
+    };
 </script>
 
-<svelte:head>
-    <title>The Endgame of Heaven | Daniel & Revelation</title>
-    <meta name="title" content="The Endgame of Heaven — A Prophecy Documentary | Daniel & Revelation" />
-    <meta name="description" content="A documentary journey through the prophecies of Daniel and Revelation — the seven seals, the character of God, and the great controversy unfolding to its end." />
-    <meta name="keywords" content="biblical prophecy, book of daniel, book of revelation, seven seals, character of god, prophetic symbols, kingdom of god, spiritual warfare" />
-    <meta name="author" content="The Issues in the Controversy" />
-    <meta name="robots" content="index, follow" />
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="canonical" href={pageUrl} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={pageUrl} />
-    <meta property="og:title" content="The Endgame of Heaven — A Prophecy Documentary" />
-    <meta property="og:description" content="A documentary journey through the prophecies of Daniel and Revelation." />
-    <meta property="og:image" content={imageUrl} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="The Issues in the Controversy" />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="The Endgame of Heaven — A Prophecy Documentary" />
-    <meta property="twitter:description" content="A documentary journey through the prophecies of Daniel and Revelation." />
-    <meta property="twitter:image" content={imageUrl} />
-    <link rel="icon" type="image/x-icon" href="/logoimage.jpg" />
-</svelte:head>
+<Seo
+    title="The Endgame of Heaven — Daniel & Revelation Prophecy"
+    description="A documentary journey through the prophecies of Daniel and Revelation — the seven seals, the seven churches, the beast, the 144,000, the character of God, and the great controversy unfolding to its end."
+    keywords="biblical prophecy, book of daniel, book of revelation, seven seals, seven churches, the 144000, mark of the beast, character of god, prophetic symbols, kingdom of god, great controversy"
+    path="/"
+    jsonld={homeJsonLd}
+/>
 
 <div class="doc-root">
     <div class="doc-grain" aria-hidden="true"></div>
@@ -201,7 +207,7 @@
         <section class="doc-seals" use:reveal>
             <header class="doc-section-head doc-section-head--split">
                 <div>
-                    <p class="doc-act">Act II · The Seven Seals</p>
+                    <p class="doc-act">The Books Were Open</p>
                     <h2 class="doc-section-title">{progressTitle}</h2>
                     <p class="doc-section-sub">{progressEyebrow}</p>
                 </div>

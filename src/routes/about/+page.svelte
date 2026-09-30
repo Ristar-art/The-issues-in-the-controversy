@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import { THESIS_ITEMS, CENTRAL_QUESTION } from '$lib/data/thesis.js';
 
     // What the site is made of, as a reader would meet it.
@@ -50,13 +51,12 @@
     ];
 </script>
 
-<svelte:head>
-    <title>About - The Endgame of Heaven</title>
-    <meta
-        name="description"
-        content="What this project is: a study of the great controversy through the prophecies of Daniel and Revelation, published as written studies, a film series, and reference charts."
-    />
-</svelte:head>
+<Seo
+    title="About"
+    description="What this project is: a study of the great controversy through the prophecies of Daniel and Revelation, published as written studies, a film series, and reference charts."
+    keywords="about, open face fellowship, great controversy, daniel and revelation study, bible prophecy ministry"
+/>
+
 
 <div class="doc-ab">
     <main>

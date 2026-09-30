@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import { SEALS_TITLE, SEALS_SUBTITLE, CHAIN, REIGN } from '$lib/data/seals.js';
     import SealsOverview from '$lib/components/SealsOverview.svelte';
     import HeroExpand from '$lib/components/HeroExpand.svelte';
@@ -23,14 +24,13 @@
     }
 </script>
 
-<svelte:head>
-    <title>The Seven Seals - The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Out of the judgement of Christ's kingdom come the seven seals; out of the seventh seal, the seven trumpets; and out of the seventh trumpet, Christ as the sole ruler of the universe."
-    />
-    <meta name="keywords" content="seven seals, seven trumpets, judgement of Christ's kingdom, revelation 6, revelation 8, revelation 11:15, seventh seal, seventh trumpet, kingdoms of this world, white horse, red horse, black horse, pale horse, souls under the altar" />
-</svelte:head>
+<Seo
+    title="The Seven Seals"
+    description="Out of the judgement of Christ's kingdom come the seven seals; out of the seventh seal, the seven trumpets; and out of the seventh trumpet, Christ as the sole ruler of the universe."
+    keywords="seven seals, seven trumpets, judgement of Christ's kingdom, revelation 6, revelation 8, revelation 11:15, seventh seal, seventh trumpet, white horse, red horse, black horse, pale horse, souls under the altar"
+    image="/the fith seal.jpg"
+/>
+
 
 <div class="doc-sl">
     <main>

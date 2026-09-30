@@ -2,7 +2,7 @@
     <div class="container mx-auto px-4">
         <div class="flex flex-wrap items-center">
             <div class="w-full lg:w-1/2 mb-12 lg:mb-0">
-                <img src="/_.jpeg" alt="Professional Woman" class="mx-auto rounded-lg">
+                <img src="/thetrhoneroom.jpg" alt="Professional Woman" class="mx-auto rounded-lg">
                 <div class="mt-8">
                     <div class="mb-4">
                         <div class="flex justify-between mb-1">

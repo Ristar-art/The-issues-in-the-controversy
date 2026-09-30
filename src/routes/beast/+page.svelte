@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import {
         BEAST_TITLE,
         BEAST_SUBTITLE,
@@ -36,17 +37,13 @@
     const total = String(HEADS.length).padStart(2, '0');
 </script>
 
-<svelte:head>
-    <title>The Beast and the Woman — The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Revelation 17 read as it is drawn: one beast, seven heads — Egypt, Assyria, Babylon, Medo-Persia, Greece, Rome and a seventh that continues a short space — and ten horns that stand on the beast itself, not on the heads. The woman who rides it is a religious body using a power that is not her own."
-    />
-    <meta
-        name="keywords"
-        content="revelation 17, beast with seven heads, ten horns, scarlet beast, the woman on the beast, mystery babylon, seven kings, five are fallen, one hour with the beast, egypt assyria babylon medo-persia greece rome"
-    />
-</svelte:head>
+<Seo
+    title="The Beast and the Woman"
+    description="Revelation 17 read as it is drawn: one beast, seven heads — Egypt, Assyria, Babylon, Medo-Persia, Greece, Rome and a seventh that continues a short space — and ten horns that stand on the beast itself, not on the heads. The woman who rides it is a religious body using a power that is not her own."
+    keywords="revelation 17, beast with seven heads, ten horns, scarlet beast, the woman on the beast, mystery babylon, seven kings, five are fallen, one hour with the beast"
+    image="/The beast with seven heads.png"
+/>
+
 
 <div class="doc-bs">
     <main>

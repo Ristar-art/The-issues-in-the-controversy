@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import OverviewNav from '$lib/components/OverviewNav.svelte';
     import { CHART_ROWS, CHART_CELLS, CHART_COLUMNS, PHASES } from '$lib/data/overview-chart.js';
     import {
@@ -70,14 +71,13 @@
     }
 </script>
 
-<svelte:head>
-    <title>The Overview - Daniel and Revelation in Parallel | The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="An interactive parallel chart of Daniel 7 and Revelation 5–19 — four prophecies laid over one timeline, from the war against the saints to the kingdom given."
-    />
-    <meta name="keywords" content="daniel 7, revelation, parallel prophecy chart, seven seals, two witnesses, mark of the beast, seven plagues, judgment" />
-</svelte:head>
+<Seo
+    title="The Overview — Daniel and Revelation in Parallel"
+    description="An interactive parallel chart of Daniel 7 and Revelation 5–19 — four prophecies laid over one timeline, from the war against the saints to the kingdom given."
+    keywords="daniel 7, revelation, parallel prophecy chart, seven seals, two witnesses, mark of the beast, seven plagues, judgment"
+    image="/courtroom.jpg"
+/>
+
 
 <div class="doc-ov">
     <OverviewNav current="parallel" />

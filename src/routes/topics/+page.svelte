@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import { onMount } from 'svelte';
 
     let topics = [];
@@ -30,10 +31,12 @@
     onMount(fetchTopics);
 </script>
 
-<svelte:head>
-    <title>Topics - The Issues in the Controversy</title>
-    <meta name="description" content="Explore our comprehensive topics on biblical prophecy, Daniel, Revelation, and God's character." />
-</svelte:head>
+<Seo
+    title="Topics"
+    description="Every written study on the site in one index — biblical prophecy, the character of God, and the issues at the heart of the great controversy."
+    keywords="bible prophecy topics, daniel studies, revelation studies, character of god, great controversy studies"
+/>
+
 
 <div class="doc-tp">
     <main>

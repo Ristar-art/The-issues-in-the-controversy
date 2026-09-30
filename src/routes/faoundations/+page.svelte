@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import {
         FOUNDATIONS_SUBTITLE,
         FRAGMENTS,
@@ -43,17 +44,13 @@
     const HERO_ALT = 'Two winged warriors meet in the sky - one in white and gold with sword and shield, one in black armour with raised blade - while smaller angels fight around them';
 </script>
 
-<svelte:head>
-    <title>Foundations - Before You Read Revelation | The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="What every reader of Revelation should know first: a war over God's character, government and justice, fought with lies and answered with truth, settled by three judgments - and mapped in advance by Daniel 7."
-    />
-    <meta
-        name="keywords"
-        content="how to understand revelation, great controversy, war in heaven, character of god, government of god, judgment, daniel 7, revelation 4 and 5, romans 3:4, ephesians 3:10"
-    />
-</svelte:head>
+<Seo
+    title="Foundations — Before You Read Revelation"
+    description="What every reader of Revelation should know first: a war over God's character, government and justice, fought with lies and answered with truth, settled by three judgments — and mapped in advance by Daniel 7."
+    keywords="how to understand revelation, great controversy, war in heaven, character of god, government of god, judgment, daniel 7, revelation 4 and 5, romans 3:4, ephesians 3:10"
+    image="/war.jpg"
+/>
+
 
 <div class="doc-fd">
     <main>

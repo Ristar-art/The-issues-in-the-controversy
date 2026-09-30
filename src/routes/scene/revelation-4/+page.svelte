@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import ThroneScene from '$lib/components/ThroneScene.svelte';
     import { THRONE_ELEMENTS } from '$lib/data/revelation-4.js';
 
@@ -6,14 +7,12 @@
     let active = $derived(THRONE_ELEMENTS.find((element) => element.id === activeId) ?? null);
 </script>
 
-<svelte:head>
-    <title>The Throne Room - Revelation 4 in 3D | The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="An interactive 3D reconstruction of the throne room of Revelation 4 — the throne, the rainbow, the sea of glass, the seven lamps, the four living creatures and the twenty-four elders."
-    />
-    <meta name="keywords" content="revelation 4, throne room, sea of glass, seven lamps, four living creatures, twenty four elders, 3d scene" />
-</svelte:head>
+<Seo
+    title="The Throne Room — Revelation 4 in 3D"
+    description="An interactive 3D reconstruction of the throne room of Revelation 4 — the throne, the rainbow, the sea of glass, the seven lamps, the four living creatures and the twenty-four elders."
+    keywords="revelation 4, throne room, sea of glass, seven lamps, four living creatures, twenty four elders, 3d scene"
+/>
+
 
 <div class="doc-sc">
     <main>

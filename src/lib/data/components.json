@@ -2,7 +2,7 @@
   {
     "id": "sample-hero",
     "name": "Sample Hero",
-    "html": "<section class=\"py-8\" style=\"background-image: url('/_.jpeg'); background-size: cover; background-position: center; min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<div class=\" mb-4 text-center\" style=\"color: #00FF00\">New block</div>\n</div></div></section>",
+    "html": "<section class=\"py-8\" style=\"background-image: url('/thetrhoneroom.jpg'); background-size: cover; background-position: center; min-height: 200px;\"><div class=\"container mx-auto px-4\"><div class=\"\">\n<div class=\" mb-4 text-center\" style=\"color: #00FF00\">New block</div>\n</div></div></section>",
     "section": {
       "classes": "py-8",
       "containerClasses": "container mx-auto px-4",
@@ -14,7 +14,7 @@
           "color": "#00FF00"
         }
       ],
-      "backgroundImage": "/_.jpeg",
+      "backgroundImage": "/thetrhoneroom.jpg",
       "layout": "linear",
       "minHeight": "200px"
     }
@@ -22,7 +22,7 @@
   {
     "id": "component-1772379143802",
     "name": "Test Component",
-    "html": "<section class=\"py-8\">\n  <div class=\"container mx-auto px-4\">\n    <div class=\" mb-4\" style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; justify-items: center\"><div class=\"text-center mb-4\"><img src=\"/_.jpeg\" alt=\"\" class=\"rounded\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" class=\"rounded\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/earth-and-water.avif\" alt=\"\" class=\"rounded\" /></div>\n</div>\n\n  </div>\n</section>",
+    "html": "<section class=\"py-8\">\n  <div class=\"container mx-auto px-4\">\n    <div class=\" mb-4\" style=\"display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; justify-items: center\"><div class=\"text-center mb-4\"><img src=\"/thetrhoneroom.jpg\" alt=\"\" class=\"rounded\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" class=\"rounded\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/earth-and-water.avif\" alt=\"\" class=\"rounded\" /></div>\n</div>\n\n  </div>\n</section>",
     "category": "custom",
     "description": "this an example of  the components",
     "blocks": [
@@ -33,7 +33,7 @@
         "blocks": [
           {
             "type": "image",
-            "src": "/_.jpeg",
+            "src": "/thetrhoneroom.jpg",
             "alt": "",
             "align": "center"
           },
@@ -83,7 +83,7 @@
   {
     "id": "component-1772383191547",
     "name": "New Component2",
-    "html": "<section class=\"py-8\">\n  <div class=\"container mx-auto px-4\">\n    <div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" class=\"rounded\" style=\"width: 100%;\" /></div>\n<div class=\"mb-4\"><hr style=\"border: none; border-top: 1px solid #d1d5db; width: 100%; margin-left: auto; margin-right: auto;\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/_.jpeg\" alt=\"\" class=\"rounded\" style=\"width: 100%;\" /></div>\n\n  </div>\n</section>",
+    "html": "<section class=\"py-8\">\n  <div class=\"container mx-auto px-4\">\n    <div class=\"text-center mb-4\"><img src=\"/Beast.webp\" alt=\"\" class=\"rounded\" style=\"width: 100%;\" /></div>\n<div class=\"mb-4\"><hr style=\"border: none; border-top: 1px solid #d1d5db; width: 100%; margin-left: auto; margin-right: auto;\" /></div>\n<div class=\"text-center mb-4\"><img src=\"/thetrhoneroom.jpg\" alt=\"\" class=\"rounded\" style=\"width: 100%;\" /></div>\n\n  </div>\n</section>",
     "category": "custom",
     "description": "",
     "blocks": [
@@ -104,7 +104,7 @@
       },
       {
         "type": "image",
-        "src": "/_.jpeg",
+        "src": "/thetrhoneroom.jpg",
         "alt": "",
         "align": "center",
         "widthPercent": 100

@@ -1,4 +1,5 @@
 <script>
+    import Seo from '$lib/components/Seo.svelte';
     import { enhance } from '$app/forms';
     import { CONTACT_SUBJECTS } from '$lib/data/contact-subjects';
 
@@ -29,13 +30,12 @@
     ];
 </script>
 
-<svelte:head>
-    <title>Contact - The Issues in the Controversy</title>
-    <meta
-        name="description"
-        content="Get in touch with Open Face Fellowship — questions about a study, corrections, speaking requests, or prayer."
-    />
-</svelte:head>
+<Seo
+    title="Contact"
+    description="Get in touch with Open Face Fellowship — questions about a study, corrections, speaking requests, or prayer."
+    keywords="contact, open face fellowship, bible study questions, speaking requests, prayer"
+/>
+
 
 <div class="doc-ct">
     <main>
