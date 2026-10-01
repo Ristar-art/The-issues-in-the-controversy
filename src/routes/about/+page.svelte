@@ -1,35 +1,94 @@
 <script>
     import Seo from '$lib/components/Seo.svelte';
-    import { THESIS_ITEMS, CENTRAL_QUESTION } from '$lib/data/thesis.js';
+    import { THESIS_ITEMS } from '$lib/data/thesis.js';
 
-    // What the site is made of, as a reader would meet it.
-    const PARTS = [
+    // What the site is made of, grouped the way the Explore menu groups it, and
+    // ordered the way a reader is meant to meet it. Keep this in step with the
+    // nav and the sitemap: every href below is a route that exists.
+    const PART_GROUPS = [
         {
-            href: '/overview',
-            label: 'The overviews',
-            note: 'Three charts: Daniel and Revelation in parallel, the book of Revelation in four divisions, and the visions of Daniel side by side.'
+            title: 'Start here',
+            items: [
+                {
+                    href: '/faoundations',
+                    label: 'Foundations',
+                    note: 'What Revelation assumes before it begins: a government that rules by consent rather than force, a war fought with lies, three charges laid against God, and the judgment by which they are settled.'
+                }
+            ]
         },
         {
-            href: '/seals',
-            label: 'The seven seals',
-            note: 'The seals of Revelation 6–8 read as successive states of the church, one study at a time.'
+            title: 'The maps',
+            items: [
+                {
+                    href: '/overview',
+                    label: 'The overviews',
+                    note: 'Three charts: Daniel and Revelation in parallel, the book of Revelation in four divisions, and the visions of Daniel side by side.'
+                },
+                {
+                    href: '/scene/revelation-4',
+                    label: 'The throne room',
+                    note: 'Revelation 4 as a scene rather than a diagram - every element of it pinned to the verse it is built from. The court of Daniel 7, seen from inside.'
+                },
+                {
+                    href: '/symbols',
+                    label: 'The lexicon',
+                    note: 'The prophetic vocabulary - beast, horn, waters, woman, a day for a year - each with the passage that defines it.'
+                }
+            ]
         },
         {
-            href: '/symbols',
-            label: 'The lexicon',
-            note: 'The prophetic vocabulary - beast, horn, waters, woman, a day for a year - each with the passage that defines it.'
+            title: 'The kingdom of Christ',
+            items: [
+                {
+                    href: '/churches',
+                    label: 'The seven churches',
+                    note: 'Revelation 2–3 read as seven conditions of one church. Each is given a starting point; not one is given an end, so all seven stand together now.'
+                },
+                {
+                    href: '/seals',
+                    label: 'The seven seals',
+                    note: 'The seals of Revelation 6–8 read as successive states of the church, one study at a time.'
+                },
+                {
+                    href: '/flashbacks',
+                    label: 'The flashbacks',
+                    note: 'Where the vision order is not the event order - the case for reading certain chapters earlier than the book prints them, and what changes when it is done.'
+                },
+                {
+                    href: '/the-144000',
+                    label: 'The 144,000',
+                    note: 'Chapter 6 ends by asking who shall be able to stand. Chapter 7 answers it, and the sealing has to fall before the day of wrath rather than after it.'
+                }
+            ]
         },
         {
-            href: '/topics',
-            label: 'The studies',
-            note: 'The written work in full, from the character of God to the gospel of the kingdom.'
+            title: 'The kingdom of the beast',
+            items: [
+                {
+                    href: '/beast',
+                    label: 'The beast and the woman',
+                    note: 'Revelation 17 - seven heads, ten horns set on the beast and not on the heads, and a woman who rides a power she does not own.'
+                }
+            ]
         },
         {
-            href: '/videos',
-            label: 'The series',
-            note: 'The same ground walked on film, episode by episode.'
+            title: 'The same ground, other forms',
+            items: [
+                {
+                    href: '/topics',
+                    label: 'The written studies',
+                    note: 'The written work in full, from the character of God to the gospel of the kingdom.'
+                },
+                {
+                    href: '/videos',
+                    label: 'The film series',
+                    note: 'The same ground walked on film, episode by episode.'
+                }
+            ]
         }
     ];
+
+    const PART_COUNT = PART_GROUPS.reduce((n, g) => n + g.items.length, 0);
 
     // How the studies are meant to be checked — the working rules of the project.
     const METHOD = [
@@ -46,15 +105,15 @@
         {
             num: '03',
             title: 'The prophecies are read as one',
-            body: 'Daniel and Revelation cover the same ground repeatedly, each pass adding what the last left out. The charts are built to show that, not to assert it.'
+            body: 'Daniel and Revelation cover the same ground repeatedly, each pass adding what the last left out. The charts are built to show that rather than assert it - and where a chapter is read out of the order the book prints it in, the reason is argued in the open.'
         }
     ];
 </script>
 
 <Seo
     title="About"
-    description="What this project is: a study of the great controversy through the prophecies of Daniel and Revelation, published as written studies, a film series, and reference charts."
-    keywords="about, open face fellowship, great controversy, daniel and revelation study, bible prophecy ministry"
+    description="What this project is: a study of the great controversy through the prophecies of Daniel and Revelation - foundations, the seven churches, the seven seals, the 144,000 and the beast - published as written studies, a film series, and reference charts anyone can check."
+    keywords="about, open face fellowship, great controversy, daniel and revelation study, foundations of revelation, seven churches, seven seals, the 144000, bible prophecy ministry"
 />
 
 
@@ -65,8 +124,8 @@
             <p class="doc-ab__eyebrow">About</p>
             <h1 class="doc-ab__title">The <br /><span class="doc-ab__em"> Endgame</span> of Heaven</h1>
             <p class="doc-ab__lede">
-                A study of the engame of heaven - the charge laid against the character of God, and
-                the answer the prophecies of Daniel and Revelation give to it. The work is published
+                A study of the endgame of heaven - the charges laid against the character of God, and
+                the answer the prophecies of Daniel and Revelation give to them. The work is published
                 here in three forms: written studies, a film series, and reference charts anyone can
                 check for themselves.
             </p>
@@ -83,9 +142,15 @@
                     charge brought against Him is true.
                 </p>
                 <p class="doc-ab__p">
-                    Read that way, the prophecies stop being a puzzle to be solved and become a case
-                    being tried. The court sits in Daniel 7. The books are opened. Everything else in
-                    both books happens around that.
+                    The charge comes in three parts: that God's character is not what He says it is,
+                    that His government cannot work, and that His justice is a sham. Read that way,
+                    the prophecies stop being a puzzle to be solved and become a case being tried.
+                    The court sits in Daniel 7. The books are opened. Everything else in both books
+                    happens around that.
+                </p>
+                <p class="doc-ab__p">
+                    That is the ground the <a class="doc-ab__inlink" href="/faoundations">Foundations</a>
+                    study lays, and the rest of the work here assumes it. It is the place to start.
                 </p>
             </div>
             <div class="doc-ab__col">
@@ -118,27 +183,6 @@
             </div>
         </section>
 
-        <!-- ======================= THE CENTRAL QUESTION ======================= -->
-        <section class="doc-ab__question">
-            <p class="doc-ab__eyebrow">Underneath all of it</p>
-            <h2 class="doc-ab__question-title">{CENTRAL_QUESTION.title}</h2>
-            <p class="doc-ab__question-sub">{CENTRAL_QUESTION.sub}</p>
-            <ol class="doc-ab__questions">
-                {#each CENTRAL_QUESTION.points as point, i}
-                    <li>
-                        <span class="doc-ab__qnum">Q{String(i + 1).padStart(2, '0')}</span>
-                        <span>{point}</span>
-                    </li>
-                {/each}
-            </ol>
-            <a href={`/${CENTRAL_QUESTION.href}`} class="doc-ab__btn">
-                Read the investigation
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
-                </svg>
-            </a>
-        </section>
-
         <!-- ============================ METHOD ============================ -->
         <section class="doc-ab__method">
             <p class="doc-ab__eyebrow">How the work is done</p>
@@ -157,22 +201,32 @@
         <!-- ============================= PARTS ============================= -->
         <section class="doc-ab__parts">
             <p class="doc-ab__eyebrow">What is here</p>
-            <h2 class="doc-ab__h2 doc-ab__h2--wide">The work, in five parts</h2>
-            <ul class="doc-ab__partlist">
-                {#each PARTS as part}
-                    <li>
-                        <a href={part.href} class="doc-ab__part">
-                            <span class="doc-ab__part-label">
-                                {part.label}
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
-                                </svg>
-                            </span>
-                            <span class="doc-ab__part-note">{part.note}</span>
-                        </a>
-                    </li>
-                {/each}
-            </ul>
+            <h2 class="doc-ab__h2 doc-ab__h2--wide">The work, part by part</h2>
+            <p class="doc-ab__p doc-ab__parts-lede">
+                {PART_COUNT} pieces, in the order they are meant to be met. Foundations comes first
+                because everything after it leans on what that study settles; the two kingdoms can
+                then be read in either order.
+            </p>
+            {#each PART_GROUPS as group}
+                <div class="doc-ab__group">
+                    <h3 class="doc-ab__group-title">{group.title}</h3>
+                    <ul class="doc-ab__partlist">
+                        {#each group.items as part}
+                            <li>
+                                <a href={part.href} class="doc-ab__part">
+                                    <span class="doc-ab__part-label">
+                                        {part.label}
+                                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+                                        </svg>
+                                    </span>
+                                    <span class="doc-ab__part-note">{part.note}</span>
+                                </a>
+                            </li>
+                        {/each}
+                    </ul>
+                </div>
+            {/each}
         </section>
 
         <!-- ============================== WHO ============================== -->
@@ -276,6 +330,13 @@
         margin: 0 0 1.25rem;
     }
     .doc-ab__p:last-of-type { margin-bottom: 0; }
+    .doc-ab__inlink {
+        color: var(--doc-ink);
+        text-decoration: none;
+        border-bottom: 1px solid var(--doc-ember);
+        transition: color 0.3s ease;
+    }
+    .doc-ab__inlink:hover { color: var(--doc-ember-soft); }
     .doc-ab__num {
         font-family: 'JetBrains Mono', ui-monospace, monospace;
         font-size: 0.75rem;
@@ -331,56 +392,6 @@
     }
     .doc-ab__textlink:hover { border-bottom-color: var(--doc-ember); color: var(--doc-ember); }
 
-    /* The central question — the one section that raises its voice */
-    .doc-ab__question {
-        border-top: 1px solid var(--doc-line);
-        padding: clamp(4rem, 9vw, 7rem) clamp(1.5rem, 6vw, 7rem);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        background:
-            radial-gradient(80% 60% at 50% 0%, rgba(217, 122, 67, 0.1), transparent 70%),
-            var(--doc-bg);
-    }
-    .doc-ab__question-title {
-        font-size: clamp(2.2rem, 6vw, 4.5rem);
-        line-height: 1.02;
-        margin-bottom: 1rem !important;
-    }
-    .doc-ab__question-sub {
-        font-family: 'Newsreader', Georgia, serif;
-        font-style: italic;
-        font-size: 1.25rem;
-        color: var(--doc-muted);
-        margin: 0 0 3rem;
-    }
-    .doc-ab__questions {
-        list-style: none;
-        margin: 0 0 3rem;
-        padding: 0;
-        text-align: left;
-        max-width: 38rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-    }
-    .doc-ab__questions li {
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 1.2rem;
-        align-items: start;
-        color: var(--doc-ink);
-        line-height: 1.6;
-    }
-    .doc-ab__qnum {
-        font-family: 'JetBrains Mono', ui-monospace, monospace;
-        font-size: 0.625rem;
-        letter-spacing: 0.2em;
-        color: var(--doc-ember);
-        padding-top: 0.3rem;
-    }
-
     /* Method */
     .doc-ab__method {
         border-top: 1px solid var(--doc-line);
@@ -404,6 +415,18 @@
         border-top: 1px solid var(--doc-line);
         padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 6vw, 7rem);
     }
+    .doc-ab__p.doc-ab__parts-lede { max-width: 42rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+    /* Groups rather than one flat list, so eleven destinations read as five
+       collections — the same grouping the Explore menu uses. */
+    .doc-ab__group + .doc-ab__group { margin-top: clamp(2.25rem, 4.5vw, 3.25rem); }
+    .doc-ab__group-title {
+        font-family: 'JetBrains Mono', ui-monospace, monospace;
+        font-size: 0.6875rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--doc-ember);
+        margin: 0 0 0.75rem !important;
+    }
     .doc-ab__partlist { list-style: none; margin: 0; padding: 0; }
     .doc-ab__part {
         display: grid;
@@ -415,7 +438,7 @@
         transition: border-color 0.35s ease;
     }
     @media (min-width: 760px) {
-        .doc-ab__part { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); gap: 2rem; align-items: baseline; }
+        .doc-ab__part { grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: 2rem; align-items: baseline; }
     }
     .doc-ab__partlist li:last-child .doc-ab__part { border-bottom: 1px solid var(--doc-line); }
     .doc-ab__part:hover { border-top-color: var(--doc-ember); }
@@ -475,7 +498,6 @@
     .doc-ab__btn:hover { border-color: var(--doc-ember); color: var(--doc-ember-soft); }
     .doc-ab__btn svg { width: 1rem; height: 1rem; transition: transform 0.3s ease; }
     .doc-ab__btn:hover svg { transform: translateX(4px); }
-    .doc-ab__question .doc-ab__btn { margin-top: 0; }
 
     @media (prefers-reduced-motion: reduce) {
         .doc-ab :where(a, img, svg) { transition: none !important; }

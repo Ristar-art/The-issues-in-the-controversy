@@ -11,8 +11,8 @@
     const hero = '/thetrhoneroom.jpg';
 
     // ----- Hero content -----
-    const heroCta = { label: 'Begin the Story', href: '/topics' };
-    const heroCtaSecondary = { label: 'Read the Brief', href: '#chapters' };
+    const heroCta = { label: 'Begin the Study', href: '/faoundations' };
+    const heroCtaSecondary = { label: 'Watch the Series', href: '/videos' };
 
 
     // ----- Chapters (Key Topics) -----
@@ -207,7 +207,7 @@
         <section class="doc-seals" use:reveal>
             <header class="doc-section-head doc-section-head--split">
                 <div>
-                    <p class="doc-act">The Books Were Open</p>
+                    <p class="doc-act">the court sat in judgment, and the books were opened</p>
                     <h2 class="doc-section-title">{progressTitle}</h2>
                     <p class="doc-section-sub">{progressEyebrow}</p>
                 </div>
