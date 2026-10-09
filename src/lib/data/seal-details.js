@@ -123,7 +123,7 @@ export const SEAL_DETAILS = {
 		],
 		related: [
 			{ label: 'The scene in Revelation 4 — the court is seated', href: '/scene/revelation-4' },
-			{ label: 'The seven churches — the same history from within', href: '/churches' },
+			{ label: 'Ephesus — the same apostolic church, from within', href: '/churches/ephesus' },
 			{ label: 'The symbols and how they are read', href: '/symbols' }
 		]
 	},
@@ -178,7 +178,7 @@ export const SEAL_DETAILS = {
 		],
 		related: [
 			{ label: 'The first seal — the conquering church', href: '/seals/first-seal' },
-			{ label: 'The seven churches — Smyrna under persecution', href: '/churches' },
+			{ label: 'Smyrna — the church under persecution', href: '/churches/smyrna' },
 			{ label: 'The symbols and how they are read', href: '/symbols' }
 		]
 	},
@@ -418,8 +418,9 @@ export const SEAL_DETAILS = {
 		]
 	},
 
-	'sixth-seal': {},
-	'seventh-seal': {}
+	'sixth-seal': {}
+	// The seventh seal has no entry: it lives at /seventh-seal, and its
+	// trumpets are written up in trumpet-details.js.
 };
 
 /**

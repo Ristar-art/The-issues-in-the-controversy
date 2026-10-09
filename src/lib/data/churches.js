@@ -76,6 +76,8 @@ export const USUAL_ERAS = [
  * @property {string} id
  * @property {number} n
  * @property {string} name
+ * @property {string} img       The letter's plate, in /static.
+ * @property {string} alt
  * @property {string} meaning     What the name itself carries.
  * @property {string} under       The condition-phrase the chart is built on.
  * @property {string} began       When the condition started.
@@ -96,6 +98,8 @@ export const USUAL_ERAS = [
 export const CHURCHES = [
 	{
 		id: 'ephesus',
+		img: '/Ephesus.jpg',
+		alt: 'The Message to Ephesus, Revelation 2: Christ holds the letter before a ruined temple, beside the lines Remember, Repent, Return and You left your first love.',
 		n: 1,
 		name: 'Ephesus',
 		meaning: 'Desirable',
@@ -114,6 +118,8 @@ export const CHURCHES = [
 	},
 	{
 		id: 'smyrna',
+		img: '/Smyrna.jpg',
+		alt: 'The Message to Smyrna, Revelation 2:8–11: a chained woman prays while a Roman soldier with a torch stands over a burning city, beside the lines Be faithful in persecution and Do not fear what is to come.',
 		n: 2,
 		name: 'Smyrna',
 		meaning: 'Myrrh - a bitter herb with a sweet smell',
@@ -132,11 +138,13 @@ export const CHURCHES = [
 	},
 	{
 		id: 'pergamos',
+		img: '/Pergamos.jpg',
+		alt: 'The Message to Pergamos, Revelation 2:12–17: a sword stands in an open Bible before an idol on a throne among ruins, beside the lines Repent of compromise and Beware of false doctrine.',
 		n: 3,
 		name: 'Pergamos',
 		meaning: 'Married - or a citadel',
 		under: 'the Orthodox Church',
-		began: 'c. AD 1000',
+		began: 'c. AD 300',
 		beganNote: 'The great schism - though the disagreement behind it dates from after Nicaea.',
 		size: '≈ 300 million',
 		nameable: true,
@@ -150,11 +158,13 @@ export const CHURCHES = [
 	},
 	{
 		id: 'thyatira',
+		img: '/Thyatira.jpg',
+		alt: 'The Message to Thyatira, Revelation 2:18–29: Jezebel reclines with a golden cup before a burning city and an idol, beside the lines Reject immorality and idolatry and Hold fast until I come.',
 		n: 4,
 		name: 'Thyatira',
 		meaning: 'Continual sacrifice - or a smell of affliction',
 		under: 'Roman Catholicism',
-		began: 'c. AD 1000',
+		began: 'c. AD 538',
 		beganNote: 'The same schism, from the other side of it.',
 		size: '≈ 1.3 billion',
 		nameable: true,
@@ -168,6 +178,8 @@ export const CHURCHES = [
 	},
 	{
 		id: 'sardis',
+		img: '/Sardis.jpg',
+		alt: 'Sardis, Revelation 3:1–6: Christ holds seven stars over a crowd of sleeping figures before a temple, with the words You have a name that you live, but are dead.',
 		n: 5,
 		name: 'Sardis',
 		meaning: 'A remnant - the ones who escape',
@@ -186,6 +198,8 @@ export const CHURCHES = [
 	},
 	{
 		id: 'philadelphia',
+		img: '/Philadelphia.jpg',
+		alt: 'To the Church in Philadelphia: a great door stands open between two pillars onto a sunlit city, with a crown on the threshold.',
 		n: 6,
 		name: 'Philadelphia',
 		meaning: 'Brotherly love',
@@ -204,6 +218,8 @@ export const CHURCHES = [
 	},
 	{
 		id: 'laodicea',
+		img: '/Laodicea.jpg',
+		alt: 'Laodicea, Revelation 3:14–22: Christ knocks at a closed door while those inside drink at their ease, with the words You are lukewarm, and neither cold nor hot.',
 		n: 7,
 		name: 'Laodicea',
 		meaning: 'The judging of the people',
@@ -258,4 +274,15 @@ export const WHERE_IT_ENDS = {
 /** @param {string} id */
 export function getChurch(id) {
 	return CHURCHES.find((church) => church.id === id) ?? null;
+}
+
+/** @param {string} id */
+export function getChurchNeighbours(id) {
+	const index = CHURCHES.findIndex((church) => church.id === id);
+	if (index === -1) return { index: -1, previous: null, next: null };
+	return {
+		index,
+		previous: CHURCHES[index - 1] ?? null,
+		next: CHURCHES[index + 1] ?? null
+	};
 }

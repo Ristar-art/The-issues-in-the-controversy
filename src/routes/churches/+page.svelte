@@ -1,5 +1,6 @@
 <script>
     import Seo from '$lib/components/Seo.svelte';
+    import VerseRefs from '$lib/components/VerseRefs.svelte';
     import {
         CHURCHES,
         CHURCHES_TITLE,
@@ -97,7 +98,7 @@
                         <span class="doc-ch__claim-n" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                         <div>
                             <h3 class="doc-ch__claim-title">{item.claim}</h3>
-                            <p class="doc-ch__ref">{item.refs}</p>
+                            <p class="doc-ch__ref"><VerseRefs refs={item.refs} /></p>
                             <p class="doc-ch__body">{item.note}</p>
                         </div>
                     </li>
@@ -176,7 +177,7 @@
                         <span class="doc-ch__era-open" data-church={church.id}>· and has not ended</span>
                     </p>
                     <p class="doc-ch__began-note">{church.beganNote}</p>
-                    <p class="doc-ch__ref">{church.reference}</p>
+                    <p class="doc-ch__ref"><VerseRefs refs={church.reference} /></p>
 
                     <p class="doc-ch__env-line">
                         Christianity under
@@ -223,6 +224,13 @@
                             <dd>{church.promise}</dd>
                         </div>
                     </dl>
+
+                    <a href="/churches/{church.id}" class="doc-ch__btn doc-ch__btn--quiet doc-ch__letter-link">
+                        The letter to {church.name}
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m0 0l-6-6m6 6l-6 6" />
+                        </svg>
+                    </a>
                 </div>
 
                 <span class="doc-ch__ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
@@ -813,6 +821,7 @@
         padding: 1rem 1.6rem;
         transition: border-color 0.3s ease, color 0.3s ease;
     }
+    .doc-ch__letter-link { margin-top: 2rem; }
     .doc-ch__btn:hover { border-color: var(--doc-ember); color: var(--doc-ember-soft); }
     .doc-ch__btn svg { width: 1rem; height: 1rem; transition: transform 0.3s ease; }
     .doc-ch__btn:hover svg { transform: translateX(4px); }

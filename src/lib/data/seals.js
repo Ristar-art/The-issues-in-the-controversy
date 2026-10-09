@@ -1,12 +1,18 @@
 // The seven seals of Revelation 6–8, read as successive states of the church.
 // Shared by the landing-page filmstrip and the /seals page so the two can
-// never tell different stories; `id` is the anchor each seal is linked by.
+// never tell different stories. `href` is where each seal is linked to: the
+// first six have their study at /seals/[id], but the seventh is the container
+// the seven trumpets come out of, so it is introduced on a page of its own.
 export const SEALS_TITLE = 'The Seven Seals';
 export const SEALS_SUBTITLE = 'The state of the Church, the kingdom of Christ.';
+
+/** The seventh seal's own page — the introduction to the seven trumpets. */
+export const SEVENTH_SEAL_HREF = '/seventh-seal';
 
 export const SEALS = [
 	{
 		id: 'first-seal',
+		href: '/seals/first-seal',
 		era: '1st Seal',
 		title: 'The White Horse',
 		reference: 'Revelation 6:1–2',
@@ -16,6 +22,7 @@ export const SEALS = [
 	},
 	{
 		id: 'second-seal',
+		href: '/seals/second-seal',
 		era: '2nd Seal',
 		title: 'The Red Horse',
 		reference: 'Revelation 6:3–4',
@@ -25,6 +32,7 @@ export const SEALS = [
 	},
 	{
 		id: 'third-seal',
+		href: '/seals/third-seal',
 		era: '3rd Seal',
 		title: 'The Black Horse',
 		reference: 'Revelation 6:5–6',
@@ -34,6 +42,7 @@ export const SEALS = [
 	},
 	{
 		id: 'fourth-seal',
+		href: '/seals/fourth-seal',
 		era: '4th Seal',
 		title: 'The Pale Horse',
 		reference: 'Revelation 6:7–8',
@@ -43,6 +52,7 @@ export const SEALS = [
 	},
 	{
 		id: 'fifth-seal',
+		href: '/seals/fifth-seal',
 		era: '5th Seal',
 		title: 'The Souls Under The Altar',
 		reference: 'Revelation 6:9–11',
@@ -52,6 +62,7 @@ export const SEALS = [
 	},
 	{
 		id: 'sixth-seal',
+		href: '/seals/sixth-seal',
 		era: '6th Seal',
 		title: 'The Apocalyptic Events',
 		reference: 'Revelation 6:12–17',
@@ -61,6 +72,7 @@ export const SEALS = [
 	},
 	{
 		id: 'seventh-seal',
+		href: SEVENTH_SEAL_HREF,
 		era: '7th Seal',
 		title: 'Silence in Heaven',
 		reference: 'Revelation 8:1–6',

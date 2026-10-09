@@ -1,5 +1,7 @@
 // src/routes/sitemap.xml/+server.js
 import { SEALS } from '$lib/data/seals.js';
+import { TRUMPET_STUDIES } from '$lib/data/seventh-seal.js';
+import { CHURCHES } from '$lib/data/churches.js';
 import { SITE_URL } from '$lib/seo';
 import { adminDb } from '$lib/firebase/admin';
 
@@ -13,6 +15,7 @@ const STATIC_PAGES = [
     { url: '/overview/daniel', changefreq: 'monthly', priority: '0.9' },
     { url: '/overview/revelation', changefreq: 'monthly', priority: '0.9' },
     { url: '/seals', changefreq: 'monthly', priority: '0.9' },
+    { url: '/seventh-seal', changefreq: 'monthly', priority: '0.9' },
     { url: '/churches', changefreq: 'monthly', priority: '0.9' },
     { url: '/the-144000', changefreq: 'monthly', priority: '0.9' },
     { url: '/beast', changefreq: 'monthly', priority: '0.9' },
@@ -57,8 +60,19 @@ export async function GET() {
 
     const pages = [
         ...STATIC_PAGES,
-        ...SEALS.map((seal) => ({
-            url: `/seals/${seal.id}`,
+        // The seventh seal's href is /seventh-seal, already listed above.
+        ...SEALS.filter((seal) => seal.href.startsWith('/seals/')).map((seal) => ({
+            url: seal.href,
+            changefreq: 'monthly',
+            priority: '0.7'
+        })),
+        ...TRUMPET_STUDIES.map((trumpet) => ({
+            url: trumpet.href,
+            changefreq: 'monthly',
+            priority: '0.7'
+        })),
+        ...CHURCHES.map((church) => ({
+            url: `/churches/${church.id}`,
             changefreq: 'monthly',
             priority: '0.7'
         })),

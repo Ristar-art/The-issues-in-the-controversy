@@ -2,10 +2,11 @@
     import HeroExpand from '$lib/components/HeroExpand.svelte';
     import Seo from '$lib/components/Seo.svelte';
     import { SITE_URL, absolute } from '$lib/seo';
+    import { SEVENTH_SEAL_HREF, SEVENTH_SEAL_TITLE } from '$lib/data/seventh-seal.js';
 
     let { data } = $props();
 
-    let seal = $derived(data.seal);
+    let trumpet = $derived(data.trumpet);
     let detail = $derived(data.detail);
     let position = $derived(data.position);
 
@@ -22,20 +23,20 @@
     }
 
     let sections = $derived(detail.sections ?? []);
-    let description = $derived(detail.summary || detail.subtitle || seal.body);
+    let description = $derived(detail.summary || detail.subtitle || trumpet.body);
 
-    // A seal is one step inside a series, so the breadcrumb is worth stating
-    // outright — it is what a search result shows under the title.
+    // A trumpet sits two levels down — inside the seventh seal, inside the
+    // seals — so the breadcrumb states the whole path.
     let jsonld = $derived({
         '@context': 'https://schema.org',
         '@graph': [
             {
                 '@type': 'Article',
-                headline: `${seal.title} — ${seal.era}`,
+                headline: `${trumpet.title} — ${trumpet.era}`,
                 description,
-                image: absolute(seal.img),
-                articleSection: 'The Seven Seals',
-                isPartOf: { '@type': 'WebPage', '@id': absolute('/seals') },
+                image: absolute(trumpet.img),
+                articleSection: 'The Seven Trumpets',
+                isPartOf: { '@type': 'WebPage', '@id': absolute(SEVENTH_SEAL_HREF) },
                 publisher: { '@id': `${SITE_URL}/#organization` }
             },
             {
@@ -43,7 +44,8 @@
                 itemListElement: [
                     { '@type': 'ListItem', position: 1, name: 'Home', item: absolute('/') },
                     { '@type': 'ListItem', position: 2, name: 'The Seven Seals', item: absolute('/seals') },
-                    { '@type': 'ListItem', position: 3, name: seal.title, item: absolute(`/seals/${seal.id}`) }
+                    { '@type': 'ListItem', position: 3, name: SEVENTH_SEAL_TITLE, item: absolute(SEVENTH_SEAL_HREF) },
+                    { '@type': 'ListItem', position: 4, name: trumpet.title, item: absolute(trumpet.href) }
                 ]
             }
         ]
@@ -51,9 +53,9 @@
 </script>
 
 <Seo
-    title={`${seal.title} — ${seal.era} of Revelation`}
+    title={`${trumpet.title} — ${trumpet.era} of Revelation`}
     {description}
-    image={seal.img}
+    image={trumpet.img}
     type="article"
     {jsonld}
 />
@@ -62,24 +64,26 @@
     <article>
         <!-- ============================= HERO ============================= -->
         <header class="doc-sd__hero">
-            <img class="doc-sd__hero-img" src={seal.img} alt={seal.alt} fetchpriority="high" />
+            <img class="doc-sd__hero-img" src={trumpet.img} alt={trumpet.alt} fetchpriority="high" />
             <span class="doc-sd__hero-veil" aria-hidden="true"></span>
 
-            <HeroExpand src={seal.img} alt={seal.alt} caption={`${seal.era} · ${seal.title}`} />
+            <HeroExpand src={trumpet.img} alt={trumpet.alt} caption={`${trumpet.era} · ${trumpet.title}`} />
 
             <div class="doc-sd__hero-text">
                 <nav class="doc-sd__crumbs" aria-label="Breadcrumb">
                     <a href="/seals">The Seven Seals</a>
                     <span aria-hidden="true">·</span>
-                    <span>Seal {num} / {total}</span>
+                    <a href={SEVENTH_SEAL_HREF}>{SEVENTH_SEAL_TITLE}</a>
+                    <span aria-hidden="true">·</span>
+                    <span>Trumpet {num} / {total}</span>
                 </nav>
 
-                <p class="doc-sd__eyebrow">{seal.era} · {seal.reference}</p>
-                <h1 class="doc-sd__title">{seal.title}</h1>
+                <p class="doc-sd__eyebrow">{trumpet.era} · {trumpet.reference}{#if trumpet.woe} · {trumpet.woe}{/if}</p>
+                <h1 class="doc-sd__title">{trumpet.title}</h1>
                 {#if detail.subtitle}
                     <p class="doc-sd__lede">{detail.subtitle}</p>
                 {:else}
-                    <p class="doc-sd__lede">{seal.body}</p>
+                    <p class="doc-sd__lede">{trumpet.body}</p>
                 {/if}
             </div>
         </header>
@@ -89,11 +93,15 @@
             <aside class="doc-sd__aside">
                 <div class="doc-sd__meta">
                     <p class="doc-sd__meta-label">Passage</p>
-                    <p class="doc-sd__meta-value">{seal.reference}</p>
+                    <p class="doc-sd__meta-value">{trumpet.reference}</p>
                 </div>
                 <div class="doc-sd__meta">
                     <p class="doc-sd__meta-label">Position</p>
-                    <p class="doc-sd__meta-value">Seal {num} of {total}</p>
+                    <p class="doc-sd__meta-value">Trumpet {num} of {total}</p>
+                </div>
+                <div class="doc-sd__meta">
+                    <p class="doc-sd__meta-label">Within</p>
+                    <p class="doc-sd__meta-value"><a class="doc-sd__meta-link" href={SEVENTH_SEAL_HREF}>The seventh seal</a></p>
                 </div>
 
                 {#if sections.length}
@@ -122,7 +130,7 @@
                     {#if detail.passage}
                         <blockquote class="doc-sd__passage">
                             <p>{detail.passage}</p>
-                            <cite>{seal.reference}</cite>
+                            <cite>{trumpet.reference}</cite>
                         </blockquote>
                     {/if}
 
@@ -149,7 +157,7 @@
 
                     {#if detail.keyPoints?.length}
                         <section class="doc-sd__section">
-                            <h2 class="doc-sd__heading">What this seal rests on</h2>
+                            <h2 class="doc-sd__heading">What this trumpet rests on</h2>
                             <ul class="doc-sd__points">
                                 {#each detail.keyPoints as point}
                                     <li>{point}</li>
@@ -173,14 +181,14 @@
                          rather than showing an empty column. -->
                     <div class="doc-sd__pending">
                         <p class="doc-sd__eyebrow doc-sd__eyebrow--dim">In preparation</p>
-                        <h2 class="doc-sd__heading">The fuller study on this seal is still being written.</h2>
-                        <p class="doc-sd__p">{seal.body}</p>
+                        <h2 class="doc-sd__heading">The fuller study on this trumpet is still being written.</h2>
+                        <p class="doc-sd__p">{trumpet.body}</p>
                         <p class="doc-sd__p">
-                            Until it is here, the overview of all seven stands on the index, and the
-                            series covers the same ground on film.
+                            Until it is here, the introduction to the seventh seal sets out all seven
+                            trumpets together, and the series covers the same ground on film.
                         </p>
                         <div class="doc-sd__pending-links">
-                            <a href="/seals" class="doc-sd__btn">Back to the seven</a>
+                            <a href={SEVENTH_SEAL_HREF} class="doc-sd__btn">Back to the seventh seal</a>
                             <a href="/videos" class="doc-sd__btn doc-sd__btn--quiet">Watch the series</a>
                         </div>
                     </div>
@@ -189,28 +197,28 @@
         </div>
 
         <!-- ========================== WALK-THROUGH ========================= -->
-        <nav class="doc-sd__walk" aria-label="Seal navigation">
+        <nav class="doc-sd__walk" aria-label="Trumpet navigation">
             {#if data.previous}
                 <a href={data.previous.href} class="doc-sd__walk-link">
-                    <span class="doc-sd__walk-dir">← Previous seal</span>
+                    <span class="doc-sd__walk-dir">← Previous trumpet</span>
                     <span class="doc-sd__walk-title">{data.previous.title}</span>
                 </a>
             {:else}
-                <a href="/seals" class="doc-sd__walk-link">
-                    <span class="doc-sd__walk-dir">← The index</span>
-                    <span class="doc-sd__walk-title">All seven seals</span>
+                <a href={SEVENTH_SEAL_HREF} class="doc-sd__walk-link">
+                    <span class="doc-sd__walk-dir">← The seventh seal</span>
+                    <span class="doc-sd__walk-title">Where the trumpets come from</span>
                 </a>
             {/if}
 
             {#if data.next}
                 <a href={data.next.href} class="doc-sd__walk-link doc-sd__walk-link--end">
-                    <span class="doc-sd__walk-dir">Next seal →</span>
+                    <span class="doc-sd__walk-dir">Next trumpet →</span>
                     <span class="doc-sd__walk-title">{data.next.title}</span>
                 </a>
             {:else}
-                <a href="/topics" class="doc-sd__walk-link doc-sd__walk-link--end">
+                <a href="/seals#the-chain" class="doc-sd__walk-link doc-sd__walk-link--end">
                     <span class="doc-sd__walk-dir">Onward →</span>
-                    <span class="doc-sd__walk-title">The studies</span>
+                    <span class="doc-sd__walk-title">Christ, sole ruler</span>
                 </a>
             {/if}
         </nav>
@@ -370,6 +378,8 @@
         transition: color 0.3s ease, border-color 0.3s ease;
     }
     .doc-sd__contents a:hover { color: var(--doc-ember-soft); border-left-color: var(--doc-ember); }
+    .doc-sd__meta-link { color: inherit; text-decoration: none; border-bottom: 1px solid var(--doc-line); transition: color 0.3s ease, border-color 0.3s ease; }
+    .doc-sd__meta-link:hover { color: var(--doc-ember-soft); border-bottom-color: var(--doc-ember); }
 
     .doc-sd__main { max-width: 44rem; }
 
