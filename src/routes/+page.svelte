@@ -225,7 +225,7 @@
                 {#each progressDefaults as e, i}
                     <!-- The whole still is the link — each one opens that
                          seal's own study rather than the index. -->
-                    <a class="doc-still" href="/seals/{e.id}">
+                    <a class="doc-still" href={e.href}>
                         <div class="doc-still__frame">
                             <img src={e.img} alt={e.alt} class="doc-still__img" loading="lazy" />
                             <span class="doc-still__tc">SEAL {String(i + 1).padStart(2, '0')} / 07</span>

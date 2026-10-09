@@ -3,6 +3,8 @@
     // The trumpet names come from the canonical list, so the seventh seal opens
     // on the same seven blasts everywhere on the site.
     import { TRUMPETS } from '$lib/data/flashback-trumpets.js';
+    // Each trumpet opens its own study inside the seventh seal.
+    import { getTrumpet } from '$lib/data/seventh-seal.js';
 
     // The seals in the order of the page, each carrying the colour it is drawn
     // in. Keyed by id rather than by index so the two lists cannot drift.
@@ -28,6 +30,11 @@
     let hovered = $state(/** @type {string | null} */ (null));
 
     /** @param {string} id */
+    function trumpetHref(id) {
+        return getTrumpet(id)?.href ?? '/seventh-seal';
+    }
+
+    /** @param {string} id */
     function toneOf(id) {
         return SEAL_TONES[id] ?? 'pure';
     }
@@ -37,7 +44,8 @@
      judgement of Christ's kingdom opens the seven seals; the seventh seal
      opens the seven trumpets; the seventh trumpet ends with Christ as the
      sole ruler, and no other kingdom left standing. Every seal below links to
-     its own study at /seals/[slug]. -->
+     its own study at /seals/[slug]; the seventh opens /seventh-seal, and each
+     trumpet its study at /seventh-seal/[slug]. -->
 <figure class="ov">
     <figcaption class="ov__cap">
         <p class="ov__kicker">The shape of it</p>
@@ -103,7 +111,7 @@
 
                 <div class="ov__origin">
                     <a
-                        href="/seals/{seventhSeal.id}"
+                        href={seventhSeal.href}
                         class="ov__node"
                         data-tone={toneOf(seventhSeal.id)}
                         data-dim={hovered !== null && hovered !== seventhSeal.id}
@@ -121,11 +129,20 @@
 
                 <div class="ov__band">
                     {#each sixTrumpets as trumpet}
-                        <div class="ov__cell ov__cell--sub" data-tone={trumpet.tone}>
+                        <a
+                            href={trumpetHref(trumpet.id)}
+                            class="ov__cell ov__cell--sub"
+                            data-tone={trumpet.tone}
+                            data-dim={hovered !== null && hovered !== trumpet.id}
+                            onmouseenter={() => (hovered = trumpet.id)}
+                            onmouseleave={() => (hovered = null)}
+                            onfocus={() => (hovered = trumpet.id)}
+                            onblur={() => (hovered = null)}
+                        >
                             <span class="ov__n">{trumpet.n}</span>
                             <span class="ov__label">{trumpet.label}</span>
                             <span class="ov__ref">{trumpet.refs}</span>
-                        </div>
+                        </a>
                     {/each}
                 </div>
             </div>
@@ -140,9 +157,18 @@
                 </span>
 
                 <div class="ov__origin">
-                    <span class="ov__node" data-tone={seventhTrumpet.tone}>
+                    <a
+                        href={trumpetHref(seventhTrumpet.id)}
+                        class="ov__node"
+                        data-tone={seventhTrumpet.tone}
+                        data-dim={hovered !== null && hovered !== seventhTrumpet.id}
+                        onmouseenter={() => (hovered = seventhTrumpet.id)}
+                        onmouseleave={() => (hovered = null)}
+                        onfocus={() => (hovered = seventhTrumpet.id)}
+                        onblur={() => (hovered = null)}
+                    >
                         <span class="ov__node-n">7</span>
-                    </span>
+                    </a>
                     <span class="ov__node-cap">7th trumpet</span>
                 </div>
 

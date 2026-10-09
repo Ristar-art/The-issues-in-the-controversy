@@ -18,6 +18,7 @@
         NEXT
     } from '$lib/data/foundations.js';
     import HeroExpand from '$lib/components/HeroExpand.svelte';
+    import { biblehubUrl } from '$lib/utils/biblehub.js';
 
     // The same reveal treatment the beast, seals and churches pages use, so a
     // reader moving between the studies meets one rhythm.
@@ -43,6 +44,17 @@
 
     const HERO_ALT = 'Two winged warriors meet in the sky - one in white and gold with sword and shield, one in black armour with raised blade - while smaller angels fight around them';
 </script>
+
+<!-- Every citation opens its verse on Bible Hub, in a new tab so the reader
+     keeps their place in the study. -->
+{#snippet verseLink(/** @type {string} */ reference)}
+    {@const href = biblehubUrl(reference)}
+    {#if href}
+        <a class="doc-fd__verse-link" {href} target="_blank" rel="noopener noreferrer">{reference}</a>
+    {:else}
+        {reference}
+    {/if}
+{/snippet}
 
 <Seo
     title="Foundations — Before You Read Revelation"
@@ -168,7 +180,7 @@
                         <div class="doc-fd__eden-step">
                             <blockquote class="doc-fd__pull">
                                 <p>“{step.line}”</p>
-                                {#if step.reference}<cite>{step.reference}</cite>{/if}
+                                {#if step.reference}<cite>{@render verseLink(step.reference)}</cite>{/if}
                             </blockquote>
                             <p class="doc-fd__effect">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
@@ -199,7 +211,7 @@
                     <li class="doc-fd__charge">
                         <span class="doc-fd__num">{pad(i + 1)}</span>
                         <h3 class="doc-fd__charge-title">{charge.name}</h3>
-                        <p class="doc-fd__ref">{charge.refs}</p>
+                        <p class="doc-fd__ref">{@render verseLink(charge.refs)}</p>
                         {#if charge.quote}
                             <blockquote class="doc-fd__inline-quote">“{charge.quote}”</blockquote>
                         {/if}
@@ -226,7 +238,7 @@
                     <p class="doc-fd__body doc-fd__body--ink">{RESPONSE.body}</p>
                     <blockquote class="doc-fd__pull">
                         <p>“{RESPONSE.weapon.quote}”</p>
-                        <cite>{RESPONSE.weapon.reference}</cite>
+                        <cite>{@render verseLink(RESPONSE.weapon.reference)}</cite>
                     </blockquote>
                     <p class="doc-fd__body">{RESPONSE.weapon.note}</p>
                 </div>
@@ -236,7 +248,7 @@
                     {#each RESPONSE.verses as verse}
                         <blockquote class="doc-fd__verse">
                             <p>“{verse.quote}”</p>
-                            <cite>{verse.reference}</cite>
+                            <cite>{@render verseLink(verse.reference)}</cite>
                         </blockquote>
                     {/each}
                     <p class="doc-fd__body">{RESPONSE.calvary}</p>
@@ -267,7 +279,7 @@
             <div class="doc-fd__church">
                 <blockquote class="doc-fd__quote">
                     <p>“{RESPONSE.church.quote}”</p>
-                    <cite>{RESPONSE.church.reference}</cite>
+                    <cite>{@render verseLink(RESPONSE.church.reference)}</cite>
                 </blockquote>
                 <div>
                     <p class="doc-fd__body">{RESPONSE.church.note}</p>
@@ -297,14 +309,14 @@
                             <h3 class="doc-fd__judgment-title">{judgment.name}</h3>
                             <blockquote class="doc-fd__verse">
                                 <p>“{judgment.quote}”</p>
-                                <cite>{judgment.reference}</cite>
+                                <cite>{@render verseLink(judgment.reference)}</cite>
                             </blockquote>
                             <p class="doc-fd__body">{judgment.body}</p>
                         </li>
                     {/each}
                 </ol>
                 <p class="doc-fd__timeline-note">
-                    <span class="doc-fd__ref">{TIMELINE.reference}</span>
+                    <span class="doc-fd__ref">{@render verseLink(TIMELINE.reference)}</span>
                     {TIMELINE.body}
                 </p>
             </div>
@@ -320,7 +332,7 @@
             </p>
             <blockquote class="doc-fd__trial-quote">
                 <p>“{ON_TRIAL.quote}”</p>
-                <cite>{ON_TRIAL.reference}</cite>
+                <cite>{@render verseLink(ON_TRIAL.reference)}</cite>
             </blockquote>
             <p class="doc-fd__body">{ON_TRIAL.body}</p>
             <p class="doc-fd__trial-close">{ON_TRIAL.close}</p>
@@ -335,7 +347,7 @@
 
             <div class="doc-fd__split">
                 <p class="doc-fd__body">
-                    <span class="doc-fd__ref">{DANIEL.sealedRef}</span>
+                    <span class="doc-fd__ref">{@render verseLink(DANIEL.sealedRef)}</span>
                     {DANIEL.sealed}
                 </p>
                 <p class="doc-fd__statement doc-fd__statement--tight">{DANIEL.conclusion}</p>
@@ -360,7 +372,7 @@
                     {#each DANIEL.verdicts as verdict, i}
                         <li>
                             <span class="doc-fd__num">Verdict {pad(i + 1)}</span>
-                            <p class="doc-fd__ref">{verdict.reference}</p>
+                            <p class="doc-fd__ref">{@render verseLink(verdict.reference)}</p>
                             <p class="doc-fd__body doc-fd__body--ink">{verdict.body}</p>
                         </li>
                     {/each}
@@ -549,6 +561,21 @@
         text-transform: uppercase;
         font-style: normal;
         color: var(--doc-dim);
+    }
+    /* Citations keep the look of the text they sit in, and show the link on
+       hover with an ember underline. */
+    .doc-fd__verse-link {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-color: var(--doc-line);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.2em;
+        transition: color 0.3s ease, text-decoration-color 0.3s ease;
+    }
+    .doc-fd__verse-link:hover,
+    .doc-fd__verse-link:focus-visible {
+        color: var(--doc-ember-soft);
+        text-decoration-color: var(--doc-ember);
     }
 
     /* Quotations, in three weights: a pull quote with the ember rule, a quieter

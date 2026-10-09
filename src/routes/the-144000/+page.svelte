@@ -560,7 +560,7 @@
                     </svg>
                 </a>
                 <a href="/flashbacks" class="doc-sd__btn doc-sd__btn--quiet">The flashbacks</a>
-                <a href="/churches" class="doc-sd__btn doc-sd__btn--quiet">Philadelphia</a>
+                <a href="/churches/philadelphia" class="doc-sd__btn doc-sd__btn--quiet">Philadelphia</a>
                 <a href="/beast" class="doc-sd__btn doc-sd__btn--quiet">The mark of the beast</a>
                 <a href="/symbols" class="doc-sd__btn doc-sd__btn--quiet">The lexicon</a>
             </div>

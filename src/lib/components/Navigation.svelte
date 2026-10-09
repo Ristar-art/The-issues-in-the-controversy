@@ -41,6 +41,7 @@
                     title: "Christ's Kingdom",
                     items: [
                         { href: '/seals', label: 'The 7 Seals' },
+                        { href: '/seventh-seal', label: 'The 7th Seal' },
                         { href: '/flashbacks', label: 'Flashbacks' },
                         { href: '/the-144000', label: 'The 144,000' }
                     ]
